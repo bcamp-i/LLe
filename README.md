@@ -1,2 +1,0 @@
-# LLe
-Linux Learning Experience
