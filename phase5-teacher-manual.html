@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 5 — Teacher Manual</title>
+<style>
+  :root {
+    --purple-light:#EEEDFE;--purple-dark:#3C3489;--purple-text:#534AB7;--purple-mid:#AFA9EC;
+    --blue-light:#E6F1FB;--blue-dark:#0C447C;--blue-text:#185FA5;
+    --green-light:#EAF3DE;--green-dark:#27500A;--green-text:#3B6D11;
+    --coral-light:#FAECE7;--coral-dark:#712B13;--coral-text:#993C1D;
+    --amber-light:#FAEEDA;--amber-dark:#633806;
+    --gray-light:#F1EFE8;--gray-dark:#444441;
+    --text:#1a1a1a;--muted:#555;--border:#e0ddd6;--bg:#fff;--bgsec:#faf9f7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:Georgia,serif;font-size:15px;line-height:1.75;color:var(--text);background:var(--bg);}
+  .page{max-width:860px;margin:0 auto;padding:3rem 2.5rem;}
+  .cover{text-align:center;padding:4rem 0 3rem;border-bottom:1px solid var(--border);margin-bottom:3rem;}
+  .cover-label{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+  .cover h1{font-size:32px;font-weight:normal;margin-bottom:.5rem;}
+  .cover h2{font-size:18px;font-weight:normal;color:var(--muted);margin-bottom:2rem;}
+  .cover-meta{display:flex;justify-content:center;gap:2.5rem;font-size:13px;color:var(--muted);font-family:'Courier New',monospace;}
+  .cover-meta strong{color:var(--text);font-weight:normal;font-size:15px;display:block;}
+  .overview{background:var(--purple-light);border-radius:8px;padding:1.5rem 2rem;margin-bottom:3rem;}
+  .overview h3{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--purple-dark);margin-bottom:.75rem;}
+  .overview p{font-size:14px;color:var(--purple-dark);line-height:1.75;margin-bottom:.75rem;}
+  .overview p:last-child{margin-bottom:0;}
+  .toc{background:var(--bgsec);border:1px solid var(--border);border-radius:8px;padding:1.5rem 2rem;margin-bottom:3rem;}
+  .toc h3{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+  .toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
+  .toc a{font-size:12px;color:var(--purple-text);text-decoration:none;font-family:'Courier New',monospace;}
+  .toc a:hover{text-decoration:underline;}
+  .week-header{margin:3rem 0 2rem;padding-bottom:.75rem;border-bottom:2px solid var(--text);}
+  .week-label{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+  .week-title{font-size:22px;font-weight:normal;margin-top:4px;}
+  .week-theme{font-size:14px;color:var(--muted);font-style:italic;margin-top:4px;}
+  .session{border:1px solid var(--border);border-radius:8px;margin-bottom:2.5rem;overflow:hidden;page-break-inside:avoid;}
+  .session-header{background:var(--purple-light);padding:1rem 1.5rem;display:flex;align-items:baseline;gap:1rem;}
+  .session-num{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--purple-dark);min-width:70px;}
+  .session-title{font-size:17px;font-weight:normal;color:var(--purple-dark);}
+  .session-body{padding:1.5rem;}
+  .time-bar{display:flex;gap:4px;margin-bottom:1.5rem;border-radius:4px;overflow:hidden;height:36px;}
+  .t-block{display:flex;flex-direction:column;justify-content:center;padding:0 10px;font-size:10px;font-family:'Courier New',monospace;line-height:1.3;}
+  .t-block strong{font-size:12px;display:block;}
+  .t-warm{background:var(--gray-light);color:var(--gray-dark);}
+  .t-concept{background:var(--purple-light);color:var(--purple-dark);}
+  .t-exercise{background:var(--blue-light);color:var(--blue-dark);}
+  .t-close{background:var(--green-light);color:var(--green-dark);}
+  .section{margin-bottom:1.5rem;}
+  .section-label{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;border-bottom:1px solid var(--border);padding-bottom:4px;}
+  .section p{font-size:14px;line-height:1.75;margin-bottom:.75rem;}
+  .section p:last-child{margin-bottom:0;}
+  .whiteboard{background:#fffef5;border:1px dashed #c8c090;border-radius:6px;padding:1.25rem 1.5rem;margin:.75rem 0;}
+  .whiteboard-label{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8a7a40;margin-bottom:.75rem;}
+  .whiteboard-content{font-family:'Courier New',monospace;font-size:13px;line-height:2;color:#333;}
+  .exercise-box{background:var(--blue-light);border-radius:6px;padding:1.25rem 1.5rem;margin:.75rem 0;}
+  .exercise-box p{color:var(--blue-dark);font-size:14px;line-height:1.75;margin-bottom:.75rem;}
+  .exercise-box p:last-child{margin-bottom:0;}
+  .exercise-box ol,.exercise-box ul{padding-left:1.5rem;color:var(--blue-dark);font-size:14px;line-height:1.9;}
+  .exercise-box li{margin-bottom:.3rem;}
+  .teacher-note{background:var(--coral-light);border-left:3px solid #D85A30;border-radius:0 6px 6px 0;padding:1.25rem 1.5rem;margin:.75rem 0;}
+  .teacher-note-label{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--coral-text);margin-bottom:.5rem;}
+  .teacher-note p{color:var(--coral-dark);font-size:14px;line-height:1.75;margin-bottom:.75rem;}
+  .teacher-note p:last-child{margin-bottom:0;}
+  .qa-box{background:var(--amber-light);border-radius:6px;padding:1.25rem 1.5rem;margin:.75rem 0;}
+  .qa-box-label{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-dark);margin-bottom:.75rem;}
+  .qa-item{margin-bottom:.9rem;}
+  .qa-item:last-child{margin-bottom:0;}
+  .qa-q{font-size:13px;font-weight:bold;color:var(--amber-dark);font-family:'Courier New',monospace;margin-bottom:3px;}
+  .qa-a{font-size:13px;color:var(--amber-dark);line-height:1.7;}
+  .vocab-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+  .vocab-term{background:var(--purple-light);color:var(--purple-dark);font-family:'Courier New',monospace;font-size:12px;padding:3px 10px;border-radius:3px;}
+  code{font-family:'Courier New',monospace;background:var(--gray-light);padding:1px 5px;border-radius:3px;font-size:13px;color:#333;}
+  pre{font-family:'Courier New',monospace;background:#1e1e1e;color:#d4d4d4;padding:1rem 1.25rem;border-radius:6px;font-size:13px;line-height:1.7;overflow-x:auto;margin:.75rem 0;}
+  @media print{body{font-size:13px;}.page{padding:1.5rem;}.session{page-break-inside:avoid;}.week-header{page-break-before:always;}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="cover">
+  <div class="cover-label">Linux seminar · Kubuntu LTS · Ages 15–18</div>
+  <h1>Phase 5 — Teacher Manual</h1>
+  <h2>Solving real problems</h2>
+  <div class="cover-meta">
+    <span><div>Sessions</div><strong>20</strong></span>
+    <span><div>Weeks</div><strong>16 – 20</strong></span>
+    <span><div>Format</div><strong>4 days × 1 hour</strong></span>
+    <span><div>Machine</div><strong>Student-built from Phase 4</strong></span>
+  </div>
+</div>
+
+<div class="overview">
+  <h3>Phase goal</h3>
+  <p>By the end of these five weeks, students can automate tasks with bash scripts, connect to remote machines over SSH, understand and control running processes, read and diagnose from system logs, manage archives, and schedule recurring tasks with cron. Everything in this phase runs on the machine they built in Phase 4.</p>
+  <p>Phase 5 is where the course stops being about learning Linux and starts being about using Linux. The skills are real, the problems are real, and the solutions have value outside the classroom. A student who finishes Phase 5 can administer their own machine, automate repetitive tasks, and debug problems they have never seen before.</p>
+  <p>One thing to establish at the start of Phase 5: students should transfer their dotfiles from Phase 3 to their new Phase 4 machine. Either via USB or by recreating from their ~/dotfiles backup. This is the portability test from session 48 made real. Reference it explicitly — they prepared for exactly this.</p>
+</div>
+
+<div class="toc">
+  <h3>Sessions</h3>
+  <div class="toc-grid">
+    <a href="#s61">S61 — Bash scripting: control flow depth</a>
+    <a href="#s62">S62 — Bash scripting: real automation</a>
+    <a href="#s63">S63 — Bash scripting: error handling</a>
+    <a href="#s64">S64 — Scripting synthesis: personal tool</a>
+    <a href="#s65">S65 — Networking: what an IP address is</a>
+    <a href="#s66">S66 — SSH: controlling machines remotely</a>
+    <a href="#s67">S67 — SSH keys and secure authentication</a>
+    <a href="#s68">S68 — Networking tools: curl, wget, ping</a>
+    <a href="#s69">S69 — Processes: what is running and why</a>
+    <a href="#s70">S70 — systemd: services and the boot chain</a>
+    <a href="#s71">S71 — Logs: reading the system's diary</a>
+    <a href="#s72">S72 — Debugging: finding the root cause</a>
+    <a href="#s73">S73 — Archives: tar, gzip, zip</a>
+    <a href="#s74">S74 — Cron: scheduling recurring tasks</a>
+    <a href="#s75">S75 — git: version control basics</a>
+    <a href="#s76">S76 — git: branches and history</a>
+    <a href="#s77">S77 — Disk management: df, du, fdisk</a>
+    <a href="#s78">S78 — Users and permissions depth</a>
+    <a href="#s79">S79 — Phase 5 synthesis: system health script</a>
+    <a href="#s80">S80 — Phase 5 synthesis: demo day</a>
+  </div>
+</div>
+
+<!-- ===== WEEK 16 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 16</div>
+  <div class="week-title">Bash scripting depth</div>
+  <div class="week-theme">"Scripts that handle failure are more useful than scripts that assume success."</div>
+</div>
+
+<div class="session" id="s61">
+  <div class="session-header">
+    <div class="session-num">Session 61</div>
+    <div class="session-title">Bash scripting — control flow depth</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>review</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>Phase 3 covered the scripting basics. Phase 5 builds on them with the patterns professionals actually use: case statements, arrays, string manipulation, arithmetic, and the discipline of writing scripts that handle failure. Students bring their Phase 3 scripts to this machine and extend them.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Ask students to open their Phase 3 synthesis script on the new machine. If they transferred their dotfiles, it should be in ~/scripts/. If not, recreate it from memory or from the ~/dotfiles backup on the old machine via USB. This reconnects Phase 3 work to Phase 5 context — the script they wrote is the starting point, not a new exercise.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>Case statements.</strong> A cleaner alternative to long if/elif chains when testing one variable against multiple values:</p>
+      <pre>case "$variable" in
+  "value1") commands ;;
+  "value2") commands ;;
+  "value3"|"value4") commands ;; # multiple matches
+  *) default_commands ;;         # catch-all
+esac</pre>
+      <p>Case statements are the correct tool for menu scripts, option parsing, and file extension detection.</p>
+
+      <p><strong>Arrays.</strong> Bash supports indexed arrays: <code>fruits=("apple" "banana" "cherry")</code>. Access with <code>${fruits[0]}</code>. Length: <code>${#fruits[@]}</code>. Iterate: <code>for item in "${fruits[@]}"; do echo "$item"; done</code>. Arrays are essential when processing lists of items — filenames, usernames, server addresses.</p>
+
+      <p><strong>String manipulation.</strong> Without external tools: <code>${var#prefix}</code> removes shortest prefix match. <code>${var##prefix}</code> removes longest. <code>${var%suffix}</code> removes shortest suffix. <code>${var%%suffix}</code> removes longest. <code>${var/old/new}</code> replaces first match. <code>${var//old/new}</code> replaces all. Practical use: <code>${filename%.txt}</code> strips the .txt extension. <code>${path##*/}</code> extracts the filename from a path (like basename).</p>
+
+      <p><strong>Arithmetic.</strong> <code>$((expression))</code> performs integer arithmetic: <code>echo $((3 + 4))</code>. <code>((count++))</code> increments a variable. <code>$((size / 1024 / 1024))</code> converts bytes to MB. Bash arithmetic is integers only — for floating point, use bc or awk.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Rewrite the menu script from session 51 using a case statement instead of if/elif. Compare the two versions — which is more readable?</li>
+          <li>Write a script that takes a list of filenames as arguments (<code>$@</code>), stores them in an array, and reports: total count, largest file by size, and any files that do not exist.</li>
+          <li>Write a function <code>strip_extension()</code> that takes a filename and returns the name without its extension. Use string manipulation (no external commands). Test with: notes.txt → notes, archive.tar.gz → archive.tar, README → README.</li>
+          <li>Write a script that converts bytes to human-readable size (KB, MB, GB) using only bash arithmetic. Input: number of bytes. Output: appropriate unit. Test with: 500, 51200, 1048576, 2147483648.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">case statement</span><span class="vocab-term">esac</span>
+        <span class="vocab-term">bash array</span><span class="vocab-term">${#array[@]}</span>
+        <span class="vocab-term">string manipulation ${var%}</span>
+        <span class="vocab-term">$(( arithmetic ))</span>
+        <span class="vocab-term">integer-only arithmetic</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 3 — strip_extension — has an edge case that matters: files with no extension (README) should return unchanged. Files with multiple dots (archive.tar.gz) — should the function strip .gz or .tar.gz? Both are valid design choices, but the student must make one deliberately and handle it consistently. Students who discover the edge case independently are thinking like engineers. Students who produce a function that breaks on README or archive.tar.gz have not fully tested their work — show them why testing edge cases matters before moving on.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s62">
+  <div class="session-header">
+    <div class="session-num">Session 62</div>
+    <div class="session-title">Bash scripting — real automation</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>problem</div>
+      <div class="t-block t-concept" style="flex:15"><strong>15 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:35"><strong>35 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 15 min</div>
+      <p><strong>Script arguments with getopts.</strong> For scripts that need multiple options (like real commands), getopts parses flags properly:</p>
+      <pre>while getopts "n:v" opt; do
+  case $opt in
+    n) name="$OPTARG" ;;  # -n takes a value
+    v) verbose=1 ;;       # -v is a flag
+    ?) echo "Usage: $0 [-n name] [-v]"; exit 1 ;;
+  esac
+done</pre>
+      <p>This is how real command-line tools are written. Students who learn getopts write scripts that behave like proper Unix commands.</p>
+
+      <p><strong>Here documents (heredoc).</strong> Write multi-line text directly in a script:</p>
+      <pre>cat << EOF
+This is line one
+This is line two
+Variables work: $USER
+EOF</pre>
+      <p>Useful for generating configuration files, sending emails, or writing multi-line output cleanly.</p>
+
+      <p><strong>Process substitution.</strong> <code>diff &lt;(command1) &lt;(command2)</code> — compares the output of two commands as if they were files. <code>while read line; do ...; done &lt;(command)</code> — processes a command's output line by line. Avoids temporary files.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 35 min</div>
+      <div class="exercise-box">
+        <p>Write one substantial script that uses getopts. Choose your own purpose, but it must: accept at least 2 meaningful flags with getopts, print a usage message with -h or on invalid input, log all actions with timestamps, and solve a real problem you actually have. Examples: a backup script with -s (source), -d (destination), -v (verbose); a file search script with -t (type), -s (size), -n (name pattern); a system report script with -c (cpu), -m (memory), -d (disk), -a (all).</p>
+        <p>After writing: test every flag combination. Test -h. Test an invalid flag. Test missing required arguments. Fix every failure.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">getopts</span><span class="vocab-term">OPTARG</span>
+        <span class="vocab-term">heredoc (EOF)</span>
+        <span class="vocab-term">process substitution &lt;()</span>
+        <span class="vocab-term">usage message</span><span class="vocab-term">-h flag convention</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The getopts exercise produces the most diverse scripts of any session in Phase 5. Students with organisation tendencies write backup and report scripts. Students with technical curiosity write system monitoring scripts. Let the diversity happen — the goal is getopts fluency, not a specific script. Students who finish early should add a --dry-run mode that logs what would happen without actually doing it. This pattern appears constantly in real-world tooling.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s63">
+  <div class="session-header">
+    <div class="session-num">Session 63</div>
+    <div class="session-title">Bash scripting — error handling</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>scenario</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Scenario: your backup script runs as a cron job at 3am. It fails halfway through — maybe the destination disk is full, or a source file is locked. You wake up and your backups are half-complete with no indication of what went wrong. This is the problem error handling solves. A script that fails silently is worse than a script that does not exist.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>set -e.</strong> Add <code>set -e</code> near the top of every script. It causes the script to exit immediately when any command fails (returns non-zero exit code). Without it, a script continues running after errors and may cause cascading damage. With it, the first failure stops execution.</p>
+
+      <p><strong>set -u.</strong> <code>set -u</code> causes the script to exit on undefined variable references. Without it, <code>rm -rf "$DIR/"</code> where DIR is undefined runs as <code>rm -rf "/"</code>. With it, the script exits immediately. Always use set -u in scripts that modify the filesystem.</p>
+
+      <p><strong>set -o pipefail.</strong> By default, a pipeline's exit code is the exit code of the last command, even if earlier commands failed. <code>set -o pipefail</code> makes the pipeline fail if any command in it fails. Combined: <code>set -euo pipefail</code> at the top of every serious script.</p>
+
+      <p><strong>trap.</strong> Runs a command when the script exits, receives a signal, or encounters an error:</p>
+      <pre>trap 'echo "Error on line $LINENO"; cleanup' ERR
+trap 'cleanup' EXIT
+
+function cleanup() {
+    rm -f /tmp/lockfile.$$
+    log "Script ended"
+}</pre>
+      <p>trap EXIT ensures cleanup always runs — even if the script is interrupted with Ctrl+C. trap ERR runs on any error. <code>$$</code> is the script's process ID — useful for unique temporary filenames.</p>
+
+      <p><strong>Locking.</strong> Prevent a script from running twice simultaneously (important for cron jobs):</p>
+      <pre>LOCKFILE="/tmp/myscript.lock"
+if [ -f "$LOCKFILE" ]; then
+    echo "Already running. Exiting."
+    exit 1
+fi
+touch "$LOCKFILE"
+trap 'rm -f "$LOCKFILE"' EXIT</pre>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Take the backup script from session 62. Add <code>set -euo pipefail</code> at the top. Test it with a source directory that does not exist. Does it exit cleanly with a message?</li>
+          <li>Add a trap EXIT that logs when the script ends (success or failure). Add a trap ERR that logs the line number of any error. Test both by introducing an intentional error.</li>
+          <li>Add locking to the backup script. Run two instances simultaneously — what happens to the second one?</li>
+          <li>Demonstrate the set -u protection: create a test script that does <code>rm -rf "$UNDEFINED_VAR/tmp"</code> without set -u. Observe what bash does. Now add set -u — what changes?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">set -e</span><span class="vocab-term">set -u</span>
+        <span class="vocab-term">set -o pipefail</span>
+        <span class="vocab-term">set -euo pipefail</span>
+        <span class="vocab-term">trap</span><span class="vocab-term">trap EXIT / ERR</span>
+        <span class="vocab-term">$$ (PID)</span><span class="vocab-term">$LINENO</span>
+        <span class="vocab-term">lockfile pattern</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 4 — the set -u demonstration with rm -rf — needs careful handling. Do it in ~/sandbox only, with a known directory path. The point is not to actually destroy anything but to demonstrate what would happen. Students who see <code>rm -rf "/tmp"</code> execute because UNDEFINED_VAR was empty will be permanently convinced of set -u's value. Make the demonstration controlled: create a directory called ~/sandbox/test-delete/, set UNDEFINED_VAR intentionally, show the command that would run, then show how set -u prevents it.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s64">
+  <div class="session-header">
+    <div class="session-num">Session 64</div>
+    <div class="session-title">Scripting synthesis — personal automation tool</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-exercise" style="flex:50"><strong>50 min</strong>build</div>
+      <div class="t-block t-close" style="flex:10"><strong>10 min</strong>demo</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>No new content. Each student writes or substantially refactors a script that incorporates the full Phase 5 scripting toolkit: getopts, arrays, string manipulation, set -euo pipefail, trap, and locking. The script must solve a real problem on their machine. It must be something they will actually run again after today.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Requirements</div>
+      <div class="exercise-box">
+        <p>The script must include all of the following:</p>
+        <ul>
+          <li>Comment header: name, purpose, usage, arguments, author, date</li>
+          <li><code>set -euo pipefail</code></li>
+          <li>getopts for at least 2 flags</li>
+          <li>At least one array</li>
+          <li>trap EXIT for cleanup</li>
+          <li>Logging with timestamps</li>
+          <li>A lockfile (if the script could be run by cron)</li>
+          <li>Usage message on -h or invalid input</li>
+          <li>bash -x tested</li>
+          <li>At least 3 edge cases tested and handled</li>
+        </ul>
+        <p>Demos: 2 minutes each. Show what it does, one interesting implementation detail, and one edge case you handled.</p>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Collect these scripts. They are significantly more sophisticated than the Phase 3 synthesis scripts. At the end of Phase 6, this comparison — Phase 3 script vs Phase 5 script — is one of the most concrete demonstrations of growth across the course. Students who struggle to see how much they have learned will see it clearly in this comparison.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WEEK 17 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 17</div>
+  <div class="week-title">Networking and SSH</div>
+  <div class="week-theme">"The internet is just computers talking to each other. You can talk too."</div>
+</div>
+
+<div class="session" id="s65">
+  <div class="session-header">
+    <div class="session-num">Session 65</div>
+    <div class="session-title">Networking — what an IP address is</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>question</div>
+      <div class="t-block t-concept" style="flex:25"><strong>25 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:25"><strong>25 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Ask: what is your IP address right now? Most students will not know. Some will say "I can Google it." Ask: what would Google tell you, and is that the same address your machine uses on your local network? The answer reveals the distinction between public and private IP — which is the session's foundation.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 25 min</div>
+      <p><strong>IP addresses.</strong> Every device on a network has an IP address — a numeric identifier that allows other devices to find it. IPv4 addresses are 32-bit numbers written as four octets: 192.168.1.100. IPv6 addresses are 128-bit, written in hexadecimal: 2001:db8::1. Most home networks currently use IPv4 with NAT.</p>
+
+      <p><strong>Private vs public addresses.</strong> Private address ranges (RFC 1918): 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16. These are used inside home and office networks. They are not routable on the internet — your router translates between them and the public internet via NAT (Network Address Translation). When you visit a website, the router substitutes its public IP for your private IP. The website sees the router's IP, not yours.</p>
+
+      <p><strong>Key networking commands on Linux:</strong></p>
+      <div class="whiteboard">
+        <div class="whiteboard-label">Essential networking commands</div>
+        <div class="whiteboard-content">
+ip addr show          # show all network interfaces and their IPs
+ip route show         # show routing table (default gateway)
+ping hostname/IP      # test reachability, measure latency
+traceroute hostname   # trace the route to a destination
+nslookup hostname     # DNS lookup — resolve name to IP
+dig hostname          # detailed DNS query
+ss -tulpn             # show listening sockets (ports)
+hostname              # show machine's hostname
+hostname -I           # show machine's IP addresses
+        </div>
+      </div>
+
+      <p><strong>Ports.</strong> An IP address identifies a machine. A port number identifies a specific service on that machine. Common ports: 22 (SSH), 80 (HTTP), 443 (HTTPS), 25 (SMTP email), 53 (DNS). When you connect to a website, your browser connects to the server's IP address on port 80 or 443. When you SSH into a machine, you connect to port 22. <code>ss -tulpn</code> shows which services are listening on which ports on your own machine.</p>
+
+      <p><strong>DNS.</strong> Domain Name System — translates human-readable names (example.com) to IP addresses. When you type a URL, your computer asks a DNS resolver for the IP. The resolver checks its cache, then queries a hierarchy of DNS servers. The result is cached for the TTL (time to live) period. <code>/etc/resolv.conf</code> shows which DNS server your machine uses. <code>/etc/hosts</code> is a local override — entries here take precedence over DNS.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 25 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Run <code>ip addr show</code>. Identify your machine's local IP address and network interface name. What does "lo" (loopback) do?</li>
+          <li>Run <code>ip route show</code>. What is the default gateway IP? What does that device do?</li>
+          <li>Run <code>ping -c 4 8.8.8.8</code>. What is 8.8.8.8? What does the output tell you about latency? What does packet loss mean?</li>
+          <li>Run <code>ping -c 4 google.com</code>. How does this differ from pinging the IP directly? What resolved the name?</li>
+          <li>Run <code>ss -tulpn</code>. What services are listening on your machine right now? On which ports?</li>
+          <li>Read <code>/etc/hosts</code>. What entries are there? Add a custom entry: <code>127.0.0.1 mycomputer</code>. Test it with <code>ping mycomputer</code>.</li>
+          <li>Run <code>dig google.com</code>. Read the ANSWER SECTION. What IP did DNS return? What is the TTL?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">IP address</span><span class="vocab-term">IPv4 / IPv6</span>
+        <span class="vocab-term">private IP (RFC 1918)</span>
+        <span class="vocab-term">NAT</span><span class="vocab-term">port</span>
+        <span class="vocab-term">DNS</span><span class="vocab-term">TTL</span>
+        <span class="vocab-term">default gateway</span>
+        <span class="vocab-term">ip addr / ip route</span>
+        <span class="vocab-term">ping / traceroute</span>
+        <span class="vocab-term">ss -tulpn</span>
+        <span class="vocab-term">/etc/hosts</span><span class="vocab-term">dig</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 6 — adding an entry to /etc/hosts — is one of the most immediately practical things in this session. Students who understand that /etc/hosts overrides DNS can block domains (add a entry pointing an ad server to 127.0.0.1), create local shortcuts (point a memorable name to a local machine's IP), or test website changes before DNS propagates. All of these are real use cases. Let students explore the implications.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s66">
+  <div class="session-header">
+    <div class="session-num">Session 66</div>
+    <div class="session-title">SSH — controlling machines remotely</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>context</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>SSH is the skill that transforms everything learned so far into remote capability. The terminal on a remote machine is identical to the terminal on a local one. Every command, every script, every Phase 2–3 skill applies. SSH is how real systems are administered — not by sitting in front of a server, but by connecting from anywhere.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>In session 17 we established that the terminal emulator (Konsole) and the shell (bash) are separate programs. Ask: "If the shell can run on a remote machine, what does the terminal emulator connect to?" The answer is: on a remote SSH connection, Konsole connects to a terminal session on the remote machine. The shell is remote. The keyboard input travels over the network. The output travels back. This is the session 17 payoff.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>SSH (Secure Shell)</strong> is an encrypted protocol for remote login and command execution. The basic command: <code>ssh username@hostname_or_ip</code>. The connection is encrypted end-to-end — no one observing the network can read the commands or their output. SSH replaced telnet, which was identical but unencrypted.</p>
+
+      <p><strong>What happens when you SSH:</strong> your client connects to the remote machine on port 22. SSH performs a key exchange — both sides agree on an encryption key without sending the key over the network (Diffie-Hellman). Your credentials are verified. A shell session starts on the remote machine. Everything you type is transmitted encrypted. When you close the session (exit or logout), the connection ends and the remote shell stops.</p>
+
+      <p><strong>scp — secure copy.</strong> Transfers files over SSH: <code>scp file.txt user@remote:/destination/</code>. Copies from local to remote. <code>scp user@remote:/path/file.txt ./</code> copies from remote to local. <code>scp -r</code> copies directories recursively.</p>
+
+      <p><strong>Setting up SSH server.</strong> Install: <code>sudo apt install openssh-server</code>. Start: <code>sudo systemctl enable --now ssh</code>. Verify: <code>sudo systemctl status ssh</code>. The server listens on port 22. Configuration: <code>/etc/ssh/sshd_config</code>.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <p><strong>SSH between classroom machines.</strong> Students pair up — one acts as server, one as client. Then switch.</p>
+        <ol>
+          <li>Server machine: install and start the SSH server. Verify it is running with <code>systemctl status ssh</code>. Find your IP with <code>ip addr show</code>. Tell your partner.</li>
+          <li>Client machine: connect with <code>ssh username@partner_ip</code>. Accept the host key fingerprint. Log in with the partner's password. Verify: run <code>hostname</code> — does it show the remote machine's name?</li>
+          <li>From the SSH session: navigate, create a file, run a script. Observe that everything works exactly as if sitting at that machine.</li>
+          <li>From the SSH session: run <code>who</code> — can you see your own session listed?</li>
+          <li>From the local machine: copy a file to the remote machine with scp. Verify it arrived.</li>
+          <li>Disconnect (type <code>exit</code> or Ctrl+D). What happens to the remote processes you started?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">SSH</span><span class="vocab-term">port 22</span>
+        <span class="vocab-term">encrypted protocol</span>
+        <span class="vocab-term">host key fingerprint</span>
+        <span class="vocab-term">openssh-server</span>
+        <span class="vocab-term">scp</span><span class="vocab-term">sshd_config</span>
+        <span class="vocab-term">systemctl enable</span>
+        <span class="vocab-term">who</span><span class="vocab-term">Ctrl+D (logout)</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 4 — running <code>who</code> from the SSH session to see your own connection — is a small but memorable moment. Students can see their own session as a network connection: username, terminal type, login time, and the client IP. This makes the abstract concept of "a remote session" concrete and visible. It also previews the security implications — if someone else were connected, they would also appear here.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s67">
+  <div class="session-header">
+    <div class="session-num">Session 67</div>
+    <div class="session-title">SSH keys — secure authentication without passwords</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>problem</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Problem: your backup script (from session 62) needs to copy files to another machine over SSH. But SSH requires a password. You cannot type a password at 3am when cron runs the script. The solution is SSH keys — authentication without a password, but more secure than a password. Today we understand why and implement it.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>Public key cryptography.</strong> You generate a key pair: a private key (stays on your machine, never shared) and a public key (can be freely shared). A message encrypted with the public key can only be decrypted with the private key. This asymmetry is how authentication works without sending a password over the network.</p>
+
+      <p><strong>SSH key authentication.</strong> Generate a key pair: <code>ssh-keygen -t ed25519 -C "your_comment"</code>. This creates <code>~/.ssh/id_ed25519</code> (private — never share this) and <code>~/.ssh/id_ed25519.pub</code> (public — safe to share). Copy the public key to the remote machine: <code>ssh-copy-id username@remote</code>. This appends the public key to <code>~/.ssh/authorized_keys</code> on the remote machine. Now SSH from this machine to that remote will work without a password — the SSH client proves identity by signing a challenge with the private key.</p>
+
+      <p><strong>Key types.</strong> ed25519 is the modern recommended type — small, fast, secure. RSA 4096 is older but widely supported. Avoid RSA 1024 (too short) and DSA (deprecated).</p>
+
+      <p><strong>SSH config file.</strong> <code>~/.ssh/config</code> stores SSH connection shortcuts:</p>
+      <pre>Host myserver
+    HostName 192.168.1.50
+    User username
+    IdentityFile ~/.ssh/id_ed25519
+    Port 22</pre>
+      <p>With this config, <code>ssh myserver</code> is equivalent to the full command. Essential for machines you connect to regularly.</p>
+
+      <p><strong>Permissions matter.</strong> SSH will refuse to use keys with incorrect permissions: <code>chmod 700 ~/.ssh</code>, <code>chmod 600 ~/.ssh/id_ed25519</code>, <code>chmod 644 ~/.ssh/id_ed25519.pub</code>, <code>chmod 600 ~/.ssh/authorized_keys</code>.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Generate an ed25519 key pair: <code>ssh-keygen -t ed25519 -C "name-course-2024"</code>. When asked for a passphrase — add one (optional but recommended for security). What is the passphrase protecting?</li>
+          <li>View your public key: <code>cat ~/.ssh/id_ed25519.pub</code>. What format is it? What are the three space-separated fields?</li>
+          <li>Copy your public key to your partner's machine: <code>ssh-copy-id username@partner_ip</code>. Verify: SSH to the partner machine — are you prompted for a password?</li>
+          <li>Verify permissions are correct: <code>ls -la ~/.ssh/</code>. What permissions does each file have? What happens if you set the private key to 644 and try to SSH? (Try it.)</li>
+          <li>Create an SSH config entry for your partner's machine. Test that <code>ssh partnername</code> works.</li>
+          <li>Update your backup script from session 62 to copy a file to the partner machine using scp with key authentication. Verify it runs without prompting for a password.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">public key cryptography</span>
+        <span class="vocab-term">private key (~/.ssh/id_ed25519)</span>
+        <span class="vocab-term">public key (.pub)</span>
+        <span class="vocab-term">authorized_keys</span>
+        <span class="vocab-term">ssh-keygen -t ed25519</span>
+        <span class="vocab-term">ssh-copy-id</span>
+        <span class="vocab-term">~/.ssh/config</span>
+        <span class="vocab-term">key permissions (600/644/700)</span>
+        <span class="vocab-term">passphrase</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 4 — setting the private key to 644 and observing the failure — is a critical demonstration. SSH refuses to use a private key with world-readable permissions. The error message says exactly why: "UNPROTECTED PRIVATE KEY FILE." This is SSH enforcing the security model: a private key that anyone can read is not private. The student sets it back to 600 and it works again. That experience — permission mismatch → clear error → fix → success — is the debugging cycle in miniature.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s68">
+  <div class="session-header">
+    <div class="session-num">Session 68</div>
+    <div class="session-title">Networking tools — curl, wget, and network diagnostics</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>demo</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Live demo: <code>curl https://wttr.in/London</code>. A weather forecast renders in the terminal. No browser, no GUI. The terminal can talk to the internet. That is what this session is about — using the terminal as an HTTP client.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>curl</strong> transfers data to or from a URL. It supports HTTP, HTTPS, FTP, and many other protocols. Basic usage: <code>curl https://example.com</code> prints the response body. Key flags: <code>-o filename</code> saves to file. <code>-L</code> follows redirects. <code>-I</code> fetches headers only. <code>-X POST</code> sends a POST request. <code>-d '{"key":"value"}'</code> sends data. <code>-H "Authorization: Bearer TOKEN"</code> adds a header. curl is how you call APIs from the terminal or from scripts.</p>
+
+      <p><strong>wget</strong> downloads files from URLs. Simpler than curl for downloading: <code>wget https://example.com/file.zip</code>. <code>wget -r</code> recursively downloads. <code>wget -c</code> resumes interrupted downloads. wget is better than curl for bulk or recursive downloads; curl is better for API calls and custom HTTP requests.</p>
+
+      <p><strong>Network diagnostics:</strong></p>
+      <div class="whiteboard">
+        <div class="whiteboard-label">Diagnostic tools and what they show</div>
+        <div class="whiteboard-content">
+ping host           test reachability, measure round-trip time
+traceroute host     show each hop between you and destination
+mtr host            interactive combination of ping + traceroute
+nslookup/dig host   DNS resolution details
+curl -I url         HTTP headers only — useful for debugging
+ss -tulpn           listening ports on THIS machine
+netstat -rn         routing table (older tool, still common)
+ip addr             network interfaces and their IPs
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Use curl to download a plain text file from the internet and save it to ~/downloads/. Show the command.</li>
+          <li>Use <code>curl -I https://google.com</code>. Read the HTTP headers. What status code is returned? What does it mean? What is the Location header for?</li>
+          <li>Use <code>curl https://api.ipify.org</code>. What does this return? What does it tell you about NAT?</li>
+          <li>Use <code>traceroute 8.8.8.8</code>. Count the hops. What does each line tell you? What does a * mean on a line?</li>
+          <li>Write a script that checks if a list of websites is reachable using curl, logs the HTTP status code for each, and reports any that return non-200 status or time out.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">curl</span><span class="vocab-term">wget</span>
+        <span class="vocab-term">HTTP status codes</span>
+        <span class="vocab-term">curl -I (headers)</span>
+        <span class="vocab-term">curl -X POST</span>
+        <span class="vocab-term">traceroute</span><span class="vocab-term">mtr</span>
+        <span class="vocab-term">API call from terminal</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 3 — curl api.ipify.org — returns the machine's public IP address as seen from the internet. This is the NAT concept made visible: the IP returned is different from <code>ip addr show</code>'s local IP. Students who see this difference understand NAT instantly. Follow up: what does a server on the internet see when you connect? It sees the NAT IP, not your local machine's IP. Why does this matter for security and for hosting services?</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WEEK 18 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 18</div>
+  <div class="week-title">Processes and services</div>
+  <div class="week-theme">"Everything running on this machine is a process. You can see all of them."</div>
+</div>
+
+<div class="session" id="s69">
+  <div class="session-header">
+    <div class="session-num">Session 69</div>
+    <div class="session-title">Processes — what is running and why</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>reveal</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Live demo: run <code>htop</code>. Ask: how many processes are running right now? Most students will guess 5–10. The actual number is usually 150–200 on a fresh Kubuntu desktop. Ask: what are they all doing? This session answers that question systematically.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p>Every program running on Linux is a process. Every process has a PID (Process ID) — a unique number assigned at creation. Every process (except PID 1) has a parent process — the process that started it. This forms the process tree. PID 1 is systemd. PID 2 is usually a kernel thread. Everything else descends from one of these.</p>
+
+      <p><strong>Key process commands:</strong></p>
+      <div class="whiteboard">
+        <div class="whiteboard-label">Process management commands</div>
+        <div class="whiteboard-content">
+ps aux            all processes, all users, detailed
+ps -ef            similar, different format
+pgrep name        find PIDs by name
+pidof name        find PID of a specific program
+top               real-time process monitor (interactive)
+htop              better top — colours, mouse, kill menu
+kill PID          send signal to process (default: SIGTERM)
+kill -9 PID       SIGKILL — immediate kill, cannot ignore
+killall name      kill all processes with this name
+nice -n 10 cmd    start a command with lower priority
+renice +10 PID    change priority of running process
+pstree            show the process tree visually
+        </div>
+      </div>
+
+      <p><strong>Process states.</strong> R: running or runnable (on the CPU or waiting for it). S: sleeping (waiting for something — most processes are here most of the time). D: uninterruptible sleep (usually waiting for I/O — disk or network). Z: zombie (finished but parent hasn't acknowledged it yet). T: stopped (paused).</p>
+
+      <p><strong>Signals.</strong> Signals are messages sent to processes. SIGTERM (15) — politely asks a process to terminate. The process can ignore it or clean up first. SIGKILL (9) — immediate, unignorable termination. The kernel kills the process without asking. SIGHUP (1) — originally "hang up", now commonly used to tell a daemon to reload its configuration. SIGINT (2) — what Ctrl+C sends. Use SIGTERM first; SIGKILL only when SIGTERM fails.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Run <code>ps aux | wc -l</code>. How many processes? Run <code>pstree | less</code>. What is at the root? Find your terminal session in the tree.</li>
+          <li>Open Konsole, Firefox (or another browser), and a text editor simultaneously. Run <code>ps aux | grep -E 'konsole|firefox|kate'</code>. What PIDs are assigned? What user do they run as?</li>
+          <li>Start a long-running process: <code>sleep 300 &amp;</code>. The &amp; runs it in the background. Find its PID with <code>pgrep sleep</code>. Send SIGTERM: <code>kill $(pgrep sleep)</code>. Verify it is gone with pgrep.</li>
+          <li>Run <code>htop</code>. Sort by CPU, then by memory. Find the top 3 memory consumers. What are they? Press F10 or q to quit.</li>
+          <li>Run <code>cat /proc/$$/status</code> — this reads the status of the current shell process. What information is there?</li>
+          <li>Start a process: <code>sleep 600 &amp;</code>. Change its priority: <code>renice +15 $(pgrep sleep)</code>. Verify with <code>ps -o pid,ni,comm -p $(pgrep sleep)</code>. What does a higher nice value mean?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">process / PID</span><span class="vocab-term">parent process</span>
+        <span class="vocab-term">process tree</span><span class="vocab-term">process state (R/S/D/Z)</span>
+        <span class="vocab-term">ps aux</span><span class="vocab-term">htop</span>
+        <span class="vocab-term">kill / kill -9</span>
+        <span class="vocab-term">SIGTERM / SIGKILL / SIGHUP</span>
+        <span class="vocab-term">nice / renice</span>
+        <span class="vocab-term">background (&amp;)</span>
+        <span class="vocab-term">/proc filesystem</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 5 — reading /proc/$$/status — introduces the /proc filesystem. Every running process has a directory in /proc named after its PID. These directories contain files that expose process information: memory usage, open files, CPU time, environment variables, etc. This is the "everything is a file" principle taken to its logical conclusion — even process state is a file. Students who explore /proc/self/ are looking at the current process's own metadata in real time.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s70">
+  <div class="session-header">
+    <div class="session-num">Session 70</div>
+    <div class="session-title">systemd — services and the boot chain</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>recall</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Ask: in the boot sequence from session 55, what starts after the kernel? systemd. Ask: what does systemd do? Most students will remember "starts services." Ask: what is a service? How does systemd know what to start and in what order? This is what the session answers.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p>systemd is PID 1 — the first process the kernel starts. It is responsible for starting all other processes in the correct order, managing services that run in the background, handling system state transitions (boot, shutdown, sleep), and logging (via journald).</p>
+
+      <p>systemd uses <strong>unit files</strong> — configuration files that describe services, timers, mounts, and other system resources. Unit files live in /lib/systemd/system/ (system defaults) and /etc/systemd/system/ (local overrides). A service unit file has sections: [Unit] (description, dependencies), [Service] (what to run, how to run it), [Install] (when to enable it).</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">systemctl commands</div>
+        <div class="whiteboard-content">
+systemctl status servicename      show status, recent logs
+systemctl start servicename       start now (not persistent)
+systemctl stop servicename        stop now
+systemctl restart servicename     stop then start
+systemctl reload servicename      reload config without restart
+systemctl enable servicename      start at boot
+systemctl disable servicename     don't start at boot
+systemctl enable --now service    enable AND start now
+systemctl list-units --type=service   list all services
+systemctl daemon-reload           reload unit files after editing
+        </div>
+      </div>
+
+      <p>Reading service status: <code>systemctl status ssh</code> shows whether the SSH service is active, when it started, its PID, and the last few log lines. The "Active: active (running)" line is the most important — green dot means healthy, red means failed.</p>
+
+      <p>Writing a simple service unit: create a script, then create a .service file in /etc/systemd/system/ to run it automatically. This is how you turn a script into a system service that survives reboots.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Run <code>systemctl list-units --type=service --state=running</code>. How many services are running? Find 3 you can identify and explain what they do.</li>
+          <li>Run <code>systemctl status ssh</code>. Read the full output. Is it running? When did it start? What is its PID? Read the last 5 log lines.</li>
+          <li>Stop the SSH service: <code>sudo systemctl stop ssh</code>. Try to SSH to this machine from your partner's machine — what happens? Start it again: <code>sudo systemctl start ssh</code>. Retry.</li>
+          <li>Read the unit file for SSH: <code>cat /lib/systemd/system/ssh.service</code>. Read each section — what does After= mean? What does ExecStart= contain?</li>
+          <li>Create a simple service: write a script ~/scripts/hello-service.sh that logs "Hello from service" with a timestamp every 5 seconds (use a while loop and sleep). Create /etc/systemd/system/hello.service to run it. Run <code>sudo systemctl daemon-reload</code>, then start and enable the service. Verify with <code>journalctl -u hello.service -f</code> (Ctrl+C to stop).</li>
+          <li>Disable and stop your hello service when done: <code>sudo systemctl disable --now hello</code>.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">systemd</span><span class="vocab-term">PID 1</span>
+        <span class="vocab-term">unit file</span><span class="vocab-term">service unit</span>
+        <span class="vocab-term">systemctl</span><span class="vocab-term">enable / disable</span>
+        <span class="vocab-term">start / stop / restart</span>
+        <span class="vocab-term">systemctl status</span>
+        <span class="vocab-term">daemon-reload</span>
+        <span class="vocab-term">journalctl -u</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 5 — creating a real service — is the session's most valuable exercise. Students who write a unit file and see their script running as a system service have crossed an important threshold: they can now run anything persistently on their machine. This skill is directly relevant to Phase 6, where they will run Ollama as a service. Preview that explicitly: "In Phase 6, Ollama will run as a service so it starts automatically and runs in the background. You now know how to do that."</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WEEK 19 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 19</div>
+  <div class="week-title">Logs, debugging, and archives</div>
+  <div class="week-theme">"The system writes everything down. Reading it is the skill."</div>
+</div>
+
+<div class="session" id="s71">
+  <div class="session-header">
+    <div class="session-num">Session 71</div>
+    <div class="session-title">Logs — reading the system's diary</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>scenario</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Scenario: a service stopped working overnight. You have no idea why. There was no error message on screen. Where do you look first? The answer is logs. The system writes a record of everything it does — failed logins, service crashes, kernel events, package installations. Today we learn to read them.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p>Linux has two logging systems: the traditional text-based logs in /var/log/, and the systemd journal managed by journald.</p>
+
+      <p><strong>Traditional logs in /var/log/:</strong></p>
+      <div class="whiteboard">
+        <div class="whiteboard-label">Key log files in /var/log/</div>
+        <div class="whiteboard-content">
+syslog          general system events (main log)
+auth.log        authentication: logins, sudo use, SSH
+kern.log        kernel messages
+dpkg.log        package installations and removals
+apt/history.log apt command history
+boot.log        boot sequence messages (not all distros)
+Xorg.0.log      X display server log (if using X11)
+        </div>
+      </div>
+
+      <p><strong>journalctl — systemd's log viewer:</strong></p>
+      <div class="whiteboard">
+        <div class="whiteboard-label">journalctl usage</div>
+        <div class="whiteboard-content">
+journalctl                  all logs (newest at bottom)
+journalctl -f               follow — show new entries as they arrive
+journalctl -n 50            last 50 lines
+journalctl -u servicename   logs for a specific service
+journalctl --since "1 hour ago"
+journalctl --since "2024-01-15" --until "2024-01-16"
+journalctl -p err           only error level and above
+journalctl -b               logs from current boot only
+journalctl -b -1            logs from previous boot
+journalctl --disk-usage     how much disk space the journal uses
+        </div>
+      </div>
+
+      <p>Log levels: debug, info, notice, warning, err, crit, alert, emerg. <code>journalctl -p err</code> shows errors and above — this is usually the right starting point when diagnosing problems.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Run <code>sudo tail -f /var/log/syslog</code> in one terminal. In another, run <code>sudo apt update</code>. Watch the log entries appear in real time. What events does apt log?</li>
+          <li>Find all failed SSH login attempts: <code>sudo grep "Failed password" /var/log/auth.log | tail -20</code>. Are there any? Where did they come from?</li>
+          <li>Use journalctl to find all errors since yesterday: <code>journalctl -p err --since "yesterday"</code>. How many are there? What are the common sources?</li>
+          <li>Find the log entries from the last boot: <code>journalctl -b</code>. How long did the boot take? (Look for kernel timestamp at start vs login prompt timestamp.)</li>
+          <li>Find when packages were last installed: <code>cat /var/log/apt/history.log | tail -30</code>. What was the last operation?</li>
+          <li>Write a script that checks auth.log for failed login attempts in the last hour and sends a summary to the terminal (count of attempts, unique source IPs).</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">/var/log/syslog</span>
+        <span class="vocab-term">/var/log/auth.log</span>
+        <span class="vocab-term">journalctl</span>
+        <span class="vocab-term">journalctl -f</span>
+        <span class="vocab-term">journalctl -b</span>
+        <span class="vocab-term">journalctl -p err</span>
+        <span class="vocab-term">log levels</span>
+        <span class="vocab-term">failed login attempt</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 2 — finding failed SSH login attempts — may produce surprising results. If the machine has been internet-accessible at any point (not just on a local network), there are likely automated brute-force attempts in auth.log. Even on a local network, previous attempts from session 66 and 67 may appear. This is a real security visibility moment: the system has been recording every login attempt, and you can read them. Students who see hundreds of attempts from unknown IPs understand immediately why SSH key authentication (session 67) and disabling password authentication are important.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s72">
+  <div class="session-header">
+    <div class="session-num">Session 72</div>
+    <div class="session-title">Debugging — finding the root cause</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>mindset</div>
+      <div class="t-block t-concept" style="flex:15"><strong>15 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:35"><strong>35 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Write on the board: "It doesn't work." Ask: what is wrong with this problem description? Everything. It contains no information about what was expected, what actually happened, when it started, or what changed. The debugging mindset starts with precise problem description. "The SSH service fails to start after I edited /etc/ssh/sshd_config" is debuggable. "SSH doesn't work" is not.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 15 min</div>
+      <p>The debugging process is a method, not luck:</p>
+      <div class="whiteboard">
+        <div class="whiteboard-label">Debugging method</div>
+        <div class="whiteboard-content">
+1. Describe the problem precisely
+   What should happen? What actually happens?
+   When did it start? What changed?
+
+2. Reproduce it reliably
+   If you cannot reproduce it, you cannot fix it.
+
+3. Gather information
+   Read the error message carefully — all of it.
+   Check the relevant log file.
+   Run journalctl -u servicename for services.
+   Run bash -x for scripts.
+
+4. Hypothesise
+   What is the most likely cause?
+   What else could cause this symptom?
+
+5. Test one change at a time
+   Change one thing. Test. Did it change the symptom?
+   If not, revert and try something else.
+
+6. Find the root cause, not the symptom
+   A workaround fixes the symptom.
+   A fix addresses the cause.
+   Know which you are doing.
+        </div>
+      </div>
+
+      <p><strong>Useful debugging commands:</strong> <code>strace -p PID</code> traces system calls a process makes — shows exactly what it is doing. <code>lsof -p PID</code> shows all files open by a process. <code>dmesg | tail</code> shows recent kernel messages. <code>journalctl -xe</code> shows recent journal with context. <code>systemctl status servicename</code> shows the last log lines and current state.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 35 min</div>
+      <div class="exercise-box">
+        <p><strong>Broken environment exercise.</strong> You will be given 4 deliberately broken scenarios to diagnose and fix. For each: describe the problem precisely, identify the root cause (not just the symptom), fix it, and verify the fix.</p>
+        <ol>
+          <li><strong>Broken service:</strong> the hello.service from session 70 has been modified with a syntax error in the unit file. <code>systemctl start hello</code> fails. Diagnose using <code>systemctl status</code> and <code>journalctl -u hello</code>. Fix the unit file. Verify the service starts.</li>
+          <li><strong>Permission problem:</strong> a script exists at ~/scripts/diagnose.sh. Running it gives "permission denied." The file exists. The path is correct. Diagnose the specific cause. Fix it. What is the difference between "file not found" and "permission denied" as error messages?</li>
+          <li><strong>Missing command:</strong> a script calls <code>jq</code> to parse JSON output. Running the script gives "command not found." Diagnose: is jq installed? If not, where does it come from and how do you install it? Fix it.</li>
+          <li><strong>Configuration error:</strong> the SSH service will not start. <code>systemctl status ssh</code> shows a config file error. Use <code>sshd -t</code> to test the config. Find and fix the error in /etc/ssh/sshd_config.</li>
+        </ol>
+        <p>For each scenario, write: the precise problem description, the debugging commands you ran, the root cause, the fix, and the verification command.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">root cause</span><span class="vocab-term">symptom vs cause</span>
+        <span class="vocab-term">reproduce reliably</span>
+        <span class="vocab-term">strace</span><span class="vocab-term">lsof</span>
+        <span class="vocab-term">dmesg</span><span class="vocab-term">journalctl -xe</span>
+        <span class="vocab-term">sshd -t (config test)</span>
+        <span class="vocab-term">bash -x</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Prepare the four broken scenarios before the session. The SSH config error (scenario 4) is the most instructive — <code>sshd -t</code> tests the config and reports the exact line number of any syntax error. Students who discover this tool independently are learning to look for purpose-built diagnostic commands. Always check if a service has its own config-test mode before reading through the config manually.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s73">
+  <div class="session-header">
+    <div class="session-num">Session 73</div>
+    <div class="session-title">Archives — tar, gzip, zip</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>context</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Students already used tar in session 32 — they extracted a .tar.gz file without understanding it. Now we understand it. Ask: what did <code>tar -xzf downloads.tar.gz</code> actually do? Break down each flag. This is the "remember that?" moment that rewards the forward reference.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>tar</strong> (tape archive) creates archives — a single file containing multiple files and directories, with their metadata (permissions, timestamps, ownership) preserved. tar itself does not compress — it just packs. Compression is added separately or via tar flags.</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">tar flag mnemonics</div>
+        <div class="whiteboard-content">
+c  — Create a new archive
+x  — eXtract from archive
+t  — lisT contents without extracting
+v  — Verbose (show filenames as processed)
+f  — File (next argument is the archive filename)
+z  — gZip compression (.tar.gz or .tgz)
+j  — bzip2 compression (.tar.bz2) — slower, better compression
+J  — xz compression (.tar.xz) — slowest, best compression
+
+Create:   tar -czf archive.tar.gz directory/
+Extract:  tar -xzf archive.tar.gz
+List:     tar -tzf archive.tar.gz
+Extract single file: tar -xzf archive.tar.gz path/to/file
+        </div>
+      </div>
+
+      <p><strong>gzip / gunzip.</strong> Compresses individual files: <code>gzip file.txt</code> creates file.txt.gz and removes the original. <code>gunzip file.txt.gz</code> reverses. <code>gzip -k</code> keeps the original. <code>gzip -d</code> is equivalent to gunzip.</p>
+
+      <p><strong>zip / unzip.</strong> ZIP format — cross-platform, compatible with Windows. <code>zip -r archive.zip directory/</code> creates a zip. <code>unzip archive.zip</code> extracts. ZIP includes compression internally. Use when the recipient is on Windows or when you need ZIP specifically.</p>
+
+      <p><strong>Choosing format:</strong> .tar.gz — Linux/macOS standard, preserves Unix permissions. .zip — cross-platform, no permission preservation on extraction. .tar.xz — maximum compression for distribution. For local backups and dotfiles: .tar.gz. For sharing with Windows users: .zip.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Create a .tar.gz backup of your ~/scripts directory: <code>tar -czf scripts-backup-$(date +%Y%m%d).tar.gz ~/scripts/</code>. What does the $(date +%Y%m%d) do? Check the file size.</li>
+          <li>List the contents of the archive without extracting it. Verify every file is present.</li>
+          <li>Extract the archive to a different location: <code>tar -xzf scripts-backup-*.tar.gz -C /tmp/</code>. Verify permissions were preserved.</li>
+          <li>Create a .zip of your ~/projects/linux-course directory for "sharing with a Windows user." Compare the size to a .tar.gz of the same directory.</li>
+          <li>Update your backup script from session 62 to create a dated .tar.gz archive of the source directory instead of copying individual files. Add rotation: delete archives older than 7 days.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">tar</span><span class="vocab-term">-czf (create gzip)</span>
+        <span class="vocab-term">-xzf (extract gzip)</span>
+        <span class="vocab-term">-tzf (list)</span>
+        <span class="vocab-term">gzip / gunzip</span>
+        <span class="vocab-term">zip / unzip</span>
+        <span class="vocab-term">-C (extract to path)</span>
+        <span class="vocab-term">archive rotation</span>
+        <span class="vocab-term">date +%Y%m%d</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 5 — adding archive rotation to the backup script — introduces the find -mtime pattern for deleting old files. The command: <code>find /backup/dir -name "*.tar.gz" -mtime +7 -delete</code>. Students who add this to their backup script have a script that could genuinely run as a cron job and not fill the disk. Preview this: "In session 74, you will schedule this to run automatically. That is what a real backup system looks like."</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s74">
+  <div class="session-header">
+    <div class="session-num">Session 74</div>
+    <div class="session-title">Cron — scheduling recurring tasks</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>motivation</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>The backup script is complete, tested, error-handled, and logs everything. One problem: you have to remember to run it. Cron solves this. Cron is the Linux scheduler — it runs commands at specified times, dates, or intervals, without human intervention. It is how real system maintenance works.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p>Cron reads a crontab (cron table) — a text file specifying when to run each command. Each user has their own crontab. The system also has crontabs in /etc/cron.d/ and /etc/cron.daily/ etc.</p>
+
+      <p><strong>Crontab syntax:</strong></p>
+      <div class="whiteboard">
+        <div class="whiteboard-label">Crontab format — five time fields + command</div>
+        <div class="whiteboard-content">
+MIN  HOUR  DOM  MON  DOW  command
+ *    *     *    *    *   every minute
+ 0    3     *    *    *   3:00am daily
+ 0    3     *    *    0   3:00am every Sunday
+ */5  *     *    *    *   every 5 minutes
+ 0    9-17  *    *    1-5 9am-5pm every weekday, hourly
+
+MIN: 0-59
+HOUR: 0-23
+DOM: 1-31 (day of month)
+MON: 1-12 (month)
+DOW: 0-7 (day of week, 0 and 7 = Sunday)
+*: any value
+*/n: every n units
+        </div>
+      </div>
+
+      <p>Edit your crontab: <code>crontab -e</code> — opens in $EDITOR. List current crontab: <code>crontab -l</code>. Remove: <code>crontab -r</code> (careful — removes everything).</p>
+
+      <p><strong>Cron environment differences.</strong> Cron runs with a minimal environment — different from your interactive shell. PATH is limited. Home directory may differ. Variables from .bashrc are not loaded. Always use absolute paths in cron commands. Always redirect output: <code>command >> /var/log/mycron.log 2>&amp;1</code>. Test your script with a minimal environment before scheduling it.</p>
+
+      <p><strong>Verifying cron ran.</strong> Cron output (if not redirected) is emailed to the user — check /var/mail/username or the mail command. More usefully: log to a file in the script itself (you already do this with the log() function). Check with <code>grep CRON /var/log/syslog</code> to see when cron ran your job.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Edit your crontab: <code>crontab -e</code>. Add an entry to run your backup script daily at 2am. Use absolute paths throughout. Redirect all output to a log file.</li>
+          <li>Add a second entry to run a simple test every minute: <code>* * * * * echo "cron ran at $(date)" >> /tmp/cron-test.log</code>. Wait 2 minutes. Does the log file contain entries? Verify cron is running your job.</li>
+          <li>Check when cron ran: <code>grep CRON /var/log/syslog | tail -10</code>. What information does syslog show about cron activity?</li>
+          <li>Remove the test entry (the every-minute one) with <code>crontab -e</code>.</li>
+          <li>For scripts that need root (like some system maintenance scripts), cron can run as root via <code>sudo crontab -e</code> or /etc/cron.d/. Add a system-level cron entry that runs <code>apt update</code> weekly on Sunday at 4am.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">cron</span><span class="vocab-term">crontab</span>
+        <span class="vocab-term">crontab -e / -l / -r</span>
+        <span class="vocab-term">five time fields</span>
+        <span class="vocab-term">* (any) / */n (every n)</span>
+        <span class="vocab-term">cron minimal environment</span>
+        <span class="vocab-term">absolute paths in cron</span>
+        <span class="vocab-term">2>&amp;1 in cron</span>
+        <span class="vocab-term">/etc/cron.d</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The "cron minimal environment" issue causes more confusion for new cron users than the syntax. Scripts that work perfectly in the terminal fail silently in cron because PATH does not include ~/scripts or /usr/local/bin. The solution is always: use absolute paths for every command and every file reference in scripts that will run via cron. The every-minute test job in task 2 is specifically designed to verify cron is actually running within 2 minutes — students who wait 10 minutes to check are too patient.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WEEK 20 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 20</div>
+  <div class="week-title">Version control, disk management, and synthesis</div>
+  <div class="week-theme">"Track your work. Understand your storage. Build something complete."</div>
+</div>
+
+<div class="session" id="s75">
+  <div class="session-header">
+    <div class="session-num">Session 75</div>
+    <div class="session-title">git — version control basics</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>problem</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Ask: have you ever made a change to a script, saved it, and then wanted to go back to the version from yesterday? Or worked on the same file from two different machines and lost changes? These are the problems version control solves. Git is the tool. It is the most widely used software development tool in the world — and it is equally useful for managing dotfiles, scripts, and any text-based work.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p>Git tracks changes to files over time. Every time you commit, git takes a snapshot of the tracked files and stores it permanently with a message describing what changed. You can return to any previous snapshot at any time. You can see exactly what changed between any two points. You can work on experimental changes without affecting the stable version.</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">Core git workflow</div>
+        <div class="whiteboard-content">
+git init              create a new repository in current directory
+git status            what has changed, what is staged
+git add filename      stage a file for the next commit
+git add .             stage all changed files
+git commit -m "msg"   save staged changes as a snapshot
+git log               show commit history
+git log --oneline     compact history view
+git diff              show unstaged changes
+git diff --staged     show staged changes
+git show HASH         show a specific commit
+        </div>
+      </div>
+
+      <p><strong>The three areas.</strong> Working directory: where you edit files. Staging area (index): where you prepare the next commit. Repository: where commits are stored permanently. <code>git add</code> moves changes from working directory to staging. <code>git commit</code> moves staged changes to the repository.</p>
+
+      <p><strong>First time setup.</strong> Before first commit: <code>git config --global user.name "Your Name"</code> and <code>git config --global user.email "you@example.com"</code>. These are stored in ~/.gitconfig — the dotfile from session 45.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Configure git: set your name and email. Verify with <code>cat ~/.gitconfig</code>.</li>
+          <li>Initialise a git repository in your ~/scripts directory: <code>cd ~/scripts &amp;&amp; git init</code>.</li>
+          <li>Check status: <code>git status</code>. What does it show? Stage all your scripts: <code>git add .</code>. Status again — what changed?</li>
+          <li>Make your first commit: <code>git commit -m "Initial commit: phase 3 and phase 5 scripts"</code>. View the log.</li>
+          <li>Make a meaningful change to one of your scripts. Check status. Run <code>git diff</code> — read the output. What does + and - indicate? Stage and commit the change with a descriptive message.</li>
+          <li>View the full history: <code>git log --oneline</code>. Use <code>git show</code> on one of your commits — what information does it display?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">git</span><span class="vocab-term">repository</span>
+        <span class="vocab-term">commit</span><span class="vocab-term">working directory</span>
+        <span class="vocab-term">staging area</span><span class="vocab-term">git add</span>
+        <span class="vocab-term">git commit -m</span>
+        <span class="vocab-term">git log / git diff</span>
+        <span class="vocab-term">~/.gitconfig</span>
+        <span class="vocab-term">git show HASH</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The three-area model (working directory → staging → repository) is the conceptual key to git. Students who understand why there is a staging area between editing and committing can answer questions like "why do I git add before git commit?" without memorising a workflow. The staging area exists so you can prepare a coherent commit from a messy set of changes — you can stage only the relevant files, leaving in-progress work unstaged. This is the design philosophy behind it. Explaining the reason makes the workflow stick.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s76">
+  <div class="session-header">
+    <div class="session-num">Session 76</div>
+    <div class="session-title">git — branches, history, and dotfiles repo</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>use case</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>Branches.</strong> A branch is an independent line of development. The default branch is called main (or master on older git). Creating a branch: <code>git branch feature-name</code>. Switching: <code>git checkout feature-name</code> or <code>git switch feature-name</code>. Create and switch: <code>git checkout -b feature-name</code>. Changes on a branch do not affect the main branch until merged. Merging: <code>git checkout main &amp;&amp; git merge feature-name</code>.</p>
+
+      <p><strong>Recovering with git.</strong> See what changed between now and a commit: <code>git diff HASH</code>. Discard unstaged changes to a file: <code>git checkout -- filename</code> (note: destructive). Undo the last commit but keep changes staged: <code>git reset --soft HEAD~1</code>. View a previous version of a file without changing anything: <code>git show HASH:path/to/file</code>.</p>
+
+      <p><strong>A dotfiles repository.</strong> The ~/dotfiles directory from session 45 is exactly right for a git repository. Initialise it, commit the current dotfiles, and from now on every change to your configuration is tracked. This is the professional approach to managing dotfiles. If you ever need to set up a new machine, clone the repository and apply the dotfiles.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Initialise a git repository in ~/dotfiles. Add and commit your .bashrc, .inputrc, and .nanorc. View the log.</li>
+          <li>Make a meaningful change to .bashrc (add a new alias). Commit it with a descriptive message.</li>
+          <li>Create a branch called "experiment": <code>git checkout -b experiment</code>. Make a change to .bashrc. Commit it. Switch back to main — is the change there? Merge the branch. Now is it?</li>
+          <li>Simulate accidentally breaking .bashrc — delete two lines. Run <code>git diff</code> to see what changed. Recover the file: <code>git checkout -- .bashrc</code>. Verify the lines are back.</li>
+          <li>Use <code>git log --oneline</code> to view the history. Use <code>git show</code> on your first commit. Write: why is a dotfiles git repository more reliable than a manual backup directory?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">branch</span><span class="vocab-term">main / master</span>
+        <span class="vocab-term">git checkout -b</span>
+        <span class="vocab-term">git merge</span>
+        <span class="vocab-term">git checkout -- file</span>
+        <span class="vocab-term">git reset --soft</span>
+        <span class="vocab-term">HEAD / HEAD~1</span>
+        <span class="vocab-term">dotfiles repo</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 4 — recovering a broken file with git checkout — is one of the most satisfying git moments for students. The file is visibly broken, git diff shows exactly what changed, and git checkout restores it instantly. This experience — being able to undo any change with one command — changes how students feel about experimenting with configuration files. They will be bolder and more explorative because they know recovery is one command away. Name this explicitly: "git checkout on a file is your undo button for any tracked change."</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s77">
+  <div class="session-header">
+    <div class="session-num">Session 77</div>
+    <div class="session-title">Disk management — df, du, lsblk, and storage health</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>question</div>
+      <div class="t-block t-concept" style="flex:15"><strong>15 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:35"><strong>35 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 15 min</div>
+      <p><strong>df -h</strong> (disk free) shows mounted filesystems and their usage. The Use% column is the one to watch — when it approaches 100%, the system will have problems writing files, logs, and temporary data. Check regularly: <code>df -h /</code> for the root filesystem specifically.</p>
+
+      <p><strong>du -sh</strong> (disk usage) shows how much space a directory uses. <code>du -sh *</code> shows each item in the current directory. <code>du -h --max-depth=1 /var</code> shows space by subdirectory to one level deep. Finding what is filling your disk: <code>du -sh /* 2>/dev/null | sort -rh | head -10</code> shows the 10 largest top-level directories.</p>
+
+      <p><strong>lsblk</strong> lists block devices — disks, partitions, loop devices. Shows the hierarchy: disk → partitions → mountpoints. Add -f for filesystem type information.</p>
+
+      <p><strong>Clearing space.</strong> <code>sudo apt autoremove &amp;&amp; sudo apt clean</code> removes unused packages and cached package files. <code>sudo journalctl --vacuum-size=500M</code> limits journal size to 500MB. <code>find /tmp -mtime +7 -delete</code> removes old temp files. The journal and apt cache are the most common sources of unexpected disk usage on new installations.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 35 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Run <code>df -h</code>. What percentage of the root filesystem is used? What are the other mounted filesystems?</li>
+          <li>Find the 10 largest directories in /var: <code>sudo du -h --max-depth=1 /var | sort -rh | head -10</code>. What is using the most space?</li>
+          <li>Find the 10 largest files on the entire system: <code>sudo find / -type f -printf '%s %p\n' 2>/dev/null | sort -rn | head -10 | awk '{printf "%s MB  %s\n", $1/1048576, $2}'</code>. Are there any surprises?</li>
+          <li>Check journal disk usage: <code>journalctl --disk-usage</code>. If it is large, vacuum it: <code>sudo journalctl --vacuum-time=30d</code> (keep only last 30 days).</li>
+          <li>Clean apt cache: <code>sudo apt clean &amp;&amp; sudo apt autoremove</code>. Run df -h again — did the usage change?</li>
+          <li>Write a disk-check script that monitors the root partition and logs a warning if usage exceeds 80%. This script will be added to cron in the next session's cleanup exercise.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">df -h</span><span class="vocab-term">du -sh</span>
+        <span class="vocab-term">du --max-depth</span>
+        <span class="vocab-term">lsblk -f</span>
+        <span class="vocab-term">apt clean / autoremove</span>
+        <span class="vocab-term">journalctl --vacuum</span>
+        <span class="vocab-term">sort -rh (human-readable sort)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s78">
+  <div class="session-header">
+    <div class="session-num">Session 78</div>
+    <div class="session-title">Users and permissions depth — sudo, groups, ACLs</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>review</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>Creating and managing users.</strong> <code>sudo adduser username</code> creates a user interactively. <code>sudo useradd -m -s /bin/bash username</code> creates with specific options (less interactive). <code>sudo passwd username</code> sets password. <code>sudo userdel -r username</code> removes user and home directory. <code>sudo usermod -aG groupname username</code> adds a user to a group.</p>
+
+      <p><strong>sudo configuration.</strong> The /etc/sudoers file controls who can use sudo. Edit it only with <code>sudo visudo</code> — this checks syntax before saving. A syntax error in sudoers locks everyone out of sudo. Pattern: <code>username ALL=(ALL:ALL) ALL</code> — full sudo access. Pattern: <code>username ALL=(ALL) NOPASSWD: /usr/bin/apt</code> — can run apt without password. Drop-in files in /etc/sudoers.d/ are safer than editing sudoers directly.</p>
+
+      <p><strong>chown.</strong> Change file ownership: <code>sudo chown user:group filename</code>. <code>sudo chown -R user:group directory/</code> recursively. Ownership changes usually require root (you cannot give a file to another user).</p>
+
+      <p><strong>ACLs (Access Control Lists).</strong> Standard Unix permissions support only one owner, one group, and "others." ACLs allow finer control — granting specific permissions to specific users or groups beyond the standard model. <code>getfacl filename</code> shows ACL. <code>setfacl -m u:username:rw filename</code> grants read/write to a specific user.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Create a user called "testuser2". Set a password. Switch to them with <code>su - testuser2</code>. What can they do? What can they not? Exit.</li>
+          <li>Add testuser2 to the sudo group: <code>sudo usermod -aG sudo testuser2</code>. Switch to testuser2 and try a sudo command. Does it work now?</li>
+          <li>Create a shared directory: <code>sudo mkdir /shared</code>. Create a group: <code>sudo groupadd project</code>. Add yourself and testuser2 to it. Set /shared to be owned by the project group and writable by the group (770). Verify both users can create files there.</li>
+          <li>Use an ACL to grant testuser2 read access to one of your private files without changing its permissions: <code>setfacl -m u:testuser2:r ~/scripts/greet.sh</code>. Verify with getfacl.</li>
+          <li>Clean up: <code>sudo deluser --remove-home testuser2</code>. Remove the project group. Remove the /shared directory.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">adduser / useradd</span>
+        <span class="vocab-term">usermod -aG</span>
+        <span class="vocab-term">sudoers / visudo</span>
+        <span class="vocab-term">NOPASSWD</span>
+        <span class="vocab-term">chown / chown -R</span>
+        <span class="vocab-term">ACL</span><span class="vocab-term">getfacl / setfacl</span>
+        <span class="vocab-term">groupadd / deluser</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The visudo instruction needs emphasis: never edit /etc/sudoers with a regular text editor. If you introduce a syntax error and save, sudo stops working and you cannot fix the sudoers file without sudo. visudo prevents this by checking syntax before saving. This is a real sysadmin footgun that has locked people out of their own systems. The existence of visudo is the lesson — some files are dangerous enough to warrant a dedicated safe editor.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s79">
+  <div class="session-header">
+    <div class="session-num">Session 79</div>
+    <div class="session-title">Phase 5 synthesis — system health monitoring script</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-exercise" style="flex:50"><strong>50 min</strong>build</div>
+      <div class="t-block t-close" style="flex:10"><strong>10 min</strong>code review</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>No new content. The synthesis project for Phase 5 is a system health monitoring script — a tool that checks the machine's key health indicators and produces a readable report. This script combines everything from weeks 16–20: scripting with error handling, disk monitoring, process checking, service status, log analysis, and scheduling via cron.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Requirements</div>
+      <div class="exercise-box">
+        <p>Write ~/scripts/health-check.sh. The script must report all of the following:</p>
+        <ul>
+          <li>Uptime and load average</li>
+          <li>Memory usage (used / total / percentage)</li>
+          <li>Disk usage on root partition (with warning if over 80%)</li>
+          <li>Top 5 processes by CPU and by memory</li>
+          <li>Status of SSH and any other services you care about</li>
+          <li>Failed login attempts in the last 24 hours (count)</li>
+          <li>Disk I/O wait (from /proc/stat or iostat)</li>
+          <li>Count of packages with available updates</li>
+        </ul>
+        <p>The script must also: use set -euo pipefail, log the run timestamp, accept a -v (verbose) flag for more detail, produce output that is readable without colour and usable in email, be scheduled to run daily at 8am via cron.</p>
+        <p><strong>Code review pairs:</strong> exchange scripts with a partner. Review for: are all requirements met? Does it run cleanly with bash -x? Are errors handled? Is the output readable? Give written feedback.</p>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The code review pairs format introduces peer code review — a professional practice that almost no beginner programming course teaches. Students who review someone else's script learn as much as students who wrote it. The written feedback requirement prevents the review from being perfunctory. Collect the feedback sheets — they reveal which requirements students understood deeply (they can critique them) vs which they just implemented mechanically.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s80">
+  <div class="session-header">
+    <div class="session-num">Session 80</div>
+    <div class="session-title">Phase 5 synthesis — demo day and Phase 6 preview</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-exercise" style="flex:40"><strong>40 min</strong>demos</div>
+      <div class="t-block t-close" style="flex:20"><strong>20 min</strong>reflection + preview</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Demo format</div>
+      <p>Each student: 3 minutes. Show the health check script running. Show one interesting implementation choice. Show the cron entry that schedules it. The audience asks one question each round.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Reflection · 10 min</div>
+      <p>Group reflection questions: What broke during this phase that you had to debug? What was the most satisfying script to write? What would you add to the health check script if you had more time? What do you now understand about your machine that you did not understand before Phase 5?</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Phase 6 preview · 10 min</div>
+      <p>Phase 6: "You have built the machine, installed the OS, customised it, automated it, and can administer it remotely. One thing is left: running a local AI model on it. Not in the cloud. On this machine. In session 82 you will install Ollama, pull a model, and talk to it from the terminal. In session 83 you will write a script that sends it prompts and processes the response. In session 88 you will build something with it — something of your own choice that solves a problem you actually have. That is the final project. Plan what you want to build."</p>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The Phase 6 preview should be specific and concrete — not "you will learn about AI" but "you will type a command, a model will load, and you will have a conversation with it in the terminal on a machine you built yourself." Students who know exactly what is coming are better motivated for the final phase. The instruction to "plan what you want to build" is genuine — give them time to think about it over the next few days before session 81 starts.</p>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);text-align:center;">
+  <p style="font-family:'Courier New',monospace;font-size:12px;color:var(--muted);">Phase 5 of 6 &nbsp;·&nbsp; Linux seminar &nbsp;·&nbsp; Kubuntu LTS &nbsp;·&nbsp; Ages 15–18</p>
+  <p style="font-family:'Courier New',monospace;font-size:12px;color:var(--muted);margin-top:4px;">Phase 6 — The frontier — begins next session</p>
+</div>
+
+</div>
+</body>
+</html>

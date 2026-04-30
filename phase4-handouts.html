@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Phase 4 — Student Handouts</title>
+<style>
+  :root {
+    --coral:#712B13;--coral-light:#FAECE7;--coral-text:#993C1D;--coral-mid:#F0997B;
+    --blue:#0C447C;--blue-light:#E6F1FB;--blue-text:#185FA5;
+    --green:#27500A;--green-light:#EAF3DE;
+    --amber:#633806;--amber-light:#FAEEDA;
+    --gray:#444441;--gray-light:#F1EFE8;
+    --border:#ccc;--text:#111;
+    --danger-bg:#FFF0F0;--danger-border:#D85A30;--danger-text:#5a0000;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:Georgia,serif;font-size:13px;color:var(--text);background:#fff;}
+  .sheet{width:210mm;min-height:297mm;margin:0 auto;padding:13mm 15mm;page-break-after:always;background:#fff;}
+  .sheet:last-child{page-break-after:avoid;}
+  .sheet-header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--text);padding-bottom:8px;margin-bottom:14px;}
+  .sheet-id{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#666;}
+  .sheet-title{font-size:17px;font-weight:normal;margin-top:3px;}
+  .name-line{font-family:'Courier New',monospace;font-size:11px;color:#666;text-align:right;}
+  .name-blank{display:inline-block;width:110px;border-bottom:1px solid #999;margin-left:6px;vertical-align:bottom;}
+  .instructions{background:var(--gray-light);border-left:3px solid var(--gray);padding:8px 12px;margin-bottom:14px;font-size:12px;line-height:1.6;color:var(--gray);border-radius:0 4px 4px 0;}
+  .danger-box{background:var(--danger-bg);border:2px solid var(--danger-border);border-radius:5px;padding:8px 12px;margin-bottom:10px;font-size:12px;color:var(--danger-text);line-height:1.6;}
+  .danger-label{font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--danger-border);margin-bottom:4px;}
+  .slabel{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#666;margin-bottom:5px;margin-top:10px;}
+  code{font-family:'Courier New',monospace;background:var(--gray-light);padding:1px 4px;border-radius:2px;font-size:12px;}
+  .wline{border-bottom:1px solid #ccc;min-height:20px;margin-top:3px;}
+  .wbox{border:1px solid #ccc;border-radius:3px;min-height:36px;margin-top:4px;padding:4px 6px;}
+
+  /* Sheet 1 — Component table */
+  .comp-table{width:100%;border-collapse:collapse;font-size:11.5px;}
+  .comp-table th{background:var(--coral-light);color:var(--coral);font-family:'Courier New',monospace;font-size:9px;letter-spacing:.05em;text-transform:uppercase;padding:6px 8px;border:1px solid var(--border);font-weight:normal;text-align:left;}
+  .comp-table td{border:1px solid var(--border);padding:7px 8px;vertical-align:top;}
+  .comp-table td.comp-name{font-weight:bold;font-size:12px;width:110px;background:#fafafa;}
+  .comp-table td.comp-fn{width:140px;}
+  .comp-table td.comp-fail{}
+  .comp-table td.comp-conn{width:100px;}
+  .data-flow{background:#1e1e1e;border-radius:5px;padding:10px 14px;margin:10px 0;}
+  .df-label{font-family:'Courier New',monospace;font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+  .df-content{font-family:'Courier New',monospace;font-size:12px;color:#d4d4d4;line-height:2;}
+  .discussion-box{border:1px solid var(--border);border-radius:4px;padding:10px 12px;margin-top:10px;}
+  .discussion-q{font-size:12px;margin-bottom:6px;line-height:1.5;}
+  .answer-lines{display:flex;flex-direction:column;gap:6px;}
+
+  /* Sheet 2 — Boot sequence */
+  .boot-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+  .boot-step{border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+  .boot-step-head{background:var(--coral-light);padding:5px 10px;display:flex;align-items:baseline;gap:8px;}
+  .boot-n{font-family:'Courier New',monospace;font-size:10px;color:var(--coral);font-weight:bold;min-width:18px;}
+  .boot-step-title{font-size:12px;color:var(--coral-text);}
+  .boot-step-body{padding:6px 10px;}
+  .boot-field{margin-bottom:5px;}
+  .boot-field-label{font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:#888;margin-bottom:2px;}
+  .boot-field-line{border-bottom:1px solid #ddd;min-height:18px;}
+  .arrow-row{display:flex;justify-content:center;align-items:center;font-size:18px;color:var(--coral-mid);margin:4px 0;}
+  .failure-section{margin-top:10px;}
+  .fail-card{border:1px solid var(--border);border-radius:4px;margin-bottom:7px;overflow:hidden;}
+  .fail-head{background:var(--danger-bg);padding:5px 10px;font-size:12px;color:var(--danger-text);}
+  .fail-body{padding:6px 10px;display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .fail-label{font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;color:#888;margin-bottom:2px;}
+
+  /* Sheet 3 — UEFI exploration */
+  .uefi-section{border:1px solid var(--border);border-radius:4px;margin-bottom:10px;overflow:hidden;}
+  .uefi-head{background:var(--coral-light);padding:6px 12px;}
+  .uefi-head-title{font-size:12px;font-weight:bold;color:var(--coral);}
+  .uefi-head-path{font-family:'Courier New',monospace;font-size:10px;color:var(--coral-text);}
+  .uefi-body{padding:8px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .uefi-field{margin-bottom:5px;}
+  .uefi-label{font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:#888;margin-bottom:2px;}
+  .install-checklist{list-style:none;padding:0;}
+  .install-checklist li{display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:1.5;margin-bottom:5px;}
+  .install-checklist li::before{content:'☐';font-size:14px;color:var(--coral);flex-shrink:0;}
+
+  /* Sheet 4 — Assembly + Install checklist */
+  .check-section{border:1px solid var(--border);border-radius:4px;margin-bottom:10px;overflow:hidden;}
+  .check-head{background:var(--coral-light);padding:6px 12px;display:flex;align-items:center;justify-content:space-between;}
+  .check-head-title{font-size:12px;font-weight:bold;color:var(--coral);}
+  .check-head-session{font-family:'Courier New',monospace;font-size:10px;color:var(--coral-text);}
+  .check-body{padding:8px 12px;}
+  .check-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:1.5;margin-bottom:5px;}
+  .check-box{width:14px;height:14px;border:1px solid #ccc;border-radius:2px;flex-shrink:0;margin-top:1px;}
+  .check-note{font-size:10px;color:#888;font-style:italic;padding-left:22px;margin-bottom:5px;}
+  .verify-table{width:100%;border-collapse:collapse;font-size:11px;}
+  .verify-table th{background:var(--gray-light);font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;color:#666;padding:4px 8px;border:1px solid #ddd;font-weight:normal;}
+  .verify-table td{border:1px solid #ddd;padding:5px 8px;height:24px;}
+  .verify-table td:first-child{font-size:11px;}
+  .verify-table td.check-col{width:60px;text-align:center;}
+  .milestone{background:var(--coral-light);border:2px solid var(--coral-mid);border-radius:5px;padding:10px 14px;margin-top:12px;}
+  .milestone-label{font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--coral);margin-bottom:5px;}
+  .milestone-text{font-size:12px;color:var(--coral-text);line-height:1.6;}
+
+  @media print{.sheet{padding:11mm 13mm;} .data-flow{-webkit-print-color-adjust:exact;print-color-adjust:exact;} .boot-step-head,.uefi-head,.check-head{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- SHEET 1 — SESSION 53 — COMPONENT IDENTIFICATION             -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 53 · Week 14 · Handout N</div>
+      <div class="sheet-title">Computer components — identification and function</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="instructions">
+    For each component, fill in the function, failure mode, and connections. The failure mode column is as important as the function — knowing what breaks and how it breaks is how engineers diagnose problems.
+  </div>
+
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th>Function — what it does</th>
+        <th>Failure mode — what happens when it dies</th>
+        <th>Connects to</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="comp-name">CPU</td>
+        <td class="comp-fn"></td>
+        <td class="comp-fail"></td>
+        <td class="comp-conn"></td>
+      </tr>
+      <tr>
+        <td class="comp-name">Motherboard</td>
+        <td class="comp-fn"></td>
+        <td class="comp-fail"></td>
+        <td class="comp-conn">everything</td>
+      </tr>
+      <tr>
+        <td class="comp-name">RAM</td>
+        <td class="comp-fn"></td>
+        <td class="comp-fail"></td>
+        <td class="comp-conn"></td>
+      </tr>
+      <tr>
+        <td class="comp-name">NVMe SSD</td>
+        <td class="comp-fn"></td>
+        <td class="comp-fail"></td>
+        <td class="comp-conn"></td>
+      </tr>
+      <tr>
+        <td class="comp-name">PSU</td>
+        <td class="comp-fn"></td>
+        <td class="comp-fail"></td>
+        <td class="comp-conn"></td>
+      </tr>
+      <tr>
+        <td class="comp-name">CPU Cooler</td>
+        <td class="comp-fn"></td>
+        <td class="comp-fail"></td>
+        <td class="comp-conn"></td>
+      </tr>
+      <tr>
+        <td class="comp-name">Case Fan</td>
+        <td class="comp-fn"></td>
+        <td class="comp-fail"></td>
+        <td class="comp-conn"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="data-flow">
+    <div class="df-label">Data flow — fill in the blanks</div>
+    <div class="df-content">
+_______________ (permanent)
+    ↕ program loads into _______________
+_______________ (working memory)
+    ↕ CPU fetches from _______________
+CPU executes instructions
+    ↕ display output through _______________
+_______________
+    ↑
+PSU provides power to all of the above
+    </div>
+  </div>
+
+  <div class="discussion-box">
+    <div class="discussion-q"><strong>Discussion:</strong> if you had to upgrade one component to make a 5-year-old computer noticeably faster for general daily use, which would you choose? Explain using the data flow above.</div>
+    <div class="answer-lines">
+      <div class="wline"></div>
+      <div class="wline"></div>
+      <div class="wline"></div>
+    </div>
+    <div style="margin-top:10px;" class="discussion-q"><strong>Why does the motherboard determine compatibility more than any other component?</strong></div>
+    <div class="answer-lines">
+      <div class="wline"></div>
+      <div class="wline"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 2 — SESSION 55 — BOOT SEQUENCE FLOWCHART              -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 55 · Week 14 · Handout O</div>
+      <div class="sheet-title">Boot sequence — flowchart and failure analysis</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="instructions">
+    Fill in each step of the boot sequence. For each box: write what software is involved, where it physically lives, and what it hands control to next. Draw arrows between boxes to show the handoff.
+  </div>
+
+  <div class="boot-grid">
+    <div class="boot-step">
+      <div class="boot-step-head"><span class="boot-n">1</span><span class="boot-step-title">Power applied</span></div>
+      <div class="boot-step-body">
+        <div class="boot-field"><div class="boot-field-label">What runs</div><div class="boot-field-line">PSU performs POST</div></div>
+        <div class="boot-field"><div class="boot-field-label">Lives on</div><div class="boot-field-line">hardware (PSU chip)</div></div>
+        <div class="boot-field"><div class="boot-field-label">Hands control to</div><div class="boot-field-line"></div></div>
+      </div>
+    </div>
+    <div class="boot-step">
+      <div class="boot-step-head"><span class="boot-n">2</span><span class="boot-step-title">CPU first instruction</span></div>
+      <div class="boot-step-body">
+        <div class="boot-field"><div class="boot-field-label">What runs</div><div class="boot-field-line"></div></div>
+        <div class="boot-field"><div class="boot-field-label">Lives on</div><div class="boot-field-line">chip on motherboard</div></div>
+        <div class="boot-field"><div class="boot-field-label">Hands control to</div><div class="boot-field-line"></div></div>
+      </div>
+    </div>
+    <div class="boot-step">
+      <div class="boot-step-head"><span class="boot-n">3</span><span class="boot-step-title">UEFI initialises</span></div>
+      <div class="boot-step-body">
+        <div class="boot-field"><div class="boot-field-label">What it checks</div><div class="boot-field-line"></div></div>
+        <div class="boot-field"><div class="boot-field-label">What it reads next</div><div class="boot-field-line"></div></div>
+        <div class="boot-field"><div class="boot-field-label">Partition it reads from</div><div class="boot-field-line"></div></div>
+      </div>
+    </div>
+    <div class="boot-step">
+      <div class="boot-step-head"><span class="boot-n">4</span><span class="boot-step-title">GRUB runs</span></div>
+      <div class="boot-step-body">
+        <div class="boot-field"><div class="boot-field-label">What it does</div><div class="boot-field-line"></div></div>
+        <div class="boot-field"><div class="boot-field-label">Loads into</div><div class="boot-field-line">RAM</div></div>
+        <div class="boot-field"><div class="boot-field-label">Hands control to</div><div class="boot-field-line"></div></div>
+      </div>
+    </div>
+    <div class="boot-step">
+      <div class="boot-step-head"><span class="boot-n">5</span><span class="boot-step-title">Linux kernel starts</span></div>
+      <div class="boot-step-body">
+        <div class="boot-field"><div class="boot-field-label">What it does</div><div class="boot-field-line"></div></div>
+        <div class="boot-field"><div class="boot-field-label">First process started</div><div class="boot-field-line"></div></div>
+        <div class="boot-field"><div class="boot-field-label">PID of that process</div><div class="boot-field-line"></div></div>
+      </div>
+    </div>
+    <div class="boot-step">
+      <div class="boot-step-head"><span class="boot-n">6</span><span class="boot-step-title">Login screen appears</span></div>
+      <div class="boot-step-body">
+        <div class="boot-field"><div class="boot-field-label">Program responsible</div><div class="boot-field-line"></div></div>
+        <div class="boot-field"><div class="boot-field-label">After login, what loads</div><div class="boot-field-line"></div></div>
+        <div class="boot-field"><div class="boot-field-label">Total time (estimate)</div><div class="boot-field-line"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="failure-section">
+    <div class="slabel">Failure analysis — trace each failure through the sequence above</div>
+    <div class="fail-card">
+      <div class="fail-head">GRUB files deleted from EFI partition</div>
+      <div class="fail-body">
+        <div><div class="fail-label">What the user sees</div><div class="wline"></div></div>
+        <div><div class="fail-label">Which step fails</div><div class="wline"></div></div>
+      </div>
+    </div>
+    <div class="fail-card">
+      <div class="fail-head">Root partition (/) is corrupted — GRUB loads fine</div>
+      <div class="fail-body">
+        <div><div class="fail-label">What the user sees</div><div class="wline"></div></div>
+        <div><div class="fail-label">Which step fails</div><div class="wline"></div></div>
+      </div>
+    </div>
+    <div class="fail-card">
+      <div class="fail-head">Boot order set to NVMe first, but no OS is installed yet</div>
+      <div class="fail-body">
+        <div><div class="fail-label">Exact message shown</div><div class="wline"></div></div>
+        <div><div class="fail-label">How to fix it</div><div class="wline"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:10px; font-size:12px; padding:8px 12px; background:var(--coral-light); border-radius:4px; color:var(--coral-text);">
+    <strong>What is the EFI System Partition?</strong> Why must it be FAT32? Why does the UEFI firmware need to read from it?
+    <div style="margin-top:6px;"><div class="wline"></div><div class="wline" style="margin-top:6px;"></div></div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 3 — SESSION 56 — UEFI EXPLORATION                     -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 56 · Week 14 · Handout P</div>
+      <div class="sheet-title">UEFI exploration — read only, do not save</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="danger-box">
+    <div class="danger-label">Critical instruction</div>
+    During this entire exercise, you are reading and observing ONLY. Do NOT change any setting. Do NOT press F10 or any save option. If you accidentally change something, press Escape repeatedly until the exit menu appears, then choose "Discard and Exit" — never "Save and Exit."
+  </div>
+
+  <div class="uefi-section">
+    <div class="uefi-head">
+      <div class="uefi-head-title">System Information</div>
+      <div class="uefi-head-path">Usually on the Main tab or first screen</div>
+    </div>
+    <div class="uefi-body">
+      <div class="uefi-field"><div class="uefi-label">CPU model shown</div><div class="wline"></div></div>
+      <div class="uefi-field"><div class="uefi-label">RAM amount detected</div><div class="wline"></div></div>
+      <div class="uefi-field"><div class="uefi-label">Firmware version</div><div class="wline"></div></div>
+      <div class="uefi-field"><div class="uefi-label">UEFI interface type (graphical / text)</div><div class="wline"></div></div>
+    </div>
+  </div>
+
+  <div class="uefi-section">
+    <div class="uefi-head">
+      <div class="uefi-head-title">Boot Settings</div>
+      <div class="uefi-head-path">Boot tab</div>
+    </div>
+    <div class="uefi-body">
+      <div class="uefi-field"><div class="uefi-label">Current boot order (1st, 2nd, 3rd)</div><div class="wbox"></div></div>
+      <div class="uefi-field"><div class="uefi-label">Secure boot — enabled or disabled?</div><div class="wline"></div></div>
+      <div class="uefi-field" style="grid-column:1/-1;"><div class="uefi-label">What does secure boot do? (read the description)</div><div class="wbox"></div></div>
+    </div>
+  </div>
+
+  <div class="uefi-section">
+    <div class="uefi-head">
+      <div class="uefi-head-title">Advanced / Chipset Settings</div>
+      <div class="uefi-head-path">Advanced or Chipset tab</div>
+    </div>
+    <div class="uefi-body">
+      <div class="uefi-field"><div class="uefi-label">Storage mode (AHCI / RAID / IDE)</div><div class="wline"></div></div>
+      <div class="uefi-field"><div class="uefi-label">Virtualization setting name</div><div class="wline"></div></div>
+      <div class="uefi-field"><div class="uefi-label">Virtualization enabled or disabled</div><div class="wline"></div></div>
+      <div class="uefi-field"><div class="uefi-label">Any other settings you noticed</div><div class="wline"></div></div>
+    </div>
+  </div>
+
+  <div class="uefi-section">
+    <div class="uefi-head">
+      <div class="uefi-head-title">Three settings needed for OS installation next week</div>
+      <div class="uefi-head-path">Write these — you will configure them on the new machine</div>
+    </div>
+    <div class="uefi-body">
+      <div class="uefi-field"><div class="uefi-label">Setting 1 — name and required value</div><div class="wline"></div></div>
+      <div class="uefi-field"><div class="uefi-label">Setting 2 — name and required value</div><div class="wline"></div></div>
+      <div class="uefi-field" style="grid-column:1/-1;"><div class="uefi-label">Setting 3 — name and required value</div><div class="wline"></div></div>
+    </div>
+  </div>
+
+  <div style="margin-top:10px; font-size:12px; color:var(--coral-text); padding:8px 12px; border:1px solid var(--coral-mid); border-radius:4px;">
+    <strong>Exit procedure:</strong> Press Escape until exit menu appears. Select <strong>"Discard and Exit"</strong>. Confirm. Do not select "Save and Exit" or F10.
+  </div>
+
+  <div style="margin-top:10px; border:1px solid var(--border); border-radius:4px; padding:8px 12px;">
+    <div class="slabel" style="margin-top:0;">Reflection</div>
+    <div style="font-size:12px; margin-bottom:5px;">UEFI stores configuration on a chip on the motherboard. What happens to that configuration if you remove the CMOS battery? Why would you do this?</div>
+    <div class="wline"></div>
+    <div class="wline" style="margin-top:6px;"></div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 4 — S57/S58/S59/S60 — ASSEMBLY AND INSTALL CHECKLIST  -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Sessions 57–60 · Week 15 · Handout Q</div>
+      <div class="sheet-title">Assembly, UEFI, and installation checklist</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="danger-box">
+    <div class="danger-label">Before touching any component</div>
+    Touch the metal case frame or wear an anti-static strap. Never force a connector. If it doesn't go in easily, it's wrong orientation. Ask before proceeding if uncertain.
+  </div>
+
+  <div class="check-section">
+    <div class="check-head"><div class="check-head-title">Assembly — Session 57</div><div class="check-head-session">tick each step when complete and verified</div></div>
+    <div class="check-body">
+      <div class="check-item"><div class="check-box"></div>I/O shield installed in correct orientation</div>
+      <div class="check-item"><div class="check-box"></div>Motherboard standoffs installed in correct positions for form factor</div>
+      <div class="check-item"><div class="check-box"></div>CPU installed — lever locked, zero force applied, correct orientation</div>
+      <div class="check-note">Intel: triangle on CPU aligns with socket. AMD: triangle on CPU corner aligns with socket corner.</div>
+      <div class="check-item"><div class="check-box"></div>Thermal paste applied — pea-sized dot on CPU heat spreader center</div>
+      <div class="check-item"><div class="check-box"></div>CPU cooler mounted — cross-pattern tightening, both cables connected</div>
+      <div class="check-note">CPU_FAN header (near CPU socket) must be connected — not just a chassis fan header.</div>
+      <div class="check-item"><div class="check-box"></div>RAM installed — correct slots per manual, both clips audibly clicked</div>
+      <div class="check-item"><div class="check-box"></div>NVMe SSD installed and secured with M.2 retention screw</div>
+      <div class="check-item"><div class="check-box"></div>Motherboard seated in case — all mounting screws installed</div>
+      <div class="check-item"><div class="check-box"></div>24-pin ATX power connector fully inserted</div>
+      <div class="check-note">The most commonly missed connector: push until it clicks and the latch engages.</div>
+      <div class="check-item"><div class="check-box"></div>CPU power connector (4-pin or 8-pin) connected — top-left of motherboard</div>
+      <div class="check-note">This is the second most commonly missed connector. Without it, the machine will not POST.</div>
+      <div class="check-item"><div class="check-box"></div>Front panel connectors installed per motherboard manual pin diagram</div>
+      <div class="check-item"><div class="check-box"></div>No loose screws, no cables near fans, visual inspection passed</div>
+      <div class="check-item"><div class="check-box" style="border-color:#D85A30;"></div><strong>Instructor has verified the above before first power-on</strong></div>
+    </div>
+  </div>
+
+  <div class="check-section">
+    <div class="check-head"><div class="check-head-title">First power-on and UEFI — Session 58</div><div class="check-head-session">verify each item in UEFI</div></div>
+    <div class="check-body">
+      <table class="verify-table">
+        <tr><th>Verification item</th><th>Expected</th><th>Actual</th><th class="check-col">✓</th></tr>
+        <tr><td>CPU model in UEFI</td><td>matches installed CPU</td><td class="wline" style="border:none;min-height:20px;"></td><td class="check-col">☐</td></tr>
+        <tr><td>RAM detected</td><td>matches installed amount</td><td class="wline" style="border:none;min-height:20px;"></td><td class="check-col">☐</td></tr>
+        <tr><td>NVMe SSD detected</td><td>shows in storage list</td><td class="wline" style="border:none;min-height:20px;"></td><td class="check-col">☐</td></tr>
+        <tr><td>Boot order</td><td>USB first, NVMe second</td><td class="wline" style="border:none;min-height:20px;"></td><td class="check-col">☐</td></tr>
+        <tr><td>Storage mode</td><td>AHCI</td><td class="wline" style="border:none;min-height:20px;"></td><td class="check-col">☐</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="check-section">
+    <div class="check-head"><div class="check-head-title">Bootable USB — Session 59</div><div class="check-head-session">mandatory verification before running dd</div></div>
+    <div class="check-body">
+      <div class="check-item"><div class="check-box"></div>Kubuntu ISO sha256sum verified against published checksum</div>
+      <div class="check-item"><div class="check-box"></div>lsblk run — NVMe device path identified:</div>
+      <div style="margin:3px 0 5px 22px; font-family:'Courier New',monospace; border-bottom:1px solid #ccc; min-height:18px;"></div>
+      <div class="check-item"><div class="check-box"></div>USB device path identified from lsblk after insertion:</div>
+      <div style="margin:3px 0 5px 22px; font-family:'Courier New',monospace; border-bottom:1px solid #ccc; min-height:18px;"></div>
+      <div class="check-item"><div class="check-box" style="border-color:#D85A30;"></div><strong>dd command verified by instructor before running</strong></div>
+      <div style="margin:4px 0 0 22px; font-family:'Courier New',monospace; font-size:12px; border-bottom:1px solid #ccc; min-height:18px;"></div>
+      <div class="check-item" style="margin-top:4px;"><div class="check-box"></div>dd completed — lsblk shows partitions on USB device</div>
+    </div>
+  </div>
+
+  <div class="check-section">
+    <div class="check-head"><div class="check-head-title">OS installation — Session 60</div><div class="check-head-session">record your choices during installation</div></div>
+    <div class="check-body">
+      <table class="verify-table">
+        <tr><th>Decision</th><th>Your choice</th></tr>
+        <tr><td>Username (lowercase, no spaces)</td><td class="wline" style="border:none;"></td></tr>
+        <tr><td>Hostname / computer name</td><td class="wline" style="border:none;"></td></tr>
+        <tr><td>EFI partition size</td><td>512 MB, FAT32, /boot/efi</td></tr>
+        <tr><td>Root partition</td><td>remaining space, ext4, /</td></tr>
+        <tr><td>Partition table type</td><td>GPT</td></tr>
+      </table>
+      <div style="margin-top:8px;">
+        <div class="slabel" style="margin-top:0;">First boot verification — run these commands and record output</div>
+        <table class="verify-table">
+          <tr><th>Command</th><th>Output / what it shows</th></tr>
+          <tr><td><code>uname -a</code></td><td></td></tr>
+          <tr><td><code>df -h</code></td><td></td></tr>
+          <tr><td><code>free -h</code></td><td></td></tr>
+          <tr><td><code>lsblk</code></td><td></td></tr>
+          <tr><td><code>cat /etc/os-release</code></td><td></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="milestone">
+    <div class="milestone-label">Phase 4 milestone</div>
+    <div class="milestone-text">You assembled a computer, configured its firmware, created a bootable USB, partitioned the disk, and installed the OS. The machine in front of you is yours. All remaining work in this course runs on it.</div>
+  </div>
+</div>
+
+</body>
+</html>

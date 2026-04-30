@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Phase 6 — Student Handouts</title>
+<style>
+  :root {
+    --teal:#085041;--teal-light:#E1F5EE;--teal-text:#0F6E56;--teal-mid:#5DCAA5;
+    --blue:#0C447C;--blue-light:#E6F1FB;--blue-text:#185FA5;
+    --green:#27500A;--green-light:#EAF3DE;
+    --coral:#712B13;--coral-light:#FAECE7;--coral-text:#993C1D;
+    --amber:#633806;--amber-light:#FAEEDA;
+    --gray:#444441;--gray-light:#F1EFE8;
+    --border:#ccc;--text:#111;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:Georgia,serif;font-size:13px;color:var(--text);background:#fff;}
+  .sheet{width:210mm;min-height:297mm;margin:0 auto;padding:13mm 15mm;page-break-after:always;background:#fff;}
+  .sheet:last-child{page-break-after:avoid;}
+  .sheet-header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--text);padding-bottom:8px;margin-bottom:14px;}
+  .sheet-id{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#666;}
+  .sheet-title{font-size:17px;font-weight:normal;margin-top:3px;}
+  .name-line{font-family:'Courier New',monospace;font-size:11px;color:#666;text-align:right;}
+  .name-blank{display:inline-block;width:110px;border-bottom:1px solid #999;margin-left:6px;vertical-align:bottom;}
+  .instructions{background:var(--gray-light);border-left:3px solid var(--gray);padding:8px 12px;margin-bottom:12px;font-size:12px;line-height:1.6;color:var(--gray);border-radius:0 4px 4px 0;}
+  .slabel{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#666;margin-bottom:5px;margin-top:10px;}
+  code{font-family:'Courier New',monospace;background:var(--gray-light);padding:1px 4px;border-radius:2px;font-size:11px;}
+  pre{font-family:'Courier New',monospace;background:#1e1e1e;color:#d4d4d4;padding:8px 12px;border-radius:4px;font-size:11px;line-height:1.8;margin:6px 0;}
+  .wline{border-bottom:1px solid #ccc;min-height:20px;margin-top:3px;}
+  .wbox{border:1px solid #ccc;border-radius:3px;min-height:36px;margin-top:4px;padding:4px 6px;}
+  .wbox-tall{border:1px solid #ccc;border-radius:3px;min-height:52px;margin-top:4px;padding:4px 6px;}
+
+  /* Sheet 1 — AI concepts */
+  .concept-table{width:100%;border-collapse:collapse;font-size:11.5px;}
+  .concept-table th{background:var(--teal-light);color:var(--teal);font-family:'Courier New',monospace;font-size:9px;letter-spacing:.05em;text-transform:uppercase;padding:6px 8px;border:1px solid var(--border);font-weight:normal;text-align:left;}
+  .concept-table td{border:1px solid var(--border);padding:7px 8px;vertical-align:top;}
+  .concept-table td.term{font-family:'Courier New',monospace;font-size:12px;font-weight:bold;background:#fafafa;width:110px;}
+  .capability-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0;}
+  .cap-box{border:1px solid var(--border);border-radius:4px;padding:8px 10px;}
+  .cap-title{font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;}
+  .cap-title.good{color:var(--green);}
+  .cap-title.bad{color:var(--coral-text);}
+  .cap-item{font-size:11px;line-height:1.7;color:#444;display:flex;align-items:flex-start;gap:4px;margin-bottom:2px;}
+  .cap-dot{flex-shrink:0;margin-top:5px;}
+
+  /* Sheet 2 — Ollama reference */
+  .ollama-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+  .ollama-box{border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+  .ollama-head{background:var(--teal-light);padding:5px 10px;}
+  .ollama-head-title{font-size:11px;font-weight:bold;color:var(--teal);}
+  .ollama-body{padding:7px 10px;}
+  .cmd-row{display:flex;gap:6px;margin-bottom:4px;font-size:11px;}
+  .cmd-code{font-family:'Courier New',monospace;color:var(--teal-text);min-width:140px;font-size:11px;}
+  .cmd-desc{color:#555;}
+  .model-table{width:100%;border-collapse:collapse;font-size:11px;margin:6px 0;}
+  .model-table th{background:var(--gray-light);border:1px solid #ddd;padding:4px 8px;font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;font-weight:normal;text-align:left;}
+  .model-table td{border:1px solid #ddd;padding:4px 8px;}
+  .model-table td:first-child{font-family:'Courier New',monospace;}
+  .ex-card{border:1px solid var(--border);border-radius:4px;margin-bottom:7px;overflow:hidden;}
+  .ex-head{background:var(--blue-light);padding:5px 12px;display:flex;gap:8px;align-items:baseline;}
+  .ex-n{font-family:'Courier New',monospace;font-size:10px;color:var(--blue);min-width:16px;}
+  .ex-q{font-size:12px;color:var(--blue-text);line-height:1.4;}
+  .ex-body{padding:6px 12px;}
+  .ans-row{display:grid;grid-template-columns:80px 1fr;gap:6px;align-items:start;margin-top:4px;}
+  .ans-label{font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;color:#888;padding-top:3px;}
+
+  /* Sheet 3 — Script template */
+  .template-box{background:#1e1e1e;border-radius:5px;padding:12px 16px;margin:8px 0;position:relative;}
+  .template-label{font-family:'Courier New',monospace;font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+  .tline{font-family:'Courier New',monospace;font-size:11px;line-height:1.9;}
+  .tline .kw{color:#c586c0;}
+  .tline .str{color:#ce9178;}
+  .tline .var{color:#9cdcfe;}
+  .tline .cmd{color:#dcdcaa;}
+  .tline .cmt{color:#6a9955;}
+  .tline .blank{display:inline-block;border-bottom:1px solid #9cdcfe;min-width:100px;color:#9cdcfe;}
+  .build-section{border:1px solid var(--border);border-radius:4px;margin-bottom:8px;overflow:hidden;}
+  .build-head{background:var(--teal-light);padding:5px 12px;font-size:12px;font-weight:bold;color:var(--teal);}
+  .build-body{padding:7px 12px;}
+  .check-row{display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;font-size:12px;}
+  .cbox{width:13px;height:13px;border:1px solid #bbb;border-radius:2px;flex-shrink:0;margin-top:1px;}
+
+  /* Sheet 4 — Project design + vocab */
+  .design-section{border:1px solid var(--border);border-radius:4px;margin-bottom:8px;overflow:hidden;}
+  .design-head{background:var(--teal-light);padding:5px 12px;display:flex;justify-content:space-between;align-items:baseline;}
+  .design-head-title{font-size:12px;font-weight:bold;color:var(--teal);}
+  .design-head-note{font-family:'Courier New',monospace;font-size:10px;color:var(--teal-text);}
+  .design-body{padding:7px 12px;}
+  .vocab-section{margin-bottom:12px;}
+  .vocab-week{font-family:'Courier New',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;border-bottom:1px solid #ddd;padding-bottom:3px;margin-bottom:7px;}
+  .vocab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px 12px;}
+  .vocab-item{display:flex;align-items:flex-start;gap:5px;}
+  .cboxes{display:flex;gap:3px;flex-shrink:0;margin-top:1px;}
+  .cb{width:11px;height:11px;border:1px solid #bbb;border-radius:2px;}
+  .cb.y{border-color:var(--green);}
+  .cb.n{border-color:var(--coral);}
+  .vterm{font-family:'Courier New',monospace;font-size:10px;line-height:1.4;}
+  .legend{display:flex;gap:12px;font-size:10px;font-family:'Courier New',monospace;color:#666;margin-bottom:10px;padding:5px 10px;background:var(--gray-light);border-radius:3px;}
+  .li{display:flex;align-items:center;gap:4px;}
+  .reflect{margin-top:10px;border-top:1px solid #ddd;padding-top:10px;}
+  .rq{font-size:12px;color:#333;margin-bottom:4px;line-height:1.5;}
+  .rlines{display:flex;flex-direction:column;gap:5px;margin-bottom:8px;}
+  .rline{border-bottom:1px solid #ccc;min-height:18px;}
+
+  @media print{.sheet{padding:11mm 13mm;} pre,.template-box{-webkit-print-color-adjust:exact;print-color-adjust:exact;} .ollama-head,.ex-head,.build-head,.design-head{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- SHEET 1 — SESSION 81 — AI CONCEPTS WORKSHEET                -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 81 · Week 21 · Handout W</div>
+      <div class="sheet-title">What AI actually is — concepts and honest assessment</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="instructions">
+    Fill in the definition column from the session. Then complete the honest assessment and reflection at the bottom. No hype in either direction — accurate expectations are more useful than excitement or fear.
+  </div>
+
+  <div class="slabel" style="margin-top:0;">Core concepts — fill in the definitions</div>
+  <table class="concept-table">
+    <thead>
+      <tr>
+        <th>Term</th>
+        <th>What it actually means</th>
+        <th>Why it matters for running locally</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="term">Token</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="term">Parameter</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="term">Training</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="term">Inference</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="term">Context window</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="term">Quantization (Q4)</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td class="term">Training cutoff</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="capability-grid">
+    <div class="cap-box">
+      <div class="cap-title good">Models are good at</div>
+      <div class="cap-item"><span class="cap-dot">·</span> Explaining concepts</div>
+      <div class="cap-item"><span class="cap-dot">·</span> Summarizing text</div>
+      <div class="cap-item"><span class="cap-dot">·</span><span style="border-bottom:1px solid #ccc;flex:1;min-height:16px;"></span></div>
+      <div class="cap-item"><span class="cap-dot">·</span><span style="border-bottom:1px solid #ccc;flex:1;min-height:16px;"></span></div>
+      <div class="cap-item"><span class="cap-dot">·</span><span style="border-bottom:1px solid #ccc;flex:1;min-height:16px;"></span></div>
+    </div>
+    <div class="cap-box">
+      <div class="cap-title bad">Models are NOT good at</div>
+      <div class="cap-item"><span class="cap-dot">·</span> Verifying current facts</div>
+      <div class="cap-item"><span class="cap-dot">·</span> Precise arithmetic</div>
+      <div class="cap-item"><span class="cap-dot">·</span><span style="border-bottom:1px solid #ccc;flex:1;min-height:16px;"></span></div>
+      <div class="cap-item"><span class="cap-dot">·</span><span style="border-bottom:1px solid #ccc;flex:1;min-height:16px;"></span></div>
+      <div class="cap-item"><span class="cap-dot">·</span><span style="border-bottom:1px solid #ccc;flex:1;min-height:16px;"></span></div>
+    </div>
+  </div>
+
+  <div class="slabel">Honest assessment</div>
+  <div style="font-size:12px;margin-bottom:5px;">Why does running a model locally (on your own machine) matter, specifically for you and for privacy?</div>
+  <div class="wbox-tall"></div>
+
+  <div style="margin-top:8px;font-size:12px;margin-bottom:5px;">A language model is described as "a mathematical function that predicts the next token." What does this explain about why models sometimes give confident but wrong answers?</div>
+  <div class="wbox-tall"></div>
+
+  <div style="margin-top:8px;font-size:12px;margin-bottom:4px;">Complete: "Before this session I thought AI was ___. Now I understand it is ___."</div>
+  <div class="wline"></div>
+  <div class="wline" style="margin-top:6px;"></div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 2 — S82–84 — OLLAMA REFERENCE AND EXERCISES           -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Sessions 82–84 · Week 21 · Handout X</div>
+      <div class="sheet-title">Ollama — installation, models, and API reference</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="ollama-grid">
+    <div class="ollama-box">
+      <div class="ollama-head"><div class="ollama-head-title">CLI commands</div></div>
+      <div class="ollama-body">
+        <div class="cmd-row"><span class="cmd-code">ollama pull model</span><span class="cmd-desc">download a model</span></div>
+        <div class="cmd-row"><span class="cmd-code">ollama run model</span><span class="cmd-desc">interactive chat</span></div>
+        <div class="cmd-row"><span class="cmd-code">ollama list</span><span class="cmd-desc">list installed models</span></div>
+        <div class="cmd-row"><span class="cmd-code">ollama rm model</span><span class="cmd-desc">remove a model</span></div>
+        <div class="cmd-row"><span class="cmd-code">ollama --version</span><span class="cmd-desc">show version</span></div>
+        <div class="cmd-row"><span class="cmd-code">systemctl status ollama</span><span class="cmd-desc">service status</span></div>
+      </div>
+    </div>
+    <div class="ollama-box">
+      <div class="ollama-head"><div class="ollama-head-title">Model recommendations by RAM</div></div>
+      <div class="ollama-body">
+        <table class="model-table">
+          <tr><th>Free RAM</th><th>Recommended model</th><th>Size</th></tr>
+          <tr><td>4 GB</td><td>gemma2:2b</td><td>~1.6 GB</td></tr>
+          <tr><td>6 GB</td><td>llama3.2:3b</td><td>~2.0 GB</td></tr>
+          <tr><td>8 GB</td><td>llama3.2:3b</td><td>~2.0 GB</td></tr>
+          <tr><td>12+ GB</td><td>gemma2:9b</td><td>~5.4 GB</td></tr>
+        </table>
+        <div style="font-size:10px;color:#888;margin-top:4px;">Check available RAM: <code>free -h</code></div>
+      </div>
+    </div>
+    <div class="ollama-box">
+      <div class="ollama-head"><div class="ollama-head-title">API: /api/generate</div></div>
+      <div class="ollama-body">
+        <pre style="font-size:10px;">curl http://localhost:11434/api/generate \
+  -d '{
+    "model": "llama3.2:3b",
+    "prompt": "your prompt here",
+    "stream": false
+  }'</pre>
+        <div style="font-size:11px;color:#555;margin-top:4px;">Extract response: pipe to <code>| jq -r '.response'</code></div>
+      </div>
+    </div>
+    <div class="ollama-box">
+      <div class="ollama-head"><div class="ollama-head-title">API: /api/chat (multi-turn)</div></div>
+      <div class="ollama-body">
+        <pre style="font-size:10px;">curl http://localhost:11434/api/chat \
+  -d '{
+    "model": "llama3.2:3b",
+    "stream": false,
+    "messages": [
+      {"role":"system","content":"..."},
+      {"role":"user","content":"..."}
+    ]
+  }'</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="slabel">Exercises</div>
+
+  <div class="ex-card">
+    <div class="ex-head"><span class="ex-n">1.</span><span class="ex-q">Install Ollama. What version is installed? Which model did you pull and how large is it on disk?</span></div>
+    <div class="ex-body">
+      <div class="ans-row"><div class="ans-label">Version</div><div class="wline" style="font-family:'Courier New',monospace;"></div></div>
+      <div class="ans-row"><div class="ans-label">Model pulled</div><div class="wline" style="font-family:'Courier New',monospace;"></div></div>
+      <div class="ans-row"><div class="ans-label">Disk size</div><div class="wline"></div></div>
+    </div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-head"><span class="ex-n">2.</span><span class="ex-q">Ask the model something it should struggle with — a recent event or large calculation. What happened?</span></div>
+    <div class="ex-body">
+      <div class="ans-row"><div class="ans-label">Prompt used</div><div class="wline"></div></div>
+      <div class="ans-row"><div class="ans-label">What happened</div><div class="wbox"></div></div>
+    </div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-head"><span class="ex-n">3.</span><span class="ex-q">Send a prompt via the API with curl + jq. What fields does the full JSON response contain?</span></div>
+    <div class="ex-body">
+      <div class="ans-row"><div class="ans-label">Command used</div><div class="wbox" style="font-family:'Courier New',monospace;font-size:11px;"></div></div>
+      <div class="ans-row" style="margin-top:5px;"><div class="ans-label">JSON fields</div><div class="wline"></div></div>
+    </div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-head"><span class="ex-n">4.</span><span class="ex-q">Test the stateless API: ask a question, then ask a follow-up WITHOUT including the first exchange. Does the model answer correctly?</span></div>
+    <div class="ex-body">
+      <div class="ans-row"><div class="ans-label">First question</div><div class="wline"></div></div>
+      <div class="ans-row"><div class="ans-label">Follow-up without context</div><div class="wline"></div></div>
+      <div class="ans-row"><div class="ans-label">Result + why</div><div class="wbox"></div></div>
+    </div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-head"><span class="ex-n">5.</span><span class="ex-q">Monitor htop while running the model. What CPU and RAM usage do you observe during inference?</span></div>
+    <div class="ex-body">
+      <div class="ans-row"><div class="ans-label">RAM used</div><div class="wline"></div></div>
+      <div class="ans-row"><div class="ans-label">CPU usage</div><div class="wline"></div></div>
+      <div class="ans-row"><div class="ans-label">Tokens/sec</div><div class="wline"></div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 3 — SESSION 85 — SCRIPT TEMPLATE AND BUILD GUIDE      -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 85 · Week 22 · Handout Y</div>
+      <div class="sheet-title">Script that talks to Ollama — template and build guide</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="instructions">
+    The template below is the foundation for any script that uses the Ollama API. Fill in the blanks, then use it to build your chosen script. All three script options use this same query_model function.
+  </div>
+
+  <div class="slabel" style="margin-top:0;">The query_model template — fill in the blanks</div>
+  <div class="template-box">
+    <div class="template-label">~/scripts/query-template.sh — fill in the blanks in blue</div>
+    <div class="tline"><span class="cmt">#!/bin/bash</span></div>
+    <div class="tline"><span class="kw">set</span> -euo pipefail</div>
+    <div class="tline">&nbsp;</div>
+    <div class="tline"><span class="cmt"># Model to use — override with: OLLAMA_MODEL=gemma2:2b ./script.sh</span></div>
+    <div class="tline"><span class="var">MODEL</span>=<span class="str">"${OLLAMA_MODEL:-<span style="color:#9cdcfe;border-bottom:1px solid #9cdcfe;">llama3.2:3b</span>}"</span></div>
+    <div class="tline"><span class="var">API</span>=<span class="str">"http://localhost:11434/api/generate"</span></div>
+    <div class="tline">&nbsp;</div>
+    <div class="tline"><span class="kw">function</span> <span class="cmd">query_model</span>() {</div>
+    <div class="tline">&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">local</span> <span class="var">prompt</span>=<span class="str">"$1"</span></div>
+    <div class="tline">&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">local</span> <span class="var">system</span>=<span class="str">"${2:-<span style="color:#9cdcfe;border-bottom:1px solid #9cdcfe;min-width:120px;display:inline-block;"></span>}"</span></div>
+    <div class="tline">&nbsp;</div>
+    <div class="tline">&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">local</span> <span class="var">payload</span></div>
+    <div class="tline">&nbsp;&nbsp;&nbsp;&nbsp;<span class="var">payload</span>=$(<span class="cmd">jq</span> -n \</div>
+    <div class="tline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--arg model <span class="str">"$MODEL"</span> \</div>
+    <div class="tline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--arg prompt <span class="str">"$prompt"</span> \</div>
+    <div class="tline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--arg system <span class="str">"$system"</span> \</div>
+    <div class="tline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">'{model:$model,prompt:$prompt,system:$system,stream:false}'</span>)</div>
+    <div class="tline">&nbsp;</div>
+    <div class="tline">&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">curl</span> -s <span class="str">"$API"</span> -d <span class="str">"$payload"</span> | <span class="cmd">jq</span> -r <span class="str">'.response'</span></div>
+    <div class="tline">}</div>
+    <div class="tline">&nbsp;</div>
+    <div class="tline"><span class="cmt"># Check Ollama is running</span></div>
+    <div class="tline"><span class="kw">if</span> ! <span class="cmd">curl</span> -s http://localhost:11434 &gt;/dev/null 2&gt;&amp;1; <span class="kw">then</span></div>
+    <div class="tline">&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">echo</span> <span class="str">"Error: Ollama is not running. Start it with: systemctl start ollama"</span> &gt;&amp;2</div>
+    <div class="tline">&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">exit</span> 1</div>
+    <div class="tline"><span class="kw">fi</span></div>
+    <div class="tline">&nbsp;</div>
+    <div class="tline"><span class="cmt"># Your code below — use query_model "prompt" "system_prompt"</span></div>
+  </div>
+
+  <div class="slabel">Choose your script and complete the checklist when done</div>
+
+  <div class="build-section">
+    <div class="build-head">Option A — explain.sh — reads a file and explains what it does</div>
+    <div class="build-body">
+      <div style="font-size:11px;color:#555;margin-bottom:6px;">Takes a file as $1. Reads its contents. Sends to the model with system prompt "You are a concise Linux expert."</div>
+      <div class="check-row"><div class="cbox"></div>Handles missing file argument (usage message + exit 1)</div>
+      <div class="check-row"><div class="cbox"></div>Handles file that does not exist</div>
+      <div class="check-row"><div class="cbox"></div>Limits input to first 100 lines (head -100) to avoid context overflow</div>
+      <div class="check-row"><div class="cbox"></div>Correctly quotes file contents for jq using --arg</div>
+      <div class="check-row"><div class="cbox"></div>Tested on: a bash script, a config file, a log file</div>
+    </div>
+  </div>
+
+  <div class="build-section">
+    <div class="build-head">Option B — error-explain.sh — explains errors from a log file</div>
+    <div class="build-body">
+      <div style="font-size:11px;color:#555;margin-bottom:6px;">Reads last N lines of a log file. Sends to model asking for plain-language explanation of errors.</div>
+      <div class="check-row"><div class="cbox"></div>Accepts log file as argument or reads from stdin</div>
+      <div class="check-row"><div class="cbox"></div>Defaults to last 50 lines; accepts -n flag for custom count</div>
+      <div class="check-row"><div class="cbox"></div>System prompt instructs model to focus on errors specifically</div>
+      <div class="check-row"><div class="cbox"></div>Tested on /var/log/syslog and /var/log/auth.log</div>
+    </div>
+  </div>
+
+  <div class="build-section">
+    <div class="build-head">Option C — commit-message.sh — generates git commit messages</div>
+    <div class="build-body">
+      <div style="font-size:11px;color:#555;margin-bottom:6px;">Runs git diff --staged. Sends the diff to the model. Asks for a commit message in "type: description" format.</div>
+      <div class="check-row"><div class="cbox"></div>Checks that it is inside a git repository (git rev-parse)</div>
+      <div class="check-row"><div class="cbox"></div>Handles the case where nothing is staged (no diff output)</div>
+      <div class="check-row"><div class="cbox"></div>System prompt specifies commit message format</div>
+      <div class="check-row"><div class="cbox"></div>Tested on a real staged change</div>
+    </div>
+  </div>
+
+  <div style="margin-top:8px;border:1px solid var(--border);border-radius:4px;padding:8px 12px;">
+    <div class="slabel" style="margin-top:0;">Final verification — all scripts</div>
+    <div class="check-row"><div class="cbox"></div>set -euo pipefail is present</div>
+    <div class="check-row"><div class="cbox"></div>Ollama running check is at the top</div>
+    <div class="check-row"><div class="cbox"></div>jq -n --arg used for JSON construction (safe quoting)</div>
+    <div class="check-row"><div class="cbox"></div>Script is in ~/scripts, executable, tested with bash -x</div>
+    <div class="check-row"><div class="cbox"></div>query_model function is in ~/.bashrc for interactive use</div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 4 — S87/S96 — PROJECT DESIGN + VOCABULARY CHECKLIST   -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 87 + S96 · Week 23/24 · Handout Z</div>
+      <div class="sheet-title">Final project design + Phase 6 vocabulary checklist</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="instructions">
+    Complete the design document in session 87 before starting to build. The checklist is completed in session 96.
+  </div>
+
+  <div class="design-section">
+    <div class="design-head"><div class="design-head-title">Problem statement</div><div class="design-head-note">what problem does this solve?</div></div>
+    <div class="design-body"><div class="wbox-tall"></div></div>
+  </div>
+
+  <div class="design-section">
+    <div class="design-head"><div class="design-head-title">What it does</div><div class="design-head-note">user does X → tool does Y → output is Z</div></div>
+    <div class="design-body"><div class="wbox-tall"></div></div>
+  </div>
+
+  <div class="design-section">
+    <div class="design-head"><div class="design-head-title">Course skills used</div><div class="design-head-note">list phases and sessions</div></div>
+    <div class="design-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px;">
+        <div>Phase 1 (sessions ___): <div class="wline"></div></div>
+        <div>Phase 2 (sessions ___): <div class="wline"></div></div>
+        <div>Phase 3 (sessions ___): <div class="wline"></div></div>
+        <div>Phase 4 (sessions ___): <div class="wline"></div></div>
+        <div>Phase 5 (sessions ___): <div class="wline"></div></div>
+        <div>Phase 6 (sessions ___): <div class="wline"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="design-section">
+    <div class="design-head"><div class="design-head-title">Success criteria</div><div class="design-head-note">3–5 specific, testable criteria</div></div>
+    <div class="design-body">
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <div style="display:flex;gap:6px;align-items:flex-start;font-size:12px;"><div class="cbox" style="margin-top:2px;"></div><div class="wline" style="flex:1;"></div></div>
+        <div style="display:flex;gap:6px;align-items:flex-start;font-size:12px;"><div class="cbox" style="margin-top:2px;"></div><div class="wline" style="flex:1;"></div></div>
+        <div style="display:flex;gap:6px;align-items:flex-start;font-size:12px;"><div class="cbox" style="margin-top:2px;"></div><div class="wline" style="flex:1;"></div></div>
+        <div style="display:flex;gap:6px;align-items:flex-start;font-size:12px;"><div class="cbox" style="margin-top:2px;"></div><div class="wline" style="flex:1;"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="design-section">
+    <div class="design-head"><div class="design-head-title">Build plan</div><div class="design-head-note">one goal per sprint session</div></div>
+    <div class="design-body">
+      <div style="display:grid;grid-template-columns:60px 1fr;gap:6px;font-size:12px;">
+        <div style="font-family:'Courier New',monospace;font-size:10px;color:#888;padding-top:4px;">Sprint 1</div><div class="wline"></div>
+        <div style="font-family:'Courier New',monospace;font-size:10px;color:#888;padding-top:8px;">Sprint 2</div><div class="wline" style="margin-top:6px;"></div>
+        <div style="font-family:'Courier New',monospace;font-size:10px;color:#888;padding-top:8px;">Sprint 3</div><div class="wline" style="margin-top:6px;"></div>
+        <div style="font-family:'Courier New',monospace;font-size:10px;color:#888;padding-top:8px;">Refinement</div><div class="wline" style="margin-top:6px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:8px;"></div>
+
+  <div class="vocab-section">
+    <div class="vocab-week">Phase 6 — AI, Ollama, and final project vocabulary</div>
+    <div class="legend">
+      <div class="li"><div class="cb y"></div> I can explain this</div>
+      <div class="li"><div class="cb n"></div> I need to review</div>
+    </div>
+    <div class="vocab-grid">
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">LLM</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">token</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">parameter</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">training vs inference</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">context window</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">quantization (Q4)</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">training cutoff</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">Ollama</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">ollama pull / run</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">port 11434</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">/api/generate</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">/api/chat</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">system prompt</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">stream: false</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">jq -n --arg</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">keep_alive parameter</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">cold vs warm start</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">stateless API</span></div>
+    </div>
+  </div>
+
+  <div class="reflect">
+    <div class="slabel" style="margin-top:0;">Final course reflection (Session 96)</div>
+    <div class="rq">1. What concept from this entire course changed how you think about computers?</div>
+    <div class="rlines"><div class="rline"></div><div class="rline"></div></div>
+    <div class="rq">2. Describe your final project in one sentence. Then: what was the hardest technical problem you solved?</div>
+    <div class="rlines"><div class="rline"></div><div class="rline"></div></div>
+    <div class="rq">3. Complete: "One thing from this course I will apply outside of computing is ___."</div>
+    <div class="rlines"><div class="rline"></div><div class="rline"></div></div>
+    <div class="rq">4. What is the first thing you will learn or build after this course ends?</div>
+    <div class="rlines"><div class="rline"></div></div>
+  </div>
+</div>
+
+</body>
+</html>

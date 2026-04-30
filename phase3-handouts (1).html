@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Phase 3 — Student Handouts</title>
+<style>
+  :root {
+    --amber:#633806;--amber-light:#FAEEDA;--amber-text:#854F0B;--amber-mid:#EF9F27;
+    --blue:#0C447C;--blue-light:#E6F1FB;--blue-text:#185FA5;
+    --green:#27500A;--green-light:#EAF3DE;--green-text:#3B6D11;
+    --coral:#712B13;--coral-light:#FAECE7;
+    --gray:#444441;--gray-light:#F1EFE8;
+    --border:#ccc;--text:#111;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:Georgia,serif;font-size:13px;color:var(--text);background:#fff;}
+  .sheet{width:210mm;min-height:297mm;margin:0 auto;padding:13mm 15mm;page-break-after:always;background:#fff;}
+  .sheet:last-child{page-break-after:avoid;}
+  .sheet-header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--text);padding-bottom:8px;margin-bottom:14px;}
+  .sheet-id{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#666;}
+  .sheet-title{font-size:17px;font-weight:normal;margin-top:3px;}
+  .name-line{font-family:'Courier New',monospace;font-size:11px;color:#666;text-align:right;}
+  .name-blank{display:inline-block;width:110px;border-bottom:1px solid #999;margin-left:6px;vertical-align:bottom;}
+  .instructions{background:var(--gray-light);border-left:3px solid var(--gray);padding:8px 12px;margin-bottom:14px;font-size:12px;line-height:1.6;color:var(--gray);border-radius:0 4px 4px 0;}
+  .slabel{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#666;margin-bottom:5px;margin-top:12px;}
+  code{font-family:'Courier New',monospace;background:var(--gray-light);padding:1px 4px;border-radius:2px;font-size:12px;}
+  pre{font-family:'Courier New',monospace;background:#1e1e1e;color:#d4d4d4;padding:10px 14px;border-radius:5px;font-size:12px;line-height:1.8;margin:6px 0;}
+  .wline{border-bottom:1px solid #ccc;min-height:20px;margin-top:3px;}
+  .wbox{border:1px solid #ccc;border-radius:3px;min-height:36px;margin-top:4px;padding:4px 6px;}
+  .wbox-tall{border:1px solid #ccc;border-radius:3px;min-height:54px;margin-top:4px;padding:4px 6px;}
+
+  /* Sheet 1 — KDE Config */
+  .kde-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+  .kde-card{border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+  .kde-head{background:var(--amber-light);padding:6px 12px;}
+  .kde-head-title{font-size:12px;font-weight:bold;color:var(--amber);margin-bottom:2px;}
+  .kde-head-sub{font-size:11px;color:var(--amber-text);}
+  .kde-body{padding:8px 12px;}
+  .kde-field{margin-bottom:7px;}
+  .kde-label{font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:#888;margin-bottom:2px;}
+  .kde-file-box{background:#1e1e1e;border-radius:3px;padding:5px 9px;margin-top:4px;}
+  .kde-file-label{font-family:'Courier New',monospace;font-size:9px;color:#888;text-transform:uppercase;margin-bottom:3px;}
+  .kde-file-line{border-bottom:1px solid #333;min-height:16px;font-family:'Courier New',monospace;font-size:10px;color:#aaa;}
+
+  /* Sheet 2 — .bashrc builder */
+  .bashrc-section{border:1px solid var(--border);border-radius:4px;margin-bottom:10px;overflow:hidden;}
+  .bashrc-head{background:var(--amber-light);padding:7px 12px;display:flex;align-items:baseline;gap:8px;}
+  .bashrc-type{font-family:'Courier New',monospace;font-size:10px;color:var(--amber);font-weight:bold;}
+  .bashrc-desc{font-size:12px;color:var(--amber-text);}
+  .bashrc-body{padding:8px 12px;}
+  .alias-table{width:100%;border-collapse:collapse;margin-top:4px;}
+  .alias-table th{font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:#888;background:var(--gray-light);padding:3px 8px;border:1px solid #ddd;font-weight:normal;text-align:left;}
+  .alias-table td{border:1px solid #ddd;padding:5px 8px;height:26px;font-size:11px;}
+  .alias-table td:first-child{font-family:'Courier New',monospace;width:130px;background:#fafafa;}
+  .func-template{background:#1e1e1e;border-radius:4px;padding:8px 12px;margin:6px 0;font-family:'Courier New',monospace;font-size:12px;color:#d4d4d4;line-height:1.9;}
+  .func-blank{display:inline-block;border-bottom:1px solid #9cdcfe;min-width:80px;color:#9cdcfe;}
+  .ps1-builder{border:1px solid var(--border);border-radius:4px;padding:8px 12px;margin-top:8px;}
+  .ps1-row{display:grid;grid-template-columns:90px 1fr;gap:6px;align-items:center;margin-bottom:6px;font-size:11px;}
+  .ps1-label{font-family:'Courier New',monospace;font-size:10px;color:#666;}
+
+  /* Sheet 3 — Script anatomy */
+  .script-box{background:#1e1e1e;border-radius:5px;padding:12px 16px;margin-bottom:12px;position:relative;}
+  .script-box-label{font-family:'Courier New',monospace;font-size:9px;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+  .script-line{display:grid;grid-template-columns:24px 1fr 140px;gap:6px;align-items:start;margin-bottom:4px;font-size:11px;}
+  .ln{font-family:'Courier New',monospace;font-size:10px;color:#555;text-align:right;padding-top:2px;}
+  .code-text{font-family:'Courier New',monospace;color:#d4d4d4;line-height:1.6;}
+  .code-text .kw{color:#c586c0;}
+  .code-text .str{color:#ce9178;}
+  .code-text .var{color:#9cdcfe;}
+  .code-text .cmd{color:#dcdcaa;}
+  .code-text .cmt{color:#6a9955;}
+  .annot{font-size:10px;color:#666;line-height:1.4;font-style:italic;}
+  .annot-line{border-bottom:1px dashed #ddd;min-height:16px;margin-top:2px;}
+
+  .cond-ref{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0;}
+  .cond-box{border:1px solid var(--border);border-radius:4px;padding:8px 10px;}
+  .cond-title{font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:#888;margin-bottom:5px;}
+  .cond-row{display:flex;gap:6px;align-items:baseline;margin-bottom:3px;font-size:11px;}
+  .cond-code{font-family:'Courier New',monospace;font-size:11px;min-width:90px;color:var(--amber-text);}
+  .cond-meaning{color:#555;}
+
+  .script-exercise{display:flex;flex-direction:column;gap:8px;margin-top:10px;}
+  .sc-card{border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+  .sc-head{background:var(--blue-light);padding:6px 12px;font-size:12px;color:var(--blue-text);}
+  .sc-body{padding:7px 12px;}
+  .sc-row{display:grid;grid-template-columns:70px 1fr;gap:6px;margin-top:4px;font-size:11px;}
+  .sc-label{font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;color:#888;}
+
+  /* Sheet 4 — Vocab */
+  .vocab-section{margin-bottom:14px;}
+  .vocab-week{font-family:'Courier New',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;border-bottom:1px solid #ddd;padding-bottom:3px;margin-bottom:7px;}
+  .vocab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px 12px;}
+  .vocab-item{display:flex;align-items:flex-start;gap:6px;}
+  .cboxes{display:flex;gap:3px;flex-shrink:0;margin-top:1px;}
+  .cbox{width:11px;height:11px;border:1px solid #bbb;border-radius:2px;}
+  .cbox.y{border-color:var(--green);}
+  .cbox.n{border-color:var(--coral);}
+  .vterm{font-family:'Courier New',monospace;font-size:10.5px;line-height:1.4;}
+  .legend{display:flex;gap:14px;font-size:10px;font-family:'Courier New',monospace;color:#666;margin-bottom:12px;padding:6px 10px;background:var(--gray-light);border-radius:3px;}
+  .li{display:flex;align-items:center;gap:5px;}
+  .reflect{margin-top:14px;border-top:1px solid #ddd;padding-top:12px;}
+  .rq{font-size:12px;color:#333;margin-bottom:4px;line-height:1.5;}
+  .rlines{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
+  .rline{border-bottom:1px solid #ccc;min-height:18px;}
+
+  @media print{.sheet{padding:11mm 13mm;} pre,.script-box{-webkit-print-color-adjust:exact;print-color-adjust:exact;} .kde-head,.bashrc-head,.sc-head{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- SHEET 1 — SESSION 42 — KDE CONFIGURATION WORKSHEET          -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 42 · Week 11 · Handout J</div>
+      <div class="sheet-title">KDE Plasma — deliberate configuration</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="instructions">
+    Before changing any setting, write what you are about to change and why. After changing it, find and record the configuration file that was modified. Every change should be intentional — if you cannot explain why you made it, undo it.
+  </div>
+
+  <div class="kde-grid">
+    <div class="kde-card">
+      <div class="kde-head">
+        <div class="kde-head-title">Global Theme</div>
+        <div class="kde-head-sub">System Settings → Appearance → Global Theme</div>
+      </div>
+      <div class="kde-body">
+        <div class="kde-field">
+          <div class="kde-label">Theme chosen</div>
+          <div class="wline"></div>
+        </div>
+        <div class="kde-field">
+          <div class="kde-label">Why this theme</div>
+          <div class="wbox"></div>
+        </div>
+        <div class="kde-file-box">
+          <div class="kde-file-label">Config file changed (ls -lt ~/.config | head)</div>
+          <div class="kde-file-line"></div>
+        </div>
+      </div>
+    </div>
+    <div class="kde-card">
+      <div class="kde-head">
+        <div class="kde-head-title">Virtual Desktops</div>
+        <div class="kde-head-sub">System Settings → Workspace → Virtual Desktops</div>
+      </div>
+      <div class="kde-body">
+        <div class="kde-field">
+          <div class="kde-label">Number of desktops</div>
+          <div class="wline"></div>
+        </div>
+        <div class="kde-field">
+          <div class="kde-label">Names and purpose of each</div>
+          <div class="wbox"></div>
+        </div>
+        <div class="kde-field">
+          <div class="kde-label">Keyboard shortcuts to switch</div>
+          <div class="wline"></div>
+        </div>
+      </div>
+    </div>
+    <div class="kde-card">
+      <div class="kde-head">
+        <div class="kde-head-title">Custom Keyboard Shortcuts</div>
+        <div class="kde-head-sub">System Settings → Shortcuts → Custom Shortcuts</div>
+      </div>
+      <div class="kde-body">
+        <div style="margin-bottom:6px; font-family:'Courier New',monospace; font-size:9px; text-transform:uppercase; letter-spacing:.08em; color:#888;">Shortcuts added</div>
+        <table class="alias-table">
+          <tr><th>Key combination</th><th>Action / command</th></tr>
+          <tr><td></td><td></td></tr>
+          <tr><td></td><td></td></tr>
+          <tr><td></td><td></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="kde-card">
+      <div class="kde-head">
+        <div class="kde-head-title">Window Behavior</div>
+        <div class="kde-head-sub">System Settings → Window Management</div>
+      </div>
+      <div class="kde-body">
+        <div class="kde-field">
+          <div class="kde-label">Changes made</div>
+          <div class="wbox"></div>
+        </div>
+        <div class="kde-field">
+          <div class="kde-label">Effect observed</div>
+          <div class="wbox"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slabel">Configuration file investigation</div>
+  <div style="font-size:12px; margin-bottom:6px;">After making all changes above, run: <code>ls -lt ~/.config/ | head -10</code></div>
+  <div class="script-box" style="margin-bottom:10px;">
+    <div class="script-box-label">Most recently modified config files</div>
+    <div class="kde-file-line" style="margin-bottom:4px;"></div>
+    <div class="kde-file-line" style="margin-bottom:4px;"></div>
+    <div class="kde-file-line" style="margin-bottom:4px;"></div>
+    <div class="kde-file-line"></div>
+  </div>
+
+  <div style="font-size:12px; margin-bottom:6px;">Open one of those files with <code>cat</code>. What format is it? What do you recognize inside it?</div>
+  <div class="wbox-tall"></div>
+
+  <div class="slabel" style="margin-top:10px;">Reflection</div>
+  <div style="font-size:12px; margin-bottom:4px;">You changed a setting through a GUI and then found the text file it wrote. What does this tell you about how KDE stores configuration?</div>
+  <div class="wbox-tall"></div>
+
+  <div style="margin-top:10px; padding:8px 12px; border:1px solid #ddd; border-radius:4px; font-size:11px; color:#666; font-family:'Courier New',monospace;">
+    Write your customization choices in ~/projects/linux-course/phase3/kde-config.md — document what you changed and why.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 2 — SESSION 46 — .BASHRC BUILDER                      -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 46 · Week 12 · Handout K</div>
+      <div class="sheet-title">.bashrc builder — aliases, functions, prompt</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="instructions">
+    Plan your .bashrc additions here before editing the file. Every alias should have a clear purpose. Every function should do one thing. Test each addition by opening a new terminal — sourcing alone is not sufficient.
+  </div>
+
+  <div class="bashrc-section">
+    <div class="bashrc-head">
+      <span class="bashrc-type">ALIASES</span>
+      <span class="bashrc-desc">Command shortcuts — cannot take arguments</span>
+    </div>
+    <div class="bashrc-body">
+      <div style="font-size:11px; color:#666; margin-bottom:6px;">Syntax: <code>alias name='full command'</code> — single quotes prevent early expansion</div>
+      <table class="alias-table">
+        <tr><th>alias name</th><th>expands to (full command)</th><th>purpose / why</th></tr>
+        <tr><td>ll</td><td>ls -la</td><td>long listing with hidden files</td></tr>
+        <tr><td>..</td><td>cd ..</td><td>go up one directory</td></tr>
+        <tr><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td></tr>
+        <tr><td></td><td></td><td></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="bashrc-section">
+    <div class="bashrc-head">
+      <span class="bashrc-type">FUNCTIONS</span>
+      <span class="bashrc-desc">Take arguments, multi-step logic — more powerful than aliases</span>
+    </div>
+    <div class="bashrc-body">
+      <div style="font-size:11px; color:#666; margin-bottom:6px;">Required: write the mkcd function. Optional: write one more function of your choice.</div>
+      <div class="func-template">
+function mkcd() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;mkdir -p "<span class="func-blank">$1</span>" &amp;&amp; cd "<span class="func-blank">$1</span>"<br>
+}<br><br>
+function <span class="func-blank" style="min-width:100px;"></span>() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="func-blank" style="min-width:200px;"></span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="func-blank" style="min-width:200px;"></span><br>
+}
+      </div>
+      <div style="margin-top:8px; font-size:11px; color:#555;">What does your second function do?</div>
+      <div class="wline"></div>
+      <div style="margin-top:5px; font-size:11px; color:#555;">Test result for mkcd: run <code>mkcd ~/test-dir/nested/path</code> then pwd:</div>
+      <div class="wline" style="font-family:'Courier New',monospace;"></div>
+    </div>
+  </div>
+
+  <div class="bashrc-section">
+    <div class="bashrc-head">
+      <span class="bashrc-type">PS1 PROMPT</span>
+      <span class="bashrc-desc">Your shell prompt — must show current directory, use at least one color</span>
+    </div>
+    <div class="bashrc-body">
+      <div style="font-size:11px; color:#666; margin-bottom:8px;">Color format: <code>\[\033[CODEm\]text\[\033[0m\]</code> — codes: 31=red 32=green 33=yellow 34=blue 35=magenta 36=cyan 1=bold</div>
+      <div class="ps1-builder">
+        <div class="ps1-row"><div class="ps1-label">PS1 value</div><div class="wline" style="font-family:'Courier New',monospace;font-size:11px;"></div></div>
+        <div class="ps1-row"><div class="ps1-label">Shows</div><div class="wline"></div></div>
+        <div class="ps1-row"><div class="ps1-label">Colors used</div><div class="wline"></div></div>
+        <div class="ps1-row"><div class="ps1-label">Test: long path?</div><div style="display:flex;gap:8px;align-items:center;"><div style="width:13px;height:13px;border:1px solid #bbb;border-radius:2px;flex-shrink:0;"></div><span style="font-size:11px;color:#666;">prompt does not break on long paths</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bashrc-section">
+    <div class="bashrc-head">
+      <span class="bashrc-type">ENVIRONMENT</span>
+      <span class="bashrc-desc">Export statements — persist across sessions</span>
+    </div>
+    <div class="bashrc-body">
+      <table class="alias-table">
+        <tr><th>Variable</th><th>Value</th><th>Used by</th></tr>
+        <tr><td>EDITOR</td><td>nano</td><td>git, cron, sudo -e</td></tr>
+        <tr><td>PATH</td><td>$HOME/scripts:$PATH</td><td>makes ~/scripts commands available</td></tr>
+        <tr><td></td><td></td><td></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div style="margin-top:8px; padding:8px 12px; background:var(--amber-light); border-radius:4px; font-size:12px; color:var(--amber);">
+    <strong>Final test (required):</strong> open a completely new terminal (do not just source). Test every alias and function. Mark each as ✓ working or ✗ broken. Fix all broken ones.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 3 — SESSIONS 49–50 — SCRIPT ANATOMY + CONDITIONALS    -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Sessions 49–50 · Week 13 · Handout L</div>
+      <div class="sheet-title">Script anatomy and conditionals reference</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="slabel" style="margin-top:0;">Annotated script — write what each line does</div>
+  <div class="script-box">
+    <div class="script-box-label">info.sh — annotate the right column</div>
+    <div class="script-line">
+      <div class="ln">1</div>
+      <div class="code-text"><span class="cmt">#!/bin/bash</span></div>
+      <div class="annot">tells OS to use bash interpreter</div>
+    </div>
+    <div class="script-line">
+      <div class="ln">2</div>
+      <div class="code-text"><span class="cmt"># Script: info.sh</span></div>
+      <div class="annot annot-line"></div>
+    </div>
+    <div class="script-line">
+      <div class="ln">3</div>
+      <div class="code-text"><span class="var">NAME</span>=<span class="str">"$1"</span></div>
+      <div class="annot annot-line"></div>
+    </div>
+    <div class="script-line">
+      <div class="ln">4</div>
+      <div class="code-text"><span class="kw">if</span> [ <span class="str">-z</span> <span class="str">"$NAME"</span> ]; <span class="kw">then</span></div>
+      <div class="annot annot-line"></div>
+    </div>
+    <div class="script-line">
+      <div class="ln">5</div>
+      <div class="code-text">&nbsp;&nbsp;<span class="cmd">read</span> -p <span class="str">"Enter name: "</span> NAME</div>
+      <div class="annot annot-line"></div>
+    </div>
+    <div class="script-line">
+      <div class="ln">6</div>
+      <div class="code-text"><span class="kw">fi</span></div>
+      <div class="annot">ends the if block</div>
+    </div>
+    <div class="script-line">
+      <div class="ln">7</div>
+      <div class="code-text"><span class="cmd">echo</span> <span class="str">"Hello <span class="var">$NAME</span>"</span></div>
+      <div class="annot annot-line"></div>
+    </div>
+    <div class="script-line">
+      <div class="ln">8</div>
+      <div class="code-text"><span class="cmd">echo</span> <span class="str">"Date: <span class="var">$(date)</span>"</span></div>
+      <div class="annot annot-line"></div>
+    </div>
+    <div class="script-line">
+      <div class="ln">9</div>
+      <div class="code-text"><span class="cmd">echo</span> <span class="str">"Files: <span class="var">$(ls | wc -l)</span>"</span></div>
+      <div class="annot annot-line"></div>
+    </div>
+    <div class="script-line">
+      <div class="ln">10</div>
+      <div class="code-text"><span class="kw">exit</span> 0</div>
+      <div class="annot annot-line"></div>
+    </div>
+  </div>
+
+  <div class="cond-ref">
+    <div class="cond-box">
+      <div class="cond-title">File tests — use inside [ ]</div>
+      <div class="cond-row"><div class="cond-code">-f "$file"</div><div class="cond-meaning">is a regular file</div></div>
+      <div class="cond-row"><div class="cond-code">-d "$dir"</div><div class="cond-meaning">is a directory</div></div>
+      <div class="cond-row"><div class="cond-code">-e "$path"</div><div class="cond-meaning">exists (any type)</div></div>
+      <div class="cond-row"><div class="cond-code">-r "$file"</div><div class="cond-meaning">is readable</div></div>
+      <div class="cond-row"><div class="cond-code">-x "$file"</div><div class="cond-meaning">is executable</div></div>
+      <div class="cond-row"><div class="cond-code">! -f "$file"</div><div class="cond-meaning">does NOT exist as file</div></div>
+    </div>
+    <div class="cond-box">
+      <div class="cond-title">String and number tests</div>
+      <div class="cond-row"><div class="cond-code">-z "$str"</div><div class="cond-meaning">empty string</div></div>
+      <div class="cond-row"><div class="cond-code">-n "$str"</div><div class="cond-meaning">non-empty string</div></div>
+      <div class="cond-row"><div class="cond-code">"$a" = "$b"</div><div class="cond-meaning">strings equal</div></div>
+      <div class="cond-row"><div class="cond-code">"$a" != "$b"</div><div class="cond-meaning">strings not equal</div></div>
+      <div class="cond-row"><div class="cond-code">$a -eq $b</div><div class="cond-meaning">numbers equal</div></div>
+      <div class="cond-row"><div class="cond-code">$a -gt $b</div><div class="cond-meaning">greater than</div></div>
+    </div>
+    <div class="cond-box" style="grid-column:1/-1;">
+      <div class="cond-title">Special variables</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;">
+        <div class="cond-row"><div class="cond-code">$1 $2</div><div class="cond-meaning">arguments</div></div>
+        <div class="cond-row"><div class="cond-code">$0</div><div class="cond-meaning">script name</div></div>
+        <div class="cond-row"><div class="cond-code">$#</div><div class="cond-meaning">arg count</div></div>
+        <div class="cond-row"><div class="cond-code">$?</div><div class="cond-meaning">last exit code</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slabel">Write your three scripts — plan before coding</div>
+  <div class="script-exercise">
+    <div class="sc-card">
+      <div class="sc-head"><strong>greet.sh</strong> — takes name as $1, asks if missing, prints greeting with date</div>
+      <div class="sc-body">
+        <div class="sc-row"><div class="sc-label">Handles</div><div style="font-size:11px;color:#555;">$1 provided / $1 empty (use read) / date via $()</div></div>
+        <div class="sc-row"><div class="sc-label">Key line</div><div class="wline" style="font-family:'Courier New',monospace;"></div></div>
+        <div style="display:flex;gap:6px;margin-top:6px;align-items:center;"><div style="width:11px;height:11px;border:1px solid #bbb;border-radius:2px;flex-shrink:0;"></div><span style="font-size:10px;color:#888;font-family:'Courier New',monospace;">TESTED: no args / with args / empty name</span></div>
+      </div>
+    </div>
+    <div class="sc-card">
+      <div class="sc-head"><strong>check-path.sh</strong> — takes path as $1, reports if file / directory / not found</div>
+      <div class="sc-body">
+        <div class="sc-row"><div class="sc-label">Handles</div><div style="font-size:11px;color:#555;">no arg (usage + exit 1) / file / directory / does not exist</div></div>
+        <div class="sc-row"><div class="sc-label">Conditions</div><div class="wline" style="font-family:'Courier New',monospace;"></div></div>
+        <div style="display:flex;gap:6px;margin-top:6px;align-items:center;"><div style="width:11px;height:11px;border:1px solid #bbb;border-radius:2px;flex-shrink:0;"></div><span style="font-size:10px;color:#888;font-family:'Courier New',monospace;">TESTED: no arg / real file / real dir / fake path</span></div>
+      </div>
+    </div>
+    <div class="sc-card">
+      <div class="sc-head"><strong>safe-delete.sh</strong> — asks confirmation before deleting, handles all edge cases</div>
+      <div class="sc-body">
+        <div class="sc-row"><div class="sc-label">Handles</div><div style="font-size:11px;color:#555;">no arg / file not found / y answer / n answer / invalid answer</div></div>
+        <div class="sc-row"><div class="sc-label">Read prompt</div><div class="wline" style="font-family:'Courier New',monospace;"></div></div>
+        <div style="display:flex;gap:6px;margin-top:6px;align-items:center;"><div style="width:11px;height:11px;border:1px solid #bbb;border-radius:2px;flex-shrink:0;"></div><span style="font-size:10px;color:#888;font-family:'Courier New',monospace;">TESTED: all five cases above</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 4 — SESSION 52 — VOCABULARY CHECKLIST                 -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 52 · Week 13 · Handout M</div>
+      <div class="sheet-title">Phase 3 vocabulary checklist</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="instructions">
+    Tick the green box if you can explain the term clearly without notes. Tick the red box if you need to review it.
+  </div>
+
+  <div class="legend">
+    <div class="li"><div class="cbox y"></div> I can explain this</div>
+    <div class="li"><div class="cbox n"></div> I need to review</div>
+  </div>
+
+  <div class="vocab-section">
+    <div class="vocab-week">Week 11 — KDE Plasma</div>
+    <div class="vocab-grid">
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">KDE Plasma</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">desktop shell</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">KWin (window manager)</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">compositor</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">panel</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">widget</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">virtual desktop</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">global shortcut</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">~/.config (KDE stores here)</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">Konsole profile</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">PS1 (prompt variable)</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">ANSI color codes</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">environment variable</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">export</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">PATH</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">which (command)</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">EDITOR variable</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">temporary vs permanent</span></div>
+    </div>
+  </div>
+
+  <div class="vocab-section">
+    <div class="vocab-week">Week 12 — dotfiles</div>
+    <div class="vocab-grid">
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">dotfile</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">~/.bashrc</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">~/.bash_profile</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">source ~/.bashrc</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">alias</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">function (bash)</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">local variable</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">mkcd pattern</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">readline / ~/.inputrc</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">history-search-backward</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">completion-ignore-case</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">~/.nanorc</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">autoindent / linenumbers</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">dotfile backup</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">portable configuration</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">diff (compare files)</span></div>
+    </div>
+  </div>
+
+  <div class="vocab-section">
+    <div class="vocab-week">Week 13 — scripting</div>
+    <div class="vocab-grid">
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">shell script</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">#!/bin/bash (shebang)</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">command substitution $()</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">bash -x (debug)</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">$1 $2 (arguments)</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">$# (arg count)</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">$? (exit code)</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">read -p</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">if [ ] then fi</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">-f -d -e (file tests)</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">-z -n (string tests)</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">exit 1 + usage message</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">for loop</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">while loop</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">seq / brace expansion</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">log() timestamp pattern</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">script comment header</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cbox y"></div><div class="cbox n"></div></div><span class="vterm">edge case handling</span></div>
+    </div>
+  </div>
+
+  <div class="reflect">
+    <div class="slabel" style="margin-top:0;">Phase 3 reflection</div>
+    <div class="rq">1. What is the single most useful thing you added to your .bashrc? Why?</div>
+    <div class="rlines"><div class="rline"></div><div class="rline"></div></div>
+    <div class="rq">2. What did the portability test (session 48) reveal about your configuration?</div>
+    <div class="rlines"><div class="rline"></div><div class="rline"></div></div>
+    <div class="rq">3. Describe your Phase 3 synthesis script: what it does, one technical detail, one problem you solved.</div>
+    <div class="rlines"><div class="rline"></div><div class="rline"></div><div class="rline"></div></div>
+    <div class="rq">4. Complete: "A shell script is worth writing when ___."</div>
+    <div class="rlines"><div class="rline"></div></div>
+  </div>
+</div>
+
+</body>
+</html>

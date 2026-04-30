@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 4 — Teacher Manual</title>
+<style>
+  :root {
+    --coral-light:#FAECE7;--coral-mid:#F0997B;--coral-dark:#712B13;--coral-text:#993C1D;
+    --blue-light:#E6F1FB;--blue-dark:#0C447C;--blue-text:#185FA5;
+    --green-light:#EAF3DE;--green-dark:#27500A;--green-text:#3B6D11;
+    --amber-light:#FAEEDA;--amber-dark:#633806;
+    --gray-light:#F1EFE8;--gray-dark:#444441;
+    --text:#1a1a1a;--muted:#555;--border:#e0ddd6;--bg:#fff;--bgsec:#faf9f7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:Georgia,serif;font-size:15px;line-height:1.75;color:var(--text);background:var(--bg);}
+  .page{max-width:860px;margin:0 auto;padding:3rem 2.5rem;}
+  .cover{text-align:center;padding:4rem 0 3rem;border-bottom:1px solid var(--border);margin-bottom:3rem;}
+  .cover-label{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+  .cover h1{font-size:32px;font-weight:normal;margin-bottom:.5rem;}
+  .cover h2{font-size:18px;font-weight:normal;color:var(--muted);margin-bottom:2rem;}
+  .cover-meta{display:flex;justify-content:center;gap:2.5rem;font-size:13px;color:var(--muted);font-family:'Courier New',monospace;}
+  .cover-meta strong{color:var(--text);font-weight:normal;font-size:15px;display:block;}
+  .overview{background:var(--coral-light);border-radius:8px;padding:1.5rem 2rem;margin-bottom:3rem;}
+  .overview h3{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--coral-dark);margin-bottom:.75rem;}
+  .overview p{font-size:14px;color:var(--coral-dark);line-height:1.75;margin-bottom:.75rem;}
+  .overview p:last-child{margin-bottom:0;}
+  .toc{background:var(--bgsec);border:1px solid var(--border);border-radius:8px;padding:1.5rem 2rem;margin-bottom:3rem;}
+  .toc h3{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+  .toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
+  .toc a{font-size:12px;color:var(--coral-text);text-decoration:none;font-family:'Courier New',monospace;}
+  .toc a:hover{text-decoration:underline;}
+  .week-header{margin:3rem 0 2rem;padding-bottom:.75rem;border-bottom:2px solid var(--text);}
+  .week-label{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+  .week-title{font-size:22px;font-weight:normal;margin-top:4px;}
+  .week-theme{font-size:14px;color:var(--muted);font-style:italic;margin-top:4px;}
+  .session{border:1px solid var(--border);border-radius:8px;margin-bottom:2.5rem;overflow:hidden;page-break-inside:avoid;}
+  .session-header{background:var(--coral-light);padding:1rem 1.5rem;display:flex;align-items:baseline;gap:1rem;}
+  .session-num{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--coral-dark);min-width:70px;}
+  .session-title{font-size:17px;font-weight:normal;color:var(--coral-dark);}
+  .session-body{padding:1.5rem;}
+  .time-bar{display:flex;gap:4px;margin-bottom:1.5rem;border-radius:4px;overflow:hidden;height:36px;}
+  .t-block{display:flex;flex-direction:column;justify-content:center;padding:0 10px;font-size:10px;font-family:'Courier New',monospace;line-height:1.3;}
+  .t-block strong{font-size:12px;display:block;}
+  .t-warm{background:var(--gray-light);color:var(--gray-dark);}
+  .t-concept{background:var(--coral-light);color:var(--coral-dark);}
+  .t-exercise{background:var(--blue-light);color:var(--blue-dark);}
+  .t-close{background:var(--green-light);color:var(--green-dark);}
+  .t-hands{background:#EEEDFE;color:#3C3489;}
+  .section{margin-bottom:1.5rem;}
+  .section-label{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;border-bottom:1px solid var(--border);padding-bottom:4px;}
+  .section p{font-size:14px;line-height:1.75;margin-bottom:.75rem;}
+  .section p:last-child{margin-bottom:0;}
+  .whiteboard{background:#fffef5;border:1px dashed #c8c090;border-radius:6px;padding:1.25rem 1.5rem;margin:.75rem 0;}
+  .whiteboard-label{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8a7a40;margin-bottom:.75rem;}
+  .whiteboard-content{font-family:'Courier New',monospace;font-size:13px;line-height:2;color:#333;}
+  .exercise-box{background:var(--blue-light);border-radius:6px;padding:1.25rem 1.5rem;margin:.75rem 0;}
+  .exercise-box p{color:var(--blue-dark);font-size:14px;line-height:1.75;margin-bottom:.75rem;}
+  .exercise-box p:last-child{margin-bottom:0;}
+  .exercise-box ol,.exercise-box ul{padding-left:1.5rem;color:var(--blue-dark);font-size:14px;line-height:1.9;}
+  .exercise-box li{margin-bottom:.3rem;}
+  .teacher-note{background:#FFF3CD;border-left:3px solid #E8A000;border-radius:0 6px 6px 0;padding:1.25rem 1.5rem;margin:.75rem 0;}
+  .teacher-note-label{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8a6000;margin-bottom:.5rem;}
+  .teacher-note p{color:#5a4000;font-size:14px;line-height:1.75;margin-bottom:.75rem;}
+  .teacher-note p:last-child{margin-bottom:0;}
+  .safety-box{background:#FFF0F0;border:2px solid #D85A30;border-radius:6px;padding:1.25rem 1.5rem;margin:.75rem 0;}
+  .safety-label{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8B0000;margin-bottom:.5rem;}
+  .safety-box p{font-size:14px;color:#5a0000;line-height:1.75;margin-bottom:.5rem;}
+  .safety-box p:last-child{margin-bottom:0;}
+  .milestone-box{background:var(--coral-light);border:2px solid var(--coral-mid);border-radius:8px;padding:1.5rem 2rem;margin:1.5rem 0;}
+  .milestone-label{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--coral-dark);margin-bottom:.75rem;}
+  .milestone-box p{font-size:15px;color:var(--coral-dark);line-height:1.75;font-weight:normal;}
+  .qa-box{background:var(--amber-light);border-radius:6px;padding:1.25rem 1.5rem;margin:.75rem 0;}
+  .qa-box-label{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-dark);margin-bottom:.75rem;}
+  .qa-item{margin-bottom:.9rem;}
+  .qa-item:last-child{margin-bottom:0;}
+  .qa-q{font-size:13px;font-weight:bold;color:var(--amber-dark);font-family:'Courier New',monospace;margin-bottom:3px;}
+  .qa-a{font-size:13px;color:var(--amber-dark);line-height:1.7;}
+  .vocab-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+  .vocab-term{background:var(--coral-light);color:var(--coral-dark);font-family:'Courier New',monospace;font-size:12px;padding:3px 10px;border-radius:3px;}
+  code{font-family:'Courier New',monospace;background:var(--gray-light);padding:1px 5px;border-radius:3px;font-size:13px;color:#333;}
+  pre{font-family:'Courier New',monospace;background:#1e1e1e;color:#d4d4d4;padding:1rem 1.25rem;border-radius:6px;font-size:13px;line-height:1.7;overflow-x:auto;margin:.75rem 0;}
+  .checklist{list-style:none;padding:0;}
+  .checklist li{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.6;margin-bottom:.5rem;}
+  .checklist li::before{content:'☐';font-size:16px;color:var(--coral-dark);flex-shrink:0;margin-top:1px;}
+  @media print{body{font-size:13px;}.page{padding:1.5rem;}.session{page-break-inside:avoid;}.week-header{page-break-before:always;}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="cover">
+  <div class="cover-label">Linux seminar · Kubuntu LTS · Ages 15–18</div>
+  <h1>Phase 4 — Teacher Manual</h1>
+  <h2>Build your own machine</h2>
+  <div class="cover-meta">
+    <span><div>Sessions</div><strong>8</strong></span>
+    <span><div>Weeks</div><strong>14 – 15</strong></span>
+    <span><div>Format</div><strong>4 days × 1 hour</strong></span>
+    <span><div>Outcome</div><strong>Working computer, installed OS</strong></span>
+  </div>
+</div>
+
+<div class="overview">
+  <h3>Phase goal</h3>
+  <p>By the end of these two weeks, every student has a working computer they assembled from components and an operating system they installed themselves. That machine is theirs. All Phase 5 and Phase 6 work happens on it.</p>
+  <p>This is the emotional midpoint of the course. The "wait, I can do that?" moment you planned from the beginning. Everything in Phases 1–3 was preparation — the filesystem knowledge, the terminal confidence, the UEFI familiarity from session 56 — all of it lands here as practical capability rather than abstract knowledge.</p>
+  <p>Two things to prepare before Phase 4 starts. First: hardware. Each student needs a compatible set of components. The bare minimum that can run Kubuntu and Ollama in Phase 6: a CPU with 4 cores, 8GB RAM minimum (16GB preferred for Ollama), 256GB NVMe SSD, a case, a motherboard with the right socket, and a PSU. Integrated graphics is sufficient. Budget: €200–350 per build depending on sourcing. Second: the Kubuntu LTS ISO and sha256sum file downloaded before session 59, and USB drives for each student.</p>
+  <p>Pacing note: the assembly session (57) and the installation session (60) almost always run long. If your 1-hour format is firm, plan to split session 57 across two days, and accept that session 60 may need the full period without a formal close. The first boot is the close.</p>
+</div>
+
+<div class="toc">
+  <h3>Sessions</h3>
+  <div class="toc-grid">
+    <a href="#s53">S53 — What a computer is made of</a>
+    <a href="#s54">S54 — Compatibility: building a parts list</a>
+    <a href="#s55">S55 — The boot process end to end</a>
+    <a href="#s56">S56 — UEFI/BIOS hands-on</a>
+    <a href="#s57">S57 — Assemble the machine</a>
+    <a href="#s58">S58 — First power-on and UEFI verification</a>
+    <a href="#s59">S59 — Bootable USB and partitioning theory</a>
+    <a href="#s60">S60 — OS installation and first boot</a>
+  </div>
+</div>
+
+<!-- ===== WEEK 14 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 14</div>
+  <div class="week-title">Hardware</div>
+  <div class="week-theme">"Nothing here is magic. Every component has a job. If it fails, you will know why."</div>
+</div>
+
+<div class="session" id="s53">
+  <div class="session-header">
+    <div class="session-num">Session 53</div>
+    <div class="session-title">What a computer is actually made of</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:10"><strong>10 min</strong>observation</div>
+      <div class="t-block t-concept" style="flex:30"><strong>30 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:15"><strong>15 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>Before touching hardware, students need a mental model of what each component does, not just what it is called. This session bridges the four-layer model from session 1 — hardware, firmware, OS, applications — with the physical reality of the components they will handle next week. By the end, every component should have a clear function in the student's mind.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Preparation</div>
+      <p>Bring in physical components if possible — even a single stick of RAM, a CPU (with the socket guard on if Intel), an NVMe SSD, and a motherboard are enough to make the session concrete. If physical components are not available, high-quality photos on screen work. A disassembled PC with the side panel removed showing all components in context is ideal.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 10 min</div>
+      <p>Hold up (or display) the disassembled machine. Ask: "Can anyone name every component they see?" Take all answers without correcting — write them on the board. When naming is exhausted, ask: "Can anyone explain what each one does?" The gap between the two lists is what this session fills. Most students can name components from gaming or tech interest. Almost none can explain the data flow between them.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 30 min</div>
+      <p>Cover each component with a physical example or close-up photo. For each one, explain: what it does, where data goes in and out, and what happens when it fails. The failure mode is often the most memorable part.</p>
+
+      <p><strong>CPU (Central Processing Unit).</strong> Executes instructions — billions per second. Modern CPUs have multiple cores, each capable of running its own thread simultaneously. The CPU fetches instructions from RAM, decodes them, executes them, and writes results back to RAM. It does not store programs — storage and RAM do that. The CPU is the fastest component but also the most dependent on everything else being ready. Failure: machine will not power on, or powers on without POST completing.</p>
+
+      <p><strong>Motherboard.</strong> The backbone that every other component connects to. The CPU socket determines which CPUs are compatible. The RAM slots determine the memory type. PCIe slots host expansion cards. The chipset manages communication between components. The UEFI firmware is stored on a chip on the motherboard. Failure: nothing works — the motherboard is the integration point for all other components.</p>
+
+      <p><strong>RAM (Random Access Memory).</strong> Fast, temporary working memory. Programs and their data are loaded from disk into RAM before the CPU can process them. When power is removed, RAM is wiped — this is why unsaved work is lost in a crash. More RAM allows more programs to run simultaneously without the OS having to swap to disk. Current standard: DDR5 on new builds, DDR4 on older platforms. Failure: random crashes, corrupted data, failure to boot with beep codes.</p>
+
+      <p><strong>Storage (NVMe SSD / SATA SSD / HDD).</strong> Permanent storage — survives power loss. NVMe SSDs connect via PCIe M.2 slot, achieving 3–7 GB/s sequential read speeds. SATA SSDs connect via SATA cable, limited to ~550 MB/s. HDDs use spinning magnetic platters — slowest but cheapest per gigabyte. For our build: NVMe SSD for the OS. Failure: machine boots to "no bootable device," or data corruption/loss.</p>
+
+      <p><strong>PSU (Power Supply Unit).</strong> Converts mains AC power to the DC voltages components require: 12V (CPU, GPU, fans), 5V (USB, some chipset components), 3.3V (RAM, some chipset). The PSU wattage must exceed total system draw. An undersized PSU causes random shutdowns under load. A failing PSU causes erratic behavior and can damage components. The PSU is the component most people buy cheap and most often regret.</p>
+
+      <p><strong>CPU Cooler.</strong> CPUs generate significant heat — a modern CPU under load can exceed 100°C without cooling. The cooler draws heat from the CPU die through thermal paste into a heatsink, which a fan pushes air through. Thermal paste fills microscopic gaps between the CPU's heat spreader and the cooler's contact surface — without it, the CPU overheats in seconds. Liquid coolers replace the fan-and-heatsink with a pump, tubes, and a radiator mounted in the case. For our build: a standard air cooler is sufficient. Failure: CPU throttles to prevent damage, then shuts down if temperature exceeds threshold.</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">Data flow diagram — draw on board</div>
+        <div class="whiteboard-content">
+STORAGE (NVMe SSD)
+    ↕ program loads into RAM at startup
+RAM
+    ↕ CPU fetches instructions from RAM
+CPU ←→ executes, results go back to RAM
+    ↕ display output via integrated GPU
+SCREEN
+
+PSU powers all of the above
+MOTHERBOARD connects all of the above
+COOLER keeps CPU from destroying itself
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 15 min</div>
+      <div class="exercise-box">
+        <p><strong>Component identification sheet.</strong> For each component, fill in the table:</p>
+        <ol>
+          <li>Full name</li>
+          <li>One-sentence function</li>
+          <li>What happens if it fails</li>
+          <li>What it directly connects to on the motherboard</li>
+        </ol>
+        <p>Components: CPU, motherboard, RAM, NVMe SSD, PSU, CPU cooler, case fan.</p>
+        <p><strong>Discussion question:</strong> if you had to replace one component to make a slow 5-year-old computer faster for general daily use, which would you choose and why? (RAM and SSD upgrades are usually the highest-value changes — explore why.)</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">CPU</span><span class="vocab-term">core / thread</span>
+        <span class="vocab-term">motherboard</span><span class="vocab-term">CPU socket</span>
+        <span class="vocab-term">RAM / DDR5</span><span class="vocab-term">NVMe SSD</span>
+        <span class="vocab-term">M.2 slot</span><span class="vocab-term">PCIe</span>
+        <span class="vocab-term">PSU / wattage</span><span class="vocab-term">thermal paste</span>
+        <span class="vocab-term">CPU cooler</span><span class="vocab-term">integrated graphics</span>
+        <span class="vocab-term">TDP</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The failure mode column in the exercise is the most instructive. Students who learn "bad RAM causes random crashes and data corruption — very hard to diagnose" will remember it because it is counterintuitive. Most people assume a RAM problem would cause obvious RAM-related errors. It does not — it causes random, unpredictable failures that look like software problems. Systems administrators spend hours diagnosing mysterious crashes before running memtest and finding faulty RAM. This is real diagnostic knowledge.</p>
+      <p>The discussion question about which component to upgrade will reveal students with gaming PC knowledge. Let them lead — they are usually correct that RAM (if under 16GB) and NVMe SSD (if still on an HDD) are the best value upgrades. Ask them to explain the data flow reason: an SSD makes storage access 10–50× faster, so the bottleneck shifts from disk to CPU/RAM. That reasoning is more valuable than the conclusion.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s54">
+  <div class="session-header">
+    <div class="session-num">Session 54</div>
+    <div class="session-title">Compatibility — building a parts list</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>scenario</div>
+      <div class="t-block t-concept" style="flex:25"><strong>25 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:25"><strong>25 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Scenario: a student ordered a CPU (Intel Core i5-13600K), a motherboard (with AM5 socket), and DDR5 RAM. Everything arrived. Nothing works. Why? The AM5 socket is AMD's — the i5 uses Intel's LGA1700. The motherboard and CPU are physically incompatible — the CPU will not even seat. This is a real, common, expensive mistake that compatibility checking prevents entirely. Compatibility is the most important hardware skill.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 25 min</div>
+      <p>Compatibility works as a chain. Each decision constrains the next:</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">The compatibility chain</div>
+        <div class="whiteboard-content">
+CPU choice
+  → determines socket type (LGA1700, AM5, etc.)
+  → determines which motherboards are compatible
+  → determines RAM type (DDR4 or DDR5)
+  → determines max RAM speed support
+
+Motherboard choice
+  → determines form factor (ATX, Micro-ATX, Mini-ITX)
+  → determines case size requirement
+  → determines storage options (M.2 slots, SATA ports)
+  → determines PCIe version
+
+PSU wattage
+  → must exceed total system TDP with ≥20% headroom
+
+Case size
+  → must fit the motherboard form factor
+        </div>
+      </div>
+
+      <p><strong>Socket types to know.</strong> Intel current: LGA1700 (12th/13th/14th gen), LGA1851 (Core Ultra). AMD current: AM5 (Ryzen 7000/8000/9000 series). These sockets are not interchangeable in any way — different pin counts, different physical layouts, different CPU shapes.</p>
+
+      <p><strong>RAM compatibility.</strong> RAM type (DDR4 vs DDR5) is determined by the motherboard. DDR4 and DDR5 are not cross-compatible — the notch position on the module is different, so you cannot physically install the wrong type. RAM speed (3200 MHz, 5600 MHz, etc.) must be supported by the motherboard's XMP/EXPO profile. Installing faster RAM than the board supports does not damage anything — the RAM runs at the board's maximum supported speed instead.</p>
+
+      <p><strong>PSU sizing.</strong> Find the TDP of the CPU (e.g., 65W). Add the TDP of the GPU if discrete (e.g., 150W). Add approximately 50W for the rest of the system. Multiply by 1.2 for headroom. For our integrated-GPU build: CPU TDP (65W) + system (50W) × 1.2 = ~138W. A 550W PSU is generous — but PSUs run more efficiently at 50–80% load, so not wasting wattage matters less than having headroom.</p>
+
+      <p><strong>PCPartPicker.</strong> pcpartpicker.com checks compatibility automatically. It flags socket mismatches, RAM type mismatches, power budget overruns, and case clearance issues. It is not infallible — always verify against manufacturer specifications for critical choices — but it catches most common mistakes.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 25 min</div>
+      <div class="exercise-box">
+        <p><strong>PCPartPicker challenge</strong> (internet required). Build a theoretical parts list for a €400 budget computer that will run Kubuntu and the Ollama AI tools in Phase 6.</p>
+        <p><strong>Requirements:</strong> must support Kubuntu, 16GB RAM minimum, NVMe SSD (256GB minimum), no discrete GPU, zero compatibility warnings on PCPartPicker.</p>
+        <p>For each component chosen, write: name, price, why chosen, and one compatibility reason it works with the previous choice.</p>
+        <p><strong>After building:</strong> what is the total TDP? Is the PSU correctly sized? What would you change if the budget was €300? What if it was €600?</p>
+        <p>Compare results with a partner — which build has better value? Better upgrade path? Are there any differences in RAM speed, NVMe interface, or PSU efficiency rating?</p>
+      </div>
+    </div>
+
+    <div class="qa-box">
+      <div class="qa-box-label">Expected student questions</div>
+      <div class="qa-item">
+        <div class="qa-q">Q: Does brand matter for components?</div>
+        <div class="qa-a">A: Less than people think for most components. For RAM and SSDs: major brands (Kingston, Crucial, Samsung, WD) have good reliability track records. For PSUs: brand matters more — a cheap PSU can damage other components when it fails. For motherboards: mid-range from ASUS, MSI, or Gigabyte is reliable. The CPU brand (Intel vs AMD) is a genuine choice with trade-offs in performance per watt, price, and platform longevity.</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">Q: Can I install Windows on this instead?</div>
+        <div class="qa-a">A: Yes, the hardware is compatible with Windows. The course uses Linux. The skills you develop here transfer to understanding Windows more deeply too — the hardware is the same regardless of OS.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">socket (LGA1700 / AM5)</span>
+        <span class="vocab-term">DDR4 vs DDR5</span>
+        <span class="vocab-term">XMP / EXPO</span>
+        <span class="vocab-term">form factor (ATX/mATX/ITX)</span>
+        <span class="vocab-term">TDP</span>
+        <span class="vocab-term">PSU efficiency</span>
+        <span class="vocab-term">PCPartPicker</span>
+        <span class="vocab-term">M.2 NVMe</span>
+        <span class="vocab-term">compatibility chain</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The PCPartPicker exercise is consistently one of the most engaging in Phase 4 for students with any interest in gaming or tech. Budget constraints make it feel like a puzzle. Students who come in with gaming PC knowledge will be immediately engaged — let them teach others. Students without that background often find the constraint-solving aspect satisfying once they start. The €400 budget is tight enough to require real trade-offs but realistic enough to be achievable.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s55">
+  <div class="session-header">
+    <div class="session-num">Session 55</div>
+    <div class="session-title">The boot process — from power button to login screen</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>recall</div>
+      <div class="t-block t-concept" style="flex:25"><strong>25 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:25"><strong>25 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>The boot process connects the hardware of week 14 to the OS installation of week 15. Students who understand this sequence will not be confused when GRUB appears in session 60, when the installer asks about partitions, or when the system says "no bootable device" after a misconfigured installation. This session is the theoretical foundation for everything that happens in week 15.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Ask a student to draw the four-layer diagram from session 1 from memory. Once it is on the board: "The boot process is the moment these four layers activate in sequence. Each layer hands control to the next. Today we trace that handoff step by step." This connects back to the very first session of the course — a satisfying callback at the midpoint.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 25 min</div>
+      <p>Walk through the boot sequence with each step on the whiteboard, drawn as a flowchart. Add each step as you explain it.</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">Complete boot sequence — draw step by step</div>
+        <div class="whiteboard-content">
+[1] POWER APPLIED
+    → PSU performs POST (Power-On Self Test)
+    → Confirms voltages, signals motherboard
+
+[2] CPU STARTS
+    → Executes first instruction from fixed address
+    → That address contains UEFI firmware code
+
+[3] UEFI INITIALISES
+    → Checks RAM (Memory Training)
+    → Detects storage devices
+    → Detects keyboard, display
+    → Shows splash screen
+    → Checks boot order
+
+[4] UEFI FINDS BOOTLOADER
+    → Reads EFI System Partition (FAT32)
+    → Loads GRUB from /boot/efi/
+
+[5] GRUB RUNS
+    → Shows OS selection menu (if multiple OS)
+    → Loads the Linux kernel into RAM
+    → Passes control to the kernel
+
+[6] KERNEL STARTS
+    → Detects hardware, loads drivers
+    → Mounts root filesystem (/)
+    → Starts systemd (PID 1)
+
+[7] SYSTEMD STARTS SERVICES
+    → Networking, audio, bluetooth
+    → Display manager (SDDM on KDE)
+
+[8] LOGIN SCREEN APPEARS
+    → User logs in
+    → Desktop environment loads
+        </div>
+      </div>
+
+      <p><strong>Key distinctions to emphasise.</strong> UEFI vs legacy BIOS: UEFI is the modern standard. It requires GPT partition tables (not MBR), supports drives over 2TB, supports secure boot, and has a graphical interface. Legacy BIOS is text-only, limited to MBR, and cannot address drives over 2TB. We use UEFI for our installation. Secure boot: a UEFI feature that verifies the bootloader is cryptographically signed before running it. Prevents tampered boot software but can cause issues with some Linux installations if not configured correctly.</p>
+
+      <p><strong>The EFI System Partition (ESP).</strong> A small FAT32 partition that the UEFI firmware can read. It contains the bootloaders for all installed operating systems. GRUB lives here. The ESP is the bridge between the firmware (UEFI) and the software (GRUB → kernel). Without a correctly formatted ESP, the UEFI cannot find anything to boot.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 25 min</div>
+      <div class="exercise-box">
+        <p><strong>Boot sequence flowchart.</strong> Students draw the complete boot sequence independently — without looking at the board. Each step as a box, each handoff as an arrow. For each box, write: what software is involved, where it lives physically (on a chip, in a FAT32 partition, in RAM, on the root filesystem), and what it hands control to next.</p>
+        <p><strong>Failure analysis</strong> — answer these without looking at notes:</p>
+        <ol>
+          <li>The GRUB files are deleted from the EFI partition. What happens when you power on? How would you fix it?</li>
+          <li>The root partition (/) is corrupted. GRUB loads fine. What happens next? What error appears?</li>
+          <li>systemd fails to start. What does the user see? What do they not see?</li>
+          <li>The boot order in UEFI is set to try the NVMe drive first, but there is no OS on it. What message appears?</li>
+          <li>You install a bootable USB and want to boot from it, but the UEFI is set to boot from the NVMe first. What do you change?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">POST</span><span class="vocab-term">UEFI</span>
+        <span class="vocab-term">legacy BIOS</span><span class="vocab-term">boot order</span>
+        <span class="vocab-term">GRUB</span><span class="vocab-term">EFI System Partition</span>
+        <span class="vocab-term">FAT32</span><span class="vocab-term">kernel load</span>
+        <span class="vocab-term">systemd / PID 1</span><span class="vocab-term">display manager</span>
+        <span class="vocab-term">GPT vs MBR</span><span class="vocab-term">secure boot</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The failure analysis questions are the session's most valuable exercise. Students who can trace a failure backward through the boot chain understand the sequence as a dependency graph, not a list. Question 1 — deleted GRUB — is particularly instructive: the fix (boot from a live USB, chroot into the system, reinstall GRUB) is a real recovery procedure that many Linux users need at some point. You do not need to explain the fix in detail now — just tell them the fix exists and that it requires booting from external media. That preview makes the live USB in session 59 feel more meaningful.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s56">
+  <div class="session-header">
+    <div class="session-num">Session 56</div>
+    <div class="session-title">UEFI/BIOS — the firmware layer hands-on</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>question</div>
+      <div class="t-block t-concept" style="flex:15"><strong>15 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:35"><strong>35 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>Students enter the UEFI interface on their existing machines and learn to navigate it. When they enter UEFI on their newly assembled machine in session 58, it will not be their first time in that interface. Familiarity removes the anxiety that causes mistakes.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Ask: how many students have entered UEFI before? (Usually very few.) Ask those who have: what were you trying to do? The answer is usually "fix a boot problem" or "enable something for a game." This session is about understanding UEFI as a tool, not as an emergency measure.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 15 min</div>
+      <p>How to enter UEFI: press the manufacturer-specific key during the power-on splash screen. Common keys: Del (ASUS, Gigabyte), F2 (MSI, Lenovo, Dell), F12 (boot menu on many boards). On Kubuntu: System Settings → Startup and Shutdown → click "Restart into UEFI Setup." This is the reliable method — no timing required.</p>
+
+      <p>UEFI navigation: arrow keys move between fields. Enter selects. F-keys perform actions (F10 = save and exit on most boards). Every change must be saved explicitly — exiting without saving discards all changes. There is usually a "Discard and Exit" and a "Save and Exit" option. Know the difference before touching anything.</p>
+
+      <p>The five categories that matter for our installation:</p>
+      <ul style="font-size:14px; line-height:1.9; padding-left:1.5rem; margin-top:0.5rem; color:var(--text);">
+        <li><strong>Main / Info</strong> — CPU model, RAM amount, firmware version. Read-only information.</li>
+        <li><strong>Boot</strong> — boot order, secure boot, fast boot. We set boot order here.</li>
+        <li><strong>Advanced / Chipset</strong> — storage mode (AHCI is required, not RAID), virtualization.</li>
+        <li><strong>Security</strong> — supervisor password. Do not set this without a plan to remember it.</li>
+        <li><strong>Power</strong> — rarely needed for our build.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 35 min</div>
+      <div class="safety-box">
+        <div class="safety-label">Critical instruction — read before starting</div>
+        <p>During this exercise, you are reading and observing only. Do NOT change any setting and do NOT save. If you accidentally change something, press Escape repeatedly until you reach the exit menu, then select "Discard and Exit." Never press F10 or "Save and Exit" during this exercise.</p>
+      </div>
+      <div class="exercise-box">
+        <ol>
+          <li>Restart into UEFI from Kubuntu (System Settings → Startup and Shutdown → Restart into UEFI Setup). Observe the interface. Is it graphical or text-based?</li>
+          <li>Find and write down: CPU model shown, total RAM detected, firmware/BIOS version number.</li>
+          <li>Find the boot order settings. What is currently first? What devices are listed?</li>
+          <li>Find the secure boot setting. Is it enabled or disabled? Read any description provided.</li>
+          <li>Find the storage mode setting (may be under Advanced, Chipset, or SATA). Is it set to AHCI or something else? (It should be AHCI.)</li>
+          <li>Find the virtualization setting (Intel VT-x or AMD-V / SVM). Is it enabled?</li>
+          <li>Find where you would set a supervisor password — do NOT set one. What does the description say it controls?</li>
+          <li>Write the three specific settings you would need to change to boot a new machine from a USB drive to install Kubuntu.</li>
+          <li>Exit without saving: press Escape until the exit menu appears. Select "Discard and Exit."</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Close · 5 min</div>
+      <p>Review the three settings for next week: (1) boot order — USB first, (2) AHCI mode for storage, (3) secure boot — may need to be disabled. Write these in the handout. Preview session 57: "Next session you build the machine. Read the handout tonight. Know the assembly sequence before you touch a component."</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">UEFI interface</span><span class="vocab-term">boot order</span>
+        <span class="vocab-term">secure boot</span><span class="vocab-term">AHCI</span>
+        <span class="vocab-term">RAID</span><span class="vocab-term">virtualization</span>
+        <span class="vocab-term">supervisor password</span><span class="vocab-term">fast boot</span>
+        <span class="vocab-term">save and exit (F10)</span>
+        <span class="vocab-term">discard and exit</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>One student will accidentally save a change during this session. It always happens. Handle it calmly: restart into UEFI again, identify what changed (compare against other students' notes), and revert it manually. This is not a crisis — it is a learning moment about why "discard and exit" exists and why UEFI changes are reversible. The student who accidentally saves something will be extremely careful for the rest of the course.</p>
+      <p>If the UEFI on any student machine is set to RAID mode rather than AHCI for storage, that explains why some machines have had unusual disk behavior in earlier phases. Mention this and explain: RAID mode in a single-drive system adds a compatibility layer that can cause issues with Linux drivers. AHCI is correct for our setup.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WEEK 15 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 15</div>
+  <div class="week-title">Assemble and install</div>
+  <div class="week-theme">"Hardware is not magic either. Neither is the OS that runs on it."</div>
+</div>
+
+<div class="session" id="s57">
+  <div class="session-header">
+    <div class="session-num">Session 57</div>
+    <div class="session-title">Assemble — building the machine</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>safety brief</div>
+      <div class="t-block t-hands" style="flex:50"><strong>50 min</strong>hands-on build</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>inspection</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>The physical build. Students assemble their computers following a strict sequence, checking each step before proceeding to the next. The most common build mistakes are: RAM not fully seated, CPU power connector missed, front panel connectors miswired. Each of these is prevented by following the sequence and verifying before proceeding.</p>
+      <p><strong>Time note:</strong> this session reliably runs long for first-time builders. If your format allows, give this session 90 minutes. If constrained to 60 minutes, plan for the assembly to continue at the start of session 58, with the first power-on happening mid-session 58.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Safety brief · 5 min</div>
+      <div class="safety-box">
+        <div class="safety-label">Hardware safety — say this before anyone touches a component</div>
+        <p><strong>Anti-static:</strong> touch the metal case or use an anti-static strap before handling any component. Static discharge can destroy a CPU or RAM module instantly and invisibly.</p>
+        <p><strong>No force:</strong> if a connector, screw, or component does not go in easily, stop. It is probably oriented incorrectly. Force damages connectors permanently.</p>
+        <p><strong>CPU handling:</strong> the CPU installation is the most delicate step. The socket pins or pads are extremely fragile. Hold the CPU by its edges only, never touch the contact surface.</p>
+        <p><strong>Ask before proceeding:</strong> if you are uncertain about any step, stop and ask. Hardware damage is usually permanent and expensive. Asking costs nothing.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Assembly sequence · 50 min</div>
+      <p>Walk through each step once as a demonstration on a spare board or with clear photos before students perform it. Then students execute while you circulate and verify each step before they proceed to the next.</p>
+
+      <div class="exercise-box">
+        <p><strong>Follow this sequence exactly. Do not skip ahead. Check each step before proceeding.</strong></p>
+        <ol>
+          <li><strong>Prepare the case.</strong> Remove both side panels. Install the I/O shield (the metal backplate for rear ports) — it clips in from inside the case. Identify and install the correct motherboard standoffs for your form factor — they prevent the motherboard from shorting against the case.</li>
+          <li><strong>CPU installation.</strong> Unlock the socket retention mechanism (Intel: lift the lever; AMD: open the cam lever). Align the CPU — look for the golden triangle or notch that indicates orientation. Place it with zero force — it drops in. Lock the mechanism. Apply a pea-sized drop of thermal paste to the center of the CPU heat spreader (not the socket).</li>
+          <li><strong>CPU cooler.</strong> Mount the cooler bracket if required. Lower the cooler onto the CPU. Tighten the four mounting screws in a cross pattern: top-left, bottom-right, top-right, bottom-left. This ensures even pressure. Connect the cooler fan cable to the CPU_FAN header (usually labeled near the CPU socket).</li>
+          <li><strong>RAM installation.</strong> Identify the correct slots — check the motherboard manual for dual-channel configuration (often slots 2 and 4, not 1 and 2). Open the retention clips. Align the module — the notch ensures correct orientation. Press firmly and evenly from both ends until both clips click audibly.</li>
+          <li><strong>NVMe SSD.</strong> Identify the M.2 slot. Remove the M.2 retention screw (if present). Insert the SSD at approximately 30 degrees, edge-first. Push down flat and secure with the M.2 screw.</li>
+          <li><strong>Motherboard into case.</strong> Lower the motherboard carefully, aligning the rear I/O ports with the shield openings. Secure with the provided screws — use all mounting points, but do not overtighten.</li>
+          <li><strong>PSU installation.</strong> Mount the PSU in the designated area (usually bottom-rear of case). Connect the 24-pin ATX main power connector to the motherboard. Connect the CPU/EPS power connector (4-pin or 8-pin, usually at top-left of motherboard — this one is frequently missed).</li>
+          <li><strong>Front panel connectors.</strong> The most confusing step — small 1-pin and 2-pin connectors for power button, reset button, power LED, and HDD LED. Consult the motherboard manual pin diagram precisely. These are low-voltage and cannot damage anything if miswired, but the machine will not behave correctly.</li>
+          <li><strong>Final connections.</strong> Any case fans connect to SYS_FAN headers. Route all cables to avoid blocking airflow and fans — use cable ties if provided.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Pre-power-on inspection · 5 min</div>
+      <p>Before any power is connected, every student must verify this checklist:</p>
+      <ul class="checklist">
+        <li>CPU cooler seated flat and both fan cables connected</li>
+        <li>RAM modules fully clicked in (both clips engaged)</li>
+        <li>24-pin ATX connector fully inserted</li>
+        <li>CPU power connector (4 or 8 pin) connected</li>
+        <li>No loose screws visible inside the case</li>
+        <li>No cables near any fan</li>
+        <li>NVMe SSD secured with M.2 screw</li>
+        <li>Front panel connectors installed per motherboard manual</li>
+      </ul>
+      <p>Do not proceed to session 58 until every item is verified by you personally for each student.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">anti-static</span><span class="vocab-term">I/O shield</span>
+        <span class="vocab-term">standoff</span><span class="vocab-term">CPU retention lever</span>
+        <span class="vocab-term">thermal paste application</span>
+        <span class="vocab-term">cross-pattern torque</span>
+        <span class="vocab-term">dual-channel RAM slots</span>
+        <span class="vocab-term">24-pin ATX connector</span>
+        <span class="vocab-term">CPU power (EPS) connector</span>
+        <span class="vocab-term">front panel headers</span>
+        <span class="vocab-term">M.2 retention screw</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The three most common mistakes in first builds, in order of frequency: (1) CPU power connector not connected — machine powers on but immediately shuts down, or does not POST. Easy to miss because it is in a corner of the board and the 24-pin is more prominent. (2) RAM not fully seated — machine powers on, no display output, may beep. The click is definitive — if you did not hear it, it is not seated. (3) Front panel power button connector on wrong pins — machine will not power on when the button is pressed. Fix: short the power button pins directly with a screwdriver to test, then correct the connector position.</p>
+      <p>If a student has installed an Intel CPU and the socket has bent pins after the lever is lowered — stop. Do not continue. This is rare but serious. The socket can sometimes be repaired with a mechanical pencil lead or a similar tool, but it requires patience. If the damage is severe, the motherboard may need replacement. Document carefully and contact your hardware supplier.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s58">
+  <div class="session-header">
+    <div class="session-num">Session 58</div>
+    <div class="session-title">First power-on — UEFI and POST verification</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-hands" style="flex:50"><strong>50 min</strong>power-on + UEFI</div>
+      <div class="t-block t-close" style="flex:10"><strong>10 min</strong>verification + preview</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>No warm-up. No lecture. Connect the peripherals, press the power button, and see what happens. This is the payoff for four sessions of theory. The goal: every student's machine passes POST, shows the UEFI interface, correctly identifies the CPU and RAM, and has the boot settings configured for OS installation.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Power-on and UEFI · 50 min</div>
+      <div class="exercise-box">
+        <p><strong>Connect in this order:</strong> monitor cable to the motherboard's video output (integrated graphics — there is no GPU). USB keyboard. Power cable to PSU. Flip the PSU rocker switch to on.</p>
+        <p><strong>Press the power button. Observe everything.</strong></p>
+        <p><strong>If nothing happens (no fans, no LEDs):</strong> PSU switch may be off, or power button front panel connector is on wrong pins. Short the power button header pins directly with a screwdriver to test.</p>
+        <p><strong>If fans spin but no display:</strong> RAM not seated, CPU power not connected, or no video cable to the correct port. Check each systematically.</p>
+        <p><strong>If POST succeeds:</strong> UEFI splash screen or logo appears. Press the appropriate key to enter UEFI setup.</p>
+        <p><strong>In UEFI, verify:</strong></p>
+        <ol>
+          <li>CPU model matches what was installed — write it down.</li>
+          <li>RAM amount matches what was installed (e.g., "16384 MB" for 16GB).</li>
+          <li>NVMe SSD appears under storage/boot devices.</li>
+          <li>Set boot order: USB drive first, NVMe second.</li>
+          <li>Verify storage mode is AHCI (not RAID or IDE).</li>
+          <li>Disable fast boot if present.</li>
+          <li>Enable virtualization if available.</li>
+        </ol>
+        <p>Save and exit (F10 or the save option). Machine reboots. It will display "no bootable device" or similar — this is correct. The machine works. There is no OS yet.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Verification · 10 min</div>
+      <p>Before ending the session, confirm with each student verbally:</p>
+      <ul class="checklist">
+        <li>CPU detected and identified in UEFI</li>
+        <li>RAM amount detected correctly</li>
+        <li>NVMe SSD appears in UEFI</li>
+        <li>Boot order: USB first</li>
+        <li>AHCI mode confirmed</li>
+      </ul>
+      <p>Any student who cannot confirm all five needs to resolve the issue before session 59. A machine that cannot detect its SSD in UEFI will not install an OS correctly.</p>
+      <p><strong>Preview session 59:</strong> "Tomorrow you create the bootable USB and learn why partitioning matters. The day after, you install the OS. By the end of this week, you log into a machine you built from scratch."</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">POST success</span><span class="vocab-term">beep codes</span>
+        <span class="vocab-term">video output (iGPU)</span>
+        <span class="vocab-term">no bootable device</span>
+        <span class="vocab-term">UEFI detection</span><span class="vocab-term">AHCI</span>
+        <span class="vocab-term">save and exit (F10)</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>"No bootable device" is the most important message to reframe correctly. Students who do not understand this message will think their build failed. Emphasise proactively: this message means the machine is working perfectly. It searched for an operating system and found none, because we have not installed one yet. This message is confirmation that the hardware works. Installation is the next session.</p>
+      <p>If a student's machine will not POST after checking the common causes (RAM, CPU power), systematically work through the POST sequence: does the PSU light up? Do any fans spin briefly then stop (often a power delivery issue)? Do any diagnostic LEDs illuminate on the motherboard? Most modern motherboards have POST diagnostic LEDs that indicate which component is failing — CPU, DRAM, BOOT, VGA. These LEDs are more informative than beep codes.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s59">
+  <div class="session-header">
+    <div class="session-num">Session 59</div>
+    <div class="session-title">Bootable USB and partitioning theory</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>question</div>
+      <div class="t-block t-concept" style="flex:25"><strong>25 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:25"><strong>25 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Ask: when the Kubuntu installer runs, what will it do to the NVMe SSD? Most students will say "erase it" or "put the OS on it." The complete answer is: it will create a partition table, create partitions, format each partition with a filesystem, install files, install GRUB to the EFI partition, and configure the bootloader. This session explains every step of that process so session 60 contains no surprises.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 25 min</div>
+      <p><strong>Partition tables.</strong> A partition table describes how a storage device is divided into regions. GPT (GUID Partition Table) is the modern standard — supports unlimited partitions (practical limit around 128), drives over 2TB, and is required for UEFI boot. MBR (Master Boot Record) is legacy — maximum 4 primary partitions, 2TB drive limit, required for some older systems. For our installation: GPT, because we are using UEFI.</p>
+
+      <p><strong>What partitions we will create.</strong> Two partitions are required for a functional Kubuntu installation:</p>
+      <p>1. <strong>EFI System Partition (ESP)</strong> — 512MB, FAT32 format, mounted at <code>/boot/efi</code>. This is where GRUB and the UEFI boot entry live. The UEFI firmware reads this partition directly — it must be FAT32. Without it, the system cannot boot.</p>
+      <p>2. <strong>Root partition (/)</strong> — remainder of the disk, ext4 format, mounted at <code>/</code>. Everything else lives here: the OS files, installed applications, your home directory, your configurations. One partition for everything simplifies administration for our purposes.</p>
+
+      <p>Optional but common: a swap partition (or swap file) provides virtual memory — used when RAM is full. On systems with 16GB RAM, swap is rarely needed but having a 4–8GB swap prevents out-of-memory crashes on heavy workloads. For our installation, the Kubuntu installer creates a swap file automatically on the root partition — no separate swap partition needed.</p>
+
+      <p><strong>Creating the bootable USB.</strong> The <code>dd</code> command copies the ISO to the USB drive byte-for-byte:</p>
+      <pre>sudo dd if=kubuntu-lts.iso of=/dev/sdX bs=4M status=progress</pre>
+      <p><code>if=</code> is the input file (the ISO). <code>of=</code> is the output file (the USB device — must be the device, not a partition: /dev/sdb not /dev/sdb1). <code>bs=4M</code> sets the block size for speed. <code>status=progress</code> shows progress. The critical step: verify the device name with <code>lsblk</code> before running dd. Writing to the wrong device destroys its contents permanently and silently.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 25 min</div>
+      <div class="safety-box">
+        <div class="safety-label">Before running dd — mandatory verification</div>
+        <p>Run <code>lsblk</code> before and after inserting the USB drive. The device that appears after insertion is the USB drive. Confirm the device size matches the USB capacity. Only then proceed with dd. Writing to the wrong device — especially the NVMe drive — cannot be undone.</p>
+      </div>
+      <div class="exercise-box">
+        <ol>
+          <li>Run <code>lsblk</code>. Identify the main NVMe drive and its partitions. What filesystem is on the EFI partition? What is its size?</li>
+          <li>Run <code>sudo fdisk -l /dev/nvme0n1</code> (or your NVMe device path). Read the output — what partition table type is used? What partitions exist?</li>
+          <li>Download or locate the Kubuntu LTS ISO in ~/Downloads. Verify its integrity:<br>
+          <code>sha256sum kubuntu-*.iso</code><br>
+          Compare the output against the published checksum on the Kubuntu website. Do they match? What would a mismatch mean?</li>
+          <li>Insert the USB drive. Run <code>lsblk</code> again. Which new device appeared? Write the full device path (e.g., /dev/sdb).</li>
+          <li>Write the complete dd command you will use, with the correct device path filled in. Have it verified before running.</li>
+          <li>Run dd. Watch the progress. When complete, run <code>lsblk</code> — the USB now shows multiple partitions. What are they?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Close · 5 min</div>
+      <p>Verify every student has a completed bootable USB. Preview session 60: "Tomorrow you partition the disk, install the OS, and boot into a machine you built yourself. Decide your username and hostname tonight — you cannot change them easily afterward."</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">partition table</span><span class="vocab-term">GPT</span>
+        <span class="vocab-term">MBR</span><span class="vocab-term">EFI System Partition</span>
+        <span class="vocab-term">FAT32</span><span class="vocab-term">ext4</span>
+        <span class="vocab-term">swap partition / swap file</span>
+        <span class="vocab-term">dd command</span><span class="vocab-term">if= / of=</span>
+        <span class="vocab-term">lsblk</span><span class="vocab-term">sha256sum</span>
+        <span class="vocab-term">ISO image</span><span class="vocab-term">bootable USB</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The dd verification step is the safety critical moment of this session. Every student must run lsblk, identify the USB device, and have their dd command verified before running it. Do not allow anyone to run dd before you have seen their command and confirmed the of= path. A student who runs dd against their NVMe drive loses their Phase 1–3 work. This is recoverable in theory (the data may still be on disk) but not practically within a course session.</p>
+      <p>The sha256sum verification (task 3) is a real security practice. If a student's ISO checksum does not match, the download is corrupt or was tampered with. In practice, this almost always means a corrupt download rather than tampering — but the check is the same either way. A student who installs from a corrupt ISO will encounter bizarre installation failures that are very hard to diagnose. The checksum check prevents this entirely.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s60">
+  <div class="session-header">
+    <div class="session-num">Session 60</div>
+    <div class="session-title">OS installation — from USB to running system</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-hands" style="flex:50"><strong>50 min</strong>installation</div>
+      <div class="t-block t-close" style="flex:10"><strong>10 min</strong>first boot verification</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>No warm-up. No lecture. Insert the USB, power on, boot from it, and follow the installer. Walk students through each screen as they encounter it — explain decisions as they arise, not in advance. The payoff for everything in Phase 4.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Installation walkthrough · 50 min</div>
+      <p>Insert the USB drive. Power on. If the machine does not boot from USB automatically, enter the UEFI boot menu (usually F12) and select the USB device. The Kubuntu live environment loads. From the desktop, launch the installer.</p>
+
+      <div class="exercise-box">
+        <p><strong>Walk through each installer screen together. Explain each decision as you reach it.</strong></p>
+        <p><strong>Language:</strong> select your preferred language.</p>
+        <p><strong>Keyboard layout:</strong> select and test by typing special characters.</p>
+        <p><strong>Installation type:</strong> Normal installation. Check "Install third-party software" for broader hardware support (especially Wi-Fi drivers).</p>
+        <p><strong>Disk setup — this is the critical screen. Choose "Manual partitioning."</strong></p>
+        <ol>
+          <li>Select the NVMe drive (not the USB drive — verify by size).</li>
+          <li>Click "New partition table" → select GPT.</li>
+          <li>Create partition 1: size 512MB, type FAT32, mount point /boot/efi, flag: EFI System Partition.</li>
+          <li>Create partition 2: size = remaining space, type ext4, mount point /.</li>
+          <li>Verify the partition layout before proceeding — this step formats the disk.</li>
+        </ol>
+        <p><strong>Location / timezone:</strong> select your timezone.</p>
+        <p><strong>User account:</strong></p>
+        <ul>
+          <li>Full name: your real name</li>
+          <li>Username: lowercase, no spaces, no special characters. This is your login name and home directory name.</li>
+          <li>Computer name (hostname): something memorable. Appears in the terminal prompt and on the network.</li>
+          <li>Password: choose something you will remember. It is used for sudo throughout the course.</li>
+        </ul>
+        <p><strong>Review and install:</strong> read the summary. Verify the partition layout. Click Install Now.</p>
+        <p>Wait approximately 10–20 minutes. The installer copies files, installs GRUB, and configures the system.</p>
+        <p><strong>Installation complete:</strong> click "Restart Now." When prompted, remove the USB drive. The machine boots from the NVMe drive. GRUB appears (briefly or as a menu). The login screen appears.</p>
+        <p><strong>Log in with your credentials.</strong> The desktop appears.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">First boot verification · 10 min</div>
+      <div class="exercise-box">
+        <p>Open a terminal. Run each command and write the output:</p>
+        <ol>
+          <li><code>uname -a</code> — what kernel version is installed? What architecture?</li>
+          <li><code>df -h</code> — what partitions are mounted? What sizes match the partitions you created?</li>
+          <li><code>free -h</code> — how much RAM does the system report? Does it match what UEFI showed?</li>
+          <li><code>lsblk</code> — what is the disk layout? Can you identify the EFI and root partitions?</li>
+          <li><code>cat /etc/os-release</code> — what OS and version is installed?</li>
+        </ol>
+        <p>Do the numbers from df -h, free -h, and lsblk match what you saw in UEFI during session 58? They should.</p>
+      </div>
+    </div>
+
+    <div class="milestone-box">
+      <div class="milestone-label">Phase 4 milestone — every student</div>
+      <p>You assembled a computer from components. You configured its firmware. You created a bootable installation medium. You partitioned the disk, chose the filesystem, installed the OS, and logged in for the first time. The machine running in front of you is yours — in every sense of the word. All remaining work in this course happens on this machine.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">Kubuntu installer</span>
+        <span class="vocab-term">manual partitioning</span>
+        <span class="vocab-term">EFI partition (FAT32)</span>
+        <span class="vocab-term">root partition (ext4)</span>
+        <span class="vocab-term">hostname</span>
+        <span class="vocab-term">username conventions</span>
+        <span class="vocab-term">GRUB at first boot</span>
+        <span class="vocab-term">uname -a</span><span class="vocab-term">df -h</span>
+        <span class="vocab-term">free -h</span><span class="vocab-term">lsblk</span>
+        <span class="vocab-term">cat /etc/os-release</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Do not rush the moment when the login screen appears. Let students sit with it for 30 seconds. Some will be surprised it worked. Some will be proud. Some will be matter-of-fact about it. All of these responses are valid. Then run the verification commands and connect the numbers back to what they saw in UEFI — the RAM amount matches, the disk size matches. The machine is working exactly as designed, and they designed it.</p>
+      <p>If any student's installation fails part-way through — which occasionally happens due to USB write errors, disk errors, or corrupt ISO — do not panic. Boot back from the USB, reformat the NVMe partition table (the installer can do this), and reinstall. A failed install followed by a successful reinstall is a better learning experience than a first-attempt success, because the student has now debugged a real OS installation failure. Name it as such.</p>
+      <p><strong>After session 60:</strong> each student should transfer their dotfiles from Phase 3 to the new machine. Either via USB drive copy or by recreating them from their ~/dotfiles/ backup. This is the portability test from session 48 in real life — exactly the scenario that exercise was preparing for. Reference it explicitly.</p>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);text-align:center;">
+  <p style="font-family:'Courier New',monospace;font-size:12px;color:var(--muted);">Phase 4 of 6 &nbsp;·&nbsp; Linux seminar &nbsp;·&nbsp; Kubuntu LTS &nbsp;·&nbsp; Ages 15–18</p>
+  <p style="font-family:'Courier New',monospace;font-size:12px;color:var(--muted);margin-top:4px;">Phase 5 — Solving real problems — begins next session</p>
+</div>
+
+</div>
+</body>
+</html>

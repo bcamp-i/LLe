@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 3 — Teacher Manual</title>
+<style>
+  :root {
+    --amber-light:#FAEEDA;--amber-mid:#EF9F27;--amber-dark:#633806;--amber-text:#854F0B;
+    --blue-light:#E6F1FB;--blue-dark:#0C447C;--blue-text:#185FA5;
+    --green-light:#EAF3DE;--green-dark:#27500A;--green-text:#3B6D11;
+    --coral-light:#FAECE7;--coral-dark:#712B13;--coral-text:#993C1D;
+    --gray-light:#F1EFE8;--gray-dark:#444441;
+    --text:#1a1a1a;--muted:#555;--border:#e0ddd6;--bg:#fff;--bgsec:#faf9f7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:Georgia,serif;font-size:15px;line-height:1.75;color:var(--text);background:var(--bg);}
+  .page{max-width:860px;margin:0 auto;padding:3rem 2.5rem;}
+  .cover{text-align:center;padding:4rem 0 3rem;border-bottom:1px solid var(--border);margin-bottom:3rem;}
+  .cover-label{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+  .cover h1{font-size:32px;font-weight:normal;margin-bottom:.5rem;}
+  .cover h2{font-size:18px;font-weight:normal;color:var(--muted);margin-bottom:2rem;}
+  .cover-meta{display:flex;justify-content:center;gap:2.5rem;font-size:13px;color:var(--muted);font-family:'Courier New',monospace;}
+  .cover-meta strong{color:var(--text);font-weight:normal;font-size:15px;display:block;}
+  .overview{background:var(--amber-light);border-radius:8px;padding:1.5rem 2rem;margin-bottom:3rem;}
+  .overview h3{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-dark);margin-bottom:.75rem;}
+  .overview p{font-size:14px;color:var(--amber-dark);line-height:1.75;margin-bottom:.75rem;}
+  .overview p:last-child{margin-bottom:0;}
+  .toc{background:var(--bgsec);border:1px solid var(--border);border-radius:8px;padding:1.5rem 2rem;margin-bottom:3rem;}
+  .toc h3{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+  .toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
+  .toc a{font-size:12px;color:var(--amber-text);text-decoration:none;font-family:'Courier New',monospace;}
+  .toc a:hover{text-decoration:underline;}
+  .week-header{margin:3rem 0 2rem;padding-bottom:.75rem;border-bottom:2px solid var(--text);}
+  .week-label{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+  .week-title{font-size:22px;font-weight:normal;margin-top:4px;}
+  .week-theme{font-size:14px;color:var(--muted);font-style:italic;margin-top:4px;}
+  .session{border:1px solid var(--border);border-radius:8px;margin-bottom:2.5rem;overflow:hidden;page-break-inside:avoid;}
+  .session-header{background:var(--amber-light);padding:1rem 1.5rem;display:flex;align-items:baseline;gap:1rem;}
+  .session-num{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-dark);min-width:70px;}
+  .session-title{font-size:17px;font-weight:normal;color:var(--amber-dark);}
+  .session-body{padding:1.5rem;}
+  .time-bar{display:flex;gap:4px;margin-bottom:1.5rem;border-radius:4px;overflow:hidden;height:36px;}
+  .t-block{display:flex;flex-direction:column;justify-content:center;padding:0 10px;font-size:10px;font-family:'Courier New',monospace;line-height:1.3;}
+  .t-block strong{font-size:12px;display:block;}
+  .t-warm{background:var(--gray-light);color:var(--gray-dark);}
+  .t-concept{background:var(--amber-light);color:var(--amber-dark);}
+  .t-exercise{background:var(--blue-light);color:var(--blue-dark);}
+  .t-close{background:var(--green-light);color:var(--green-dark);}
+  .section{margin-bottom:1.5rem;}
+  .section-label{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;border-bottom:1px solid var(--border);padding-bottom:4px;}
+  .section p{font-size:14px;line-height:1.75;margin-bottom:.75rem;}
+  .section p:last-child{margin-bottom:0;}
+  .whiteboard{background:#fffef5;border:1px dashed #c8c090;border-radius:6px;padding:1.25rem 1.5rem;margin:.75rem 0;}
+  .whiteboard-label{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8a7a40;margin-bottom:.75rem;}
+  .whiteboard-content{font-family:'Courier New',monospace;font-size:13px;line-height:2;color:#333;}
+  .exercise-box{background:var(--blue-light);border-radius:6px;padding:1.25rem 1.5rem;margin:.75rem 0;}
+  .exercise-box p{color:var(--blue-dark);font-size:14px;line-height:1.75;margin-bottom:.75rem;}
+  .exercise-box p:last-child{margin-bottom:0;}
+  .exercise-box ol,.exercise-box ul{padding-left:1.5rem;color:var(--blue-dark);font-size:14px;line-height:1.9;}
+  .exercise-box li{margin-bottom:.3rem;}
+  .teacher-note{background:var(--coral-light);border-left:3px solid #D85A30;border-radius:0 6px 6px 0;padding:1.25rem 1.5rem;margin:.75rem 0;}
+  .teacher-note-label{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--coral-text);margin-bottom:.5rem;}
+  .teacher-note p{color:var(--coral-dark);font-size:14px;line-height:1.75;margin-bottom:.75rem;}
+  .teacher-note p:last-child{margin-bottom:0;}
+  .qa-box{background:var(--amber-light);border-radius:6px;padding:1.25rem 1.5rem;margin:.75rem 0;}
+  .qa-box-label{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-text);margin-bottom:.75rem;}
+  .qa-item{margin-bottom:.9rem;}
+  .qa-item:last-child{margin-bottom:0;}
+  .qa-q{font-size:13px;font-weight:bold;color:var(--amber-dark);font-family:'Courier New',monospace;margin-bottom:3px;}
+  .qa-a{font-size:13px;color:var(--amber-dark);line-height:1.7;}
+  .vocab-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+  .vocab-term{background:var(--amber-light);color:var(--amber-dark);font-family:'Courier New',monospace;font-size:12px;padding:3px 10px;border-radius:3px;}
+  code{font-family:'Courier New',monospace;background:var(--gray-light);padding:1px 5px;border-radius:3px;font-size:13px;color:#333;}
+  pre{font-family:'Courier New',monospace;background:#1e1e1e;color:#d4d4d4;padding:1rem 1.25rem;border-radius:6px;font-size:13px;line-height:1.7;overflow-x:auto;margin:.75rem 0;}
+  @media print{body{font-size:13px;}.page{padding:1.5rem;}.session{page-break-inside:avoid;}.week-header{page-break-before:always;}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="cover">
+  <div class="cover-label">Linux seminar · Kubuntu LTS · Ages 15–18</div>
+  <h1>Phase 3 — Teacher Manual</h1>
+  <h2>Making it yours</h2>
+  <div class="cover-meta">
+    <span><div>Sessions</div><strong>12</strong></span>
+    <span><div>Weeks</div><strong>11 – 13</strong></span>
+    <span><div>Format</div><strong>4 days × 1 hour</strong></span>
+    <span><div>Builds on</div><strong>Phases 1 + 2</strong></span>
+  </div>
+</div>
+
+<div class="overview">
+  <h3>Phase goal</h3>
+  <p>By the end of these three weeks, each student's machine should feel distinctly theirs. The desktop looks the way they chose. The terminal behaves the way they configured. The shell has their aliases, their prompt, their functions. And the machine runs their first real scripts automatically.</p>
+  <p>Phase 3 is the course's inflection point. The first two phases were about learning to operate a system someone else built. Phase 3 is about making it yours. The difference between a user and someone who truly owns a machine is whether they understand and can modify the layer between the OS and their daily workflow. That layer is what this phase teaches.</p>
+  <p>Three things to watch for across this phase. First: students who over-customize without understanding what they changed — pull them back to reading the config files, not just clicking settings. Second: students who are intimidated by scripting — the warm-up for session 49 directly addresses this by connecting scripts to work they have already done. Third: students who finish early — give them the next script challenge, not free time. The scripting sessions in week 13 have an almost infinite ceiling for depth.</p>
+</div>
+
+<div class="toc">
+  <h3>Sessions</h3>
+  <div class="toc-grid">
+    <a href="#s41">S41 — KDE Plasma: desktop as software</a>
+    <a href="#s42">S42 — Personalizing KDE: themes, shortcuts</a>
+    <a href="#s43">S43 — Konsole and terminal customization</a>
+    <a href="#s44">S44 — Shell environment: variables and PATH</a>
+    <a href="#s45">S45 — Dotfiles: your configuration as code</a>
+    <a href="#s46">S46 — Editing .bashrc: aliases and functions</a>
+    <a href="#s47">S47 — inputrc and nanorc depth</a>
+    <a href="#s48">S48 — Dotfiles synthesis: portable environment</a>
+    <a href="#s49">S49 — What a script is and why it exists</a>
+    <a href="#s50">S50 — Variables, input, and conditionals</a>
+    <a href="#s51">S51 — Loops and functions</a>
+    <a href="#s52">S52 — Phase 3 synthesis: your script</a>
+  </div>
+</div>
+
+<!-- ===== WEEK 11 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 11</div>
+  <div class="week-title">KDE Plasma</div>
+  <div class="week-theme">"You own this machine. The desktop is just software. Change it."</div>
+</div>
+
+<div class="session" id="s41">
+  <div class="session-header">
+    <div class="session-num">Session 41</div>
+    <div class="session-title">KDE Plasma — understanding the desktop as software</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:10"><strong>10 min</strong>warm-up</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:25"><strong>25 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>The goal of this session is a single conceptual shift: the desktop is not the operating system. It is a software layer, as replaceable and configurable as any other. KDE Plasma is one possible desktop shell among several. Understanding this means understanding that "how the desktop looks" and "how the OS works" are completely separate concerns.</p>
+      <p>This is also the session where students first interact deeply with KDE's configurability. The aim is not to configure everything — it is to understand that everything can be configured, and to know where to find the controls.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 10 min</div>
+      <p>Ask the class: "What parts of this desktop do you interact with every day?" Build a list on the board together — taskbar, clock, application launcher, system tray, notifications, window title bars, wallpaper, file manager, desktop right-click menu. When the list is complete, ask: "Which of these do you think you can change?" The answer to every item is yes. Then ask: "Which of these do you think you could remove entirely?" Also yes, for most of them. This reframes the desktop from a fixed environment to a configurable one before the concept section begins.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p>KDE Plasma is a <strong>desktop shell</strong> — software that provides the graphical interface between the OS and the user. It is separate from the Linux kernel, separate from the display server, and separate from the applications that run inside it. It can be removed and replaced. On the same Kubuntu installation, you could install GNOME Shell or XFCE and switch between them at login.</p>
+
+      <p>KDE Plasma is composed of distinct components. Understanding what each one does makes the System Settings application comprehensible instead of overwhelming:</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">KDE Plasma components — draw on board</div>
+        <div class="whiteboard-content">
+KWin          — window manager: opens, closes, resizes, tiles windows
+Plasma Shell  — the panel, widgets, desktop, app launcher
+KDE Compositor— transparency, blur, shadows, animations
+Dolphin       — file manager (separate application)
+System Settings— configuration front-end for all of the above
+
+All of these talk to each other but are separate programs.
+Each has its own config files in ~/.config
+        </div>
+      </div>
+
+      <p><strong>KWin</strong> is the window manager. It decides where windows appear, how they are resized, whether they can be tiled, and what happens when you press keyboard shortcuts related to windows. KWin has its own scripting API — you can write JavaScript to automate window behavior. We will not go that deep, but knowing it exists changes how students think about what is possible.</p>
+
+      <p><strong>The compositor</strong> handles visual effects — the blur behind the panel, the transparency of windows, the animations when windows open and close. It sits between the applications and the display. On machines with weak GPUs, disabling the compositor entirely makes everything faster. On machines with good GPUs, the compositor adds useful visual feedback without cost.</p>
+
+      <p><strong>Widgets</strong> are small applications that live on the panel or the desktop. The clock is a widget. The system tray is a widget. The application launcher is a widget. You can add, remove, rearrange, and resize widgets. KDE's widget store (Get New Widgets) provides hundreds of community-made ones.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 25 min</div>
+      <div class="exercise-box">
+        <p><strong>Guided exploration — understand before you change:</strong></p>
+        <ol>
+          <li>Right-click the desktop. What options appear? Select "Add Widget" — browse the available widgets without adding anything yet. What categories exist?</li>
+          <li>Right-click the taskbar panel. Select "Show Panel Configuration." Unlock it. Drag the panel to the top of the screen. Resize it. Move it back. Re-lock it. What changed in the configuration dialog between locked and unlocked states?</li>
+          <li>Open System Settings. Spend 5 minutes browsing every category — do not change anything, just read the category names and the first level of options inside each. Write down 3 settings you want to change and what they control.</li>
+          <li>Open System Settings → Window Management → KWin Scripts. What scripts are listed? What do they claim to do?</li>
+          <li>Open System Settings → Shortcuts → Global Shortcuts. Find the shortcut to open the terminal (Konsole). What is it currently? Change it to a shortcut you will remember. Test it.</li>
+          <li>Find the option to enable window tiling. Enable it and test: drag a window to the left edge of the screen. What happens?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="qa-box">
+      <div class="qa-box-label">Expected student questions</div>
+      <div class="qa-item">
+        <div class="qa-q">Q: Can I install a completely different desktop on this machine?</div>
+        <div class="qa-a">A: Yes. sudo apt install ubuntu-gnome-desktop installs GNOME. You choose which desktop at the login screen. Multiple desktops can coexist — they share the same files and packages but provide different interfaces. Some packages install differently on each desktop (GNOME apps on KDE, KDE apps on GNOME) but they all run.</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">Q: Is KDE better than GNOME?</div>
+        <div class="qa-a">A: Different design philosophy, not a ranking. KDE prioritizes configurability — almost everything can be changed. GNOME prioritizes simplicity and consistency — fewer options, more opinionated defaults. XFCE prioritizes performance — lightweight, fast, no compositing by default. Each is the right choice for different users and contexts. The fact that you chose KDE does not mean GNOME is wrong for someone else.</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">Q: What happens if I break the desktop?</div>
+        <div class="qa-a">A: The terminal still works — Ctrl+Alt+F2 opens a text console with no desktop at all. From there you can fix configuration files, reinstall the desktop, or undo changes. The OS and your files are completely independent of the desktop. This is an important safety net that does not exist on Windows or macOS.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Close · 5 min</div>
+      <p>Name the difference between the panel, a widget, and the window manager. What is KWin responsible for? What does the compositor add? Preview session 42: "Now that you know what each part is, tomorrow we configure it deliberately."</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">KDE Plasma</span><span class="vocab-term">desktop shell</span>
+        <span class="vocab-term">KWin</span><span class="vocab-term">compositor</span>
+        <span class="vocab-term">panel</span><span class="vocab-term">widget</span>
+        <span class="vocab-term">system tray</span><span class="vocab-term">application launcher</span>
+        <span class="vocab-term">System Settings</span><span class="vocab-term">global shortcut</span>
+        <span class="vocab-term">window tiling</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The Ctrl+Alt+F2 escape hatch mentioned in the Q&A is worth demonstrating briefly if time allows. Showing students that the terminal still exists behind the desktop — and that they can recover from a broken desktop without losing files — removes a significant source of anxiety about customization. Students who know there is an escape hatch experiment more boldly.</p>
+      <p>The widget store exercise (task 1) should be browsing only — do not let students spend the session installing widgets. The goal is understanding the architecture, not decoration. Save widget installation for students who finish early.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s42">
+  <div class="session-header">
+    <div class="session-num">Session 42</div>
+    <div class="session-title">Personalizing KDE — themes, fonts, shortcuts</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>warm-up</div>
+      <div class="t-block t-concept" style="flex:15"><strong>15 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:35"><strong>35 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>Deliberate customization with understanding, not random clicking. Every change a student makes today should be intentional, and they should be able to answer: what did I change, where is the setting, and where is the configuration file that stores it? The second question — where is the file — connects this session directly to week 12's dotfiles content.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Ask: what would make your desktop faster to use, not just prettier? Focus the class on functional customization — keyboard shortcuts that replace mouse clicks, panel layout that matches workflow, virtual desktops that separate contexts — rather than aesthetic choices. Both matter, but functional changes compound. A shortcut used 20 times per day saves minutes per day, hours per month.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 15 min</div>
+      <p>KDE System Settings is a front-end for configuration files. Every setting you change through the UI writes to a plain text file somewhere in <code>~/.config</code> or <code>~/.local/share</code>. This means: your entire KDE configuration is a collection of text files in your home directory. You can back it up with a file copy. You can restore it by copying the files back. You can share it with another Kubuntu machine and get an identical environment.</p>
+
+      <p>Navigate the settings by function, not by exploration:</p>
+      <p><strong>Appearance</strong> — global theme (affects everything at once), application style (Qt widget appearance), plasma style (panel and widgets), colors, fonts, icon theme, cursor. Apply a global theme if you want a complete change, or mix components from different themes for a custom look.</p>
+      <p><strong>Shortcuts</strong> — global shortcuts apply system-wide regardless of which application is focused. Custom shortcuts can run any command. This is how you bind a key to open your most-used applications without clicking the launcher.</p>
+      <p><strong>Virtual Desktops</strong> — multiple workspaces on the same monitor. Assign a shortcut to each. Keep code on desktop 1, browser on desktop 2, terminal on desktop 3. Switch instantly with the keyboard. Virtual desktops are a productivity multiplier once the habit forms — they take about 3 days to feel natural.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 35 min</div>
+      <div class="exercise-box">
+        <p><strong>Configure with intent. Before changing anything, write what you are about to change and why.</strong></p>
+        <ol>
+          <li>Choose and apply a global theme. After applying: ls ~/.local/share/plasma/desktoptheme/ — what appeared there?</li>
+          <li>Set up at least 2 custom keyboard shortcuts for applications you use often. Test each one.</li>
+          <li>Configure 3 virtual desktops with meaningful names (not just 1, 2, 3). Set keyboard shortcuts to switch between them. For the rest of this session, use virtual desktops — browser on one, terminal on another, files on a third.</li>
+          <li>Change the font used for interface elements. Open a file manager and a text editor to see the effect. Set it back if you dislike it — the point is understanding where the setting is.</li>
+          <li>Open a terminal and run: <code>ls -lt ~/.config/ | head -10</code>. This shows the 10 most recently modified files in your KDE configuration directory. Which files changed after your System Settings adjustments? Open one with cat — what format is it?</li>
+          <li>Write a one-paragraph description of the customizations you made and why you chose them. Save it to ~/projects/linux-course/phase3/kde-config.md.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">global theme</span><span class="vocab-term">application style</span>
+        <span class="vocab-term">plasma style</span><span class="vocab-term">icon theme</span>
+        <span class="vocab-term">virtual desktop</span><span class="vocab-term">custom shortcut</span>
+        <span class="vocab-term">~/.config</span><span class="vocab-term">~/.local/share</span>
+        <span class="vocab-term">font rendering</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 5 — finding the modified config files after making settings changes — is the bridge between this week and next week. When a student sees that changing the color scheme wrote to <code>~/.config/kdeglobals</code> and then opens that file and reads it, the connection between UI and text configuration becomes concrete. Point this out explicitly: "You just made this change through a settings dialog. You can also make it by editing that file directly. Both are the same thing." This prepares the week 12 concept without lecturing about it yet.</p>
+      <p>Virtual desktops reliably divide the class: students who take to them immediately and will use them forever, and students who find them confusing and will disable them. Both are valid responses. The point is exposure — some will adopt this workflow in week 11 and compound the benefit over 3 months of the course.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s43">
+  <div class="session-header">
+    <div class="session-num">Session 43</div>
+    <div class="session-title">Konsole and terminal customization</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>warm-up</div>
+      <div class="t-block t-concept" style="flex:15"><strong>15 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:35"><strong>35 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>Students will spend a significant portion of the next three months in the terminal. A well-configured terminal is measurably faster and more comfortable to use. This session is the one-time investment that pays dividends in every session that follows.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Ask: how many hours per week do you think you will spend in the terminal for the rest of this course? Rough estimates only. Then: if a configuration change saves you 5 seconds per interaction, and you have 100 interactions per session, that is 8 minutes per session. Over the remaining 56 sessions: roughly 7 hours. A 30-minute investment now is worth doing. That calculation is the warm-up.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 15 min</div>
+      <p><strong>Konsole profiles</strong> allow multiple saved terminal configurations. Each profile specifies: the shell to launch, the starting directory, the font, the color scheme, the cursor style, the scrollback history length, and several other options. You can create a "course" profile for this class, a "reading" profile with larger text, and switch between them per-tab. Profiles are stored in <code>~/.local/share/konsole/</code> as .profile files — plain text, copyable.</p>
+
+      <p><strong>Color schemes</strong> affect readability in practical ways. Stderr (errors) is traditionally shown in red. A color scheme with low contrast between red and white text makes errors harder to spot. Good schemes for terminal use: Solarized Dark (warm tones, very readable for long sessions), Dracula (high contrast, popular in editors), One Dark (neutral, works well with syntax-highlighted output). Choose based on how easy it is to visually distinguish: the command you typed, normal output, errors, and the prompt.</p>
+
+      <p><strong>The PS1 variable</strong> controls the shell prompt — the text that appears before every command. The default on Kubuntu is something like <code>username@hostname:~$</code>. PS1 is a string that bash interprets each time it displays the prompt. Special escape sequences: <code>\u</code> username, <code>\h</code> hostname, <code>\w</code> full current path, <code>\W</code> current directory name only, <code>\$</code> $ for regular user, # for root. Color codes use ANSI escape sequences: <code>\[\033[CODEm\]text\[\033[0m\]</code> where CODE is a number (31=red, 32=green, 33=yellow, 34=blue, 35=purple, 36=cyan, 1=bold). The <code>\[</code> and <code>\]</code> around color codes tell bash not to count the invisible characters when calculating the cursor position — missing them causes wrapping bugs.</p>
+    </div>
+
+    <div class="session-body" style="padding-top:0;">
+    <div class="section">
+      <div class="section-label">Exercise · 35 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Open Konsole settings (Settings → Edit Current Profile). Create a new profile called "course". Set your preferred monospace font at minimum 12pt — the text you will read for 3 months should be comfortable. Apply it.</li>
+          <li>Try at least 3 color schemes from the Color Scheme section. Choose one and write why: ease of reading, contrast, aesthetics. Apply it to your course profile.</li>
+          <li>Open <code>~/.bashrc</code> with nano. Find the line defining PS1 (search with Ctrl+W). If it is commented out or absent, add one. Build a PS1 that includes at minimum the current directory and a clear separator. A starter: <code>PS1='\[\033[32m\]\u\[\033[0m\]:\[\033[34m\]\w\[\033[0m\]\$ '</code> — green username, blue path. Save, then run <code>source ~/.bashrc</code>. Does the prompt update immediately?</li>
+          <li>Add at least one useful alias to <code>~/.bashrc</code>: <code>alias ll='ls -la'</code> at minimum. Source the file. Test the alias. Open a new terminal — does the alias work there too?</li>
+          <li>Change Konsole's title bar to show the current directory (Settings → Tab Bar/Splitter → Tab title format). Navigate to a few directories and watch the title bar update.</li>
+          <li>Take a screenshot with Spectacle (Search for "Spectacle" in the app launcher). Save it to ~/projects/linux-course/phase3/terminal-setup.png. This is your before/after reference for the end of the course.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">Konsole profile</span><span class="vocab-term">color scheme</span>
+        <span class="vocab-term">PS1</span><span class="vocab-term">\u \h \w \W</span>
+        <span class="vocab-term">ANSI color codes</span><span class="vocab-term">\[ \] (non-printing)</span>
+        <span class="vocab-term">source ~/.bashrc</span><span class="vocab-term">alias</span>
+        <span class="vocab-term">~/.local/share/konsole</span><span class="vocab-term">Spectacle</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The \[ and \] around ANSI color codes in PS1 are a common source of bugs that are hard to diagnose. The symptom: the prompt wraps incorrectly when the command is long — text overwrites the prompt, the cursor jumps to the wrong position. The cause: bash is counting the invisible color code characters as part of the prompt width. The fix: wrap every color code in \[ \]. If a student has this bug, help them fix it directly — it is a good teaching moment about how the terminal calculates screen position.</p>
+      <p>The screenshot task is genuinely useful at the end of the course. In session 96 (demo day), comparing their terminal at week 11 to their final environment shows visible, concrete growth. Keep a copy yourself — it is good material for a final session retrospective.</p>
+    </div>
+  </div>
+  </div>
+</div>
+
+<div class="session" id="s44">
+  <div class="session-header">
+    <div class="session-num">Session 44</div>
+    <div class="session-title">The shell environment — variables and PATH</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>question</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Ask: when you type <code>ls</code>, bash runs the ls program. But where is ls? How does bash know where to look? It is not built into bash — ls is a separate executable file. Bash searches a list of directories. That list is the PATH variable. Today we understand what environment variables are, how PATH works, and how to add your own scripts to it.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>Environment variables</strong> are named values available to bash and to any program bash launches. They carry configuration information: where your home directory is, what your username is, which editor to open for text input, what language to use for messages. Programs read these variables to adapt their behavior without requiring explicit command-line flags every time.</p>
+
+      <p>Setting a variable: <code>NAME=value</code> creates a shell variable — visible to bash, not to programs it launches. <code>export NAME=value</code> creates an environment variable — visible to bash and to all programs launched from this bash session. <code>printenv</code> lists all current environment variables. <code>printenv NAME</code> shows the value of one specific variable. <code>echo $NAME</code> also reads a variable's value.</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">Key built-in environment variables</div>
+        <div class="whiteboard-content">
+PATH    — colon-separated list of directories to search for commands
+HOME    — your home directory (/home/username)
+USER    — your username
+SHELL   — path to your shell (/bin/bash)
+EDITOR  — preferred text editor (used by git, cron, etc.)
+LANG    — language and locale (en_US.UTF-8)
+TERM    — terminal type (xterm-256color)
+PS1     — your shell prompt (covered in session 43)
+        </div>
+      </div>
+
+      <p><strong>PATH in detail.</strong> When you type a command, bash searches each directory in PATH from left to right. The first matching executable wins. If no match is found: "command not found". <code>echo $PATH</code> shows the current PATH — it is colon-separated: <code>/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</code>. <code>which commandname</code> shows which executable bash would run for that command — which directory in PATH it found it in.</p>
+
+      <p><strong>Adding to PATH.</strong> To add ~/scripts to PATH: <code>export PATH="$HOME/scripts:$PATH"</code>. The new directory goes at the front (searched first). <code>$HOME/scripts</code> expands to your actual home path. <code>$PATH</code> appends the existing PATH. To make this permanent: add the export line to <code>~/.bashrc</code>. Temporary (in terminal only): the change vanishes when the terminal closes. Permanent (in .bashrc): the change applies to every new terminal session.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Run <code>printenv | sort | less</code>. Browse all environment variables. Find PATH, HOME, SHELL, USER, LANG, TERM. Write what each one contains on your machine.</li>
+          <li>Run <code>echo $PATH</code>. Count the directories separated by colons. Which one contains most commands? (hint: <code>ls /usr/bin | wc -l</code>)</li>
+          <li>Run <code>which ls</code>, <code>which bash</code>, <code>which nano</code>, <code>which python3</code>. What does 'which' tell you? What happens if you run <code>which nonexistentcommand</code>?</li>
+          <li>Create <code>~/scripts/greet</code> (no .sh extension) containing: <code>#!/bin/bash</code> and <code>echo "Hello from $USER on $(hostname)"</code>. Make it executable. Try running it by just typing <code>greet</code> — it will fail with "command not found." Why?</li>
+          <li>Add ~/scripts to your PATH temporarily: <code>export PATH="$HOME/scripts:$PATH"</code>. Try <code>greet</code> again. Does it work now?</li>
+          <li>Open a new terminal — does <code>greet</code> still work? Why not? Now add the export line to <code>~/.bashrc</code>. Open another new terminal. Does it work now?</li>
+          <li>Set <code>export EDITOR=nano</code> in ~/.bashrc. What programs will this affect?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">environment variable</span><span class="vocab-term">export</span>
+        <span class="vocab-term">printenv</span><span class="vocab-term">PATH</span>
+        <span class="vocab-term">which</span><span class="vocab-term">$HOME $USER $SHELL</span>
+        <span class="vocab-term">EDITOR</span><span class="vocab-term">temporary vs permanent</span>
+        <span class="vocab-term">command not found</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Tasks 4–6 form a deliberate sequence: the command fails, they fix it temporarily, they open a new terminal and it fails again, they make it permanent, they open another new terminal and it works. This sequence teaches the temporary vs permanent distinction more effectively than any explanation. Students who experience all three steps in sequence rarely confuse them again.</p>
+      <p>The EDITOR variable (task 7) matters more than it seems. Git uses $EDITOR for commit messages. Cron uses it for editing crontab. sudo -e uses it for safe file editing. Any program that needs to open a text editor uses this variable. Students who set it to nano will never be unexpectedly dropped into vi when they make a git commit — which is otherwise a confusing experience for beginners.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WEEK 12 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 12</div>
+  <div class="week-title">Dotfiles</div>
+  <div class="week-theme">"Your configuration is your environment. Back it up like it matters."</div>
+</div>
+
+<div class="session" id="s45">
+  <div class="session-header">
+    <div class="session-num">Session 45</div>
+    <div class="session-title">Dotfiles — your configuration as code</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:10"><strong>10 min</strong>scenario</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:25"><strong>25 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 10 min</div>
+      <p>Ask: if this machine broke tonight and you had to set up a new one tomorrow, how long would it take to get back to exactly the way you have it now — your aliases, your prompt, your KDE theme, your shortcuts, your installed packages? Take honest estimates. For most students it would be hours of clicking and trying to remember. Tell them: professionals who manage this well can rebuild their environment in under 10 minutes. This session explains how.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p>Dotfiles are the hidden configuration files in your home directory that define your working environment. The name comes from the leading dot that makes them hidden. Every customization you made in week 11 was stored in a dotfile. Every alias you defined is in a dotfile. Every readline binding you set is in a dotfile.</p>
+
+      <p>The critical dotfiles for this course:</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">Important dotfiles — location and purpose</div>
+        <div class="whiteboard-content">
+~/.bashrc         runs every new interactive terminal session
+~/.bash_profile   runs once at login (often just sources .bashrc)
+~/.profile        more portable alternative to .bash_profile
+~/.inputrc        readline configuration (keyboard bindings)
+~/.nanorc         nano editor configuration
+~/.gitconfig      git settings (name, email, aliases) — Phase 5
+~/.config/        directory for modern app configuration
+  ├── konsole/    Konsole profiles
+  ├── kdeglobals  KDE-wide settings
+  └── plasma*/    Plasma shell config
+~/.local/share/   user-specific application data
+        </div>
+      </div>
+
+      <p>The key insight about <code>~/.bashrc</code> vs <code>~/.bash_profile</code>: bash reads these at different times. <code>~/.bash_profile</code> is read when you log in — either at a text console or via SSH. <code>~/.bashrc</code> is read when you open a new terminal window within an already-logged-in session. On desktop Linux, you almost always want your configuration in <code>~/.bashrc</code> because you are starting terminals from inside a running desktop session. A common pattern in <code>~/.bash_profile</code>: <code>[ -f ~/.bashrc ] && source ~/.bashrc</code> — this makes both cases use the same configuration.</p>
+
+      <p>The portable environment concept: because your entire working environment is defined by text files in your home directory, you can copy those files to any other Linux machine and have an almost identical environment. This is why developers maintain "dotfiles repositories" — a git repository containing all their configuration files, allowing one-command setup on any new machine. We introduce the concept now and connect it to git in Phase 5.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 25 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Run <code>ls -la ~</code> and list every dotfile and dotdirectory. Count them. How many exist that you did not create manually?</li>
+          <li>Open each of these and read them — write one sentence describing what each contains: <code>~/.bashrc</code>, <code>~/.bash_history</code>, <code>~/.profile</code>.</li>
+          <li>Run <code>ls ~/.config</code>. Open 2 application directories and read whatever configuration files are inside. What format are they? (INI, TOML, JSON, or something else?)</li>
+          <li>Make your "important dotfiles" list: which 5 files would you most miss if they were deleted? Write them down with reasons.</li>
+          <li>Create <code>~/dotfiles/</code>. Copy your <code>~/.bashrc</code> and any other dotfiles from your list into it. This is your backup. Verify the copies are current with diff: <code>diff ~/.bashrc ~/dotfiles/.bashrc</code> should produce no output.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">dotfile</span><span class="vocab-term">~/.bashrc</span>
+        <span class="vocab-term">~/.bash_profile</span><span class="vocab-term">~/.profile</span>
+        <span class="vocab-term">~/.inputrc</span><span class="vocab-term">~/.config</span>
+        <span class="vocab-term">diff command</span><span class="vocab-term">dotfiles backup</span>
+        <span class="vocab-term">portable configuration</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The <code>diff</code> command introduced in task 5 is a small but important addition. <code>diff file1 file2</code> shows the differences between two files — no output means they are identical. Students who use diff to verify their backups are accurate are developing a professional verification habit. Diff will return properly in Phase 5 when comparing script versions and config changes.</p>
+      <p>Students who ask about git for dotfiles are asking exactly the right question. Tell them: git is precisely the right tool for this, and we cover git in Phase 5. For now, a simple directory copy is sufficient and teaches the underlying concept. The git refinement comes later.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s46">
+  <div class="session-header">
+    <div class="session-num">Session 46</div>
+    <div class="session-title">Editing .bashrc — aliases, functions, and prompt</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>survey</div>
+      <div class="t-block t-concept" style="flex:15"><strong>15 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:35"><strong>35 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Quick survey: what command does each student type most often? Collect 10–15 answers on the board. Sort them by frequency. These are the strongest alias candidates. The commands that appear multiple times across the class become the session's alias examples — they are genuinely useful, not invented for the exercise.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 15 min</div>
+      <p><strong>Aliases</strong> replace one command string with another. Syntax: <code>alias name='replacement'</code>. The replacement is substituted literally when you type the alias name. Aliases can replace a command with a safer or longer version: <code>alias rm='rm -i'</code> makes rm always ask before deleting. Aliases can abbreviate long commands: <code>alias update='sudo apt update && sudo apt upgrade'</code>. Aliases cannot take arguments — for that, use functions.</p>
+
+      <p><strong>Functions</strong> take arguments, run multi-step logic, and return values. Syntax:</p>
+      <pre>function name() {
+    local variable="$1"   # local keeps variable inside the function
+    commands
+}</pre>
+      <p>Inside a function, <code>$1</code>, <code>$2</code> etc. refer to the function's arguments, not the script's. <code>local</code> declares a variable that only exists inside the function — always use local for function variables to avoid side effects. Call a function by name: <code>name argument1 argument2</code>. The most useful pattern: functions that combine multiple steps into one action. The <code>mkcd</code> pattern — create a directory and immediately enter it — is the canonical example:</p>
+      <pre>function mkcd() {
+    mkdir -p "$1" && cd "$1"
+}</pre>
+
+      <p><strong>PS1 color codes</strong> — a practical reference. Format: <code>\[\033[CODEm\]text\[\033[0m\]</code>. Codes: 0=reset, 1=bold, 31=red, 32=green, 33=yellow, 34=blue, 35=magenta, 36=cyan, 37=white. The <code>\[</code> and <code>\]</code> brackets tell bash these characters are non-printing — critical for correct cursor positioning on long lines.</p>
+    </div>
+
+    <div class="session-body" style="padding-top:0;">
+    <div class="section">
+      <div class="section-label">Exercise · 35 min</div>
+      <div class="exercise-box">
+        <p>Open <code>~/.bashrc</code> in nano. Work through each task, saving and sourcing after each group:</p>
+        <ol>
+          <li>Add at least 5 aliases you will actually use. Required: <code>ll='ls -la'</code> and <code>..='cd ..'</code>. Choose 3 others based on your most-used commands from the warm-up. Test each one.</li>
+          <li>Add a safer rm: <code>alias rm='rm -i'</code>. Test it — what changes? Note: this only applies to interactive terminal use. Scripts that call rm still get the real rm. Why?</li>
+          <li>Write the mkcd function. Test it: <code>mkcd ~/test-function/nested/path</code> should create all directories and leave you inside the deepest one. Verify with pwd.</li>
+          <li>Write a function called <code>extract()</code> that takes a compressed file as $1 and extracts it using the right tool based on the file extension. Use if/elif to check: .tar.gz → tar -xzf, .zip → unzip, .tar.bz2 → tar -xjf. Test with a real archive.</li>
+          <li>Finalize your PS1 prompt. Requirements: must show current directory, must use at least one color, must not break when the line is long (test with a deeply nested path). Save and open a new terminal to verify.</li>
+          <li>Open a completely new terminal (not just source). Test every alias and function. Fix any that do not work.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">alias</span><span class="vocab-term">alias rm='rm -i'</span>
+        <span class="vocab-term">function</span><span class="vocab-term">local variable</span>
+        <span class="vocab-term">mkcd pattern</span><span class="vocab-term">extract function</span>
+        <span class="vocab-term">PS1 color codes</span><span class="vocab-term">new terminal test</span>
+        <span class="vocab-term">&& (and operator)</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 2 — <code>alias rm='rm -i'</code> — raises an important question: why do scripts not respect this alias? Because aliases are only expanded in interactive shells, not in scripts. When bash runs a script, it starts in non-interactive mode and does not load aliases. This is the correct behavior — scripts should be explicit and not depend on interactive shell configuration. This distinction between interactive and non-interactive bash will matter in Phase 5 when debugging scripts that work in the terminal but not as cron jobs.</p>
+      <p>The extract function (task 4) is genuinely useful and connects back to the tar introduction in session 32. Students who write it well will use it for the rest of the course. Students who struggle with the if/elif structure will hit a preview of session 50's conditionals — that is fine. Let them struggle and then help them — struggling here primes them to understand the concept lesson better.</p>
+    </div>
+  </div>
+  </div>
+</div>
+
+<div class="session" id="s47">
+  <div class="session-header">
+    <div class="session-num">Session 47</div>
+    <div class="session-title">Shell configuration depth — inputrc and nanorc</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>live demo</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>Two configuration files that almost no beginner documentation mentions, but that experienced terminal users configure immediately. The improvements are small individually. Combined and used daily, they meaningfully reduce friction.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Live demo before explaining anything. Type a partial command from history — say, the first two letters of <code>sudo apt update</code>. Press the up arrow. It goes to the previous command, not the last command starting with "su". Now add this to <code>~/.inputrc</code>:</p>
+      <pre>"\e[A": history-search-backward
+"\e[B": history-search-forward</pre>
+      <p>Open a new terminal. Type "su" and press the up arrow. It now finds the last command starting with "su". Do this live, in front of the class, before explaining what readline is. Let the effect speak first, then explain the mechanism.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>Readline</strong> is a library that provides line-editing capability in bash and many other terminal programs. When you use the arrow keys, tab completion, Ctrl+A to go to line start, Ctrl+E to go to line end, Ctrl+U to clear the line — all of that is readline. <code>~/.inputrc</code> is readline's configuration file. Changes to it affect bash and any other program that uses readline (which includes many: python interactive mode, mysql client, many others).</p>
+
+      <p>Key inputrc settings:</p>
+      <div class="whiteboard">
+        <div class="whiteboard-label">Recommended ~/.inputrc settings</div>
+        <div class="whiteboard-content">
+"\e[A": history-search-backward   # up arrow = search back
+"\e[B": history-search-forward    # down arrow = search forward
+set completion-ignore-case on     # Tab: case insensitive
+set show-all-if-ambiguous on      # Tab once shows completions
+set colored-stats on              # Tab shows file types in color
+set mark-symlinked-directories on # adds / to symlinked dirs
+        </div>
+      </div>
+
+      <p><strong>nano configuration</strong>: <code>~/.nanorc</code> controls nano's behavior. On some systems, the global nanorc at <code>/etc/nanorc</code> provides defaults — your <code>~/.nanorc</code> overrides or adds to them.</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">Recommended ~/.nanorc settings</div>
+        <div class="whiteboard-content">
+set autoindent      # new line matches indentation of previous
+set linenumbers     # show line numbers on the left
+set mouse           # click to position cursor
+set tabsize 4       # tab key = 4 spaces
+set softwrap        # wrap long lines visually (not in file)
+set indicator       # scrollbar on the right side
+set zap             # delete selected text when you type
+        </div>
+      </div>
+
+      <p>Syntax highlighting in nano: nano >= 4.0 supports syntax highlighting for many file types out of the box. Check your version with <code>nano --version</code>. If you have 4.0+, syntax highlighting for .sh, .py, .html and many others should work automatically without configuration.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Create or open <code>~/.inputrc</code>. Add all six settings from the reference above. Open a new terminal and test each one:
+            <ul>
+              <li>History search: type "ls" and press up — does it find your last ls command?</li>
+              <li>Case-insensitive completion: type "ls /H" and press Tab — does it complete to /home?</li>
+              <li>Colored stats: press Tab twice after a partial path — are directories and files shown in different colors?</li>
+            </ul>
+          </li>
+          <li>Create or open <code>~/.nanorc</code>. Add the settings from the reference. Open a file in nano — verify: line numbers visible, mouse click moves cursor, tab inserts 4 spaces (test with the Tab key).</li>
+          <li>Open a .sh file in nano. Does syntax highlighting apply? How can you tell?</li>
+          <li>Test autoindent: open a new file, write a line with leading spaces, press Enter — does the new line match the indentation?</li>
+          <li>Write a one-paragraph comparison: how does your terminal experience now compare to how it was at the start of week 11? What is concretely different and faster?</li>
+          <li>Update your dotfile backup: copy the updated .bashrc, .inputrc, and .nanorc to ~/dotfiles/. Run diff on each to verify they are current.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">readline</span><span class="vocab-term">~/.inputrc</span>
+        <span class="vocab-term">history-search-backward</span>
+        <span class="vocab-term">completion-ignore-case</span>
+        <span class="vocab-term">~/.nanorc</span><span class="vocab-term">autoindent</span>
+        <span class="vocab-term">linenumbers</span><span class="vocab-term">softwrap</span>
+        <span class="vocab-term">nano syntax highlighting</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The history-search-backward binding reliably gets the strongest reaction of any single configuration change in Phase 3. Students who were typing Ctrl+R to search history will immediately prefer the up-arrow method for short searches. The reason this is not the default in bash is historical: bash's default behavior is consistent with the readline defaults set in the 1980s, and changing them would break scripts and tutorials that assume the old behavior. This is a good moment to discuss backwards compatibility as a constraint on software design — the cost of making something easy for new users vs the cost of breaking existing users.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s48">
+  <div class="session-header">
+    <div class="session-num">Session 48</div>
+    <div class="session-title">Dotfiles synthesis — portable environment</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-exercise" style="flex:50"><strong>50 min</strong>consolidation</div>
+      <div class="t-block t-close" style="flex:10"><strong>10 min</strong>share + preview</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>No new content. Students complete and document their configuration, test its portability, and prepare for week 13. This session also serves as a checkpoint: every student should have a working, documented environment before scripting begins. The portability test surfaces hidden dependencies and incomplete configurations.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 50 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Review all changes to ~/.bashrc, ~/.inputrc, and ~/.nanorc since week 11. Remove anything added experimentally that you did not keep. Every line that remains should be intentional.</li>
+          <li>Update ~/dotfiles/ — copy current versions of all three files. Run diff on each pair to confirm they match.</li>
+          <li>Write ~/dotfiles/README in nano. For each dotfile, document: every alias (name and purpose), every function (name, what arguments it takes, what it does), every inputrc binding (key and effect), every nanorc setting (setting and why you enabled it). Write for your future self who has forgotten everything.</li>
+          <li>Portability test — create a test user: <code>sudo adduser testuser</code>. Switch to them: <code>su - testuser</code>. Their environment has none of your configuration. Copy your .bashrc into their home: <code>sudo cp ~/dotfiles/.bashrc /home/testuser/.bashrc</code>. Switch back and then switch to testuser again. Source the file. Do your aliases work? What breaks and why?</li>
+          <li>Clean up: <code>sudo deluser --remove-home testuser</code>. Write what you learned from the portability test — what hidden dependencies did your configuration have?</li>
+          <li>Final environment test: open a completely fresh terminal. Run every alias. Call every function. Verify every readline behavior. Everything should work. Fix anything that does not.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Close · 10 min</div>
+      <p>Each student shares: the one customization they would miss most if they lost it. Collect the most interesting answers — they reveal what each person values in their workflow.</p>
+      <p><strong>Preview week 13:</strong> "Your environment is yours. Next week the machine starts working for you. Scripts — real ones that solve real problems you have. The commands you already know, organized into files that run automatically. Everything you learned in Phase 2 applies. The difference is: the script runs it, not you."</p>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The portability test will fail for some configurations — and that is the point. Common failures: PATH additions that use absolute paths that only exist on the original account, aliases that call scripts stored in ~/scripts that the test user cannot access, functions that assume a specific directory structure. Students who fix these failures are making their configuration genuinely portable. Students who discover they have no failures have either very simple configurations or configurations that truly generalize — both are valid outcomes worth noting.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WEEK 13 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 13</div>
+  <div class="week-title">First scripts</div>
+  <div class="week-theme">"Write it once. Run it forever."</div>
+</div>
+
+<div class="session" id="s49">
+  <div class="session-header">
+    <div class="session-num">Session 49</div>
+    <div class="session-title">What a script is and why it exists</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:10"><strong>10 min</strong>motivation</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:25"><strong>25 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 10 min</div>
+      <p>Ask: remember session 32 — the messy downloads folder? You ran 20 commands to organize it. If you had to do that every week for a year, what would you do? The natural answer is: find a way to run those commands automatically. That is exactly what a script is — the commands you already know, in a file, run in sequence. Ask students to open their commands.log from session 32. How close is it to a script already? For most of them: one or two changes away.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p>A shell script is a text file containing bash commands. When you run it, bash reads the file from top to bottom and executes each line in sequence, exactly as if you had typed them in a terminal. The two differences from the terminal: speed (the machine types faster than you), and repeatability (it runs identically every time).</p>
+
+      <p><strong>The shebang line</strong> — <code>#!/bin/bash</code> — must be the absolute first line of every script. It tells the OS which interpreter to use to run the file. Without it, the OS guesses, and sometimes guesses wrong (using /bin/sh, which is not always bash and lacks some bash features). Always include it. Always put it first, with no blank lines or spaces before it.</p>
+
+      <p><strong>Command substitution</strong> — <code>$(command)</code> — runs a command and uses its output as a value. <code>echo "Today is $(date)"</code> runs date, captures its output, and inserts it into the string. <code>echo "There are $(ls | wc -l) files here"</code> counts files and inserts the number. Command substitution is how scripts gather information dynamically — the current date, the number of files, the output of any command — and use it in later steps.</p>
+
+      <p><strong>Debugging with bash -x</strong>: running <code>bash -x scriptname.sh</code> prints each command before executing it, with a + prefix. You see exactly what bash is doing, with variables expanded. This is the first tool to reach for when a script does not behave as expected.</p>
+
+      <p>Three questions that justify writing a script: will I do this more than once? Is it more than 3 steps? Would I trust myself to remember every step correctly under pressure? Yes to any: script it. The script is also documentation — it records exactly what you did, in order, permanently.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 25 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Look at your commands.log from session 32. What would need to change to make it a runnable script? (Add shebang, fix paths, handle variables.) Write the answer before touching the file.</li>
+          <li>Create <code>~/scripts/info.sh</code> with nano. Write:
+            <pre>#!/bin/bash
+echo "User: $USER"
+echo "Home: $HOME"
+echo "Date: $(date)"
+echo "Directory: $(pwd)"
+echo "Files here: $(ls | wc -l)"
+echo "Uptime: $(uptime -p)"</pre>
+            Save, chmod +x, run it. Understand every line.</li>
+          <li>What does <code>$(date)</code> do? What does <code>$(pwd)</code> do? Try: <code>echo "Shell: $(echo $SHELL)"</code> — is this useful or redundant? Why?</li>
+          <li>Remove the shebang from info.sh and run it. What changes? Put it back.</li>
+          <li>Run <code>bash -x info.sh</code>. Read the output carefully — what does the + prefix indicate? How does it differ from running the script normally?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">shell script</span><span class="vocab-term">#!/bin/bash</span>
+        <span class="vocab-term">shebang line</span><span class="vocab-term">command substitution $()</span>
+        <span class="vocab-term">bash -x (debug mode)</span><span class="vocab-term">chmod +x</span>
+        <span class="vocab-term">script as documentation</span><span class="vocab-term">repeatability</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The connection between commands.log and a script is the most important moment in session 49. Students who realize they were already halfway to scripting in session 32 feel capable rather than intimidated. The psychological shift — "I have already done most of this" — is worth more than any concept explanation. Make it explicit: "You wrote a log of every command. A script is that log with a shebang line and a few fixes. You were doing proto-scripting without knowing it."</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s50">
+  <div class="session-header">
+    <div class="session-num">Session 50</div>
+    <div class="session-title">Variables, input, and conditionals</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>need</div>
+      <div class="t-block t-concept" style="flex:25"><strong>25 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:25"><strong>25 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>info.sh from session 49 always does the same thing — it shows your info. What if you wanted it to show info about a different user? What if you wanted it to behave differently depending on whether a file exists? These two needs — flexible input and conditional behavior — are what this session adds. The result: scripts that are tools, not just recordings.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 25 min</div>
+      <p><strong>Variables.</strong> <code>NAME=value</code> — no spaces around the =. Read with <code>$NAME</code> or <code>${NAME}</code>. Always quote variable references in double quotes: <code>"$NAME"</code> not <code>$NAME</code> — this prevents word splitting when the variable contains spaces. Special variables: <code>$1 $2 $3</code> — positional arguments passed to the script when called. <code>$0</code> — the script's own name. <code>$#</code> — the number of arguments. <code>$@</code> — all arguments as separate words. <code>$*</code> — all arguments as one string. <code>$?</code> — the exit code of the last command (0 = success, non-zero = failure).</p>
+
+      <p><strong>Reading user input.</strong> <code>read -p "Prompt text: " VARIABLE</code> — prints the prompt and waits for the user to type, storing the result in VARIABLE. Always provide a prompt (-p) so the user knows what to enter. Combine with checking for empty input: if the user presses Enter without typing, <code>$VARIABLE</code> will be empty.</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">Conditional syntax — spaces are mandatory</div>
+        <div class="whiteboard-content">
+if [ condition ]; then
+    commands
+elif [ other_condition ]; then
+    other_commands
+else
+    fallback_commands
+fi
+
+File tests:       -f file   (is a regular file)
+                  -d dir    (is a directory)
+                  -e path   (exists, any type)
+                  -r file   (readable)
+                  -w file   (writable)
+                  -x file   (executable)
+
+String tests:     -z "$str"         (empty string)
+                  -n "$str"         (non-empty string)
+                  "$a" = "$b"       (strings equal)
+                  "$a" != "$b"      (strings not equal)
+
+Number tests:     $a -eq $b   (equal)
+                  $a -ne $b   (not equal)
+                  $a -gt $b   (greater than)
+                  $a -lt $b   (less than)
+        </div>
+      </div>
+
+      <p>The <strong>spaces inside [ ]</strong> are mandatory — [ is actually a command, not syntax. <code>if ["$NAME"="hello"]</code> is wrong. <code>if [ "$NAME" = "hello" ]</code> is correct. The spaces separate the [ command from its arguments. Missing spaces produce a cryptic syntax error. Always check spacing first when if statements fail.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 25 min</div>
+      <div class="exercise-box">
+        <p>Write three scripts in ~/scripts/. Make each executable. Test edge cases — what happens with no arguments, wrong types, missing files:</p>
+        <ol>
+          <li><strong>greet.sh</strong> — takes a name as $1. If $1 is empty (test with -z), use read to ask for a name. Then print: "Hello NAME, today is DATE." using command substitution for the date.</li>
+          <li><strong>check-path.sh</strong> — takes a path as $1. Checks: is it a regular file? A directory? Does it not exist? Prints the appropriate message for each case. If no argument given, prints a usage message and exits with code 1.</li>
+          <li><strong>safe-delete.sh</strong> — takes a filename as $1. If the file does not exist, print an error and exit. If it exists, print "Delete FILE? (y/n)" and read the answer. Delete only if the answer is y or Y. Print "Cancelled" otherwise. Test all cases.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">$1 $2 (positional args)</span><span class="vocab-term">$#</span>
+        <span class="vocab-term">$@ (all args)</span><span class="vocab-term">$?  (exit code)</span>
+        <span class="vocab-term">read -p</span><span class="vocab-term">if [ ] then fi</span>
+        <span class="vocab-term">-f -d -e (file tests)</span>
+        <span class="vocab-term">-z -n (string tests)</span>
+        <span class="vocab-term">exit 1 (error exit)</span><span class="vocab-term">usage message</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The usage message pattern in check-path.sh — printing how to use the script and exiting with code 1 when no argument is given — is a professional habit worth naming explicitly. Every command-line tool that expects arguments should check for them and print clear usage instructions if they are missing. Students who build this habit from their first scripts write tools that other people (and future-them) can actually use without reading the source code.</p>
+      <p>Exit codes (the exit 1 in the usage message, and $? in general) deserve a brief extra minute. The convention: 0 means success, anything else means failure. The specific non-zero value can encode what went wrong — 1 is generic failure, 2 is misuse of shell builtins, 127 is command not found. Scripts that set exit codes correctly compose correctly in pipelines and conditionals.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s51">
+  <div class="session-header">
+    <div class="session-num">Session 51</div>
+    <div class="session-title">Loops and functions</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>scale problem</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Present this problem: you have 50 image files that need to be renamed from IMG_001.jpg, IMG_002.jpg etc. to photo_001.jpg, photo_002.jpg. Without loops: 50 mv commands, typed individually or with a complex wildcard. With a for loop: 4 lines. That ratio — 50 commands collapsed into 4 lines — is what loops do.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>For loops.</strong></p>
+      <pre>for variable in list; do
+    commands using $variable
+done</pre>
+      <p>The list can be: a literal list of words (<code>for color in red green blue</code>), a wildcard expansion (<code>for file in *.jpg</code>), or the output of a command (<code>for line in $(cat list.txt)</code>). The loop runs once for each item, with <code>$variable</code> set to that item. <code>seq 1 10</code> generates numbers 1 through 10 — useful for <code>for i in $(seq 1 10)</code>. <code>{01..50}</code> is brace expansion — generates 01, 02, ... 50 with zero-padding.</p>
+
+      <p><strong>While loops.</strong></p>
+      <pre>while [ condition ]; do
+    commands
+done</pre>
+      <p>Runs while the condition is true. Useful for: running until a file appears, reading lines from a file (<code>while read line; do ...; done < file</code>), creating interactive menus that repeat after each action.</p>
+
+      <p><strong>Functions.</strong></p>
+      <pre>function name() {
+    local var="$1"
+    commands
+    return 0
+}</pre>
+      <p>Call with <code>name arg1 arg2</code>. Inside the function, <code>$1</code> <code>$2</code> refer to the function's arguments (not the script's — this surprises people). <code>local</code> declares a variable that only exists inside the function. <code>return N</code> sets the exit code. To return a string value, use <code>echo "value"</code> and capture with <code>result=$(name arg)</code>.</p>
+
+      <p>The logging pattern — a function that prepends a timestamp to every output line:</p>
+      <pre>function log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
+}</pre>
+      <p>Use in scripts: <code>log "Starting backup"</code>, <code>log "Processing file $f"</code>. Scripts that log their actions are dramatically easier to debug and audit.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Add the log() function to ~/scripts/greet.sh from session 50. Replace all echo statements with log calls. Run the script — how does the output change?</li>
+          <li>Write <code>rename-photos.sh</code> in ~/sandbox/photos/ (create some test files with touch: <code>touch IMG_{001..010}.jpg</code>). The script loops over all .jpg files and renames them to photo_NNN.jpg where NNN is a zero-padded counter. Run it. Verify the results with ls.</li>
+          <li>Write <code>backup.sh</code> that takes a source directory ($1) and destination ($2). Loops over every file in source, copies each to destination, and logs each copy. If destination does not exist, create it. Handle missing arguments with a usage message.</li>
+          <li>Write a menu script: shows 4 options (Disk space, Running processes, Uptime, Quit), reads the user's choice with read, runs the appropriate command, then shows the menu again. Use a while loop. Quit option breaks the loop.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">for loop</span><span class="vocab-term">while loop</span>
+        <span class="vocab-term">seq</span><span class="vocab-term">brace expansion {01..10}</span>
+        <span class="vocab-term">while read line</span><span class="vocab-term">function</span>
+        <span class="vocab-term">local variable</span><span class="vocab-term">return N</span>
+        <span class="vocab-term">log() pattern</span><span class="vocab-term">menu pattern</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The zero-padded counter in rename-photos.sh requires a technique worth explaining: <code>printf "%03d" $counter</code> formats a number with leading zeros to 3 digits. Students who discover this independently are doing professional-level shell scripting. Those who do not should be shown the pattern and told it is a common requirement in file renaming and log naming.</p>
+      <p>The menu script (task 4) introduces a pattern — while loop with read and case statement — that appears in real system administration tools. Students who build this correctly have written something that looks like a real interactive program, not just a sequence of commands. That shift in self-perception matters. Name it: "You just wrote an interactive application. It is simple, but it is real."</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s52">
+  <div class="session-header">
+    <div class="session-num">Session 52</div>
+    <div class="session-title">Phase 3 synthesis — a script that solves your problem</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-exercise" style="flex:45"><strong>45 min</strong>build</div>
+      <div class="t-block t-close" style="flex:15"><strong>15 min</strong>demos</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>No new content. Each student writes one script that solves a real problem they have on this machine. The session ends with 2-minute demos. The script must demonstrate the full Phase 3 toolkit: variables, conditionals, at least one loop or function, input handling, and logging.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Brief — read to class</div>
+      <p>Write a script that solves a real problem you have. Not a demo, not a tutorial exercise — something you would actually use. It must: take at least one argument or prompt for input, use at least one conditional, use at least one loop or function, log what it does with timestamps, handle missing input with a useful error and exit code 1, and have a comment block at the top explaining what it does and how to use it.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 45 min</div>
+      <div class="exercise-box">
+        <p><strong>Ideas if stuck:</strong></p>
+        <ul>
+          <li>Backs up your dotfiles to a dated folder</li>
+          <li>Organizes ~/sandbox by file extension into subdirectories</li>
+          <li>Checks if a list of required commands are installed and reports which are missing</li>
+          <li>Generates a project folder structure from a template</li>
+          <li>Renames files in a directory according to a date pattern</li>
+          <li>Monitors a directory and reports new files since the last run</li>
+        </ul>
+        <p><strong>After writing (required before demo):</strong></p>
+        <ol>
+          <li>Run <code>bash -x yourscript.sh</code> — verify every step executes correctly and variables expand as expected.</li>
+          <li>Test at least 3 edge cases: no arguments, wrong argument type, path that does not exist. Fix any unhandled cases.</li>
+          <li>Add the comment header block: script name, purpose, usage, arguments, author, date.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Demos · 15 min</div>
+      <p>Each student: 2 minutes maximum. Show: what the script does, one interesting line of code, one problem hit and how it was solved. Strict time limit — the constraint forces prioritization. No perfect scripts required — a script that almost works and the student can explain why is better than a perfect script the student cannot explain.</p>
+      <p><strong>Preview Phase 4:</strong> "Next phase you are not writing software for the machine. You are building the machine itself. Hardware, assembly, BIOS, partitioning, OS installation from scratch. Everything you have learned runs on a machine you will have built with your own hands."</p>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The 2-minute demo format is important and should be enforced. Students who have something genuinely useful will be proud and concise. Students who have a bug they could not fix should show the bug and explain their diagnosis — this is more honest and more instructive than hiding incomplete work. The class's response to "I hit this problem and here is what I tried" is usually more engaged than to a polished demo.</p>
+      <p>Collect all scripts. Save them — at the end of Phase 6, comparing each student's Phase 3 script to their Phase 6 final project shows concrete growth in capability and complexity. That comparison is one of the most satisfying moments of the full course for students to experience.</p>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);text-align:center;">
+  <p style="font-family:'Courier New',monospace;font-size:12px;color:var(--muted);">Phase 3 of 6 &nbsp;·&nbsp; Linux seminar &nbsp;·&nbsp; Kubuntu LTS &nbsp;·&nbsp; Ages 15–18</p>
+  <p style="font-family:'Courier New',monospace;font-size:12px;color:var(--muted);margin-top:4px;">Phase 4 — Build your own machine — begins next session</p>
+</div>
+
+</div>
+</body>
+</html>

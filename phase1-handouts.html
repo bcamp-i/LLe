@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Phase 1 — Student Handouts</title>
+<style>
+  :root {
+    --blue: #0C447C;
+    --blue-light: #E6F1FB;
+    --green: #27500A;
+    --green-light: #EAF3DE;
+    --amber: #633806;
+    --amber-light: #FAEEDA;
+    --coral: #712B13;
+    --coral-light: #FAECE7;
+    --gray: #444441;
+    --gray-light: #F1EFE8;
+    --border: #ccc;
+    --text: #111;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Georgia, serif;
+    font-size: 13px;
+    color: var(--text);
+    background: #fff;
+  }
+
+  .sheet {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 14mm 16mm 14mm;
+    page-break-after: always;
+    background: #fff;
+  }
+
+  .sheet:last-child { page-break-after: avoid; }
+
+  /* Sheet header */
+  .sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 2px solid var(--text);
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+  }
+  .sheet-id {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #666;
+  }
+  .sheet-title {
+    font-size: 18px;
+    font-weight: normal;
+    color: var(--text);
+    margin-top: 3px;
+  }
+  .name-line {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: #666;
+    text-align: right;
+  }
+  .name-blank {
+    display: inline-block;
+    width: 120px;
+    border-bottom: 1px solid #999;
+    margin-left: 6px;
+    margin-right: 0;
+    vertical-align: bottom;
+  }
+
+  /* Instructions box */
+  .instructions {
+    background: var(--gray-light);
+    border-left: 3px solid var(--gray);
+    padding: 8px 12px;
+    margin-bottom: 16px;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--gray);
+    border-radius: 0 4px 4px 0;
+  }
+
+  /* Section label */
+  .section-label {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 6px;
+    margin-top: 14px;
+  }
+
+  /* ===== SHEET 1 — Classification ===== */
+  .items-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 20px;
+    margin-bottom: 16px;
+  }
+  .item-row {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 12px;
+    line-height: 1.8;
+  }
+  .item-num {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: #888;
+    min-width: 16px;
+  }
+
+  .classification-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  .classification-table th {
+    background: var(--blue-light);
+    color: var(--blue);
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 6px 8px;
+    border: 1px solid var(--border);
+    text-align: left;
+    font-weight: normal;
+  }
+  .classification-table td {
+    border: 1px solid var(--border);
+    padding: 5px 8px;
+    vertical-align: top;
+    height: 32px;
+  }
+  .classification-table td.num-col {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: #888;
+    width: 24px;
+    text-align: center;
+    background: #fafafa;
+  }
+  .classification-table td.item-col {
+    width: 130px;
+    font-size: 11px;
+  }
+  .classification-table td.layer-col {
+    width: 80px;
+  }
+  .classification-table td.why-col {
+    /* flexible */
+  }
+
+  .multi-box {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 12px;
+    margin-top: 12px;
+  }
+  .multi-box-label {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 8px;
+  }
+  .multi-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 8px;
+    align-items: start;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+  .write-line {
+    border-bottom: 1px solid #ccc;
+    min-height: 20px;
+    width: 100%;
+  }
+
+  /* ===== SHEET 2 — Filesystem Map ===== */
+  .tree-box {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.9;
+    padding: 14px 18px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+  .tree-box .hi { color: #9cdcfe; }
+  .tree-box .dim { color: #888; }
+
+  .path-tasks { display: flex; flex-direction: column; gap: 14px; }
+  .path-task { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .path-task-head {
+    background: var(--green-light);
+    padding: 6px 12px;
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+  }
+  .task-num {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: var(--green);
+    min-width: 20px;
+  }
+  .task-q { font-size: 12px; color: var(--green); line-height: 1.5; }
+  .path-task-answer {
+    padding: 8px 12px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .answer-label {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #999;
+  }
+  .answer-line {
+    border-bottom: 1px solid #ccc;
+    min-height: 22px;
+    font-family: 'Courier New', monospace;
+  }
+  .verify-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .verify-check {
+    width: 14px;
+    height: 14px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .verify-label { font-size: 10px; color: #888; font-family: 'Courier New', monospace; }
+
+  /* ===== SHEET 3 — Permission Decoder ===== */
+  .perm-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+    margin-bottom: 16px;
+  }
+  .perm-table th {
+    background: var(--blue-light);
+    color: var(--blue);
+    font-family: 'Courier New', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 6px 8px;
+    border: 1px solid var(--border);
+    font-weight: normal;
+    text-align: left;
+  }
+  .perm-table td {
+    border: 1px solid var(--border);
+    padding: 7px 8px;
+    vertical-align: top;
+  }
+  .perm-table td.perm-code {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    background: #1e1e1e;
+    color: #9cdcfe;
+    white-space: nowrap;
+    width: 110px;
+  }
+  .perm-table td.type-col { width: 80px; }
+  .perm-table td.perm-col { width: 90px; }
+  .perm-table td.note-col { }
+  .perm-table tr:nth-child(even) td:not(.perm-code) { background: #fafafa; }
+
+  .perm-guide {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .guide-box {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-size: 11px;
+  }
+  .guide-box-title {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 6px;
+  }
+  .guide-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 3px;
+    align-items: baseline;
+  }
+  .guide-code {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    min-width: 30px;
+    color: var(--blue);
+  }
+
+  .danger-box {
+    background: var(--coral-light);
+    border: 1px solid #D85A30;
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--coral);
+    line-height: 1.6;
+  }
+  .danger-label {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    color: #993C1D;
+  }
+  .danger-answer { border-bottom: 1px solid #D85A30; min-height: 48px; margin-top: 6px; }
+
+  /* ===== SHEET 4 — Vocabulary Checklist ===== */
+  .vocab-section { margin-bottom: 18px; }
+  .vocab-week-label {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #888;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+  }
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px 16px;
+  }
+  .vocab-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  .conf-boxes {
+    display: flex;
+    gap: 3px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .conf-box {
+    width: 12px;
+    height: 12px;
+    border: 1px solid #bbb;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .conf-box.yes { border-color: var(--green); }
+  .conf-box.no { border-color: var(--coral); }
+  .vocab-term { font-family: 'Courier New', monospace; font-size: 11px; }
+
+  .legend {
+    display: flex;
+    gap: 16px;
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 14px;
+    padding: 8px 12px;
+    background: var(--gray-light);
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+
+  .reflection-section {
+    margin-top: 18px;
+    border-top: 1px solid #ddd;
+    padding-top: 14px;
+  }
+  .reflection-q {
+    font-size: 12px;
+    margin-bottom: 6px;
+    color: #333;
+    line-height: 1.5;
+  }
+  .reflection-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .r-line { border-bottom: 1px solid #ccc; min-height: 20px; }
+
+  @media print {
+    body { font-size: 12px; }
+    .sheet { padding: 12mm 14mm; }
+    .tree-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .perm-table td.perm-code { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .classification-table th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- SHEET 1 — SESSION 1 — CLASSIFICATION                        -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 1 · Week 1 · Handout A</div>
+      <div class="sheet-title">The layers of a computer</div>
+    </div>
+    <div class="name-line">
+      Name <span class="name-blank"></span><br><br>
+      Date <span class="name-blank"></span>
+    </div>
+  </div>
+
+  <div class="instructions">
+    Every piece of hardware or software belongs to one of four layers: <strong>Hardware</strong>, <strong>Firmware</strong>, <strong>Operating System</strong>, or <strong>Application</strong>. Some items may belong to more than one layer — if so, mark them in both and explain why in the last column. There are no trick questions, but there are items that are genuinely in between.
+  </div>
+
+  <div class="section-label">Items to classify</div>
+  <div class="items-list">
+    <div class="item-row"><span class="item-num">1.</span> The Chrome browser</div>
+    <div class="item-row"><span class="item-num">9.</span> RAM (memory)</div>
+    <div class="item-row"><span class="item-num">2.</span> The CPU (processor)</div>
+    <div class="item-row"><span class="item-num">10.</span> Konsole (terminal emulator)</div>
+    <div class="item-row"><span class="item-num">3.</span> The Wi-Fi driver</div>
+    <div class="item-row"><span class="item-num">11.</span> An NVIDIA GPU</div>
+    <div class="item-row"><span class="item-num">4.</span> The keyboard</div>
+    <div class="item-row"><span class="item-num">12.</span> Bash (the shell)</div>
+    <div class="item-row"><span class="item-num">5.</span> LibreOffice Writer</div>
+    <div class="item-row"><span class="item-num">13.</span> A video file stored on disk</div>
+    <div class="item-row"><span class="item-num">6.</span> The Linux kernel</div>
+    <div class="item-row"><span class="item-num">14.</span> systemd (startup manager)</div>
+    <div class="item-row"><span class="item-num">7.</span> An HDMI port</div>
+    <div class="item-row"><span class="item-num">15.</span> The laptop screen</div>
+    <div class="item-row"><span class="item-num">8.</span> The desktop wallpaper image</div>
+    <div class="item-row"></div>
+  </div>
+
+  <div class="section-label">Classification table</div>
+  <table class="classification-table">
+    <thead>
+      <tr>
+        <th style="width:24px;">#</th>
+        <th style="width:130px;">Item</th>
+        <th style="width:90px;">Layer(s)</th>
+        <th>Why / notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="num-col">1</td><td class="item-col">Chrome browser</td><td class="layer-col"></td><td class="why-col"></td></tr>
+      <tr><td class="num-col">2</td><td class="item-col">CPU</td><td class="layer-col"></td><td class="why-col"></td></tr>
+      <tr><td class="num-col">3</td><td class="item-col">Wi-Fi driver</td><td class="layer-col"></td><td class="why-col"></td></tr>
+      <tr><td class="num-col">4</td><td class="item-col">Keyboard</td><td class="layer-col"></td><td class="why-col"></td></tr>
+      <tr><td class="num-col">5</td><td class="item-col">LibreOffice Writer</td><td class="layer-col"></td><td class="why-col"></td></tr>
+      <tr><td class="num-col">6</td><td class="item-col">Linux kernel</td><td class="layer-col"></td><td class="why-col"></td></tr>
+      <tr><td class="num-col">7</td><td class="item-col">HDMI port</td><td class="layer-col"></td><td class="why-col"></td></tr>
+      <tr><td class="num-col">8</td><td class="item-col">Wallpaper image</td><td class="layer-col"></td><td class="why-col"></td></tr>
+      <tr><td class="num-col">9</td><td class="item-col">RAM</td><td class="layer-col"></td><td class="why-col"></td></tr>
+      <tr><td class="num-col">10</td><td class="item-col">Konsole (terminal)</td><td class="layer-col"></td><td class="why-col"></td></tr>
+      <tr><td class="num-col">11</td><td class="item-col">NVIDIA GPU</td><td class="layer-col"></td><td class="why-col"></td></tr>
+      <tr><td class="num-col">12</td><td class="item-col">Bash (shell)</td><td class="layer-col"></td><td class="why-col"></td></tr>
+      <tr><td class="num-col">13</td><td class="item-col">Video file on disk</td><td class="layer-col"></td><td class="why-col"></td></tr>
+      <tr><td class="num-col">14</td><td class="item-col">systemd</td><td class="layer-col"></td><td class="why-col"></td></tr>
+      <tr><td class="num-col">15</td><td class="item-col">Laptop screen</td><td class="layer-col"></td><td class="why-col"></td></tr>
+    </tbody>
+  </table>
+
+  <div class="multi-box">
+    <div class="multi-box-label">Items that belong to more than one layer — explain the boundary</div>
+    <div class="multi-row">
+      <div>Item: <span class="write-line" style="display:inline-block;width:100px;"></span></div>
+      <div>Because: <span class="write-line" style="display:inline-block;width:240px;"></span></div>
+    </div>
+    <div class="multi-row">
+      <div>Item: <span class="write-line" style="display:inline-block;width:100px;"></span></div>
+      <div>Because: <span class="write-line" style="display:inline-block;width:240px;"></span></div>
+    </div>
+    <div class="multi-row">
+      <div>Item: <span class="write-line" style="display:inline-block;width:100px;"></span></div>
+      <div>Because: <span class="write-line" style="display:inline-block;width:240px;"></span></div>
+    </div>
+  </div>
+
+  <div style="margin-top:14px; padding:10px 12px; border:1px solid var(--border); border-radius:4px; font-size:12px;">
+    <div class="section-label" style="margin-top:0;">Final question</div>
+    When you press the power button, describe what happens layer by layer — from hardware to the desktop appearing on screen. Use the back of this sheet.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 2 — SESSION 7 — FILESYSTEM MAP                        -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 7 · Week 2 · Handout B</div>
+      <div class="sheet-title">Paths — reading and writing addresses</div>
+    </div>
+    <div class="name-line">
+      Name <span class="name-blank"></span><br><br>
+      Date <span class="name-blank"></span>
+    </div>
+  </div>
+
+  <div class="instructions">
+    Use the filesystem map below to answer the path tasks. Write your answers first, then verify them on the actual machine using <code style="font-family:'Courier New',monospace; background:#eee; padding:1px 4px; border-radius:2px;">cd</code> and <code style="font-family:'Courier New',monospace; background:#eee; padding:1px 4px; border-radius:2px;">pwd</code>. Tick the verify box when you have confirmed each answer.
+  </div>
+
+  <div class="section-label">Filesystem map</div>
+  <div class="tree-box">/<br>
+├── <span class="hi">home</span>/<br>
+│&nbsp;&nbsp; ├── <span class="hi">anna</span>/<br>
+│&nbsp;&nbsp; │&nbsp;&nbsp; ├── <span class="hi">documents</span>/<br>
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; ├── essay.txt<br>
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; └── <span class="hi">notes</span>/<br>
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; └── readme.txt<br>
+│&nbsp;&nbsp; │&nbsp;&nbsp; ├── <span class="hi">pictures</span>/<br>
+│&nbsp;&nbsp; │&nbsp;&nbsp; │&nbsp;&nbsp; └── photo.jpg<br>
+│&nbsp;&nbsp; │&nbsp;&nbsp; └── <span class="hi">scripts</span>/<br>
+│&nbsp;&nbsp; │&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; └── backup.sh<br>
+│&nbsp;&nbsp; └── <span class="hi">carlos</span>/<br>
+│&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; ├── <span class="hi">documents</span>/<br>
+│&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; │&nbsp;&nbsp; └── report.txt<br>
+│&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; └── <span class="hi">music</span>/<br>
+├── <span class="hi">etc</span>/<br>
+│&nbsp;&nbsp; ├── hostname<br>
+│&nbsp;&nbsp; ├── passwd<br>
+│&nbsp;&nbsp; └── <span class="hi">apt</span>/<br>
+│&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; └── sources.list<br>
+├── <span class="hi">var</span>/<br>
+│&nbsp;&nbsp; └── <span class="hi">log</span>/<br>
+│&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; └── syslog<br>
+├── <span class="hi">usr</span>/<br>
+│&nbsp;&nbsp; └── <span class="hi">bin</span>/<br>
+│&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; └── bash<br>
+└── <span class="hi">tmp</span>/<br>
+&nbsp;&nbsp;&nbsp;&nbsp; └── tempfile.txt</div>
+
+  <div class="section-label">Path tasks</div>
+  <div class="path-tasks">
+
+    <div class="path-task">
+      <div class="path-task-head">
+        <span class="task-num">1.</span>
+        <span class="task-q">Write the <strong>absolute</strong> path from / to anna's <code style="font-family:'Courier New',monospace;">readme.txt</code> file.</span>
+      </div>
+      <div class="path-task-answer">
+        <div class="answer-label">Your answer</div>
+        <div class="answer-line"></div>
+        <div class="verify-row"><div class="verify-check"></div><span class="verify-label">verified on terminal</span></div>
+      </div>
+    </div>
+
+    <div class="path-task">
+      <div class="path-task-head">
+        <span class="task-num">2.</span>
+        <span class="task-q">You are currently in <code style="font-family:'Courier New',monospace;">/home/anna/documents</code>. Write a <strong>relative</strong> path to reach <code style="font-family:'Courier New',monospace;">/home/anna/pictures</code>.</span>
+      </div>
+      <div class="path-task-answer">
+        <div class="answer-label">Your answer</div>
+        <div class="answer-line"></div>
+        <div class="verify-row"><div class="verify-check"></div><span class="verify-label">verified on terminal</span></div>
+      </div>
+    </div>
+
+    <div class="path-task">
+      <div class="path-task-head">
+        <span class="task-num">3.</span>
+        <span class="task-q">You are currently in <code style="font-family:'Courier New',monospace;">/etc</code>. Write a <strong>relative</strong> path to reach <code style="font-family:'Courier New',monospace;">/var/log</code>.</span>
+      </div>
+      <div class="path-task-answer">
+        <div class="answer-label">Your answer</div>
+        <div class="answer-line"></div>
+        <div class="verify-row"><div class="verify-check"></div><span class="verify-label">verified on terminal</span></div>
+      </div>
+    </div>
+
+    <div class="path-task">
+      <div class="path-task-head">
+        <span class="task-num">4.</span>
+        <span class="task-q">Write the <strong>absolute</strong> path to the bash executable.</span>
+      </div>
+      <div class="path-task-answer">
+        <div class="answer-label">Your answer</div>
+        <div class="answer-line"></div>
+        <div class="verify-row"><div class="verify-check"></div><span class="verify-label">verified on terminal</span></div>
+      </div>
+    </div>
+
+    <div class="path-task">
+      <div class="path-task-head">
+        <span class="task-num">5.</span>
+        <span class="task-q">You are in <code style="font-family:'Courier New',monospace;">/usr/bin</code>. Write a <strong>relative</strong> path to reach the root directory <code style="font-family:'Courier New',monospace;">/</code>.</span>
+      </div>
+      <div class="path-task-answer">
+        <div class="answer-label">Your answer</div>
+        <div class="answer-line"></div>
+        <div class="verify-row"><div class="verify-check"></div><span class="verify-label">verified on terminal</span></div>
+      </div>
+    </div>
+
+    <div class="path-task">
+      <div class="path-task-head">
+        <span class="task-num">6.</span>
+        <span class="task-q">You are in <code style="font-family:'Courier New',monospace;">/usr/bin</code>. What directory do you end up in after running <code style="font-family:'Courier New',monospace;">cd ../../home/anna</code>? Predict first, then verify.</span>
+      </div>
+      <div class="path-task-answer">
+        <div class="answer-label">Your prediction</div>
+        <div class="answer-line"></div>
+        <div class="answer-label" style="margin-top:6px;">What pwd shows after running it</div>
+        <div class="answer-line"></div>
+        <div class="verify-row"><div class="verify-check"></div><span class="verify-label">prediction was correct</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:12px; padding:8px 12px; border:1px solid #ddd; border-radius:4px; font-size:11px; color:#555; font-family:'Courier New',monospace;">
+    Remember: <strong>~</strong> always means your home directory. <strong>.</strong> means current directory. <strong>..</strong> means one level up.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 3 — SESSION 11 — PERMISSION DECODER                   -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 11 · Week 3 · Handout C</div>
+      <div class="sheet-title">File permissions — reading the permission string</div>
+    </div>
+    <div class="name-line">
+      Name <span class="name-blank"></span><br><br>
+      Date <span class="name-blank"></span>
+    </div>
+  </div>
+
+  <div class="perm-guide">
+    <div class="guide-box">
+      <div class="guide-box-title">First character — file type</div>
+      <div class="guide-row"><span class="guide-code">-</span> regular file</div>
+      <div class="guide-row"><span class="guide-code">d</span> directory</div>
+      <div class="guide-row"><span class="guide-code">l</span> symbolic link (shortcut)</div>
+    </div>
+    <div class="guide-box">
+      <div class="guide-box-title">Permission characters</div>
+      <div class="guide-row"><span class="guide-code">r</span> read — can see contents / list directory</div>
+      <div class="guide-row"><span class="guide-code">w</span> write — can modify / create files inside</div>
+      <div class="guide-row"><span class="guide-code">x</span> execute — can run as program / enter directory</div>
+      <div class="guide-row"><span class="guide-code">-</span> permission not set</div>
+    </div>
+    <div class="guide-box" style="grid-column:1/-1;">
+      <div class="guide-box-title">Structure of the full string</div>
+      <div style="font-family:'Courier New',monospace; font-size:13px; letter-spacing:0.1em; margin-bottom:6px;">
+        &nbsp;&nbsp;<span style="color:var(--blue);">-</span>&nbsp;&nbsp;&nbsp;<span style="color:#3B6D11;">r w x</span>&nbsp;&nbsp;&nbsp;<span style="color:#854F0B;">r - x</span>&nbsp;&nbsp;&nbsp;<span style="color:#712B13;">r - -</span>
+      </div>
+      <div style="font-family:'Courier New',monospace; font-size:10px; color:#888; letter-spacing:0.05em;">
+        &nbsp;&nbsp;type&nbsp;&nbsp;&nbsp;owner&nbsp;&nbsp;&nbsp;&nbsp;group&nbsp;&nbsp;&nbsp;&nbsp;others
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:14px;">Decode each permission string</div>
+  <table class="perm-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Permission string</th>
+        <th>File or directory?</th>
+        <th>What can the owner do?</th>
+        <th>What can the group do?</th>
+        <th>What can others do?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="width:20px; text-align:center; font-family:'Courier New',monospace; font-size:10px; color:#888;">1</td>
+        <td class="perm-code">drwxr-xr-x</td>
+        <td class="type-col"></td>
+        <td class="perm-col"></td>
+        <td class="perm-col"></td>
+        <td class="note-col"></td>
+      </tr>
+      <tr>
+        <td style="width:20px; text-align:center; font-family:'Courier New',monospace; font-size:10px; color:#888;">2</td>
+        <td class="perm-code">-rw-r--r--</td>
+        <td class="type-col"></td>
+        <td class="perm-col"></td>
+        <td class="perm-col"></td>
+        <td class="note-col"></td>
+      </tr>
+      <tr>
+        <td style="width:20px; text-align:center; font-family:'Courier New',monospace; font-size:10px; color:#888;">3</td>
+        <td class="perm-code">-rwx------</td>
+        <td class="type-col"></td>
+        <td class="perm-col"></td>
+        <td class="perm-col"></td>
+        <td class="note-col"></td>
+      </tr>
+      <tr>
+        <td style="width:20px; text-align:center; font-family:'Courier New',monospace; font-size:10px; color:#888;">4</td>
+        <td class="perm-code">drwx--x--x</td>
+        <td class="type-col"></td>
+        <td class="perm-col"></td>
+        <td class="perm-col"></td>
+        <td class="note-col"></td>
+      </tr>
+      <tr>
+        <td style="width:20px; text-align:center; font-family:'Courier New',monospace; font-size:10px; color:#888;">5</td>
+        <td class="perm-code">-rw-rw-r--</td>
+        <td class="type-col"></td>
+        <td class="perm-col"></td>
+        <td class="perm-col"></td>
+        <td class="note-col"></td>
+      </tr>
+      <tr>
+        <td style="width:20px; text-align:center; font-family:'Courier New',monospace; font-size:10px; color:#888;">6</td>
+        <td class="perm-code">lrwxrwxrwx</td>
+        <td class="type-col"></td>
+        <td class="perm-col"></td>
+        <td class="perm-col"></td>
+        <td class="note-col"></td>
+      </tr>
+      <tr>
+        <td style="width:20px; text-align:center; font-family:'Courier New',monospace; font-size:10px; color:#888;">7</td>
+        <td class="perm-code">----------</td>
+        <td class="type-col"></td>
+        <td class="perm-col"></td>
+        <td class="perm-col"></td>
+        <td class="note-col"></td>
+      </tr>
+      <tr>
+        <td style="width:20px; text-align:center; font-family:'Courier New',monospace; font-size:10px; color:#888;">8</td>
+        <td class="perm-code">drwxrwxrwx</td>
+        <td class="type-col"></td>
+        <td class="perm-col"></td>
+        <td class="perm-col"></td>
+        <td class="note-col"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="danger-box">
+    <div class="danger-label">Think carefully — item 4 and item 8</div>
+    <strong>Item 4</strong> — <code style="font-family:'Courier New',monospace;">drwx--x--x</code>: group and others have execute but NOT read on this directory. What does that actually mean they can and cannot do? Why would anyone set permissions this way?
+    <div class="danger-answer"></div>
+    <div style="margin-top:10px;"></div>
+    <strong>Item 8</strong> — <code style="font-family:'Courier New',monospace;">drwxrwxrwx</code>: everyone has full access to this directory. Why is this almost always a mistake? Give a specific real-world example of what could go wrong.
+    <div class="danger-answer"></div>
+  </div>
+
+  <div style="margin-top:12px; border:1px solid var(--border); border-radius:4px; padding:10px 14px;">
+    <div class="section-label" style="margin-top:0;">Numeric mode — convert without looking at notes</div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:6px;">
+      <div style="font-size:12px;"><code style="font-family:'Courier New',monospace; font-size:13px;">755</code> = <div class="write-line" style="margin-top:4px;"></div></div>
+      <div style="font-size:12px;"><code style="font-family:'Courier New',monospace; font-size:13px;">644</code> = <div class="write-line" style="margin-top:4px;"></div></div>
+      <div style="font-size:12px;"><code style="font-family:'Courier New',monospace; font-size:13px;">600</code> = <div class="write-line" style="margin-top:4px;"></div></div>
+      <div style="font-size:12px;"><code style="font-family:'Courier New',monospace; font-size:13px;">700</code> = <div class="write-line" style="margin-top:4px;"></div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 4 — SESSION 16 — VOCABULARY CHECKLIST                 -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 16 · Week 4 · Handout D</div>
+      <div class="sheet-title">Phase 1 vocabulary checklist</div>
+    </div>
+    <div class="name-line">
+      Name <span class="name-blank"></span><br><br>
+      Date <span class="name-blank"></span>
+    </div>
+  </div>
+
+  <div class="instructions">
+    For each term, tick the green box if you can explain it clearly in your own words without looking it up. Tick the red box if you need to review it. Be honest — this is for you, not for a grade.
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="conf-box yes"></div> I can explain this clearly</div>
+    <div class="legend-item"><div class="conf-box no"></div> I need to review this</div>
+  </div>
+
+  <!-- Week 1 -->
+  <div class="vocab-section">
+    <div class="vocab-week-label">Week 1 — the operating system</div>
+    <div class="vocab-grid">
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">hardware</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">firmware / BIOS</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">kernel</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">operating system</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">application</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">abstraction</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">open source</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">GPL licence</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">source code</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">distro</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">desktop environment</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">LTS</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">package manager</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">rolling release</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">bootloader / GRUB</span></div>
+    </div>
+  </div>
+
+  <!-- Week 2 -->
+  <div class="vocab-section">
+    <div class="vocab-week-label">Week 2 — the filesystem</div>
+    <div class="vocab-grid">
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">/ (root directory)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">filesystem tree</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">mount point</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">pwd</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">ls / ls -la</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">cd</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">~ (home shortcut)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">/home</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">/etc</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">/var / /var/log</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">/usr / /usr/bin</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">/tmp</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">absolute path</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">relative path</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">. and ..</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">hidden file / dotfile</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">.bashrc</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">case-sensitive</span></div>
+    </div>
+  </div>
+
+  <!-- Week 3 -->
+  <div class="vocab-section">
+    <div class="vocab-week-label">Week 3 — users and permissions</div>
+    <div class="vocab-grid">
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">user</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">UID</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">GID</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">group</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">whoami</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">id (command)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">root (user)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">UID 0</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">sudo</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">privilege</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">permission string</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">r / w / x</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">owner / group / others</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">chmod</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">chmod +x</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">755 / 644 / 600</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">least privilege</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">/etc/shadow</span></div>
+    </div>
+  </div>
+
+  <!-- Week 4 -->
+  <div class="vocab-section">
+    <div class="vocab-week-label">Week 4 — terminal and recovery</div>
+    <div class="vocab-grid">
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">mkdir -p</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">touch</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">echo ></span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">rm (no undo)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">permission denied</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">stderr</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">exit code</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">man (command)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">man -k</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">SYNOPSIS</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">flag / option</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vocab-term">sudo apt install</span></div>
+    </div>
+  </div>
+
+  <div class="reflection-section">
+    <div class="section-label" style="margin-top:0;">After the vocabulary relay — personal reflection</div>
+    <div class="reflection-q">1. Which concept took the longest to understand? What finally made it click?</div>
+    <div class="reflection-lines"><div class="r-line"></div><div class="r-line"></div></div>
+    <div class="reflection-q">2. Which concept surprised you most? Why?</div>
+    <div class="reflection-lines"><div class="r-line"></div><div class="r-line"></div></div>
+    <div class="reflection-q">3. Complete this sentence: "A Linux filesystem is different from Windows because ___"</div>
+    <div class="reflection-lines"><div class="r-line"></div><div class="r-line"></div></div>
+    <div class="reflection-q">4. In one sentence: why does Linux have a permission system at all?</div>
+    <div class="reflection-lines"><div class="r-line"></div></div>
+  </div>
+</div>
+
+</body>
+</html>

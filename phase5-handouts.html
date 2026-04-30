@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Phase 5 — Student Handouts</title>
+<style>
+  :root {
+    --purple:#3C3489;--purple-light:#EEEDFE;--purple-text:#534AB7;--purple-mid:#AFA9EC;
+    --blue:#0C447C;--blue-light:#E6F1FB;--blue-text:#185FA5;
+    --green:#27500A;--green-light:#EAF3DE;
+    --coral:#712B13;--coral-light:#FAECE7;--coral-text:#993C1D;
+    --amber:#633806;--amber-light:#FAEEDA;
+    --gray:#444441;--gray-light:#F1EFE8;
+    --border:#ccc;--text:#111;
+    --danger-bg:#FFF0F0;--danger-border:#D85A30;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:Georgia,serif;font-size:13px;color:var(--text);background:#fff;}
+  .sheet{width:210mm;min-height:297mm;margin:0 auto;padding:13mm 15mm;page-break-after:always;background:#fff;}
+  .sheet:last-child{page-break-after:avoid;}
+  .sheet-header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--text);padding-bottom:8px;margin-bottom:14px;}
+  .sheet-id{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#666;}
+  .sheet-title{font-size:17px;font-weight:normal;margin-top:3px;}
+  .name-line{font-family:'Courier New',monospace;font-size:11px;color:#666;text-align:right;}
+  .name-blank{display:inline-block;width:110px;border-bottom:1px solid #999;margin-left:6px;vertical-align:bottom;}
+  .instructions{background:var(--gray-light);border-left:3px solid var(--gray);padding:8px 12px;margin-bottom:12px;font-size:12px;line-height:1.6;color:var(--gray);border-radius:0 4px 4px 0;}
+  .danger-box{background:var(--danger-bg);border:2px solid var(--danger-border);border-radius:5px;padding:7px 12px;margin-bottom:10px;font-size:12px;color:#5a0000;line-height:1.6;}
+  .danger-label{font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--danger-border);margin-bottom:3px;}
+  .slabel{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#666;margin-bottom:5px;margin-top:10px;}
+  code{font-family:'Courier New',monospace;background:var(--gray-light);padding:1px 4px;border-radius:2px;font-size:11px;}
+  pre{font-family:'Courier New',monospace;background:#1e1e1e;color:#d4d4d4;padding:8px 12px;border-radius:4px;font-size:11px;line-height:1.8;margin:6px 0;}
+  .wline{border-bottom:1px solid #ccc;min-height:20px;margin-top:3px;}
+  .wbox{border:1px solid #ccc;border-radius:3px;min-height:36px;margin-top:4px;padding:4px 6px;}
+
+  /* Reference card style */
+  .ref-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+  .ref-box{border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+  .ref-head{background:var(--purple-light);padding:5px 10px;}
+  .ref-head-title{font-size:11px;font-weight:bold;color:var(--purple);margin-bottom:1px;}
+  .ref-head-sub{font-family:'Courier New',monospace;font-size:9px;color:var(--purple-text);}
+  .ref-body{padding:7px 10px;}
+  .ref-cmd{display:flex;gap:6px;margin-bottom:4px;font-size:11px;}
+  .ref-code{font-family:'Courier New',monospace;min-width:130px;color:var(--purple-text);}
+  .ref-desc{color:#555;}
+
+  /* Exercise cards */
+  .ex-card{border:1px solid var(--border);border-radius:4px;margin-bottom:8px;overflow:hidden;}
+  .ex-head{background:var(--blue-light);padding:5px 12px;display:flex;gap:8px;align-items:baseline;}
+  .ex-n{font-family:'Courier New',monospace;font-size:10px;color:var(--blue);min-width:16px;}
+  .ex-q{font-size:12px;color:var(--blue-text);line-height:1.4;}
+  .ex-body{padding:6px 12px;}
+  .ans-row{display:grid;grid-template-columns:80px 1fr;gap:6px;align-items:start;margin-top:4px;}
+  .ans-label{font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;color:#888;padding-top:3px;}
+
+  /* SSH checklist */
+  .ssh-steps{display:flex;flex-direction:column;gap:8px;}
+  .ssh-step{border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+  .ssh-step-head{background:var(--purple-light);padding:5px 12px;display:flex;gap:8px;align-items:baseline;}
+  .ssh-step-n{font-family:'Courier New',monospace;font-size:10px;color:var(--purple);font-weight:bold;}
+  .ssh-step-title{font-size:12px;color:var(--purple-text);}
+  .ssh-step-body{padding:7px 12px;}
+  .check-row{display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;font-size:11px;}
+  .cbox{width:13px;height:13px;border:1px solid #bbb;border-radius:2px;flex-shrink:0;margin-top:1px;}
+
+  /* Debug worksheet */
+  .debug-scenario{border:1px solid var(--border);border-radius:4px;margin-bottom:10px;overflow:hidden;}
+  .debug-head{background:var(--coral-light);padding:6px 12px;}
+  .debug-head-title{font-size:12px;font-weight:bold;color:var(--coral);}
+  .debug-head-sub{font-size:11px;color:var(--coral-text);font-style:italic;}
+  .debug-body{padding:8px 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .debug-field{margin-bottom:6px;}
+  .debug-label{font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:#888;margin-bottom:2px;}
+
+  /* Cheat sheet style */
+  .cheat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+  .cheat-box{border:1px solid var(--border);border-radius:4px;padding:8px 10px;}
+  .cheat-title{font-family:'Courier New',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:6px;font-weight:bold;}
+  .cheat-row{display:flex;gap:6px;margin-bottom:3px;font-size:11px;}
+  .cheat-cmd{font-family:'Courier New',monospace;min-width:120px;color:var(--purple-text);font-size:11px;}
+  .cheat-meaning{color:#444;line-height:1.4;}
+
+  /* Vocab */
+  .vocab-section{margin-bottom:12px;}
+  .vocab-week{font-family:'Courier New',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#888;border-bottom:1px solid #ddd;padding-bottom:3px;margin-bottom:7px;}
+  .vocab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px 12px;}
+  .vocab-item{display:flex;align-items:flex-start;gap:5px;}
+  .cboxes{display:flex;gap:3px;flex-shrink:0;margin-top:1px;}
+  .cb{width:11px;height:11px;border:1px solid #bbb;border-radius:2px;}
+  .cb.y{border-color:var(--green);}
+  .cb.n{border-color:var(--coral);}
+  .vterm{font-family:'Courier New',monospace;font-size:10px;line-height:1.4;}
+  .legend{display:flex;gap:12px;font-size:10px;font-family:'Courier New',monospace;color:#666;margin-bottom:10px;padding:5px 10px;background:var(--gray-light);border-radius:3px;}
+  .li{display:flex;align-items:center;gap:4px;}
+  .reflect{margin-top:12px;border-top:1px solid #ddd;padding-top:10px;}
+  .rq{font-size:12px;color:#333;margin-bottom:4px;line-height:1.5;}
+  .rlines{display:flex;flex-direction:column;gap:5px;margin-bottom:8px;}
+  .rline{border-bottom:1px solid #ccc;min-height:18px;}
+
+  @media print{.sheet{padding:11mm 13mm;} pre{-webkit-print-color-adjust:exact;print-color-adjust:exact;} .ref-head,.ex-head,.ssh-step-head,.debug-head,.cheat-title{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- SHEET 1 — S65/68 — NETWORKING REFERENCE CARD                -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Sessions 65 + 68 · Week 17 · Handout R</div>
+      <div class="sheet-title">Networking — commands, concepts, and exercises</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="ref-grid">
+    <div class="ref-box">
+      <div class="ref-head"><div class="ref-head-title">Interface and addresses</div></div>
+      <div class="ref-body">
+        <div class="ref-cmd"><span class="ref-code">ip addr show</span><span class="ref-desc">all interfaces + IPs</span></div>
+        <div class="ref-cmd"><span class="ref-code">hostname -I</span><span class="ref-desc">machine's IP addresses</span></div>
+        <div class="ref-cmd"><span class="ref-code">ip route show</span><span class="ref-desc">routing table, gateway</span></div>
+        <div class="ref-cmd"><span class="ref-code">ss -tulpn</span><span class="ref-desc">listening ports + services</span></div>
+      </div>
+    </div>
+    <div class="ref-box">
+      <div class="ref-head"><div class="ref-head-title">Testing and diagnostics</div></div>
+      <div class="ref-body">
+        <div class="ref-cmd"><span class="ref-code">ping -c 4 host</span><span class="ref-desc">test reachability</span></div>
+        <div class="ref-cmd"><span class="ref-code">traceroute host</span><span class="ref-desc">trace route to host</span></div>
+        <div class="ref-cmd"><span class="ref-code">dig hostname</span><span class="ref-desc">DNS lookup details</span></div>
+        <div class="ref-cmd"><span class="ref-code">nslookup host</span><span class="ref-desc">simple DNS resolution</span></div>
+      </div>
+    </div>
+    <div class="ref-box">
+      <div class="ref-head"><div class="ref-head-title">curl</div></div>
+      <div class="ref-body">
+        <div class="ref-cmd"><span class="ref-code">curl url</span><span class="ref-desc">fetch and print</span></div>
+        <div class="ref-cmd"><span class="ref-code">curl -o file url</span><span class="ref-desc">save to file</span></div>
+        <div class="ref-cmd"><span class="ref-code">curl -I url</span><span class="ref-desc">headers only</span></div>
+        <div class="ref-cmd"><span class="ref-code">curl -L url</span><span class="ref-desc">follow redirects</span></div>
+        <div class="ref-cmd"><span class="ref-code">curl -X POST -d data</span><span class="ref-desc">POST request</span></div>
+      </div>
+    </div>
+    <div class="ref-box">
+      <div class="ref-head"><div class="ref-head-title">DNS configuration files</div></div>
+      <div class="ref-body">
+        <div class="ref-cmd"><span class="ref-code">/etc/hosts</span><span class="ref-desc">local DNS overrides</span></div>
+        <div class="ref-cmd"><span class="ref-code">/etc/resolv.conf</span><span class="ref-desc">DNS server addresses</span></div>
+        <div class="ref-cmd"><span class="ref-code">cat /etc/hosts</span><span class="ref-desc">read current overrides</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slabel">Exercises — fill in commands and answers</div>
+
+  <div class="ex-card">
+    <div class="ex-head"><span class="ex-n">1.</span><span class="ex-q">What is your machine's local IP address? Which interface carries it?</span></div>
+    <div class="ex-body">
+      <div class="ans-row"><div class="ans-label">Command</div><div class="wline" style="font-family:'Courier New',monospace;"></div></div>
+      <div class="ans-row"><div class="ans-label">IP address</div><div class="wline"></div></div>
+      <div class="ans-row"><div class="ans-label">Interface name</div><div class="wline"></div></div>
+    </div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-head"><span class="ex-n">2.</span><span class="ex-q">What is the default gateway? What does that device do?</span></div>
+    <div class="ex-body">
+      <div class="ans-row"><div class="ans-label">Command</div><div class="wline" style="font-family:'Courier New',monospace;"></div></div>
+      <div class="ans-row"><div class="ans-label">Gateway IP</div><div class="wline"></div></div>
+      <div class="ans-row"><div class="ans-label">Its role</div><div class="wline"></div></div>
+    </div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-head"><span class="ex-n">3.</span><span class="ex-q">Run curl https://api.ipify.org — what IP does it return? How does it differ from your local IP?</span></div>
+    <div class="ex-body">
+      <div class="ans-row"><div class="ans-label">Returned IP</div><div class="wline"></div></div>
+      <div class="ans-row"><div class="ans-label">Why different</div><div class="wline"></div></div>
+      <div class="ans-row"><div class="ans-label">What is NAT?</div><div class="wbox"></div></div>
+    </div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-head"><span class="ex-n">4.</span><span class="ex-q">Use ss -tulpn. List 3 services listening on your machine — port, protocol, service name.</span></div>
+    <div class="ex-body">
+      <table style="width:100%;border-collapse:collapse;font-size:11px;margin-top:4px;">
+        <tr>
+          <th style="background:var(--gray-light);border:1px solid #ddd;padding:4px 8px;font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;font-weight:normal;text-align:left;">Port</th>
+          <th style="background:var(--gray-light);border:1px solid #ddd;padding:4px 8px;font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;font-weight:normal;text-align:left;">Protocol</th>
+          <th style="background:var(--gray-light);border:1px solid #ddd;padding:4px 8px;font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;font-weight:normal;text-align:left;">Service</th>
+          <th style="background:var(--gray-light);border:1px solid #ddd;padding:4px 8px;font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;font-weight:normal;text-align:left;">What it does</th>
+        </tr>
+        <tr><td style="border:1px solid #ddd;padding:5px 8px;height:24px;"></td><td style="border:1px solid #ddd;padding:5px 8px;"></td><td style="border:1px solid #ddd;padding:5px 8px;"></td><td style="border:1px solid #ddd;padding:5px 8px;"></td></tr>
+        <tr><td style="border:1px solid #ddd;padding:5px 8px;height:24px;"></td><td style="border:1px solid #ddd;padding:5px 8px;"></td><td style="border:1px solid #ddd;padding:5px 8px;"></td><td style="border:1px solid #ddd;padding:5px 8px;"></td></tr>
+        <tr><td style="border:1px solid #ddd;padding:5px 8px;height:24px;"></td><td style="border:1px solid #ddd;padding:5px 8px;"></td><td style="border:1px solid #ddd;padding:5px 8px;"></td><td style="border:1px solid #ddd;padding:5px 8px;"></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-head"><span class="ex-n">5.</span><span class="ex-q">Add an entry to /etc/hosts mapping "mycomputer" to 127.0.0.1. Test it with ping. Write the entry you added.</span></div>
+    <div class="ex-body">
+      <div class="ans-row"><div class="ans-label">hosts entry</div><div class="wline" style="font-family:'Courier New',monospace;"></div></div>
+      <div class="ans-row"><div class="ans-label">ping result</div><div class="wline"></div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 2 — S66/67 — SSH SETUP GUIDE                          -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Sessions 66 + 67 · Week 17 · Handout S</div>
+      <div class="sheet-title">SSH — connection and key authentication setup</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="instructions">
+    Work through these steps in sequence. Each step builds on the last. Record every command you run and the key results. Partner A = server, Partner B = client — then swap.
+  </div>
+
+  <div class="ssh-steps">
+
+    <div class="ssh-step">
+      <div class="ssh-step-head"><span class="ssh-step-n">Step 1</span><span class="ssh-step-title">Install and start SSH server (server machine)</span></div>
+      <div class="ssh-step-body">
+        <div class="check-row"><div class="cbox"></div>Install: <code>sudo apt install openssh-server</code></div>
+        <div class="check-row"><div class="cbox"></div>Enable and start: <code>sudo systemctl enable --now ssh</code></div>
+        <div class="check-row"><div class="cbox"></div>Verify running: <code>systemctl status ssh</code> — shows "active (running)"</div>
+        <div class="check-row"><div class="cbox"></div>Find IP: <code>ip addr show</code></div>
+        <div style="margin:4px 0 0 22px;">Server IP: <span style="display:inline-block;width:150px;border-bottom:1px solid #ccc;vertical-align:bottom;"></span>&nbsp; Username: <span style="display:inline-block;width:100px;border-bottom:1px solid #ccc;vertical-align:bottom;"></span></div>
+      </div>
+    </div>
+
+    <div class="ssh-step">
+      <div class="ssh-step-head"><span class="ssh-step-n">Step 2</span><span class="ssh-step-title">Connect with password (client machine)</span></div>
+      <div class="ssh-step-body">
+        <div class="check-row"><div class="cbox"></div>Connect: <code>ssh username@server_ip</code></div>
+        <div class="check-row"><div class="cbox"></div>Accept host key fingerprint (type "yes")</div>
+        <div class="check-row"><div class="cbox"></div>Run <code>hostname</code> — does it show the server's hostname?</div>
+        <div class="check-row"><div class="cbox"></div>Run <code>who</code> — can you see your session listed?</div>
+        <div style="margin:4px 0 0 0;"><div style="font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;color:#888;margin-bottom:2px;">who output shows:</div><div class="wline" style="font-family:'Courier New',monospace;"></div></div>
+        <div class="check-row" style="margin-top:6px;"><div class="cbox"></div>Disconnect: <code>exit</code> or Ctrl+D</div>
+      </div>
+    </div>
+
+    <div class="ssh-step">
+      <div class="ssh-step-head"><span class="ssh-step-n">Step 3</span><span class="ssh-step-title">Generate SSH key pair (client machine)</span></div>
+      <div class="ssh-step-body">
+        <div class="check-row"><div class="cbox"></div>Generate: <code>ssh-keygen -t ed25519 -C "yourname-course"</code></div>
+        <div class="check-row"><div class="cbox"></div>Accept default path (~/.ssh/id_ed25519)</div>
+        <div class="check-row"><div class="cbox"></div>Set a passphrase (recommended) or press Enter for none</div>
+        <div class="check-row"><div class="cbox"></div>View public key: <code>cat ~/.ssh/id_ed25519.pub</code></div>
+        <div style="margin:4px 0 0 22px;">Public key starts with: <span style="display:inline-block;width:200px;border-bottom:1px solid #ccc;vertical-align:bottom;font-family:'Courier New',monospace;font-size:10px;"></span></div>
+      </div>
+    </div>
+
+    <div class="ssh-step">
+      <div class="ssh-step-head"><span class="ssh-step-n">Step 4</span><span class="ssh-step-title">Copy public key to server</span></div>
+      <div class="ssh-step-body">
+        <div class="check-row"><div class="cbox"></div>Copy: <code>ssh-copy-id username@server_ip</code></div>
+        <div class="check-row"><div class="cbox"></div>SSH again — are you prompted for a password? (Should not be)</div>
+        <div class="check-row"><div class="cbox"></div>Check permissions: <code>ls -la ~/.ssh/</code></div>
+        <div style="margin:4px 0 0 0;">
+          <table style="width:100%;border-collapse:collapse;font-size:11px;margin-top:4px;">
+            <tr>
+              <th style="background:var(--gray-light);border:1px solid #ddd;padding:3px 8px;font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;font-weight:normal;text-align:left;">File</th>
+              <th style="background:var(--gray-light);border:1px solid #ddd;padding:3px 8px;font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;font-weight:normal;text-align:left;">Required permissions</th>
+              <th style="background:var(--gray-light);border:1px solid #ddd;padding:3px 8px;font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;font-weight:normal;text-align:left;">Actual permissions</th>
+            </tr>
+            <tr><td style="border:1px solid #ddd;padding:4px 8px;font-family:'Courier New',monospace;font-size:11px;">~/.ssh/</td><td style="border:1px solid #ddd;padding:4px 8px;font-family:'Courier New',monospace;">700</td><td style="border:1px solid #ddd;padding:4px 8px;"></td></tr>
+            <tr><td style="border:1px solid #ddd;padding:4px 8px;font-family:'Courier New',monospace;font-size:11px;">id_ed25519</td><td style="border:1px solid #ddd;padding:4px 8px;font-family:'Courier New',monospace;">600</td><td style="border:1px solid #ddd;padding:4px 8px;"></td></tr>
+            <tr><td style="border:1px solid #ddd;padding:4px 8px;font-family:'Courier New',monospace;font-size:11px;">id_ed25519.pub</td><td style="border:1px solid #ddd;padding:4px 8px;font-family:'Courier New',monospace;">644</td><td style="border:1px solid #ddd;padding:4px 8px;"></td></tr>
+          </table>
+        </div>
+        <div class="check-row" style="margin-top:6px;"><div class="cbox" style="border-color:#D85A30;"></div>Test: set private key to 644, try SSH — read the error. Set it back to 600.</div>
+      </div>
+    </div>
+
+    <div class="ssh-step">
+      <div class="ssh-step-head"><span class="ssh-step-n">Step 5</span><span class="ssh-step-title">SSH config shortcut</span></div>
+      <div class="ssh-step-body">
+        <div class="check-row"><div class="cbox"></div>Create or edit <code>~/.ssh/config</code> with nano</div>
+        <pre>Host partner
+    HostName <span style="color:#999;">server_ip</span>
+    User <span style="color:#999;">username</span>
+    IdentityFile ~/.ssh/id_ed25519</pre>
+        <div class="check-row"><div class="cbox"></div>Test: <code>ssh partner</code> — does it connect?</div>
+        <div class="check-row"><div class="cbox"></div>Transfer a file: <code>scp ~/scripts/greet.sh partner:/tmp/</code></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:8px;border:1px solid var(--border);border-radius:4px;padding:8px 12px;">
+    <div class="slabel" style="margin-top:0;">Key concepts — answer without notes</div>
+    <div style="font-size:12px;margin-bottom:4px;">Why is SSH key authentication more secure than password authentication?</div>
+    <div class="wline"></div><div class="wline" style="margin-top:5px;"></div>
+    <div style="font-size:12px;margin-top:8px;margin-bottom:4px;">What is the difference between the public key and the private key? What happens if someone gets your private key?</div>
+    <div class="wline"></div><div class="wline" style="margin-top:5px;"></div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 3 — S72 — DEBUGGING WORKSHEET                         -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 72 · Week 19 · Handout T</div>
+      <div class="sheet-title">Debugging — diagnosing and fixing broken systems</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="instructions">
+    For each scenario: describe the problem precisely, list every diagnostic command you run (with output), identify the root cause (not the symptom), apply the fix, and verify it worked.
+  </div>
+
+  <div style="background:var(--purple-light);border-radius:4px;padding:8px 12px;margin-bottom:10px;font-size:12px;color:var(--purple);">
+    <strong>Debugging method:</strong> (1) describe precisely, (2) reproduce reliably, (3) gather information, (4) hypothesise, (5) test one change, (6) find root cause not symptom
+  </div>
+
+  <div class="debug-scenario">
+    <div class="debug-head">
+      <div class="debug-head-title">Scenario 1 — broken service</div>
+      <div class="debug-head-sub">A service unit file has a syntax error. systemctl start fails.</div>
+    </div>
+    <div class="debug-body">
+      <div class="debug-field"><div class="debug-label">Precise problem description</div><div class="wbox"></div></div>
+      <div class="debug-field"><div class="debug-label">Diagnostic commands run</div><div class="wbox" style="font-family:'Courier New',monospace;font-size:11px;"></div></div>
+      <div class="debug-field"><div class="debug-label">Root cause (specific, not "syntax error")</div><div class="wbox"></div></div>
+      <div class="debug-field"><div class="debug-label">Fix applied + verification command</div><div class="wbox"></div></div>
+    </div>
+  </div>
+
+  <div class="debug-scenario">
+    <div class="debug-head">
+      <div class="debug-head-title">Scenario 2 — permission denied</div>
+      <div class="debug-head-sub">A script exists. The path is correct. Running it gives "permission denied."</div>
+    </div>
+    <div class="debug-body">
+      <div class="debug-field"><div class="debug-label">Diagnostic commands run</div><div class="wbox" style="font-family:'Courier New',monospace;font-size:11px;"></div></div>
+      <div class="debug-field"><div class="debug-label">What ls -l shows about the file</div><div class="wline" style="font-family:'Courier New',monospace;"></div></div>
+      <div class="debug-field"><div class="debug-label">Root cause</div><div class="wbox"></div></div>
+      <div class="debug-field"><div class="debug-label">Fix + verification</div><div class="wbox"></div></div>
+    </div>
+  </div>
+
+  <div class="debug-scenario">
+    <div class="debug-head">
+      <div class="debug-head-title">Scenario 3 — missing command</div>
+      <div class="debug-head-sub">A script calls a command that is not installed. "Command not found."</div>
+    </div>
+    <div class="debug-body">
+      <div class="debug-field"><div class="debug-label">Command that was missing</div><div class="wline" style="font-family:'Courier New',monospace;"></div></div>
+      <div class="debug-field"><div class="debug-label">How you found the package name</div><div class="wbox"></div></div>
+      <div class="debug-field"><div class="debug-label">Install command</div><div class="wline" style="font-family:'Courier New',monospace;"></div></div>
+      <div class="debug-field"><div class="debug-label">Verification</div><div class="wline" style="font-family:'Courier New',monospace;"></div></div>
+    </div>
+  </div>
+
+  <div class="debug-scenario">
+    <div class="debug-head">
+      <div class="debug-head-title">Scenario 4 — SSH service config error</div>
+      <div class="debug-head-sub">SSH will not start after editing sshd_config. Use the built-in config tester.</div>
+    </div>
+    <div class="debug-body">
+      <div class="debug-field"><div class="debug-label">Built-in config test command</div><div class="wline" style="font-family:'Courier New',monospace;"></div></div>
+      <div class="debug-field"><div class="debug-label">Error output (exact)</div><div class="wbox" style="font-family:'Courier New',monospace;font-size:11px;"></div></div>
+      <div class="debug-field"><div class="debug-label">Line with error + what was wrong</div><div class="wbox"></div></div>
+      <div class="debug-field"><div class="debug-label">Fix + verification</div><div class="wbox"></div></div>
+    </div>
+  </div>
+
+  <div style="margin-top:8px;border:1px solid var(--border);border-radius:4px;padding:8px 12px;">
+    <div class="slabel" style="margin-top:0;">Reflection</div>
+    <div style="font-size:12px;margin-bottom:4px;">What is the difference between a symptom and a root cause? Give one example from today's scenarios.</div>
+    <div class="wline"></div><div class="wline" style="margin-top:5px;"></div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 4 — S74/75 — CRON AND GIT CHEAT SHEET                 -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Sessions 74 + 75 · Week 20 · Handout U</div>
+      <div class="sheet-title">Cron and git — reference and exercises</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="cheat-grid">
+    <div class="cheat-box">
+      <div class="cheat-title">Cron syntax</div>
+      <pre style="font-size:10px; margin-bottom:6px;">MIN HOUR DOM MON DOW command
+ *    *    *   *   *  every minute
+ 0    3    *   *   *  3am daily
+ 0    3    *   *   0  3am every Sunday
+*/5   *    *   *   *  every 5 minutes
+ 0   9-17  *   *  1-5 9am-5pm weekdays</pre>
+      <div class="cheat-row"><span class="cheat-cmd">crontab -e</span><span class="cheat-meaning">edit your crontab</span></div>
+      <div class="cheat-row"><span class="cheat-cmd">crontab -l</span><span class="cheat-meaning">list current crontab</span></div>
+      <div class="cheat-row"><span class="cheat-cmd">crontab -r</span><span class="cheat-meaning">remove all (careful)</span></div>
+      <div class="cheat-row" style="margin-top:4px;font-size:10px;color:#888;">Always use absolute paths. Always redirect: <code>&gt;&gt; /log 2&gt;&amp;1</code></div>
+    </div>
+    <div class="cheat-box">
+      <div class="cheat-title">Core git workflow</div>
+      <div class="cheat-row"><span class="cheat-cmd">git init</span><span class="cheat-meaning">create repository</span></div>
+      <div class="cheat-row"><span class="cheat-cmd">git status</span><span class="cheat-meaning">what changed</span></div>
+      <div class="cheat-row"><span class="cheat-cmd">git add .</span><span class="cheat-meaning">stage all changes</span></div>
+      <div class="cheat-row"><span class="cheat-cmd">git commit -m "msg"</span><span class="cheat-meaning">save snapshot</span></div>
+      <div class="cheat-row"><span class="cheat-cmd">git log --oneline</span><span class="cheat-meaning">compact history</span></div>
+      <div class="cheat-row"><span class="cheat-cmd">git diff</span><span class="cheat-meaning">unstaged changes</span></div>
+      <div class="cheat-row"><span class="cheat-cmd">git checkout -- file</span><span class="cheat-meaning">undo file changes</span></div>
+      <div class="cheat-row"><span class="cheat-cmd">git show HASH</span><span class="cheat-meaning">view a commit</span></div>
+    </div>
+  </div>
+
+  <div class="slabel">Cron exercises</div>
+
+  <div class="ex-card">
+    <div class="ex-head"><span class="ex-n">1.</span><span class="ex-q">Write a crontab entry to run your backup script at 2:30am every day.</span></div>
+    <div class="ex-body">
+      <div class="ans-row"><div class="ans-label">Entry</div><div class="wline" style="font-family:'Courier New',monospace;font-size:12px;"></div></div>
+    </div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-head"><span class="ex-n">2.</span><span class="ex-q">Decode these cron entries — when does each run?</span></div>
+    <div class="ex-body" style="padding-top:8px;">
+      <div style="display:grid;grid-template-columns:160px 1fr;gap:6px;font-size:11px;margin-bottom:5px;">
+        <div style="font-family:'Courier New',monospace;background:var(--gray-light);padding:3px 8px;border-radius:3px;">0 0 1 * *</div>
+        <div class="wline"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:160px 1fr;gap:6px;font-size:11px;margin-bottom:5px;">
+        <div style="font-family:'Courier New',monospace;background:var(--gray-light);padding:3px 8px;border-radius:3px;">*/10 * * * 1-5</div>
+        <div class="wline"></div>
+      </div>
+      <div style="display:grid;grid-template-columns:160px 1fr;gap:6px;font-size:11px;">
+        <div style="font-family:'Courier New',monospace;background:var(--gray-light);padding:3px 8px;border-radius:3px;">30 8 * * 1</div>
+        <div class="wline"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-head"><span class="ex-n">3.</span><span class="ex-q">Why must cron jobs use absolute paths? Give a real example of what breaks without them.</span></div>
+    <div class="ex-body">
+      <div class="wbox"></div>
+    </div>
+  </div>
+
+  <div class="slabel" style="margin-top:12px;">Git exercises</div>
+
+  <div class="ex-card">
+    <div class="ex-head"><span class="ex-n">4.</span><span class="ex-q">Initialise a git repo in ~/dotfiles. Add and commit your .bashrc. Show the log entry.</span></div>
+    <div class="ex-body">
+      <div class="ans-row"><div class="ans-label">Commands</div><div class="wbox" style="font-family:'Courier New',monospace;font-size:11px;"></div></div>
+      <div class="ans-row" style="margin-top:6px;"><div class="ans-label">git log shows</div><div class="wline" style="font-family:'Courier New',monospace;"></div></div>
+    </div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-head"><span class="ex-n">5.</span><span class="ex-q">Accidentally delete 2 lines from .bashrc. Use git to recover the file. Show the command.</span></div>
+    <div class="ex-body">
+      <div class="ans-row"><div class="ans-label">Recovery command</div><div class="wline" style="font-family:'Courier New',monospace;font-size:12px;"></div></div>
+      <div class="ans-row" style="margin-top:5px;"><div class="ans-label">Why this works</div><div class="wline"></div></div>
+    </div>
+  </div>
+
+  <div class="ex-card">
+    <div class="ex-head"><span class="ex-n">6.</span><span class="ex-q">What are the three areas in git? What command moves changes from area 1 to area 2? From area 2 to area 3?</span></div>
+    <div class="ex-body">
+      <div style="display:flex;gap:8px;margin-top:4px;font-size:11px;">
+        <div style="flex:1;border:1px solid #ddd;border-radius:3px;padding:5px 8px;"><div style="font-family:'Courier New',monospace;font-size:9px;color:#888;text-transform:uppercase;margin-bottom:3px;">Area 1</div><div class="wline"></div></div>
+        <div style="display:flex;align-items:center;font-size:16px;color:var(--purple-mid);">→</div>
+        <div style="flex:1;border:1px solid #ddd;border-radius:3px;padding:5px 8px;"><div style="font-family:'Courier New',monospace;font-size:9px;color:#888;text-transform:uppercase;margin-bottom:3px;">Area 2</div><div class="wline"></div></div>
+        <div style="display:flex;align-items:center;font-size:16px;color:var(--purple-mid);">→</div>
+        <div style="flex:1;border:1px solid #ddd;border-radius:3px;padding:5px 8px;"><div style="font-family:'Courier New',monospace;font-size:9px;color:#888;text-transform:uppercase;margin-bottom:3px;">Area 3</div><div class="wline"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 5 — SESSION 80 — VOCABULARY CHECKLIST                 -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 80 · Week 20 · Handout V</div>
+      <div class="sheet-title">Phase 5 vocabulary checklist</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="instructions">
+    Tick the green box if you can explain the term clearly. Tick the red box if you need to review it.
+  </div>
+  <div class="legend">
+    <div class="li"><div class="cb y"></div> I can explain this</div>
+    <div class="li"><div class="cb n"></div> I need to review</div>
+  </div>
+
+  <div class="vocab-section">
+    <div class="vocab-week">Week 16 — bash scripting depth</div>
+    <div class="vocab-grid">
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">case statement</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">bash array</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">string manipulation ${}</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">$(( arithmetic ))</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">getopts / OPTARG</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">heredoc (EOF)</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">set -euo pipefail</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">trap EXIT / ERR</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">lockfile pattern</span></div>
+    </div>
+  </div>
+
+  <div class="vocab-section">
+    <div class="vocab-week">Week 17 — networking and SSH</div>
+    <div class="vocab-grid">
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">IP address / IPv4</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">private IP / NAT</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">port number</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">DNS / TTL</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">ip addr / ip route</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">ping / traceroute</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">ss -tulpn</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">SSH / port 22</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">host key fingerprint</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">scp</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">public key / private key</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">authorized_keys</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">ssh-keygen -t ed25519</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">~/.ssh/config</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">curl / wget</span></div>
+    </div>
+  </div>
+
+  <div class="vocab-section">
+    <div class="vocab-week">Week 18 — processes and services</div>
+    <div class="vocab-grid">
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">process / PID</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">process state (R/S/D/Z)</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">ps aux / htop</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">SIGTERM / SIGKILL</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">background (&amp;)</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">systemd / PID 1</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">unit file</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">systemctl</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">journalctl -u</span></div>
+    </div>
+  </div>
+
+  <div class="vocab-section">
+    <div class="vocab-week">Weeks 19–20 — logs, archives, cron, git, disk</div>
+    <div class="vocab-grid">
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">/var/log/syslog</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">/var/log/auth.log</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">journalctl -p err</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">root cause vs symptom</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">tar -czf / -xzf</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">gzip / zip</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">crontab -e / -l</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">cron time syntax</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">cron minimal environment</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">git init / add / commit</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">git log / diff / show</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">git branch / merge</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">df -h / du -sh</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">apt clean / autoremove</span></div>
+      <div class="vocab-item"><div class="cboxes"><div class="cb y"></div><div class="cb n"></div></div><span class="vterm">sudoers / visudo</span></div>
+    </div>
+  </div>
+
+  <div class="reflect">
+    <div class="slabel" style="margin-top:0;">Phase 5 reflection</div>
+    <div class="rq">1. What is the single most useful skill you learned in Phase 5? Why?</div>
+    <div class="rlines"><div class="rline"></div><div class="rline"></div></div>
+    <div class="rq">2. Describe your health-check script: what it monitors, one interesting implementation, one problem you debugged.</div>
+    <div class="rlines"><div class="rline"></div><div class="rline"></div><div class="rline"></div></div>
+    <div class="rq">3. What do you plan to build for the Phase 6 final project? Why?</div>
+    <div class="rlines"><div class="rline"></div><div class="rline"></div></div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 6 — Teacher Manual</title>
+<style>
+  :root {
+    --teal-light:#E1F5EE;--teal-dark:#085041;--teal-text:#0F6E56;--teal-mid:#5DCAA5;
+    --blue-light:#E6F1FB;--blue-dark:#0C447C;--blue-text:#185FA5;
+    --green-light:#EAF3DE;--green-dark:#27500A;
+    --coral-light:#FAECE7;--coral-dark:#712B13;--coral-text:#993C1D;
+    --amber-light:#FAEEDA;--amber-dark:#633806;
+    --gray-light:#F1EFE8;--gray-dark:#444441;
+    --text:#1a1a1a;--muted:#555;--border:#e0ddd6;--bg:#fff;--bgsec:#faf9f7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:Georgia,serif;font-size:15px;line-height:1.75;color:var(--text);background:var(--bg);}
+  .page{max-width:860px;margin:0 auto;padding:3rem 2.5rem;}
+  .cover{text-align:center;padding:4rem 0 3rem;border-bottom:1px solid var(--border);margin-bottom:3rem;}
+  .cover-label{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+  .cover h1{font-size:32px;font-weight:normal;margin-bottom:.5rem;}
+  .cover h2{font-size:18px;font-weight:normal;color:var(--muted);margin-bottom:2rem;}
+  .cover-meta{display:flex;justify-content:center;gap:2.5rem;font-size:13px;color:var(--muted);font-family:'Courier New',monospace;}
+  .cover-meta strong{color:var(--text);font-weight:normal;font-size:15px;display:block;}
+  .overview{background:var(--teal-light);border-radius:8px;padding:1.5rem 2rem;margin-bottom:3rem;}
+  .overview h3{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-dark);margin-bottom:.75rem;}
+  .overview p{font-size:14px;color:var(--teal-dark);line-height:1.75;margin-bottom:.75rem;}
+  .overview p:last-child{margin-bottom:0;}
+  .toc{background:var(--bgsec);border:1px solid var(--border);border-radius:8px;padding:1.5rem 2rem;margin-bottom:3rem;}
+  .toc h3{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+  .toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
+  .toc a{font-size:12px;color:var(--teal-text);text-decoration:none;font-family:'Courier New',monospace;}
+  .toc a:hover{text-decoration:underline;}
+  .week-header{margin:3rem 0 2rem;padding-bottom:.75rem;border-bottom:2px solid var(--text);}
+  .week-label{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+  .week-title{font-size:22px;font-weight:normal;margin-top:4px;}
+  .week-theme{font-size:14px;color:var(--muted);font-style:italic;margin-top:4px;}
+  .session{border:1px solid var(--border);border-radius:8px;margin-bottom:2.5rem;overflow:hidden;page-break-inside:avoid;}
+  .session-header{background:var(--teal-light);padding:1rem 1.5rem;display:flex;align-items:baseline;gap:1rem;}
+  .session-num{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-dark);min-width:70px;}
+  .session-title{font-size:17px;font-weight:normal;color:var(--teal-dark);}
+  .session-body{padding:1.5rem;}
+  .time-bar{display:flex;gap:4px;margin-bottom:1.5rem;border-radius:4px;overflow:hidden;height:36px;}
+  .t-block{display:flex;flex-direction:column;justify-content:center;padding:0 10px;font-size:10px;font-family:'Courier New',monospace;line-height:1.3;}
+  .t-block strong{font-size:12px;display:block;}
+  .t-warm{background:var(--gray-light);color:var(--gray-dark);}
+  .t-concept{background:var(--teal-light);color:var(--teal-dark);}
+  .t-exercise{background:var(--blue-light);color:var(--blue-dark);}
+  .t-close{background:var(--green-light);color:var(--green-dark);}
+  .section{margin-bottom:1.5rem;}
+  .section-label{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;border-bottom:1px solid var(--border);padding-bottom:4px;}
+  .section p{font-size:14px;line-height:1.75;margin-bottom:.75rem;}
+  .section p:last-child{margin-bottom:0;}
+  .whiteboard{background:#fffef5;border:1px dashed #c8c090;border-radius:6px;padding:1.25rem 1.5rem;margin:.75rem 0;}
+  .whiteboard-label{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8a7a40;margin-bottom:.75rem;}
+  .whiteboard-content{font-family:'Courier New',monospace;font-size:13px;line-height:2;color:#333;}
+  .exercise-box{background:var(--blue-light);border-radius:6px;padding:1.25rem 1.5rem;margin:.75rem 0;}
+  .exercise-box p{color:var(--blue-dark);font-size:14px;line-height:1.75;margin-bottom:.75rem;}
+  .exercise-box p:last-child{margin-bottom:0;}
+  .exercise-box ol,.exercise-box ul{padding-left:1.5rem;color:var(--blue-dark);font-size:14px;line-height:1.9;}
+  .exercise-box li{margin-bottom:.3rem;}
+  .teacher-note{background:var(--coral-light);border-left:3px solid #D85A30;border-radius:0 6px 6px 0;padding:1.25rem 1.5rem;margin:.75rem 0;}
+  .teacher-note-label{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--coral-text);margin-bottom:.5rem;}
+  .teacher-note p{color:var(--coral-dark);font-size:14px;line-height:1.75;margin-bottom:.75rem;}
+  .teacher-note p:last-child{margin-bottom:0;}
+  .qa-box{background:var(--amber-light);border-radius:6px;padding:1.25rem 1.5rem;margin:.75rem 0;}
+  .qa-box-label{font-family:'Courier New',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-dark);margin-bottom:.75rem;}
+  .qa-item{margin-bottom:.9rem;}
+  .qa-item:last-child{margin-bottom:0;}
+  .qa-q{font-size:13px;font-weight:bold;color:var(--amber-dark);font-family:'Courier New',monospace;margin-bottom:3px;}
+  .qa-a{font-size:13px;color:var(--amber-dark);line-height:1.7;}
+  .vocab-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+  .vocab-term{background:var(--teal-light);color:var(--teal-dark);font-family:'Courier New',monospace;font-size:12px;padding:3px 10px;border-radius:3px;}
+  code{font-family:'Courier New',monospace;background:var(--gray-light);padding:1px 5px;border-radius:3px;font-size:13px;color:#333;}
+  pre{font-family:'Courier New',monospace;background:#1e1e1e;color:#d4d4d4;padding:1rem 1.25rem;border-radius:6px;font-size:13px;line-height:1.7;overflow-x:auto;margin:.75rem 0;}
+  .milestone-box{background:var(--teal-light);border:2px solid var(--teal-mid);border-radius:8px;padding:1.5rem 2rem;margin:1.5rem 0;}
+  .milestone-label{font-family:'Courier New',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal-dark);margin-bottom:.75rem;}
+  .milestone-box p{font-size:15px;color:var(--teal-dark);line-height:1.75;}
+  @media print{body{font-size:13px;}.page{padding:1.5rem;}.session{page-break-inside:avoid;}.week-header{page-break-before:always;}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="cover">
+  <div class="cover-label">Linux seminar · Kubuntu LTS · Ages 15–18</div>
+  <h1>Phase 6 — Teacher Manual</h1>
+  <h2>The frontier</h2>
+  <div class="cover-meta">
+    <span><div>Sessions</div><strong>16</strong></span>
+    <span><div>Weeks</div><strong>21 – 24</strong></span>
+    <span><div>Format</div><strong>4 days × 1 hour</strong></span>
+    <span><div>Closes with</div><strong>Final project demo day</strong></span>
+  </div>
+</div>
+
+<div class="overview">
+  <h3>Phase goal</h3>
+  <p>By the end of these four weeks, every student has run a local AI model on the machine they built, written a script that talks to it, and completed a final project of their own design. The final session is a demo day — each student presents what they built and what they learned across the entire six-month course.</p>
+  <p>The arc of Phase 6 is deliberate. Week 21 demystifies AI honestly — not as magic, not as threat, but as a tool with knowable properties. Week 22 installs and runs it. Week 23 connects it to scripts. Week 24 is the final project and the course close.</p>
+  <p>One hardware note before starting: Ollama models require RAM. The smallest useful models (llama3.2:1b, gemma2:2b) need 2–4GB free RAM. The recommended models (llama3.2:3b, gemma2:9b) need 4–8GB. Students who built with 8GB RAM can run 3B models comfortably. Students with 16GB can run 7B and 9B models. Check available RAM with <code>free -h</code> before session 82 and advise students which model to pull based on their build.</p>
+  <p>The final project has no single correct answer. A student who builds a script that summarises their class notes using the local model has built something genuinely useful. A student who builds a menu tool for their own workflow has too. The criterion is: does it solve a real problem you actually have?</p>
+</div>
+
+<div class="toc">
+  <h3>Sessions</h3>
+  <div class="toc-grid">
+    <a href="#s81">S81 — What AI actually is: no fairytales</a>
+    <a href="#s82">S82 — Install Ollama and run a model</a>
+    <a href="#s83">S83 — Talking to the model from the terminal</a>
+    <a href="#s84">S84 — Ollama API: curl and JSON</a>
+    <a href="#s85">S85 — Script that talks to the model</a>
+    <a href="#s86">S86 — Ollama as a service</a>
+    <a href="#s87">S87 — Final project: design session</a>
+    <a href="#s88">S88 — Final project: build sprint 1</a>
+    <a href="#s89">S89 — Final project: build sprint 2</a>
+    <a href="#s90">S90 — Final project: build sprint 3</a>
+    <a href="#s91">S91 — Final project: refinement and testing</a>
+    <a href="#s92">S92 — Final project: documentation</a>
+    <a href="#s93">S93 — Course retrospective: what did you learn?</a>
+    <a href="#s94">S94 — Demo day: final project presentations</a>
+    <a href="#s95">S95 — Demo day continued + peer review</a>
+    <a href="#s96">S96 — Course close: what comes next</a>
+  </div>
+</div>
+
+<!-- ===== WEEK 21 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 21</div>
+  <div class="week-title">What AI actually is</div>
+  <div class="week-theme">"A tool with knowable properties. Not magic. Not threat. Not replacement."</div>
+</div>
+
+<div class="session" id="s81">
+  <div class="session-header">
+    <div class="session-num">Session 81</div>
+    <div class="session-title">What AI actually is — no fairytales</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:10"><strong>10 min</strong>honest audit</div>
+      <div class="t-block t-concept" style="flex:30"><strong>30 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:15"><strong>15 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>This session has one goal: replace vague beliefs about AI with a concrete, accurate mental model. Students who finish this session understand what a language model is, what it can and cannot do, and why running one locally on their own machine is both possible and meaningful. No hype. No catastrophising. Just the actual mechanism.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 10 min</div>
+      <p>Ask the class: "What do you think an AI model actually is? How does it work?" Write every answer on the board without correcting. Collect the full range — from "it thinks like a human" to "it searches the internet" to "nobody knows." Then: "By the end of this session you will be able to give a mechanistically correct answer to that question. Let's find out which of these are right."</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 30 min</div>
+      <p><strong>What a language model actually is.</strong> A large language model (LLM) is a mathematical function that takes a sequence of tokens as input and outputs a probability distribution over the next token. That is the complete description. It does not think, it does not understand, it does not have beliefs or goals. It is a very large function that has been trained on a very large amount of text to be good at predicting what comes next.</p>
+
+      <p><strong>Tokens.</strong> Text is broken into tokens before the model sees it. Tokens are roughly 3–4 characters each — sometimes a whole word, sometimes part of a word. "Hello world" might be two tokens. "antidisestablishmentarianism" might be several. The model processes tokens, not characters or words. This is why models sometimes make strange errors at the character level — they don't see characters directly.</p>
+
+      <p><strong>Parameters.</strong> The "size" of a model is measured in parameters — the numbers that define the function. A 7 billion parameter model has 7,000,000,000 numbers, typically stored as 4-byte floats. 7B × 4 bytes = ~28GB. Quantized to 4-bit (the Q4 format Ollama uses by default), this is ~4GB. This is why RAM matters: the entire model must be loaded into RAM to run inference efficiently.</p>
+
+      <p><strong>Training vs inference.</strong> Training is the process that determines the parameters — showing the model vast amounts of text and adjusting parameters to make the model better at predicting the next token. Training requires enormous compute: thousands of GPUs for weeks. Inference is running the trained model to generate a response — much cheaper. What we are doing is inference only. We are not training anything.</p>
+
+      <p><strong>Context window.</strong> The model can only "see" a fixed amount of text at once — the context window. Older models: 4,096 tokens. Modern models: 128,000+ tokens. Text beyond the context window is simply not available to the model. This is why "it forgot what we discussed earlier" is a real limitation, and why long conversations eventually lose coherence.</p>
+
+      <p><strong>What the model can and cannot do.</strong> It can: generate fluent, coherent text that appears knowledgeable. It cannot: access the internet, access your files (unless you give them to it), verify facts against ground truth, or know what happened after its training cutoff. It can appear confident while being wrong. It has no persistent memory across conversations. It does not learn from your interactions with it (inference does not change parameters).</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">Honest capability assessment — draw on board</div>
+        <div class="whiteboard-content">
+GOOD AT:                     NOT GOOD AT:
+Explaining concepts          Verifying current facts
+Summarizing text             Precise arithmetic
+Writing code drafts          Knowing today's date
+Brainstorming                Accessing external systems
+Translating                  Remembering past sessions
+Rewriting / editing          Being consistent on obscure facts
+Following instructions       Knowing your personal context
+        </div>
+      </div>
+
+      <p><strong>Why local?</strong> Running a model locally means: your prompts and the model's responses never leave your machine. No API key needed. No cost per token. No internet required. The model runs on your CPU (or GPU if you have one). It is slower than cloud APIs but completely private and completely free. This is what makes it meaningful to run on the machine you built.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 15 min</div>
+      <div class="exercise-box">
+        <p>Return to the board. For each belief written during the warm-up, evaluate it against the concept:</p>
+        <ol>
+          <li>Which beliefs were partially or fully correct?</li>
+          <li>Which were wrong? What is the accurate version?</li>
+          <li>Write a one-paragraph explanation of what an LLM is, suitable for a family member who has never studied computer science. Use the correct terms but explain each one. No jargon left unexplained.</li>
+          <li>Name one thing a local model can do better than searching the internet, and one thing searching the internet does better than a local model.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">LLM</span><span class="vocab-term">token</span>
+        <span class="vocab-term">parameter</span><span class="vocab-term">training vs inference</span>
+        <span class="vocab-term">context window</span><span class="vocab-term">quantization (Q4)</span>
+        <span class="vocab-term">training cutoff</span><span class="vocab-term">local inference</span>
+        <span class="vocab-term">probability distribution</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The honest capability table is important to spend time on. Students who believe the model "knows everything" will be confused and disappointed when it hallucinates confidently. Students who have been told AI will replace all human work will find the limitations reassuring. The goal is neither enthusiasm nor dismissal — it is accurate expectations. A tool you understand correctly is more useful than one you have mythologised.</p>
+      <p>The local vs cloud distinction matters for these students specifically: they built a computer. They control it. A model running on that computer processes their data on their hardware. No corporation has their conversation logs. For 15–18 year olds, the privacy dimension of running AI locally is often more compelling than the cost argument. Lead with whatever resonates with the class.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s82">
+  <div class="session-header">
+    <div class="session-num">Session 82</div>
+    <div class="session-title">Install Ollama and run a model</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>RAM check</div>
+      <div class="t-block t-concept" style="flex:15"><strong>15 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:35"><strong>35 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Run <code>free -h</code> on the projector. Connect the numbers back to session 81 — available RAM determines which model the student can run. Calculate: if available RAM is 6GB, a Q4 4B model (~2.5GB) fits comfortably. An 8B model (~5GB) is tight. Write the recommended model for each RAM tier on the board before class starts.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 15 min</div>
+      <p><strong>Ollama</strong> is a tool that runs LLMs locally. It handles: downloading model files, managing model storage, running a local HTTP server that provides an API, and a CLI for interactive conversations. It abstracts the complexity of model inference — you do not need to know about CUDA, PyTorch, or model formats. You install it, pull a model, and run it.</p>
+
+      <p>Installation: one command from the Ollama website:</p>
+      <pre>curl -fsSL https://ollama.com/install.sh | sh</pre>
+      <p>This downloads and installs Ollama. After installation, Ollama runs as a service on port 11434. Verify: <code>ollama --version</code> and <code>systemctl status ollama</code>.</p>
+
+      <p><strong>Choosing a model.</strong> Model names follow the format name:tag where tag is the parameter count and quantization: <code>llama3.2:3b</code>, <code>gemma2:2b</code>, <code>mistral:7b</code>. Recommended for this course based on RAM:</p>
+      <div class="whiteboard">
+        <div class="whiteboard-label">Model recommendations by available RAM</div>
+        <div class="whiteboard-content">
+4GB RAM available  → gemma2:2b or llama3.2:1b  (fast, basic)
+6GB RAM available  → llama3.2:3b               (good balance)
+8GB RAM available  → llama3.2:3b or gemma2:9b  (recommended)
+12GB+ available    → gemma2:9b or mistral:7b   (best quality)
+
+Pull with:  ollama pull modelname
+Run with:   ollama run modelname
+List:       ollama list
+Remove:     ollama rm modelname
+        </div>
+      </div>
+
+      <p><strong>Model files</strong> are stored in ~/.ollama/models/. They can be several gigabytes. Disk space matters: a 3B model is ~2GB, a 7B model is ~4GB. Check with <code>du -sh ~/.ollama/</code> after pulling.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 35 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Install Ollama. Verify the installation: <code>ollama --version</code>. What version is installed?</li>
+          <li>Check Ollama's service status: <code>systemctl status ollama</code>. Is it running? On which port?</li>
+          <li>Pull the recommended model for your RAM. This will take several minutes — the model downloads from the internet. Watch the progress. While it downloads: how large is the model file? How does that compare to the RAM requirement?</li>
+          <li>Run the model: <code>ollama run modelname</code>. You are now in an interactive conversation. Ask it: "What are you?" Read the answer critically — does it match what we learned in session 81?</li>
+          <li>Ask it something it should be good at: ask it to explain what a filesystem is, or to write a bash function. Evaluate the answer.</li>
+          <li>Ask it something it should struggle with: ask about something that happened recently (after its training cutoff), or ask it to perform a calculation with large numbers. What happens?</li>
+          <li>Type <code>/bye</code> to exit. Run <code>du -sh ~/.ollama/</code>. How much disk does the model use?</li>
+          <li>Run <code>htop</code> while the model is running (open a second terminal). What does CPU and RAM usage look like during inference?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="qa-box">
+      <div class="qa-box-label">Expected student questions</div>
+      <div class="qa-item">
+        <div class="qa-q">Q: Can the model see my files?</div>
+        <div class="qa-a">A: No. The model only sees what you send it in the conversation. It has no filesystem access unless you explicitly paste file contents into the prompt. This is one of the privacy advantages of running locally — even the model itself has no persistent access to your data.</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">Q: Why is it slow?</div>
+        <div class="qa-a">A: Inference runs on the CPU, not a GPU. Modern consumer CPUs can do this but they are orders of magnitude slower than a dedicated GPU. A response that takes 30 seconds on a CPU might take 1 second on a GPU. This is the trade-off for running locally on accessible hardware.</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">Q: Is this the same as ChatGPT?</div>
+        <div class="qa-a">A: The underlying mechanism is similar — both are LLMs doing inference. The differences: ChatGPT runs on OpenAI's servers with large, heavily fine-tuned models. Ollama runs open-weight models on your hardware. OpenAI's models are generally more capable but you have no privacy guarantee. Ollama's models are smaller but fully local and private.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">Ollama</span><span class="vocab-term">ollama pull</span>
+        <span class="vocab-term">ollama run</span><span class="vocab-term">ollama list</span>
+        <span class="vocab-term">model tag (3b, 7b)</span>
+        <span class="vocab-term">Q4 quantization</span>
+        <span class="vocab-term">~/.ollama/models</span>
+        <span class="vocab-term">port 11434</span>
+        <span class="vocab-term">interactive mode</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The model download in task 3 takes 3–10 minutes depending on network speed and model size. Use this time productively — ask students to observe htop and watch memory climb as the model loads. When the model first responds, the first token is slow (model loading into RAM) and subsequent tokens are faster. This is a visible demonstration of the RAM loading process from session 81.</p>
+      <p>Task 6 — testing the model's limitations — is important for maintaining calibrated expectations. A model that gets a recent news question wrong is not broken; it is behaving correctly given that its training data has a cutoff. Students who understand this will use the tool more effectively than those who lose trust when it makes an error.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s83">
+  <div class="session-header">
+    <div class="session-num">Session 83</div>
+    <div class="session-title">Talking to the model from the terminal</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>review</div>
+      <div class="t-block t-concept" style="flex:15"><strong>15 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:35"><strong>35 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 15 min</div>
+      <p>The interactive <code>ollama run</code> mode is useful for exploration, but it cannot be automated. To use a model in a script, you need to send a prompt and receive a response programmatically. Ollama exposes a REST API on localhost:11434 that accepts JSON and returns JSON.</p>
+
+      <p><strong>Non-interactive single-prompt mode:</strong></p>
+      <pre>echo "What is the Linux kernel?" | ollama run llama3.2:3b</pre>
+      <p>Pipes a prompt directly to the model and prints the response. Useful for quick one-off queries but limited for scripts because the full model loads each time.</p>
+
+      <p><strong>The Ollama REST API:</strong></p>
+      <pre>curl http://localhost:11434/api/generate \
+  -d '{
+    "model": "llama3.2:3b",
+    "prompt": "Explain what a process is in Linux",
+    "stream": false
+  }'</pre>
+      <p>Returns JSON with a "response" field containing the model's answer. <code>"stream": false</code> waits for the complete response before returning. Without it, the API streams tokens as they are generated. The API works with the model already loaded — subsequent requests are fast.</p>
+
+      <p><strong>Parsing the response with jq:</strong></p>
+      <pre>curl -s http://localhost:11434/api/generate \
+  -d '{"model":"llama3.2:3b","prompt":"Say hello","stream":false}' \
+  | jq -r '.response'</pre>
+      <p>jq extracts the response field. <code>-r</code> outputs raw text without JSON quotes. Install jq if needed: <code>sudo apt install jq</code>.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 35 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Send a single prompt via pipe: <code>echo "What is bash?" | ollama run llama3.2:3b</code>. Compare the speed to the interactive mode — what is different?</li>
+          <li>Send a prompt via the API with curl. Receive the full JSON response. Read the entire JSON object — what fields are there besides "response"?</li>
+          <li>Extract only the response text using jq. Store it in a variable: <code>RESPONSE=$(curl -s ... | jq -r '.response')</code>. Echo it.</li>
+          <li>Send a multi-line prompt by writing it to a file first, then reading it into the JSON: <code>PROMPT=$(cat prompt.txt)</code>. What challenge does this create with JSON quoting?</li>
+          <li>Test the system prompt capability — the API accepts a "system" field that sets persistent instructions for the conversation: send a prompt with system "You are a helpful Linux assistant who always responds in exactly one sentence."</li>
+          <li>Look at the "eval_duration" field in the API response. What does it measure? How many tokens per second is your machine generating?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">REST API</span><span class="vocab-term">localhost:11434</span>
+        <span class="vocab-term">curl -d (POST data)</span>
+        <span class="vocab-term">JSON request / response</span>
+        <span class="vocab-term">stream: false</span>
+        <span class="vocab-term">jq -r '.field'</span>
+        <span class="vocab-term">system prompt</span>
+        <span class="vocab-term">tokens per second</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 4 — multi-line prompts with JSON quoting — is a real engineering challenge. Special characters in the prompt (quotes, newlines, backslashes) break the JSON if embedded directly. The clean solution is to use jq to construct the JSON: <code>jq -n --arg p "$PROMPT" '{"model":"llama3.2:3b","prompt":$p,"stream":false}'</code>. Students who discover this independently have learned a genuinely useful JSON handling pattern. Students who get stuck on this are learning an important lesson: data going into JSON must be properly escaped, which is why purpose-built tools exist.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s84">
+  <div class="session-header">
+    <div class="session-num">Session 84</div>
+    <div class="session-title">Ollama API depth — context, chat, and model management</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>question</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>The chat endpoint.</strong> The /api/generate endpoint handles single prompts. The /api/chat endpoint handles multi-turn conversations with proper message history:</p>
+      <pre>curl http://localhost:11434/api/chat -d '{
+  "model": "llama3.2:3b",
+  "stream": false,
+  "messages": [
+    {"role": "system", "content": "You are a Linux expert."},
+    {"role": "user", "content": "What is a process?"},
+    {"role": "assistant", "content": "A process is..."},
+    {"role": "user", "content": "How do I list them?"}
+  ]
+}'</pre>
+      <p>The messages array contains the full conversation history. Each subsequent request must include all previous messages to maintain context. This is why chat interfaces store history — the model has no memory between API calls.</p>
+
+      <p><strong>Useful API endpoints:</strong></p>
+      <div class="whiteboard">
+        <div class="whiteboard-label">Ollama API endpoints</div>
+        <div class="whiteboard-content">
+POST /api/generate    single prompt → response
+POST /api/chat        multi-turn conversation
+GET  /api/tags        list available models
+POST /api/pull        download a model
+DELETE /api/delete    remove a model
+POST /api/show        show model metadata
+GET  /api/ps          list running models
+
+All endpoints: http://localhost:11434/api/...
+        </div>
+      </div>
+
+      <p><strong>Context management.</strong> The generate endpoint returns a "context" field — a compact encoding of the conversation state. You can pass this back in the next request to continue from where you left off without sending full message history. This is more efficient for long conversations but less readable than the chat format.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Use the /api/tags endpoint to list all installed models: <code>curl http://localhost:11434/api/tags | jq '.'</code>. What metadata is available for each model?</li>
+          <li>Build a two-turn conversation using /api/chat. Ask a question, then ask a follow-up that requires context from the first answer. Verify the model "remembers" the first exchange.</li>
+          <li>Ask the same follow-up without including the first exchange in messages. Does the model answer correctly? What does this tell you about how context works?</li>
+          <li>Check GPU usage (if applicable): <code>curl http://localhost:11434/api/ps | jq '.'</code>. What information does this return about the running model?</li>
+          <li>Use /api/show on your installed model: <code>curl http://localhost:11434/api/show -d '{"name":"llama3.2:3b"}' | jq '.'</code>. Read the modelfile and parameters — what do they configure?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">/api/chat</span><span class="vocab-term">messages array</span>
+        <span class="vocab-term">role: system/user/assistant</span>
+        <span class="vocab-term">conversation history</span>
+        <span class="vocab-term">context field</span>
+        <span class="vocab-term">/api/tags</span><span class="vocab-term">/api/ps</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 3 — asking a follow-up without context — is the session's most important demonstration. The model gives an answer that makes no reference to the previous question, often answering as if the follow-up were a standalone query. This makes the stateless nature of the API concrete: the model genuinely has no memory between API calls. Every call starts fresh. Chat applications create the illusion of memory by maintaining and resending conversation history. This is not a limitation or a bug — it is how stateless APIs work.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WEEK 22 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 22</div>
+  <div class="week-title">Scripts that talk to AI</div>
+  <div class="week-theme">"Connect what you know to what is new."</div>
+</div>
+
+<div class="session" id="s85">
+  <div class="session-header">
+    <div class="session-num">Session 85</div>
+    <div class="session-title">A script that talks to the model</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>design</div>
+      <div class="t-block t-concept" style="flex:10"><strong>10 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:40"><strong>40 min</strong>build</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Ask: what would you actually want to automate with a local AI? Brainstorm quickly. Examples: summarise a file, explain an error message, generate a commit message, check if a script looks correct, translate something. Pick one of these or your own idea and that is what you build today.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 10 min</div>
+      <p>The pattern for any script that uses the Ollama API:</p>
+      <pre>#!/bin/bash
+set -euo pipefail
+
+MODEL="${OLLAMA_MODEL:-llama3.2:3b}"
+API="http://localhost:11434/api/generate"
+
+query_model() {
+    local prompt="$1"
+    local system="${2:-}"
+    
+    local payload
+    payload=$(jq -n \
+        --arg model "$MODEL" \
+        --arg prompt "$prompt" \
+        --arg system "$system" \
+        '{model: $model, prompt: $prompt, system: $system, stream: false}')
+    
+    curl -s "$API" -d "$payload" | jq -r '.response'
+}
+
+# Use it:
+RESPONSE=$(query_model "Explain: $1" "You are a concise Linux expert.")
+echo "$RESPONSE"</pre>
+      <p>This pattern uses jq to safely construct JSON (handles special characters), curl to send it, and jq to extract the response. The OLLAMA_MODEL environment variable allows overriding the model without editing the script.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 40 min</div>
+      <div class="exercise-box">
+        <p>Build one of these scripts. Each uses the query_model pattern above as a foundation.</p>
+        <p><strong>Option A — explain.sh:</strong> takes a file as argument, reads its contents, sends them to the model with "explain what this file does in plain language." Handles: missing file, file too large (add -n 100 limit), non-text files.</p>
+        <p><strong>Option B — error-explain.sh:</strong> reads the last N lines of a log file or stdin, sends to the model asking for an explanation of any errors found. Useful format: "These are system log lines. Identify any errors and explain what they mean."</p>
+        <p><strong>Option C — commit-message.sh:</strong> runs <code>git diff --staged</code>, sends the diff to the model, asks for a commit message in the format "type: description." Handles the case where nothing is staged.</p>
+        <p><strong>Option D — your own idea:</strong> if you have a specific use case in mind, build it using the query_model function. Must use the same error handling and jq JSON construction pattern.</p>
+        <p>All scripts must: use set -euo pipefail, use the query_model function, handle missing arguments with a usage message, and work correctly on your actual files.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">query_model() pattern</span>
+        <span class="vocab-term">jq -n --arg</span>
+        <span class="vocab-term">OLLAMA_MODEL env var</span>
+        <span class="vocab-term">system prompt in API</span>
+        <span class="vocab-term">jq -r '.response'</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Option C — the git commit message generator — is particularly useful and motivating for students who have been using git since session 75. A student who runs <code>git add . &amp;&amp; commit-message.sh</code> and gets a suggested commit message is experiencing the integration of skills across the course: git (session 75), bash scripting (Phase 3 and 5), curl (session 68), jq (session 83), and the Ollama API (sessions 83–84). Highlight this integration explicitly when students share their work.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s86">
+  <div class="session-header">
+    <div class="session-num">Session 86</div>
+    <div class="session-title">Ollama as a service — persistent and automated</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>review</div>
+      <div class="t-block t-concept" style="flex:15"><strong>15 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:35"><strong>35 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 15 min</div>
+      <p>Ollama installs itself as a systemd service. This means it starts automatically at boot and runs in the background. Your scripts can query it any time without manually starting a model first. This is the same systemd knowledge from session 70, applied to a real tool.</p>
+
+      <p><strong>Verifying and managing the Ollama service:</strong></p>
+      <pre>systemctl status ollama           # is it running?
+sudo systemctl restart ollama    # restart after config change
+sudo systemctl stop ollama       # stop it
+journalctl -u ollama -f          # watch its logs</pre>
+
+      <p><strong>Model preloading.</strong> The first request to a model is slow because it loads the model into RAM. Subsequent requests are faster. For scripts that need fast responses, pre-load the model by sending a dummy request at startup, or use the keep_alive parameter to keep the model in memory between requests:</p>
+      <pre>curl http://localhost:11434/api/generate -d '{
+  "model": "llama3.2:3b",
+  "prompt": "",
+  "keep_alive": "10m"
+}'</pre>
+      <p>This keeps the model in RAM for 10 minutes after the last request.</p>
+
+      <p><strong>Ollama environment configuration.</strong> <code>/etc/systemd/system/ollama.service.d/override.conf</code> or environment variables control Ollama behavior. OLLAMA_HOST can be set to 0.0.0.0:11434 to allow connections from other machines on the network. Do this only on trusted networks — it exposes the API without authentication.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 35 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Verify Ollama is running as a service. Check when it started, its PID, and its memory usage from systemctl status.</li>
+          <li>Watch the Ollama service log while sending a request: <code>journalctl -u ollama -f</code> in one terminal, send an API request in another. What does the log show?</li>
+          <li>Measure model load time: time a first request after <code>sudo systemctl restart ollama</code> (cold start). Then time a second request immediately after (warm). How different are they?</li>
+          <li>Add the query_model function from session 85 to your .bashrc as a bash function. Test it: <code>query_model "What is a symlink?"</code>. Now you can ask the model from any terminal session.</li>
+          <li>Add your AI script from session 85 to cron — schedule it to run on a meaningful schedule. For the commit-message script: add a git hook instead (pre-commit or prepare-commit-msg). For the log-explain script: schedule it to run every morning on yesterday's auth.log and email you a summary.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">Ollama service</span>
+        <span class="vocab-term">keep_alive parameter</span>
+        <span class="vocab-term">model preloading</span>
+        <span class="vocab-term">OLLAMA_HOST</span>
+        <span class="vocab-term">cold vs warm start</span>
+        <span class="vocab-term">git hook</span>
+        <span class="vocab-term">journalctl -u ollama</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 4 — adding query_model to .bashrc — is one of the most practically useful things in Phase 6. A student who can type <code>query_model "explain this error: $(tail -5 /var/log/syslog)"</code> from any terminal has integrated local AI into their daily workflow. The bash function in .bashrc makes it accessible everywhere, which is the point of all that dotfile work in Phase 3. Connect this explicitly: the ~/.bashrc discipline from week 12 is paying off here.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WEEK 23 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 23</div>
+  <div class="week-title">Final project</div>
+  <div class="week-theme">"Build something you will actually use after this course ends."</div>
+</div>
+
+<div class="session" id="s87">
+  <div class="session-header">
+    <div class="session-num">Session 87</div>
+    <div class="session-title">Final project — design session</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>brief</div>
+      <div class="t-block t-exercise" style="flex:40"><strong>40 min</strong>design</div>
+      <div class="t-block t-close" style="flex:15"><strong>15 min</strong>pitch</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">The brief</div>
+      <p>The final project is a tool or system you build entirely yourself. It runs on the machine you built. It must solve a real problem you actually have. It must incorporate skills from at least three different phases of the course. It does not need to use the local AI model — though it can.</p>
+
+      <p>The project will be: built across sessions 88–91, documented in session 92, and presented at demo day in sessions 94–95.</p>
+
+      <p><strong>Scope guidance.</strong> Four sessions of build time is approximately 4 hours. A well-scoped project fits in that time. Too large: a full web application, a complete operating system tool, anything requiring external APIs you have not set up. About right: an automated workflow that solves a real problem using bash, cron, git, and/or Ollama. A personal tool you will run every day. A system monitoring and alerting setup. A local AI assistant customised for a specific use case.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Design exercise · 40 min</div>
+      <div class="exercise-box">
+        <p>Each student completes a project design document covering:</p>
+        <ol>
+          <li><strong>Problem statement.</strong> What specific problem does this solve? Who has this problem? Why does the existing solution not work?</li>
+          <li><strong>What it does.</strong> A plain-language description of the tool — what a user does, what the tool does in response, what the output is.</li>
+          <li><strong>Technical components.</strong> Which skills from the course does it use? List them with the session number where you learned each.</li>
+          <li><strong>Success criteria.</strong> How do you know it works? List 3–5 specific, testable criteria.</li>
+          <li><strong>Risks.</strong> What could go wrong technically? What is your fallback plan?</li>
+          <li><strong>Build plan.</strong> Break the project into 4 concrete chunks — one per build session. What is the minimum viable version (session 88 target)?</li>
+        </ol>
+        <p>Write this in ~/projects/linux-course/phase6/PROJECT.md. This document is part of the final grade.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Pitch · 15 min</div>
+      <p>Each student gives a 90-second pitch: what the problem is, what they are building, and one technical risk they identified. The class asks one question each. You give feedback on scope — is this achievable in 4 sessions? Does it genuinely use course skills? Is the problem real?</p>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The most common scoping mistake: projects that are too conceptually interesting but technically shallow ("an AI that chats with you"), and projects that are too technically ambitious ("a full web dashboard"). Push back on both. The first has no real problem to solve. The second cannot be finished. The best projects are personal tools with clear value: "a script that monitors my machine's health, emails me a summary, and if there is an error explains it using the local AI." That is specific, valuable, achievable, and uses cron, bash, Ollama, and email — all course content.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s88">
+  <div class="session-header">
+    <div class="session-num">Session 88</div>
+    <div class="session-title">Final project — build sprint 1</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-exercise" style="flex:55"><strong>55 min</strong>build</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>standup</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Sprint goal</div>
+      <p>By the end of this session: the minimum viable version works. It may be rough, it may lack features, but the core mechanism functions. A student who cannot demo a working minimum by the end of session 88 has a scope problem or a blocking technical issue — both need to be identified now, not in session 91.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Build · 55 min</div>
+      <p>Students build independently. Circulate and check on each student at least twice. Key questions to ask during circulation:</p>
+      <ul style="font-size:14px; line-height:1.9; padding-left:1.5rem; color:var(--text);">
+        <li>What have you built so far?</li>
+        <li>What are you working on right now?</li>
+        <li>What is blocking you?</li>
+        <li>Will you have a minimum working version by the end of the session?</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Standup · 5 min</div>
+      <p>Each student: one sentence on what works so far, one sentence on what is next. Identify anyone who is blocked and address it at the start of session 89.</p>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Students who are blocked at the end of session 88 usually have one of three problems: a scope that is too large for their current skill level (break it down, descope features), a technical dependency they cannot resolve (help them find a simpler equivalent), or decision paralysis (the problem is real but they cannot commit to a specific technical approach — help them choose and start). All three are solvable but need to be caught now. A student who is still designing at the end of session 89 will not finish.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s89">
+  <div class="session-header">
+    <div class="session-num">Session 89</div>
+    <div class="session-title">Final project — build sprint 2</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>unblock</div>
+      <div class="t-block t-exercise" style="flex:50"><strong>50 min</strong>build</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>standup</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Sprint goal</div>
+      <p>All core features work. The project handles its primary use case correctly. Error handling is in place. By the end of session 89, the project should be demonstrable — not polished, but functional.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Opening unblock · 5 min</div>
+      <p>Address any issues identified at the session 88 standup directly before starting the timer. Students who were blocked get targeted help in the first 5 minutes.</p>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Sprint 2 is where most students encounter their first real technical problem — something that works in isolation but fails when integrated. This is normal and valuable. The debugging skills from session 72 apply here: describe the problem precisely, gather information (bash -x, journalctl, echo statements), hypothesise, test one change. Students who apply the method will unblock themselves. Students who thrash randomly need coaching to slow down and be systematic.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s90">
+  <div class="session-header">
+    <div class="session-num">Session 90</div>
+    <div class="session-title">Final project — build sprint 3</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>peer help</div>
+      <div class="t-block t-exercise" style="flex:50"><strong>50 min</strong>build + polish</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>standup</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Sprint goal</div>
+      <p>The project is complete and tested. Edge cases are handled. The code is committed to git. By the end of session 90, building is done — session 91 is for testing and refinement only, not new features.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Opening peer help · 5 min</div>
+      <p>Ask: who has something working that they can explain? Ask: who is stuck on a specific problem? Pair the helpers with the stuck students for the first 10 minutes of build time. Peer debugging is often faster than teacher debugging, and teaching is one of the best ways to consolidate understanding.</p>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Students who finish early in sprint 3 should: (1) test their project with unexpected input — empty arguments, missing files, wrong types; (2) add logging if not already present; (3) commit everything to git with meaningful commit messages; (4) start the PROJECT.md documentation. Do not allow early finishers to add new features they cannot finish — "done and solid" is better than "expanded and broken."</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s91">
+  <div class="session-header">
+    <div class="session-num">Session 91</div>
+    <div class="session-title">Final project — refinement and testing</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-exercise" style="flex:45"><strong>45 min</strong>test + refine</div>
+      <div class="t-block t-close" style="flex:15"><strong>15 min</strong>code review</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>No new features. Today is testing, edge case handling, code cleanup, and preparing for documentation. The project should be in its final state by the end of this session.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Testing checklist · 45 min</div>
+      <div class="exercise-box">
+        <p>Work through this checklist for your project:</p>
+        <ol>
+          <li>Run it with no arguments — does it print a usage message and exit cleanly?</li>
+          <li>Run it with incorrect arguments — does it handle them gracefully?</li>
+          <li>Run it when a required file does not exist — what happens?</li>
+          <li>Run it when a required service (Ollama, SSH) is not running — what happens?</li>
+          <li>Run it twice simultaneously (if it uses a lockfile) — does the second instance exit correctly?</li>
+          <li>Run <code>bash -x</code> on it — are there any unexpected behaviors?</li>
+          <li>Check the log file after a run — does it contain useful information?</li>
+          <li>Commit everything to git with a message: "Final version: all features complete".</li>
+        </ol>
+        <p><strong>Code cleanup:</strong> remove any debugging echo statements left in accidentally. Ensure all variables are quoted. Add any missing comments. Verify the comment header at the top is accurate and complete.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Code review · 15 min</div>
+      <p>Swap projects with a partner. Each reviews the other's code against the testing checklist. Write specific, constructive feedback in the partner's PROJECT.md. Focus: does it do what it claims? Are the edge cases handled? Is the code readable?</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WEEK 24 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 24</div>
+  <div class="week-title">Closure</div>
+  <div class="week-theme">"What you built. What you learned. What comes next."</div>
+</div>
+
+<div class="session" id="s92">
+  <div class="session-header">
+    <div class="session-num">Session 92</div>
+    <div class="session-title">Final project — documentation</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-exercise" style="flex:50"><strong>50 min</strong>documentation</div>
+      <div class="t-block t-close" style="flex:10"><strong>10 min</strong>review</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>Good documentation is what separates a script you use once from a tool you use for years. Today each student writes the complete documentation for their project — not just a comment block, but a README that would allow someone unfamiliar with the project to install, configure, and use it.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Documentation requirements · 50 min</div>
+      <div class="exercise-box">
+        <p>Write ~/projects/linux-course/phase6/README.md with the following sections:</p>
+        <ol>
+          <li><strong>Project name and one-line description.</strong> What it is, in one sentence.</li>
+          <li><strong>Problem it solves.</strong> The original problem statement from your design document, updated to reflect what you actually built.</li>
+          <li><strong>Requirements.</strong> What software, services, or hardware it needs. Include: Ollama with model X, systemd services that must be running, packages to install.</li>
+          <li><strong>Installation.</strong> Step-by-step instructions to get it running from scratch. Written for someone who has never seen the project.</li>
+          <li><strong>Usage.</strong> All command-line arguments, flags, and examples. At least 3 concrete example invocations.</li>
+          <li><strong>What it does internally.</strong> A brief technical description of how it works — which components, which APIs, which scripts. Not line-by-line, but enough for a developer to understand the architecture.</li>
+          <li><strong>Limitations.</strong> What it does not handle. What would break it. What you would fix if you had more time.</li>
+          <li><strong>Course skills used.</strong> List every phase and session whose skills appear in the project.</li>
+        </ol>
+        <p>Commit the README and all project files to git. The git history should show the progression of the project across sprints.</p>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The "course skills used" section is valuable both as documentation and as a reflection exercise. Students who list skills from Phases 1–6 are demonstrating integration. Students who can only list Phase 6 skills have either a narrow project or have not noticed the connections. Help them find the connections they missed — filesystem knowledge from Phase 1 is in every path operation in every script they wrote.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s93">
+  <div class="session-header">
+    <div class="session-num">Session 93</div>
+    <div class="session-title">Course retrospective — what did you learn?</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:10"><strong>10 min</strong>before and after</div>
+      <div class="t-block t-exercise" style="flex:35"><strong>35 min</strong>reflection</div>
+      <div class="t-block t-close" style="flex:15"><strong>15 min</strong>share</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Before and after · 10 min</div>
+      <p>Show the screenshots students took in session 43 of their terminal setup at week 11. Then show their current terminal. Ask: what changed? What did you not know you could do when you took that screenshot?</p>
+      <p>Pull up their Phase 3 synthesis script and their Phase 5 synthesis script side by side. Read both. Ask the class: what is different? What does the Phase 5 script do that the Phase 3 script could not?</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Reflection exercise · 35 min</div>
+      <div class="exercise-box">
+        <p>Write individually first, then share. For each question, spend 5 minutes writing a genuine answer — not what you think sounds good, but what you actually think.</p>
+        <ol>
+          <li>What is the one concept from this course that changed how you think about computers? Not a command — a concept.</li>
+          <li>Describe a moment when you were stuck, worked through it, and succeeded. What did you learn from that specific experience?</li>
+          <li>What would you do differently if you started the course again?</li>
+          <li>What would you teach someone who is starting where you started six months ago?</li>
+          <li>Complete this sentence honestly: "Before this course I thought Linux was ___. Now I think ___."</li>
+          <li>What is one thing from this course that you will apply in your life — not necessarily in computing?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Share · 15 min</div>
+      <p>Each student shares their answer to question 6 — the most transferable insight. These answers often reveal what the course actually taught beyond its technical content: problem decomposition, persistence with ambiguous problems, documentation discipline, reading errors before panicking. Name these explicitly. They are the course's real outcomes.</p>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Question 6 is the most important question of the retrospective. A student who says "I learned that when something doesn't work, reading the error message carefully usually tells you what is wrong" has internalized something that applies to chemistry, to car repair, to relationship conflicts, to any domain where systematic diagnosis outperforms emotional reaction. This is the course's deepest goal — not Linux fluency, but epistemic confidence. Name it when it appears.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s94">
+  <div class="session-header">
+    <div class="session-num">Session 94</div>
+    <div class="session-title">Demo day — final project presentations (part 1)</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-exercise" style="flex:55"><strong>55 min</strong>presentations</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>notes</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Format</div>
+      <p>Each student: 4 minutes presentation + 2 minutes questions. Total: 6 minutes per student. For a class of 8 students: 48 minutes covers all 8. For larger classes, split across sessions 94 and 95.</p>
+
+      <p><strong>Presentation must cover:</strong></p>
+      <ul style="font-size:14px; line-height:1.9; padding-left:1.5rem; color:var(--text);">
+        <li>The problem it solves — demonstrated, not described</li>
+        <li>A live demo running on their machine</li>
+        <li>One technical decision they made and why</li>
+        <li>One thing that broke during development and how they fixed it</li>
+        <li>What they would add if they had more time</li>
+      </ul>
+
+      <p><strong>Audience during each presentation:</strong> write one genuine observation or question. Not a compliment — an observation or question that shows you were listening. Questions are asked in the 2 minutes after each presentation.</p>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The "one thing that broke and how you fixed it" requirement is deliberately included. It normalises debugging as part of building, not as evidence of failure. Students who present their debugging process with confidence are demonstrating exactly the mindset the course was designed to build. Students who try to pretend nothing broke should be gently pushed: "everything breaks during development — what was the most interesting thing you had to fix?"</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s95">
+  <div class="session-header">
+    <div class="session-num">Session 95</div>
+    <div class="session-title">Demo day — final project presentations (part 2) and peer review</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-exercise" style="flex:40"><strong>40 min</strong>remaining presentations</div>
+      <div class="t-block t-close" style="flex:20"><strong>20 min</strong>peer review</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Peer review · 20 min</div>
+      <p>After all presentations: each student submits written peer reviews for 2 other students' projects. Format: one paragraph per review covering what the project does well technically, one specific improvement that would make it more robust or useful, and one question they still have about how it works. Reviews are written respectfully and specifically — no vague praise, no unactionable criticism.</p>
+
+      <p>Collect all peer reviews. Share them with the relevant student after the session.</p>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Peer review is a professional skill that most students have rarely practiced in a technical context. The format requirement — specific improvement and specific question — prevents the reviews from being meaningless. A student who writes "one improvement would be adding -v flag for verbose output because right now you cannot tell what the script is doing when it runs silently" has understood the project and thought about it seriously. That quality of engagement is what you are looking for.</p>
+    </div>
+  </div>
+</div>
+
+<div class="session" id="s96">
+  <div class="session-header">
+    <div class="session-num">Session 96</div>
+    <div class="session-title">Course close — what comes next</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:10"><strong>10 min</strong>the full arc</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>what comes next</div>
+      <div class="t-block t-exercise" style="flex:20"><strong>20 min</strong>personal roadmap</div>
+      <div class="t-block t-close" style="flex:10"><strong>10 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">The full arc · 10 min</div>
+      <p>Walk through the course's progression on the board — not a list of topics but a narrative of capability. Where students were in session 1: the computer was a black box. Where they are now: they built the box, installed the OS, configured the environment, automated workflows, connected to remote machines, and ran a local AI model. Name each phase and its contribution to this capability.</p>
+      <p>Show their Phase 3 script and their Phase 6 project side by side. The difference in complexity, robustness, and ambition is the visible measure of growth.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">What comes next · 20 min</div>
+      <p>Point at specific paths from here:</p>
+
+      <p><strong>Deeper Linux:</strong> Linux From Scratch (build a Linux system from source), Arch Linux (manual installation with full control), advanced systemd, network administration, firewall configuration with ufw/iptables.</p>
+
+      <p><strong>Programming:</strong> Python is the natural next step — everything they have done in bash maps to Python with better data structures and a larger ecosystem. The terminal fluency from this course makes Python development much faster. Recommended: "Automate the Boring Stuff with Python" by Al Sweigart — freely available online, directly continues where this course leaves off.</p>
+
+      <p><strong>Systems administration:</strong> Proxmox for virtualisation (you run Proxmox — show it to them). Docker for containerisation. Ansible for configuration management. The skills from Phases 4–5 are direct prerequisites.</p>
+
+      <p><strong>Security:</strong> Kali Linux for ethical hacking, TryHackMe and HackTheBox for structured learning. The permission model, network understanding, and log reading from this course are the foundation.</p>
+
+      <p><strong>AI and machine learning:</strong> Python + PyTorch or TensorFlow. Fine-tuning local models with Ollama's Modelfile. Building applications on top of LLM APIs. The local AI experience from Phase 6 is a practical foundation.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Personal roadmap · 20 min</div>
+      <div class="exercise-box">
+        <p>Each student writes a personal roadmap — not an assignment, but a genuine plan:</p>
+        <ol>
+          <li>What do you want to learn in the next 3 months?</li>
+          <li>What specific resource (book, course, project) will you use?</li>
+          <li>What is the first concrete step — something you will do this week?</li>
+          <li>What would you build if you had another 6 months with this machine?</li>
+        </ol>
+        <p>These do not get collected. They are for the student.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Close · 10 min</div>
+      <p>The machine on your desk is yours. Everything on it is yours — your configurations, your scripts, your dotfiles, your git history, your local AI model. You understand what it is made of, how it works, how to fix it when it breaks, and how to make it do new things.</p>
+
+      <p>That is not a Linux skill. That is a way of approaching systems. It applies to every piece of technology you will ever use. The specific commands will change. The kernel will be updated. New tools will exist. The habit of reading error messages before panicking, of looking for the root cause not the symptom, of writing things down so future-you can understand present-you — those do not change.</p>
+
+      <p>You have built something. You have learned something. Whatever comes next: you know you can figure it out.</p>
+    </div>
+
+    <div class="milestone-box">
+      <div class="milestone-label">Course complete</div>
+      <p>96 sessions. 6 months. 1 machine built from parts. 1 OS installed from scratch. Filesystem, terminal, permissions, scripting, customisation, hardware, networking, SSH, processes, services, logs, archives, version control, local AI. Final project designed, built, tested, documented, and presented.</p>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The close speech above is a script if you want one. Adjust it to be yours. The important thing it conveys: the skills transfer. Linux fluency is valuable but not the point. The point is that they now have evidence — across 6 months and a real machine — that they can approach an unknown technical system, break it down, build understanding incrementally, make mistakes, fix them, and produce something that works. That evidence is what makes the next challenge less frightening.</p>
+      <p>Keep the Phase 3 scripts. Keep the demo day recordings if you made them. In a year or two, if you teach this course again, the contrast between a first-day student and a session-96 student is your best recruiting material. The journey is the argument for the course.</p>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);text-align:center;">
+  <p style="font-family:'Courier New',monospace;font-size:12px;color:var(--muted);">Phase 6 of 6 &nbsp;·&nbsp; Linux seminar &nbsp;·&nbsp; Kubuntu LTS &nbsp;·&nbsp; Ages 15–18</p>
+  <p style="font-family:'Courier New',monospace;font-size:12px;color:var(--muted);margin-top:4px;">Course complete — 96 sessions across 24 weeks</p>
+</div>
+
+</div>
+</body>
+</html>

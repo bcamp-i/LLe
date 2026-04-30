@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux — Thinking Through Machines</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+  :root {
+    --bg: #0d0d0d;
+    --bg2: #141414;
+    --bg3: #1a1a1a;
+    --border: #2a2a2a;
+    --border2: #333;
+    --text: #e8e6e0;
+    --muted: #888;
+    --dim: #555;
+
+    --p1: #4A90D9;
+    --p2: #5BAD6F;
+    --p3: #E8A040;
+    --p4: #D96060;
+    --p5: #9B7FD4;
+    --p6: #3DB89A;
+
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── Header ── */
+  header {
+    padding: 4rem 2rem 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .header-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  h1 {
+    font-family: var(--mono);
+    font-size: clamp(26px, 5vw, 42px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .tagline {
+    font-family: var(--sans);
+    font-size: 16px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .meta-pill {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 4px 12px;
+    border: 1px solid var(--border2);
+    border-radius: 100px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Main ── */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+  }
+
+  /* ── Phase grid ── */
+  .phases { display: flex; flex-direction: column; gap: 2px; margin-bottom: 4rem; }
+
+  .phase {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: border-color 0.15s;
+  }
+  .phase:hover { border-color: var(--border2); }
+
+  .phase-header {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    align-items: center;
+    padding: 18px 20px;
+    gap: 16px;
+    cursor: default;
+  }
+
+  .phase-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .p1 .phase-num { background: rgba(74,144,217,0.12); color: var(--p1); }
+  .p2 .phase-num { background: rgba(91,173,111,0.12); color: var(--p2); }
+  .p3 .phase-num { background: rgba(232,160,64,0.12); color: var(--p3); }
+  .p4 .phase-num { background: rgba(217,96,96,0.12); color: var(--p4); }
+  .p5 .phase-num { background: rgba(155,127,212,0.12); color: var(--p5); }
+  .p6 .phase-num { background: rgba(61,184,154,0.12); color: var(--p6); }
+
+  .phase-info {}
+  .phase-title {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .phase-theme {
+    font-size: 12px;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .phase-meta {
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--dim);
+    flex-shrink: 0;
+  }
+  .phase-sessions { font-size: 13px; color: var(--muted); display: block; }
+
+  .phase-links {
+    border-top: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .doc-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 13px;
+    transition: background 0.1s, color 0.1s;
+    border-right: 1px solid var(--border);
+  }
+  .doc-link:last-child { border-right: none; }
+  .doc-link:hover { background: var(--bg3); color: var(--text); }
+
+  .doc-icon {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .p1 .doc-icon { background: rgba(74,144,217,0.12); color: var(--p1); }
+  .p2 .doc-icon { background: rgba(91,173,111,0.12); color: var(--p2); }
+  .p3 .doc-icon { background: rgba(232,160,64,0.12); color: var(--p3); }
+  .p4 .doc-icon { background: rgba(217,96,96,0.12); color: var(--p4); }
+  .p5 .doc-icon { background: rgba(155,127,212,0.12); color: var(--p5); }
+  .p6 .doc-icon { background: rgba(61,184,154,0.12); color: var(--p6); }
+
+  /* ── Stats bar ── */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
+  .stat {
+    background: var(--bg2);
+    padding: 20px 24px;
+  }
+  .stat-val {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--dim);
+  }
+
+  /* ── About section ── */
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 4rem;
+  }
+  .about-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+  }
+  .about-card h3 {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 12px;
+  }
+  .about-card p {
+    font-size: 13px;
+    line-height: 1.75;
+    color: var(--muted);
+  }
+  .about-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .about-card li {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 3px 0;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    line-height: 1.6;
+  }
+  .about-card li::before {
+    content: '—';
+    font-family: var(--mono);
+    color: var(--border2);
+    flex-shrink: 0;
+    font-size: 12px;
+  }
+
+  /* ── Footer ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--dim);
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 640px) {
+    .stats { grid-template-columns: 1fr 1fr; }
+    .about { grid-template-columns: 1fr; }
+    .phase-links { grid-template-columns: 1fr; }
+    .doc-link:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+    .phase-meta { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">Linux seminar · Kubuntu LTS · Ages 15–18</div>
+  <h1>Linux — thinking<br>through machines</h1>
+  <p class="tagline">"Nothing here is magic. Everything has a reason."</p>
+  <div class="meta-row">
+    <span class="meta-pill">6 phases</span>
+    <span class="meta-pill">96 sessions</span>
+    <span class="meta-pill">24 weeks</span>
+    <span class="meta-pill">4 days/week</span>
+    <span class="meta-pill">Kubuntu LTS</span>
+    <span class="meta-pill">Ages 15–18</span>
+  </div>
+</header>
+
+<main>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-val">96</div>
+      <div class="stat-label">Sessions</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">24</div>
+      <div class="stat-label">Weeks</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">12</div>
+      <div class="stat-label">Documents</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">1</div>
+      <div class="stat-label">Machine built</div>
+    </div>
+  </div>
+
+  <div class="phases">
+
+    <div class="phase p1">
+      <div class="phase-header">
+        <div class="phase-num">01</div>
+        <div class="phase-info">
+          <div class="phase-title">What is this machine?</div>
+          <div class="phase-theme">OS layers · filesystem · users · permissions · no fear</div>
+        </div>
+        <div class="phase-meta">
+          <span class="phase-sessions">16 sessions</span>
+          weeks 1–4
+        </div>
+      </div>
+      <div class="phase-links">
+        <a class="doc-link p1" href="phase1-teacher-manual.html">
+          <span class="doc-icon">manual</span>
+          Teacher manual — 16 sessions in full detail
+        </a>
+        <a class="doc-link p1" href="phase1-handouts.html">
+          <span class="doc-icon">handouts</span>
+          Student handouts — 4 printable sheets
+        </a>
+      </div>
+    </div>
+
+    <div class="phase p2">
+      <div class="phase-header">
+        <div class="phase-num">02</div>
+        <div class="phase-info">
+          <div class="phase-title">Talking to it</div>
+          <div class="phase-theme">Terminal · file operations · pipes · package manager</div>
+        </div>
+        <div class="phase-meta">
+          <span class="phase-sessions">24 sessions</span>
+          weeks 5–10
+        </div>
+      </div>
+      <div class="phase-links">
+        <a class="doc-link p2" href="phase2-teacher-manual.html">
+          <span class="doc-icon">manual</span>
+          Teacher manual — 24 sessions in full detail
+        </a>
+        <a class="doc-link p2" href="phase2-handouts.html">
+          <span class="doc-icon">handouts</span>
+          Student handouts — 5 printable sheets
+        </a>
+      </div>
+    </div>
+
+    <div class="phase p3">
+      <div class="phase-header">
+        <div class="phase-num">03</div>
+        <div class="phase-info">
+          <div class="phase-title">Making it yours</div>
+          <div class="phase-theme">KDE Plasma · dotfiles · PATH · bash scripting</div>
+        </div>
+        <div class="phase-meta">
+          <span class="phase-sessions">12 sessions</span>
+          weeks 11–13
+        </div>
+      </div>
+      <div class="phase-links">
+        <a class="doc-link p3" href="phase3-teacher-manual.html">
+          <span class="doc-icon">manual</span>
+          Teacher manual — 12 sessions in full detail
+        </a>
+        <a class="doc-link p3" href="phase3-handouts.html">
+          <span class="doc-icon">handouts</span>
+          Student handouts — 4 printable sheets
+        </a>
+      </div>
+    </div>
+
+    <div class="phase p4">
+      <div class="phase-header">
+        <div class="phase-num">04</div>
+        <div class="phase-info">
+          <div class="phase-title">Build your own machine</div>
+          <div class="phase-theme">Hardware · compatibility · UEFI · assembly · OS install</div>
+        </div>
+        <div class="phase-meta">
+          <span class="phase-sessions">8 sessions</span>
+          weeks 14–15
+        </div>
+      </div>
+      <div class="phase-links">
+        <a class="doc-link p4" href="phase4-teacher-manual.html">
+          <span class="doc-icon">manual</span>
+          Teacher manual — 8 sessions in full detail
+        </a>
+        <a class="doc-link p4" href="phase4-handouts.html">
+          <span class="doc-icon">handouts</span>
+          Student handouts — 4 printable sheets
+        </a>
+      </div>
+    </div>
+
+    <div class="phase p5">
+      <div class="phase-header">
+        <div class="phase-num">05</div>
+        <div class="phase-info">
+          <div class="phase-title">Solving real problems</div>
+          <div class="phase-theme">Scripting · SSH · networking · processes · logs · git · cron</div>
+        </div>
+        <div class="phase-meta">
+          <span class="phase-sessions">20 sessions</span>
+          weeks 16–20
+        </div>
+      </div>
+      <div class="phase-links">
+        <a class="doc-link p5" href="phase5-teacher-manual.html">
+          <span class="doc-icon">manual</span>
+          Teacher manual — 20 sessions in full detail
+        </a>
+        <a class="doc-link p5" href="phase5-handouts.html">
+          <span class="doc-icon">handouts</span>
+          Student handouts — 5 printable sheets
+        </a>
+      </div>
+    </div>
+
+    <div class="phase p6">
+      <div class="phase-header">
+        <div class="phase-num">06</div>
+        <div class="phase-info">
+          <div class="phase-title">The frontier</div>
+          <div class="phase-theme">Local AI · Ollama · final project · demo day</div>
+        </div>
+        <div class="phase-meta">
+          <span class="phase-sessions">16 sessions</span>
+          weeks 21–24
+        </div>
+      </div>
+      <div class="phase-links">
+        <a class="doc-link p6" href="phase6-teacher-manual.html">
+          <span class="doc-icon">manual</span>
+          Teacher manual — 16 sessions in full detail
+        </a>
+        <a class="doc-link p6" href="phase6-handouts.html">
+          <span class="doc-icon">handouts</span>
+          Student handouts — 4 printable sheets
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="about">
+    <div class="about-card">
+      <h3>What this course is</h3>
+      <p>A six-month Linux seminar for students aged 15–18. Linux is the vehicle. The destination is epistemic confidence — the ability to face an unknown system, break it, fix it, and walk away knowing more than before.</p>
+      <p style="margin-top:10px;">By the end, each student has built a computer from components, installed Kubuntu on it, and run a local AI model on hardware they assembled themselves.</p>
+    </div>
+    <div class="about-card">
+      <h3>How to use these materials</h3>
+      <ul>
+        <li>Teacher manuals contain full session plans with timing, concept delivery, exercises, Q&amp;A, and teacher notes</li>
+        <li>Student handouts are designed to be printed — one sheet per session or per week</li>
+        <li>All files open in any browser and print cleanly</li>
+        <li>Materials are in English with a bilingual teaching context in mind</li>
+      </ul>
+    </div>
+    <div class="about-card">
+      <h3>Platform and format</h3>
+      <ul>
+        <li>Kubuntu LTS — chosen for stability, KDE Plasma, and Ubuntu documentation coverage</li>
+        <li>4 days per week, 1 hour per session</li>
+        <li>Two age tracks in mind: 12–14 and 15–18 — materials are written for 15–18</li>
+        <li>Hardware build in weeks 14–15 — budget €200–350 per machine</li>
+      </ul>
+    </div>
+    <div class="about-card">
+      <h3>Course philosophy</h3>
+      <ul>
+        <li>Methodical over reactive — plan before execute</li>
+        <li>Real problems, real tools, real solutions</li>
+        <li>No comparisons, no fairytales — honest assessment throughout</li>
+        <li>The machine does what you tell it. That is power and responsibility.</li>
+      </ul>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span>Linux seminar · Kubuntu LTS · 15–18 years</span>
+  <span>96 sessions · 24 weeks · 6 phases</span>
+</footer>
+
+</body>
+</html>

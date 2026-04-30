@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Phase 2 — Student Handouts</title>
+<style>
+  :root {
+    --green: #27500A; --green-light: #EAF3DE; --green-text: #3B6D11;
+    --blue: #0C447C; --blue-light: #E6F1FB; --blue-text: #185FA5;
+    --amber: #633806; --amber-light: #FAEEDA; --amber-text: #854F0B;
+    --coral: #712B13; --coral-light: #FAECE7;
+    --gray: #444441; --gray-light: #F1EFE8;
+    --border: #ccc; --text: #111;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Georgia, serif; font-size: 13px; color: var(--text); background: #fff; }
+
+  .sheet {
+    width: 210mm; min-height: 297mm;
+    margin: 0 auto; padding: 13mm 15mm 13mm;
+    page-break-after: always; background: #fff;
+  }
+  .sheet:last-child { page-break-after: avoid; }
+
+  .sheet-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    border-bottom: 2px solid var(--text); padding-bottom: 8px; margin-bottom: 14px;
+  }
+  .sheet-id { font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #666; }
+  .sheet-title { font-size: 17px; font-weight: normal; margin-top: 3px; }
+  .name-line { font-family: 'Courier New', monospace; font-size: 11px; color: #666; text-align: right; }
+  .name-blank { display: inline-block; width: 110px; border-bottom: 1px solid #999; margin-left: 6px; vertical-align: bottom; }
+
+  .instructions {
+    background: var(--gray-light); border-left: 3px solid var(--gray);
+    padding: 8px 12px; margin-bottom: 14px; font-size: 12px; line-height: 1.6;
+    color: var(--gray); border-radius: 0 4px 4px 0;
+  }
+  .section-label {
+    font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #666; margin-bottom: 6px; margin-top: 12px;
+  }
+
+  code { font-family: 'Courier New', monospace; background: var(--gray-light); padding: 1px 4px; border-radius: 2px; font-size: 12px; }
+  pre { font-family: 'Courier New', monospace; background: #1e1e1e; color: #d4d4d4; padding: 10px 14px; border-radius: 5px; font-size: 12px; line-height: 1.8; margin: 8px 0; }
+
+  .write-line { border-bottom: 1px solid #ccc; min-height: 20px; width: 100%; margin-top: 3px; }
+  .write-box { border: 1px solid #ccc; border-radius: 3px; min-height: 36px; margin-top: 4px; padding: 4px 6px; }
+  .write-box-tall { border: 1px solid #ccc; border-radius: 3px; min-height: 52px; margin-top: 4px; padding: 4px 6px; }
+
+  /* ===== SHEET 1 — S22 Command dissection ===== */
+  .dissect-card { border: 1px solid var(--border); border-radius: 4px; margin-bottom: 10px; overflow: hidden; }
+  .dissect-head { background: var(--green-light); padding: 7px 12px; display: flex; align-items: baseline; gap: 8px; }
+  .dissect-num { font-family: 'Courier New', monospace; font-size: 10px; color: var(--green); min-width: 18px; }
+  .dissect-cmd { font-family: 'Courier New', monospace; font-size: 13px; color: var(--green); letter-spacing: 0.03em; }
+  .dissect-body { padding: 8px 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .dissect-field { }
+  .dissect-label { font-family: 'Courier New', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 3px; }
+  .dissect-full { grid-column: 1 / -1; }
+  .options-table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+  .options-table th { font-family: 'Courier New', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.06em; color: #888; background: var(--gray-light); padding: 3px 6px; border: 1px solid #ddd; text-align: left; font-weight: normal; }
+  .options-table td { border: 1px solid #ddd; padding: 4px 6px; height: 24px; font-size: 11px; }
+  .options-table td:first-child { font-family: 'Courier New', monospace; width: 70px; background: #fafafa; }
+
+  .grammar-ref { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 14px; }
+  .gram-box { background: var(--blue-light); border-radius: 3px; padding: 7px 10px; }
+  .gram-title { font-family: 'Courier New', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--blue); margin-bottom: 4px; }
+  .gram-body { font-size: 11px; color: var(--blue-text); line-height: 1.5; }
+
+  /* ===== SHEET 2 — S24 Navigation challenge ===== */
+  .task-list { display: flex; flex-direction: column; gap: 8px; }
+  .task-card { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .task-head { background: var(--blue-light); padding: 6px 12px; display: flex; align-items: baseline; gap: 8px; }
+  .task-n { font-family: 'Courier New', monospace; font-size: 10px; color: var(--blue); min-width: 22px; }
+  .task-q { font-size: 12px; color: var(--blue-text); line-height: 1.4; }
+  .task-body { padding: 6px 12px 8px; }
+  .answer-row { display: grid; grid-template-columns: 80px 1fr; gap: 6px; align-items: start; margin-top: 4px; }
+  .answer-label { font-family: 'Courier New', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.07em; color: #888; padding-top: 3px; }
+  .verify-row { display: flex; align-items: center; gap: 6px; margin-top: 5px; }
+  .vcheck { width: 13px; height: 13px; border: 1px solid #bbb; border-radius: 2px; flex-shrink: 0; }
+  .vlabel { font-family: 'Courier New', monospace; font-size: 9px; color: #999; }
+  .rules-box { background: var(--amber-light); border-radius: 4px; padding: 8px 12px; margin-bottom: 12px; font-size: 12px; color: var(--amber); line-height: 1.6; }
+  .rules-label { font-family: 'Courier New', monospace; font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--amber-text); margin-bottom: 4px; }
+
+  /* ===== SHEET 3 — S32 Messy downloads ===== */
+  .scenario-box { background: var(--gray-light); border-radius: 4px; padding: 10px 14px; margin-bottom: 12px; font-size: 12px; line-height: 1.7; color: #333; font-style: italic; }
+  .req-list { display: flex; flex-direction: column; gap: 7px; }
+  .req-item { display: grid; grid-template-columns: 26px 1fr; gap: 6px; align-items: start; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .req-n { background: var(--green-light); display: flex; align-items: center; justify-content: center; font-family: 'Courier New', monospace; font-size: 11px; color: var(--green); padding: 8px 0; align-self: stretch; }
+  .req-content { padding: 7px 10px; }
+  .req-title { font-size: 12px; font-weight: bold; color: var(--text); margin-bottom: 3px; }
+  .req-detail { font-size: 11px; color: #555; line-height: 1.5; }
+  .log-box { background: #1e1e1e; border-radius: 4px; padding: 8px 12px; margin-top: 10px; }
+  .log-label { font-family: 'Courier New', monospace; font-size: 9px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .log-line { border-bottom: 1px solid #333; min-height: 18px; margin-bottom: 4px; font-family: 'Courier New', monospace; font-size: 11px; color: #555; }
+
+  /* ===== SHEET 4 — S36 Pipeline builder ===== */
+  .pipe-ref { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .tool-box { border: 1px solid var(--border); border-radius: 4px; padding: 8px 10px; }
+  .tool-name { font-family: 'Courier New', monospace; font-size: 12px; color: var(--green); font-weight: bold; margin-bottom: 4px; }
+  .tool-flags { font-size: 11px; line-height: 1.7; color: #444; }
+  .tool-flags code { font-size: 11px; }
+
+  .pipe-tasks { display: flex; flex-direction: column; gap: 9px; }
+  .pipe-card { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .pipe-head { background: var(--green-light); padding: 6px 12px; display: flex; align-items: baseline; gap: 8px; }
+  .pipe-n { font-family: 'Courier New', monospace; font-size: 10px; color: var(--green); min-width: 18px; }
+  .pipe-q { font-size: 12px; color: var(--green-text); line-height: 1.4; }
+  .pipe-body { padding: 7px 12px; }
+  .stages { display: flex; flex-direction: column; gap: 4px; margin-bottom: 4px; }
+  .stage-row { display: grid; grid-template-columns: 60px 1fr 16px 1fr; gap: 4px; align-items: center; font-size: 11px; }
+  .stage-label { font-family: 'Courier New', monospace; font-size: 9px; color: #888; text-transform: uppercase; }
+  .stage-input { border-bottom: 1px solid #ccc; min-height: 18px; font-family: 'Courier New', monospace; }
+  .stage-arrow { text-align: center; color: var(--green); font-size: 12px; }
+  .stage-output { border-bottom: 1px solid #ccc; min-height: 18px; font-size: 11px; color: #666; font-style: italic; }
+
+  /* ===== SHEET 5 — Vocabulary checklist ===== */
+  .vocab-section { margin-bottom: 14px; }
+  .vocab-week { font-family: 'Courier New', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: #888; border-bottom: 1px solid #ddd; padding-bottom: 3px; margin-bottom: 7px; }
+  .vocab-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px 14px; }
+  .vocab-item { display: flex; align-items: flex-start; gap: 6px; }
+  .conf-boxes { display: flex; gap: 3px; flex-shrink: 0; margin-top: 1px; }
+  .conf-box { width: 11px; height: 11px; border: 1px solid #bbb; border-radius: 2px; }
+  .conf-box.yes { border-color: var(--green); }
+  .conf-box.no { border-color: var(--coral); }
+  .vterm { font-family: 'Courier New', monospace; font-size: 10.5px; line-height: 1.4; }
+  .legend { display: flex; gap: 14px; font-size: 10px; font-family: 'Courier New', monospace; color: #666; margin-bottom: 12px; padding: 6px 10px; background: var(--gray-light); border-radius: 3px; }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .reflect { margin-top: 14px; border-top: 1px solid #ddd; padding-top: 12px; }
+  .reflect-q { font-size: 12px; color: #333; margin-bottom: 4px; line-height: 1.5; }
+  .rlines { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+  .rline { border-bottom: 1px solid #ccc; min-height: 18px; }
+
+  @media print {
+    .sheet { padding: 11mm 13mm; }
+    pre { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .dissect-head, .task-head, .pipe-head { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- SHEET 1 — SESSION 22 — COMMAND DISSECTION                   -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 22 · Week 6 · Handout E</div>
+      <div class="sheet-title">Command anatomy — dissection worksheet</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="instructions">
+    For each command: identify the command name, list every option and what it does (use man to look them up), name the arguments, then write a plain-English description of what the whole command does. The grammar reference below applies to every command in Linux.
+  </div>
+
+  <div class="grammar-ref">
+    <div class="gram-box">
+      <div class="gram-title">Command</div>
+      <div class="gram-body">Always first. The program name. <code>ls</code>, <code>grep</code>, <code>find</code>, <code>cp</code>…</div>
+    </div>
+    <div class="gram-box">
+      <div class="gram-title">Options / flags</div>
+      <div class="gram-body">Start with <code>-</code> or <code>--</code>. Short: <code>-l</code>. Long: <code>--long</code>. Short can combine: <code>-la</code></div>
+    </div>
+    <div class="gram-box">
+      <div class="gram-title">Arguments</div>
+      <div class="gram-body">What the command acts on. Files, paths, text. Do not start with <code>-</code> (usually).</div>
+    </div>
+  </div>
+
+  <div class="section-label">Commands to dissect</div>
+
+  <div class="dissect-card">
+    <div class="dissect-head">
+      <span class="dissect-num">1.</span>
+      <span class="dissect-cmd">grep -in "error" /var/log/syslog</span>
+    </div>
+    <div class="dissect-body">
+      <div class="dissect-field">
+        <div class="dissect-label">Command name</div>
+        <div class="write-line"></div>
+      </div>
+      <div class="dissect-field">
+        <div class="dissect-label">Arguments</div>
+        <div class="write-line"></div>
+      </div>
+      <div class="dissect-full">
+        <div class="dissect-label">Options — look each one up in man grep</div>
+        <table class="options-table">
+          <tr><th>Flag</th><th>What it does</th></tr>
+          <tr><td></td><td></td></tr>
+          <tr><td></td><td></td></tr>
+        </table>
+      </div>
+      <div class="dissect-full">
+        <div class="dissect-label">Plain-English: what does this whole command do?</div>
+        <div class="write-box"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dissect-card">
+    <div class="dissect-head">
+      <span class="dissect-num">2.</span>
+      <span class="dissect-cmd">cp -rv ~/documents /tmp/backup</span>
+    </div>
+    <div class="dissect-body">
+      <div class="dissect-field">
+        <div class="dissect-label">Command name</div>
+        <div class="write-line"></div>
+      </div>
+      <div class="dissect-field">
+        <div class="dissect-label">Arguments</div>
+        <div class="write-line"></div>
+      </div>
+      <div class="dissect-full">
+        <div class="dissect-label">Options — look each one up in man cp</div>
+        <table class="options-table">
+          <tr><th>Flag</th><th>What it does</th></tr>
+          <tr><td></td><td></td></tr>
+          <tr><td></td><td></td></tr>
+        </table>
+      </div>
+      <div class="dissect-full">
+        <div class="dissect-label">Plain-English: what does this whole command do?</div>
+        <div class="write-box"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dissect-card">
+    <div class="dissect-head">
+      <span class="dissect-num">3.</span>
+      <span class="dissect-cmd">ls -lhSt /usr/bin</span>
+    </div>
+    <div class="dissect-body">
+      <div class="dissect-field">
+        <div class="dissect-label">Command name</div>
+        <div class="write-line"></div>
+      </div>
+      <div class="dissect-field">
+        <div class="dissect-label">Arguments</div>
+        <div class="write-line"></div>
+      </div>
+      <div class="dissect-full">
+        <div class="dissect-label">Options — there are 4 combined here, separate and look up each one</div>
+        <table class="options-table">
+          <tr><th>Flag</th><th>What it does</th></tr>
+          <tr><td></td><td></td></tr>
+          <tr><td></td><td></td></tr>
+          <tr><td></td><td></td></tr>
+          <tr><td></td><td></td></tr>
+        </table>
+      </div>
+      <div class="dissect-full">
+        <div class="dissect-label">Plain-English: what does this whole command do? What order are results in?</div>
+        <div class="write-box"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dissect-card">
+    <div class="dissect-head">
+      <span class="dissect-num">4.</span>
+      <span class="dissect-cmd">find /etc -name "*.conf" -type f -size +1k</span>
+    </div>
+    <div class="dissect-body">
+      <div class="dissect-field">
+        <div class="dissect-label">Command name</div>
+        <div class="write-line"></div>
+      </div>
+      <div class="dissect-field">
+        <div class="dissect-label">Starting path (argument)</div>
+        <div class="write-line"></div>
+      </div>
+      <div class="dissect-full">
+        <div class="dissect-label">Search criteria — what does each one filter?</div>
+        <table class="options-table">
+          <tr><th>Criterion</th><th>What it filters / means</th></tr>
+          <tr><td>-name "*.conf"</td><td></td></tr>
+          <tr><td>-type f</td><td></td></tr>
+          <tr><td>-size +1k</td><td></td></tr>
+        </table>
+      </div>
+      <div class="dissect-full">
+        <div class="dissect-label">Plain-English: what does this whole command find?</div>
+        <div class="write-box"></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:10px; border:1px solid var(--border); border-radius:4px; padding:8px 12px;">
+    <div class="section-label" style="margin-top:0;">Your own command</div>
+    <div style="font-size:12px; margin-bottom:6px;">Write a command of your own using at least 2 flags and 1 argument. Swap with a partner and let them dissect it without your help.</div>
+    <div style="font-family:'Courier New',monospace; font-size:13px; border-bottom:1px solid #ccc; min-height:22px; margin-bottom:8px;"></div>
+    <div style="font-size:11px; color:#666;">Partner's dissection (they fill this in):</div>
+    <div class="write-box-tall"></div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 2 — SESSION 24 — NAVIGATION CHALLENGE                 -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 24 · Week 6 · Handout F</div>
+      <div class="sheet-title">Terminal challenge — navigation and reading</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="rules-box">
+    <div class="rules-label">Rules</div>
+    No Dolphin. No file manager. Terminal only. Work individually. Write the exact command you used for every task — the answer is not enough, the command is what matters. You may use man, --help, and apropos at any time.
+  </div>
+
+  <div class="task-list">
+
+    <div class="task-card">
+      <div class="task-head"><span class="task-n">1.</span><span class="task-q">Find the largest file in <code>/usr/share</code>. What is its name and size?</span></div>
+      <div class="task-body">
+        <div class="answer-row"><div class="answer-label">Command used</div><div class="write-line" style="font-family:'Courier New',monospace;"></div></div>
+        <div class="answer-row"><div class="answer-label">Answer</div><div class="write-line"></div></div>
+      </div>
+    </div>
+
+    <div class="task-card">
+      <div class="task-head"><span class="task-n">2.</span><span class="task-q">How many lines does <code>/etc/passwd</code> have?</span></div>
+      <div class="task-body">
+        <div class="answer-row"><div class="answer-label">Command used</div><div class="write-line" style="font-family:'Courier New',monospace;"></div></div>
+        <div class="answer-row"><div class="answer-label">Answer</div><div class="write-line"></div></div>
+      </div>
+    </div>
+
+    <div class="task-card">
+      <div class="task-head"><span class="task-n">3.</span><span class="task-q">Navigate to <code>/var/log</code> and list only files modified in the last 7 days. How many are there?</span></div>
+      <div class="task-body">
+        <div class="answer-row"><div class="answer-label">Command used</div><div class="write-line" style="font-family:'Courier New',monospace;"></div></div>
+        <div class="answer-row"><div class="answer-label">Answer</div><div class="write-line"></div></div>
+      </div>
+    </div>
+
+    <div class="task-card">
+      <div class="task-head"><span class="task-n">4.</span><span class="task-q">Find any file in <code>/etc</code> whose name contains the word "host". List all matches.</span></div>
+      <div class="task-body">
+        <div class="answer-row"><div class="answer-label">Command used</div><div class="write-line" style="font-family:'Courier New',monospace;"></div></div>
+        <div class="answer-row"><div class="answer-label">Files found</div><div class="write-line"></div></div>
+      </div>
+    </div>
+
+    <div class="task-card">
+      <div class="task-head"><span class="task-n">5.</span><span class="task-q">Show the last 5 lines of <code>/var/log/syslog</code>.</span></div>
+      <div class="task-body">
+        <div class="answer-row"><div class="answer-label">Command used</div><div class="write-line" style="font-family:'Courier New',monospace;"></div></div>
+        <div class="answer-row"><div class="answer-label">First line shown</div><div class="write-line"></div></div>
+      </div>
+    </div>
+
+    <div class="task-card">
+      <div class="task-head"><span class="task-n">6.</span><span class="task-q">What shell are you running? Show the command that tells you — not just the answer.</span></div>
+      <div class="task-body">
+        <div class="answer-row"><div class="answer-label">Command used</div><div class="write-line" style="font-family:'Courier New',monospace;"></div></div>
+        <div class="answer-row"><div class="answer-label">Shell path</div><div class="write-line"></div></div>
+      </div>
+    </div>
+
+    <div class="task-card">
+      <div class="task-head"><span class="task-n">7.</span><span class="task-q">How long has this system been running? Find the right command using the help system — do not guess.</span></div>
+      <div class="task-body">
+        <div class="answer-row"><div class="answer-label">How you found it</div><div class="write-line"></div></div>
+        <div class="answer-row"><div class="answer-label">Command used</div><div class="write-line" style="font-family:'Courier New',monospace;"></div></div>
+        <div class="answer-row"><div class="answer-label">Uptime</div><div class="write-line"></div></div>
+      </div>
+    </div>
+
+    <div class="task-card">
+      <div class="task-head"><span class="task-n">8.</span><span class="task-q">Navigate to <code>/usr/share/doc</code> using tab completion only — never type the full path at once.</span></div>
+      <div class="task-body">
+        <div class="answer-row"><div class="answer-label">What you typed</div><div class="write-line" style="font-family:'Courier New',monospace;"></div></div>
+        <div class="answer-row"><div class="answer-label">pwd confirms</div><div class="write-line"></div></div>
+        <div class="verify-row"><div class="vcheck"></div><span class="vlabel">completed without typing full path</span></div>
+      </div>
+    </div>
+
+    <div class="task-card">
+      <div class="task-head"><span class="task-n">9.</span><span class="task-q">Rerun the command from task 1 using Ctrl+R history search — do not retype it.</span></div>
+      <div class="task-body">
+        <div class="answer-row"><div class="answer-label">Search string used</div><div class="write-line" style="font-family:'Courier New',monospace;"></div></div>
+        <div class="verify-row"><div class="vcheck"></div><span class="vlabel">reran using Ctrl+R — did not retype</span></div>
+      </div>
+    </div>
+
+    <div class="task-card">
+      <div class="task-head"><span class="task-n">10.</span><span class="task-q">Open <code>/etc/hostname</code> in less. Search for the hostname text inside less. Quit. Write the search shortcut you used.</span></div>
+      <div class="task-body">
+        <div class="answer-row"><div class="answer-label">Command to open</div><div class="write-line" style="font-family:'Courier New',monospace;"></div></div>
+        <div class="answer-row"><div class="answer-label">Search shortcut</div><div class="write-line" style="font-family:'Courier New',monospace;"></div></div>
+        <div class="answer-row"><div class="answer-label">Hostname</div><div class="write-line"></div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:10px; border:1px solid #ddd; border-radius:4px; padding:8px 12px; font-size:11px; color:#666; font-family:'Courier New',monospace;">
+    After everyone finishes: compare command choices with a classmate. For any task where you used different commands — which approach is more readable? Which is faster? Are both correct?
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 3 — SESSION 32 — MESSY DOWNLOADS                      -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 32 · Week 8 · Handout G</div>
+      <div class="sheet-title">File operations synthesis — the messy downloads</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="scenario-box">
+    "You have inherited a colleague's downloads folder. They organized nothing for two years. Files of every type, named randomly, mixed with temporary files and old scripts. Your task: make sense of it using only the terminal. The folder has already been extracted for you."
+  </div>
+
+  <div class="instructions">
+    First command to run: <code style="font-family:'Courier New',monospace;">tar -xzf downloads.tar.gz</code> — this extracts the archive. You have not learned tar yet. Just use it. We come back to it in Phase 5.<br>
+    Log every significant command you run in the log section at the bottom.
+  </div>
+
+  <div class="req-list">
+    <div class="req-item">
+      <div class="req-n">1</div>
+      <div class="req-content">
+        <div class="req-title">Design a folder structure</div>
+        <div class="req-detail">Create it with mkdir. Justify your design in a README file. What categories make sense for the file types you have?</div>
+        <div style="margin-top:5px;">
+          <div style="font-size:10px; font-family:'Courier New',monospace; color:#888; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:3px;">Your structure (draw it here)</div>
+          <div class="write-box-tall"></div>
+        </div>
+      </div>
+    </div>
+    <div class="req-item">
+      <div class="req-n">2</div>
+      <div class="req-content">
+        <div class="req-title">Move all files into appropriate folders</div>
+        <div class="req-detail">Use mv and wildcards. Group by type or project. No file should remain unsorted at the end.</div>
+        <div class="write-box" style="margin-top:5px; font-size:11px; color:#666;">Key commands used:</div>
+      </div>
+    </div>
+    <div class="req-item">
+      <div class="req-n">3</div>
+      <div class="req-content">
+        <div class="req-title">Find all .sh files and make them executable</div>
+        <div class="req-detail">Use find with -exec or chmod with wildcards after locating them.</div>
+        <div class="answer-row" style="margin-top:5px; display:grid; grid-template-columns:80px 1fr; gap:6px;">
+          <div style="font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;color:#888;">Command</div>
+          <div class="write-line" style="font-family:'Courier New',monospace;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="req-item">
+      <div class="req-n">4</div>
+      <div class="req-content">
+        <div class="req-title">Find the largest file — note it in README</div>
+        <div class="answer-row" style="margin-top:5px; display:grid; grid-template-columns:80px 1fr; gap:6px;">
+          <div style="font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;color:#888;">Command</div>
+          <div class="write-line" style="font-family:'Courier New',monospace;"></div>
+        </div>
+        <div class="answer-row" style="margin-top:4px; display:grid; grid-template-columns:80px 1fr; gap:6px;">
+          <div style="font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;color:#888;">Largest file</div>
+          <div class="write-line"></div>
+        </div>
+      </div>
+    </div>
+    <div class="req-item">
+      <div class="req-n">5</div>
+      <div class="req-content">
+        <div class="req-title">Find files not modified in the last 30 days → move to archive/</div>
+        <div class="req-detail">Use find with the -mtime flag. Run ls on the results before mv.</div>
+        <div class="answer-row" style="margin-top:5px; display:grid; grid-template-columns:80px 1fr; gap:6px;">
+          <div style="font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;color:#888;">find command</div>
+          <div class="write-line" style="font-family:'Courier New',monospace;"></div>
+        </div>
+        <div class="answer-row" style="margin-top:4px; display:grid; grid-template-columns:80px 1fr; gap:6px;">
+          <div style="font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;color:#888;">Files found</div>
+          <div class="write-line"></div>
+        </div>
+      </div>
+    </div>
+    <div class="req-item">
+      <div class="req-n">6</div>
+      <div class="req-content">
+        <div class="req-title">Delete files with "temp" or "tmp" in the name</div>
+        <div class="req-detail" style="color:var(--coral);">Run ls first to verify exactly what will be deleted before running rm.</div>
+        <div class="answer-row" style="margin-top:5px; display:grid; grid-template-columns:80px 1fr; gap:6px;">
+          <div style="font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;color:#888;">ls command</div>
+          <div class="write-line" style="font-family:'Courier New',monospace;"></div>
+        </div>
+        <div class="answer-row" style="margin-top:4px; display:grid; grid-template-columns:80px 1fr; gap:6px;">
+          <div style="font-family:'Courier New',monospace;font-size:9px;text-transform:uppercase;color:#888;">rm command</div>
+          <div class="write-line" style="font-family:'Courier New',monospace;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="req-item">
+      <div class="req-n">7</div>
+      <div class="req-content">
+        <div class="req-title">Write a summary in README using nano</div>
+        <div class="req-detail">What structure you created, why, what you moved where, what you deleted, and what you would do differently.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="log-box">
+    <div class="log-label">commands.log — write every significant command here as you go</div>
+    <div class="log-line"></div>
+    <div class="log-line"></div>
+    <div class="log-line"></div>
+    <div class="log-line"></div>
+    <div class="log-line"></div>
+    <div class="log-line"></div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 4 — SESSION 36 — PIPELINE BUILDER                     -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 36 · Week 9 · Handout H</div>
+      <div class="sheet-title">Combining tools — pipeline builder</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="instructions">
+    Build each pipeline incrementally — run each stage separately first, verify the output, then connect stages with <code>|</code>. Write each stage and what it produces before writing the full pipeline.
+  </div>
+
+  <div class="pipe-ref">
+    <div class="tool-box">
+      <div class="tool-name">sort</div>
+      <div class="tool-flags">
+        <code>sort</code> — alphabetical<br>
+        <code>sort -n</code> — numeric<br>
+        <code>sort -r</code> — reverse<br>
+        <code>sort -u</code> — sort + deduplicate<br>
+        <code>sort -k2</code> — sort by field 2
+      </div>
+    </div>
+    <div class="tool-box">
+      <div class="tool-name">wc</div>
+      <div class="tool-flags">
+        <code>wc -l</code> — count lines<br>
+        <code>wc -w</code> — count words<br>
+        <code>wc -c</code> — count characters
+      </div>
+    </div>
+    <div class="tool-box">
+      <div class="tool-name">uniq</div>
+      <div class="tool-flags">
+        <code>uniq</code> — remove consecutive duplicates<br>
+        <code>uniq -c</code> — count occurrences<br>
+        <strong>Must sort first!</strong>
+      </div>
+    </div>
+    <div class="tool-box">
+      <div class="tool-name">cut</div>
+      <div class="tool-flags">
+        <code>cut -d: -f1</code> — field 1 (: delimiter)<br>
+        <code>cut -d, -f2</code> — field 2 (, delimiter)<br>
+        <code>cut -c1-10</code> — characters 1-10
+      </div>
+    </div>
+  </div>
+
+  <div class="pipe-tasks">
+
+    <div class="pipe-card">
+      <div class="pipe-head"><span class="pipe-n">1.</span><span class="pipe-q">Produce an alphabetically sorted list of all usernames on the system.</span></div>
+      <div class="pipe-body">
+        <div class="stages">
+          <div class="stage-row">
+            <div class="stage-label">Stage 1</div>
+            <div class="stage-input"></div>
+            <div class="stage-arrow">→</div>
+            <div class="stage-output">produces: list of passwd lines</div>
+          </div>
+          <div class="stage-row">
+            <div class="stage-label">Stage 2</div>
+            <div class="stage-input"></div>
+            <div class="stage-arrow">→</div>
+            <div class="stage-output">produces: usernames only</div>
+          </div>
+          <div class="stage-row">
+            <div class="stage-label">Stage 3</div>
+            <div class="stage-input"></div>
+            <div class="stage-arrow">→</div>
+            <div class="stage-output">produces: sorted list</div>
+          </div>
+        </div>
+        <div style="font-family:'Courier New',monospace;font-size:10px;color:#888;text-transform:uppercase;margin-bottom:3px;">Full pipeline</div>
+        <div class="write-line" style="font-family:'Courier New',monospace;font-size:12px;"></div>
+      </div>
+    </div>
+
+    <div class="pipe-card">
+      <div class="pipe-head"><span class="pipe-n">2.</span><span class="pipe-q">Count how many unique login shells are configured in <code>/etc/passwd</code>.</span></div>
+      <div class="pipe-body">
+        <div class="stages">
+          <div class="stage-row">
+            <div class="stage-label">Stage 1</div>
+            <div class="stage-input"></div>
+            <div class="stage-arrow">→</div>
+            <div class="stage-output">produces: shell field only</div>
+          </div>
+          <div class="stage-row">
+            <div class="stage-label">Stage 2</div>
+            <div class="stage-input"></div>
+            <div class="stage-arrow">→</div>
+            <div class="stage-output">produces: sorted shells</div>
+          </div>
+          <div class="stage-row">
+            <div class="stage-label">Stage 3</div>
+            <div class="stage-input"></div>
+            <div class="stage-arrow">→</div>
+            <div class="stage-output">produces: unique shells</div>
+          </div>
+          <div class="stage-row">
+            <div class="stage-label">Stage 4</div>
+            <div class="stage-input"></div>
+            <div class="stage-arrow">→</div>
+            <div class="stage-output">produces: a count</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px;">
+          <div>
+            <div style="font-family:'Courier New',monospace;font-size:10px;color:#888;text-transform:uppercase;margin-bottom:3px;">Full pipeline</div>
+            <div class="write-line" style="font-family:'Courier New',monospace;font-size:12px;"></div>
+          </div>
+          <div>
+            <div style="font-family:'Courier New',monospace;font-size:10px;color:#888;text-transform:uppercase;margin-bottom:3px;">Answer</div>
+            <div class="write-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pipe-card">
+      <div class="pipe-head"><span class="pipe-n">3.</span><span class="pipe-q">Find which login shell in <code>/etc/passwd</code> is used most often.</span></div>
+      <div class="pipe-body">
+        <div style="font-size:11px; color:#555; margin-bottom:6px;">Hint: cut the shell field, sort it, count occurrences with uniq -c, sort numerically in reverse, take the first result.</div>
+        <div class="stages">
+          <div class="stage-row">
+            <div class="stage-label">Stage 1</div>
+            <div class="stage-input"></div>
+            <div class="stage-arrow">→</div>
+            <div class="stage-output"></div>
+          </div>
+          <div class="stage-row">
+            <div class="stage-label">Stage 2</div>
+            <div class="stage-input"></div>
+            <div class="stage-arrow">→</div>
+            <div class="stage-output"></div>
+          </div>
+          <div class="stage-row">
+            <div class="stage-label">Stage 3</div>
+            <div class="stage-input"></div>
+            <div class="stage-arrow">→</div>
+            <div class="stage-output"></div>
+          </div>
+          <div class="stage-row">
+            <div class="stage-label">Stage 4</div>
+            <div class="stage-input"></div>
+            <div class="stage-arrow">→</div>
+            <div class="stage-output"></div>
+          </div>
+          <div class="stage-row">
+            <div class="stage-label">Stage 5</div>
+            <div class="stage-input"></div>
+            <div class="stage-arrow">→</div>
+            <div class="stage-output"></div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:8px;margin-top:4px;">
+          <div>
+            <div style="font-family:'Courier New',monospace;font-size:10px;color:#888;text-transform:uppercase;margin-bottom:3px;">Full pipeline</div>
+            <div class="write-line" style="font-family:'Courier New',monospace;font-size:12px;"></div>
+          </div>
+          <div>
+            <div style="font-family:'Courier New',monospace;font-size:10px;color:#888;text-transform:uppercase;margin-bottom:3px;">Most common shell</div>
+            <div class="write-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pipe-card">
+      <div class="pipe-head"><span class="pipe-n">4.</span><span class="pipe-q">Your own: build a pipeline of 3+ commands that answers a question you actually care about. Explain it.</span></div>
+      <div class="pipe-body">
+        <div style="font-family:'Courier New',monospace;font-size:10px;color:#888;text-transform:uppercase;margin-bottom:3px;">Question you are answering</div>
+        <div class="write-line" style="margin-bottom:8px;"></div>
+        <div style="font-family:'Courier New',monospace;font-size:10px;color:#888;text-transform:uppercase;margin-bottom:3px;">Full pipeline</div>
+        <div class="write-line" style="font-family:'Courier New',monospace;font-size:12px;margin-bottom:8px;"></div>
+        <div style="font-family:'Courier New',monospace;font-size:10px;color:#888;text-transform:uppercase;margin-bottom:3px;">What each stage does</div>
+        <div class="write-box"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SHEET 5 — SESSION 40 — VOCABULARY CHECKLIST                 -->
+<!-- ============================================================ -->
+<div class="sheet">
+  <div class="sheet-header">
+    <div>
+      <div class="sheet-id">Session 40 · Week 10 · Handout I</div>
+      <div class="sheet-title">Phase 2 vocabulary checklist</div>
+    </div>
+    <div class="name-line">Name <span class="name-blank"></span><br><br>Date <span class="name-blank"></span></div>
+  </div>
+
+  <div class="instructions">
+    For each term, tick the green box if you can explain it clearly in your own words. Tick the red box if you need to review it. Be honest — this is for you, not for a grade.
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="conf-box yes"></div> I can explain this clearly</div>
+    <div class="legend-item"><div class="conf-box no"></div> I need to review this</div>
+  </div>
+
+  <div class="vocab-section">
+    <div class="vocab-week">Weeks 5–6 — terminal fundamentals</div>
+    <div class="vocab-grid">
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">terminal emulator</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">shell (bash)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">prompt</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">pwd</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">ls / ls -la</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">cd / cd - / cd ~</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">cat</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">less (pager)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">head -n / tail -n</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">tail -f (follow)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">wc -l</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">tab completion</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">Ctrl+R (history search)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">!! (last command)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">short vs long option</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">-- (end of options)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">man / --help / apropos</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">man sections (1, 5, 8)</span></div>
+    </div>
+  </div>
+
+  <div class="vocab-section">
+    <div class="vocab-week">Weeks 7–8 — file operations and finding</div>
+    <div class="vocab-grid">
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">mkdir / mkdir -p</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">touch</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">echo > (write)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">echo >> (append)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">cp / cp -r / cp -i</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">mv (move + rename)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">rm / rm -r / rm -rf</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">rmdir</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">rm has no undo</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">nano</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">Ctrl+O / Ctrl+X</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">#!/bin/bash (shebang)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">find -name / -type</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">find -size / -mtime</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">find -exec {} \;</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">locate / updatedb</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">grep / grep -r</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">grep -i / -n / -v / -c</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">wildcard * ? [abc]</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">shell expansion (glob)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">glob vs regex</span></div>
+    </div>
+  </div>
+
+  <div class="vocab-section">
+    <div class="vocab-week">Week 9 — pipes and redirection</div>
+    <div class="vocab-grid">
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">pipe |</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">stdin / stdout / stderr</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">pipeline</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">> (overwrite)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">>> (append)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">2> (stderr)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">2>&1</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">/dev/null</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">regex ^ $ . *</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">sort / sort -n / -r / -u</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">uniq / uniq -c</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">cut -d -f</span></div>
+    </div>
+  </div>
+
+  <div class="vocab-section">
+    <div class="vocab-week">Week 10 — package manager</div>
+    <div class="vocab-grid">
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">package / .deb</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">repository</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">sources.list</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">apt update (index)</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">apt upgrade</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">apt install / remove</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">apt purge</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">apt autoremove</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">dependency</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">signed package / GPG</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">CVE / security patch</span></div>
+      <div class="vocab-item"><div class="conf-boxes"><div class="conf-box yes"></div><div class="conf-box no"></div></div><span class="vterm">unattended-upgrades</span></div>
+    </div>
+  </div>
+
+  <div class="reflect">
+    <div class="section-label" style="margin-top:0;">Reflection — after session 40</div>
+    <div class="reflect-q">1. What is the single most useful command you learned in Phase 2? Why?</div>
+    <div class="rlines"><div class="rline"></div><div class="rline"></div></div>
+    <div class="reflect-q">2. What concept was hardest to understand? What finally made it click?</div>
+    <div class="rlines"><div class="rline"></div><div class="rline"></div></div>
+    <div class="reflect-q">3. Complete: "A pipe | connects ___ to ___. This is useful because ___."</div>
+    <div class="rlines"><div class="rline"></div><div class="rline"></div></div>
+    <div class="reflect-q">4. What did you install in session 40? Would you install it again?</div>
+    <div class="rlines"><div class="rline"></div></div>
+  </div>
+</div>
+
+</body>
+</html>

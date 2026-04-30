@@ -1,0 +1,1955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 2 — Teacher Manual</title>
+<style>
+  :root {
+    --green-light: #EAF3DE; --green-mid: #97C459; --green-dark: #27500A; --green-text: #3B6D11;
+    --blue-light: #E6F1FB; --blue-mid: #85B7EB; --blue-dark: #0C447C; --blue-text: #185FA5;
+    --amber-light: #FAEEDA; --amber-dark: #633806; --amber-text: #854F0B;
+    --coral-light: #FAECE7; --coral-dark: #712B13; --coral-text: #993C1D;
+    --gray-light: #F1EFE8; --gray-mid: #B4B2A9; --gray-dark: #444441;
+    --text: #1a1a1a; --text-muted: #555; --border: #e0ddd6; --bg: #fff; --bg-sec: #faf9f7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Georgia, serif; font-size: 15px; line-height: 1.75; color: var(--text); background: var(--bg); }
+  .page { max-width: 860px; margin: 0 auto; padding: 3rem 2.5rem; }
+  .cover { text-align: center; padding: 4rem 0 3rem; border-bottom: 1px solid var(--border); margin-bottom: 3rem; }
+  .cover-label { font-family: 'Courier New', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem; }
+  .cover h1 { font-size: 32px; font-weight: normal; margin-bottom: 0.5rem; }
+  .cover h2 { font-size: 18px; font-weight: normal; color: var(--text-muted); margin-bottom: 2rem; }
+  .cover-meta { display: flex; justify-content: center; gap: 2.5rem; font-size: 13px; color: var(--text-muted); font-family: 'Courier New', monospace; }
+  .cover-meta strong { color: var(--text); font-weight: normal; font-size: 15px; display: block; }
+  .phase-overview { background: var(--green-light); border-radius: 8px; padding: 1.5rem 2rem; margin-bottom: 3rem; }
+  .phase-overview h3 { font-family: 'Courier New', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green-dark); margin-bottom: 0.75rem; }
+  .phase-overview p { font-size: 14px; color: var(--green-dark); line-height: 1.75; margin-bottom: 0.75rem; }
+  .phase-overview p:last-child { margin-bottom: 0; }
+  .toc { background: var(--bg-sec); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem 2rem; margin-bottom: 3rem; }
+  .toc h3 { font-family: 'Courier New', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem; }
+  .toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .toc a { font-size: 12px; color: var(--green-text); text-decoration: none; font-family: 'Courier New', monospace; }
+  .toc a:hover { text-decoration: underline; }
+  .week-header { margin: 3rem 0 2rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--text); }
+  .week-label { font-family: 'Courier New', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+  .week-title { font-size: 22px; font-weight: normal; margin-top: 4px; }
+  .week-theme { font-size: 14px; color: var(--text-muted); font-style: italic; margin-top: 4px; }
+  .session { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 2.5rem; overflow: hidden; page-break-inside: avoid; }
+  .session-header { background: var(--green-light); padding: 1rem 1.5rem; display: flex; align-items: baseline; gap: 1rem; }
+  .session-num { font-family: 'Courier New', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green-dark); min-width: 70px; }
+  .session-title { font-size: 17px; font-weight: normal; color: var(--green-dark); }
+  .session-body { padding: 1.5rem; }
+  .time-bar { display: flex; gap: 4px; margin-bottom: 1.5rem; border-radius: 4px; overflow: hidden; height: 36px; }
+  .t-block { display: flex; flex-direction: column; justify-content: center; padding: 0 10px; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3; }
+  .t-block strong { font-size: 12px; display: block; }
+  .t-warm { background: var(--gray-light); color: var(--gray-dark); }
+  .t-concept { background: var(--green-light); color: var(--green-dark); }
+  .t-exercise { background: var(--blue-light); color: var(--blue-dark); }
+  .t-close { background: var(--amber-light); color: var(--amber-dark); }
+  .section { margin-bottom: 1.5rem; }
+  .section-label { font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
+  .section p { font-size: 14px; line-height: 1.75; margin-bottom: 0.75rem; }
+  .section p:last-child { margin-bottom: 0; }
+  .whiteboard { background: #fffef5; border: 1px dashed #c8c090; border-radius: 6px; padding: 1.25rem 1.5rem; margin: 0.75rem 0; }
+  .whiteboard-label { font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #8a7a40; margin-bottom: 0.75rem; }
+  .whiteboard-content { font-family: 'Courier New', monospace; font-size: 13px; line-height: 2; color: #333; }
+  .exercise-box { background: var(--blue-light); border-radius: 6px; padding: 1.25rem 1.5rem; margin: 0.75rem 0; }
+  .exercise-box p { color: var(--blue-dark); font-size: 14px; line-height: 1.75; margin-bottom: 0.75rem; }
+  .exercise-box p:last-child { margin-bottom: 0; }
+  .exercise-box ol, .exercise-box ul { padding-left: 1.5rem; color: var(--blue-dark); font-size: 14px; line-height: 1.9; }
+  .exercise-box li { margin-bottom: 0.3rem; }
+  .teacher-note { background: var(--coral-light); border-left: 3px solid #D85A30; border-radius: 0 6px 6px 0; padding: 1.25rem 1.5rem; margin: 0.75rem 0; }
+  .teacher-note-label { font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--coral-text); margin-bottom: 0.5rem; }
+  .teacher-note p { color: var(--coral-dark); font-size: 14px; line-height: 1.75; margin-bottom: 0.75rem; }
+  .teacher-note p:last-child { margin-bottom: 0; }
+  .qa-box { background: var(--amber-light); border-radius: 6px; padding: 1.25rem 1.5rem; margin: 0.75rem 0; }
+  .qa-box-label { font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber-text); margin-bottom: 0.75rem; }
+  .qa-item { margin-bottom: 0.9rem; }
+  .qa-item:last-child { margin-bottom: 0; }
+  .qa-q { font-size: 13px; font-weight: bold; color: var(--amber-dark); font-family: 'Courier New', monospace; margin-bottom: 3px; }
+  .qa-a { font-size: 13px; color: var(--amber-dark); line-height: 1.7; }
+  .vocab-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .vocab-term { background: var(--green-light); color: var(--green-dark); font-family: 'Courier New', monospace; font-size: 12px; padding: 3px 10px; border-radius: 3px; }
+  code { font-family: 'Courier New', monospace; background: var(--gray-light); padding: 1px 5px; border-radius: 3px; font-size: 13px; color: #333; }
+  pre { font-family: 'Courier New', monospace; background: #1e1e1e; color: #d4d4d4; padding: 1rem 1.25rem; border-radius: 6px; font-size: 13px; line-height: 1.7; overflow-x: auto; margin: 0.75rem 0; }
+  .safety-box { background: #fff8e1; border: 2px solid #f0a500; border-radius: 6px; padding: 1.25rem 1.5rem; margin: 0.75rem 0; }
+  .safety-label { font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #8a6000; margin-bottom: 0.5rem; }
+  .safety-box p { font-size: 14px; color: #5a4000; line-height: 1.75; margin-bottom: 0.5rem; }
+  .safety-box p:last-child { margin-bottom: 0; }
+  @media print {
+    body { font-size: 13px; }
+    .page { padding: 1.5rem; }
+    .session { page-break-inside: avoid; }
+    .week-header { page-break-before: always; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="cover">
+  <div class="cover-label">Linux seminar · Kubuntu LTS · Ages 15–18</div>
+  <h1>Phase 2 — Teacher Manual</h1>
+  <h2>Talking to it</h2>
+  <div class="cover-meta">
+    <span><div>Sessions</div><strong>24</strong></span>
+    <span><div>Weeks</div><strong>5 – 10</strong></span>
+    <span><div>Format</div><strong>4 days × 1 hour</strong></span>
+    <span><div>Builds on</div><strong>Phase 1</strong></span>
+  </div>
+</div>
+
+<div class="phase-overview">
+  <h3>Phase goal</h3>
+  <p>By the end of these six weeks, students should be able to operate the machine entirely from the terminal when needed. The GUI remains available but stops being necessary. They will navigate the filesystem, create and manipulate files, search for content, install and remove software, and connect commands into pipelines that do real work.</p>
+  <p>The core shift in this phase is from reading the machine to writing to it. Phase 1 was observation and understanding. Phase 2 is operation. Students will make things, break things, fix things, and build things — all from the command line. By session 40, each student has a machine configured with tools they chose, installed correctly, and can explain.</p>
+  <p>One principle governs every session in this phase: the mouse is not banned, but it is no longer the default. When a student reaches for Dolphin, the question to ask is "what would the terminal command be?" When they find it, they understand it better. When they use it, it becomes faster than the GUI. The transition from GUI-first to terminal-comfortable does not happen in one session — it accumulates across all six weeks.</p>
+  <p>Phase 1 gaps to address at the start of this phase: check that every student can navigate the filesystem from the terminal, read a permission string, and use sudo deliberately. These three skills are assumed throughout Phase 2. If anyone is shaky on them, the first session's warm-up will surface it.</p>
+</div>
+
+<div class="toc">
+  <h3>Sessions</h3>
+  <div class="toc-grid">
+    <a href="#s17">S17 — What is a terminal, really?</a>
+    <a href="#s18">S18 — First commands: pwd, ls, cd</a>
+    <a href="#s19">S19 — ls in depth: reading a directory</a>
+    <a href="#s20">S20 — Reading files: cat, less, head, tail</a>
+    <a href="#s21">S21 — Tab completion and history</a>
+    <a href="#s22">S22 — Command structure: anatomy</a>
+    <a href="#s23">S23 — Getting help right: man, --help, apropos</a>
+    <a href="#s24">S24 — Terminal synthesis: navigation challenge</a>
+    <a href="#s25">S25 — Creating things: mkdir, touch, echo</a>
+    <a href="#s26">S26 — Moving and copying: cp and mv</a>
+    <a href="#s27">S27 — Deleting: rm and what cannot be undone</a>
+    <a href="#s28">S28 — Text editors: nano for real work</a>
+    <a href="#s29">S29 — Finding things: find and locate</a>
+    <a href="#s30">S30 — grep: searching inside files</a>
+    <a href="#s31">S31 — Wildcards: patterns the shell expands</a>
+    <a href="#s32">S32 — File operations synthesis</a>
+    <a href="#s33">S33 — Pipes: connecting tools together</a>
+    <a href="#s34">S34 — Redirection: controlling where output goes</a>
+    <a href="#s35">S35 — grep patterns: intro to regular expressions</a>
+    <a href="#s36">S36 — Combining tools: sort, wc, uniq, cut</a>
+    <a href="#s37">S37 — What apt is and how repositories work</a>
+    <a href="#s38">S38 — apt in practice: install, remove, search</a>
+    <a href="#s39">S39 — Updates: keeping the system current</a>
+    <a href="#s40">S40 — Phase 2 synthesis: build your own setup</a>
+  </div>
+</div>
+
+<!-- ===== WEEK 5 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 5</div>
+  <div class="week-title">Terminal basics</div>
+  <div class="week-theme">"The terminal is not punishment. It is precision."</div>
+</div>
+
+<!-- S17 -->
+<div class="session" id="s17">
+  <div class="session-header">
+    <div class="session-num">Session 17</div>
+    <div class="session-title">What is a terminal, really?</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:10"><strong>10 min</strong>warm-up</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:25"><strong>25 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>Phase 2 opens with a distinction that seems pedantic but matters practically: the terminal emulator and the shell are two separate programs. Most people use "terminal" to mean both. In this course, the distinction will matter when students use SSH in Phase 5 — on a remote machine, there is no emulator, only a shell. Getting this right now prevents confusion later.</p>
+      <p>This session also addresses the "why bother" question directly. Students have been getting by with Dolphin for four weeks. The case for the terminal has to be made with concrete, demonstrable advantages — not philosophy.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Preparation</div>
+      <p>Have Konsole open on the projector. Know where the settings are for changing font size, color scheme, and opacity. Have a second machine or SSH session available if possible — seeing bash run identically inside a remote connection reinforces the separation of emulator and shell.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 10 min</div>
+      <p>Open Konsole on the projector. Ask: "What are you actually looking at right now?" Take all answers. Write them on the board. Expect: "the terminal," "the command line," "bash," "the black screen." All partially correct, none fully precise. Tell the class you are going to make this precise because it matters — and explain that you will come back to this distinction in Phase 5 when they connect to a machine that has no screen at all.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>Konsole is the terminal emulator.</strong> It is a window application — it draws pixels on screen, handles keyboard input, manages fonts and colors, and creates a visual interface. Before personal computers, terminals were physical hardware devices connected to mainframes. Konsole emulates that hardware in software. It is called an "emulator" because it is pretending to be a machine that no longer exists. You could replace Konsole with any other terminal emulator — xterm, Alacritty, Terminator — and the behavior inside would be identical.</p>
+
+      <p><strong>Bash is the shell.</strong> It runs inside the terminal emulator. Bash is the program that displays the prompt, reads what you type, interprets it as commands, asks the operating system to execute those commands, and shows the results. When you type <code>ls</code> and press Enter, it is bash that processes that input and calls the ls program. The prompt itself — the <code>username@hostname:~$</code> — is produced by bash, not by Konsole.</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">Draw on board — two separate layers</div>
+        <div class="whiteboard-content">
+┌─────────────────────────────────┐
+│  KONSOLE (terminal emulator)    │
+│  Draws the window               │
+│  Handles keyboard input         │
+│  Renders text on screen         │
+│  ┌───────────────────────────┐  │
+│  │  BASH (the shell)         │  │
+│  │  Reads your commands      │  │
+│  │  Interprets them          │  │
+│  │  Calls the OS             │  │
+│  │  Shows results            │  │
+│  └───────────────────────────┘  │
+└─────────────────────────────────┘
+        </div>
+      </div>
+
+      <p>Run <code>echo $SHELL</code> to see which shell is running. It will say <code>/bin/bash</code>. Run <code>echo $TERM</code> to see the terminal type being emulated. Run <code>ps</code> to see the running processes — you will see both Konsole and bash in the list. They are separate programs.</p>
+
+      <p><strong>Why use the terminal at all?</strong> Three practical reasons. First, precision: every command does exactly what you say. There is no interpretation, no "are you sure you want to move this file?" ambiguity. Second, repeatability: a command you typed yesterday works identically today and will work identically on any Linux machine. Third, remote access: when you SSH into a server in Phase 5, there is no desktop, no Dolphin, no mouse. There is only a shell. Everything you learn in this phase works exactly the same over SSH. The terminal is not a more difficult way to do what the GUI does — it is access to a different and wider set of capabilities.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 25 min</div>
+      <div class="exercise-box">
+        <p><strong>Part 1 — exploring Konsole (10 min).</strong> Open Konsole settings. Change the font size. Change the color scheme to something different. Open a second tab (Ctrl+Shift+T). Open a split view (View → Split View). Run a command in each pane simultaneously. Observe that two separate bash instances are running inside one Konsole window.</p>
+        <p><strong>Part 2 — identifying the layers (15 min).</strong></p>
+        <ol>
+          <li>Run <code>echo $SHELL</code>. Write what it says. What does this variable contain?</li>
+          <li>Run <code>echo $TERM</code>. Write what it says. Why "xterm-256color" rather than "konsole"?</li>
+          <li>Run <code>ps</code>. Find both Konsole and bash in the process list. What do the numbers next to them mean?</li>
+          <li>Run <code>echo "hello" > /tmp/test.txt</code> in one tab. Switch to the other tab and run <code>cat /tmp/test.txt</code>. Did the file appear in both? Why? What does this tell you about where files live versus where bash runs?</li>
+          <li>Write a one-paragraph answer to: "What is the difference between a terminal emulator and a shell? Why does the distinction matter?"</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="qa-box">
+      <div class="qa-box-label">Expected student questions</div>
+      <div class="qa-item">
+        <div class="qa-q">Q: What other shells exist? Is bash the best?</div>
+        <div class="qa-a">A: zsh is popular and more feature-rich than bash. fish is designed to be user-friendly with better autocomplete. dash is minimal and fast, used for system scripts. Bash is the default on most systems and is the standard for scripts — so we use bash. zsh is worth knowing exists; it is macOS's default shell since Catalina.</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">Q: Can I change the shell?</div>
+        <div class="qa-a">A: Yes. <code>chsh -s /bin/zsh</code> changes your login shell. We will not do this in the course because bash is more universally documented, but it is a completely valid personal choice.</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">Q: Why is it called "emulator"?</div>
+        <div class="qa-a">A: Because it emulates a VT100 — a physical terminal from the 1970s. The escape codes that control cursor movement, color, and text formatting in the terminal date from that era. Modern terminal emulators still speak that same protocol for compatibility. It is one of the oldest living software standards.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Close · 5 min</div>
+      <p>Name the two programs, their jobs, and which layer each belongs to in the four-layer model from Phase 1. Preview: "Now that we know what we are looking at, next session we use it."</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">terminal emulator</span><span class="vocab-term">shell</span><span class="vocab-term">bash</span>
+        <span class="vocab-term">prompt</span><span class="vocab-term">Konsole</span><span class="vocab-term">$SHELL</span>
+        <span class="vocab-term">$TERM</span><span class="vocab-term">stdin</span><span class="vocab-term">stdout</span>
+        <span class="vocab-term">VT100</span><span class="vocab-term">ps (process list)</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The emulator vs shell distinction will feel abstract to most students today. That is fine — it will become concrete in Phase 5 when they SSH into a machine and there is no Konsole, no KDE, no mouse. At that point students who understood this session will adapt immediately. Students who did not will be confused about what is missing. Reference this session explicitly when SSH appears.</p>
+      <p>The split-view exercise is practically useful beyond the lesson: students who discover split terminals start using them naturally during exercises, which makes the exercises go faster because they can have a man page open in one pane while working in the other.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S18 -->
+<div class="session" id="s18">
+  <div class="session-header">
+    <div class="session-num">Session 18</div>
+    <div class="session-title">First commands — talking to bash</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>recap</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>Three commands — <code>pwd</code>, <code>ls</code>, <code>cd</code> — handle the vast majority of filesystem navigation. Students have used these in Phase 1 exercises, but not as the primary focus. This session formalises them: anatomy of a command, what each one does, and the navigational patterns they enable. By the end, every student should be able to navigate to any location on the system confidently from the terminal.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Quick Phase 1 recall: one student draws the filesystem tree from memory. Focus on the major directories. If anything is missing, fill it in together. This takes 5 minutes and confirms the mental model is intact before adding terminal-first navigation.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>Command anatomy.</strong> Before the three commands, establish the grammar that applies to every command in Linux. Write on the board:</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">Command grammar — applies to every command</div>
+        <div class="whiteboard-content">
+command  [options]  [arguments]
+
+ls       -la        /home
+^        ^          ^
+program  how to     what to
+name     behave     act on
+
+Options modify behaviour. Arguments are the target.
+Both are optional — ls alone works fine.
+        </div>
+      </div>
+
+      <p>Options almost always start with a dash. Short options: <code>-l</code>, <code>-a</code>. Long options: <code>--long</code>, <code>--all</code>. Short options can usually be combined: <code>-la</code> is the same as <code>-l -a</code>. Arguments do not start with a dash — they are the thing the command operates on: a filename, a path, a piece of text.</p>
+
+      <p><strong>pwd</strong> — print working directory. No options needed. No arguments needed. It always tells you exactly where you are. This is the "where am I?" command. Run it whenever you are uncertain. It costs nothing and confirms your position.</p>
+
+      <p><strong>ls</strong> — list directory contents. With no argument, lists the current directory. With a path argument, lists that location: <code>ls /etc</code>. Options change what is shown and how. Without options, hidden files are not shown and no detail is given. We go deep on ls options in session 19.</p>
+
+      <p><strong>cd</strong> — change directory. <code>cd /path</code> for absolute paths. <code>cd foldername</code> for relative paths. <code>cd ~</code> or just <code>cd</code> with no argument returns to home. <code>cd -</code> goes back to the previous directory — the terminal equivalent of the browser back button. <code>cd ..</code> goes up one level. These patterns combine: <code>cd ../../etc</code> goes up two levels then into etc.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <p><strong>Navigation challenge.</strong> Starting from your home directory, reach each location using cd and verify with pwd. Write the exact command used each time.</p>
+        <ol>
+          <li>Navigate to <code>/etc</code> using an absolute path.</li>
+          <li>From <code>/etc</code>, navigate to <code>/var/log</code> using a relative path.</li>
+          <li>From <code>/var/log</code>, navigate to <code>/usr/bin</code>.</li>
+          <li>Return home in a single command — two different ways.</li>
+          <li>Navigate to <code>/tmp</code>. Then use <code>cd -</code>. Where did you go? Why?</li>
+          <li>Navigate to <code>/usr/bin</code> using only <code>cd ..</code> and directory names — no absolute paths.</li>
+          <li>From anywhere, navigate to <code>/etc/apt</code> and run <code>ls</code>. What is inside?</li>
+        </ol>
+        <p><strong>After completing navigation:</strong> run <code>ls</code> with at least one argument you choose. Then run <code>ls /etc /var /usr</code> all at once — what happens when you give ls multiple arguments?</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Close · 5 min</div>
+      <p>Without looking at notes: what does <code>cd -</code> do? What does <code>cd</code> with no arguments do? What is the difference between running <code>ls</code> and <code>ls /etc</code>?</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">pwd</span><span class="vocab-term">ls</span><span class="vocab-term">cd</span>
+        <span class="vocab-term">cd ~</span><span class="vocab-term">cd -</span><span class="vocab-term">cd ..</span>
+        <span class="vocab-term">command grammar</span><span class="vocab-term">option / flag</span>
+        <span class="vocab-term">argument</span><span class="vocab-term">short option</span><span class="vocab-term">long option</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p><code>cd -</code> is consistently the most useful surprise in this session. Students who discover it start using it immediately. Make sure the exercise forces everyone to use it at least once so the muscle memory starts forming. It is especially useful when you navigate deep into a directory, make a change, and need to return to where you were without retyping the original path.</p>
+      <p>The multi-argument ls command at the end — <code>ls /etc /var /usr</code> — shows that many commands accept multiple arguments and act on each in turn. This is a general principle that applies to cp, mv, rm and others. Students who notice the pattern are developing command-line intuition.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S19 -->
+<div class="session" id="s19">
+  <div class="session-header">
+    <div class="session-num">Session 19</div>
+    <div class="session-title">ls in depth — reading a directory properly</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>warm-up</div>
+      <div class="t-block t-concept" style="flex:25"><strong>25 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:25"><strong>25 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>ls with no options is a rough sketch. ls with the right options is a complete picture. This session teaches students to read every column of ls -la output and to choose the right flags for different investigative purposes. By the end, ls is a diagnostic tool, not just a listing tool.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Run <code>ls -la ~</code> on the projector. Ask: how many separate pieces of information are on each line? Count together. The answer is nine: permissions, link count, owner, group, size, month, day, time/year, name. Phase 1 covered permissions, owner, and group. This session covers the rest and adds flags that change what is shown.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 25 min</div>
+      <p>Walk through the ls -la output line by line on the projector. Point at each column:</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">Anatomy of ls -la output</div>
+        <div class="whiteboard-content">
+-rw-r--r-- 1 username group   1234 Apr 12 14:32 myfile.txt
+^           ^ ^        ^       ^    ^            ^
+perms    links owner  group  size  date         name
+
+d = directory
+l = symlink (shows: name -> target)
+link count = how many hard links point here
+size = in bytes by default (-h makes it human-readable)
+date = last modification time
+        </div>
+      </div>
+
+      <p>The <strong>link count</strong> is the number of hard links pointing to this file. For most regular files, this is 1. For directories, it counts the number of subdirectories plus 2 (for . and ..). This is rarely important in daily use but occasionally useful for diagnostics.</p>
+
+      <p>The <strong>size</strong> column shows bytes by default. 4096 bytes for a directory entry is normal — it is the size of the directory entry itself, not its contents. The <code>-h</code> flag makes sizes human-readable: bytes become K, M, G. Always use <code>-h</code> when size matters to you as a human.</p>
+
+      <p>The <strong>date</strong> column shows when the file was last modified. For files modified in the current year, it shows month, day, and time. For files modified in a previous year, it shows month, day, and year instead of time. This matters for diagnosing changes: if a config file was last modified today and you did not touch it, something else did.</p>
+
+      <p><strong>Essential flags to know:</strong> <code>-l</code> long format. <code>-a</code> show all including hidden. <code>-h</code> human-readable sizes. <code>-t</code> sort by modification time, newest first. <code>-S</code> sort by size, largest first. <code>-r</code> reverse any sort order. <code>-R</code> list recursively into subdirectories. These combine freely: <code>ls -laht</code> shows all files in long format with human-readable sizes sorted by time. <code>ls -lhS</code> sorts by size with readable sizes.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 25 min</div>
+      <div class="exercise-box">
+        <p>Use ls with different flags to answer each question. Write the exact command you used.</p>
+        <ol>
+          <li>What is the largest file in <code>/usr/bin</code>?</li>
+          <li>What was the most recently modified file in <code>/etc</code>?</li>
+          <li>How many items are in <code>/var/log</code> including hidden ones?</li>
+          <li>What is the size of your <code>.bashrc</code> in human-readable form?</li>
+          <li>List everything in <code>/home</code> recursively — press Ctrl+C after a few seconds to stop it. What does Ctrl+C do?</li>
+          <li>Find a symbolic link in <code>/usr/bin</code>. How do you identify it from the ls output alone? What does the arrow after the name tell you?</li>
+          <li>What is the link count for the <code>/etc</code> directory? What does that number represent?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">ls -l</span><span class="vocab-term">ls -a</span><span class="vocab-term">ls -h</span>
+        <span class="vocab-term">ls -t</span><span class="vocab-term">ls -S</span><span class="vocab-term">ls -r</span>
+        <span class="vocab-term">ls -R</span><span class="vocab-term">link count</span><span class="vocab-term">modification time</span>
+        <span class="vocab-term">human-readable</span><span class="vocab-term">Ctrl+C (interrupt)</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Ctrl+C — interrupt a running command — appears naturally in task 5 when ls -R runs too long. Do not pre-teach it. Let students sit with the runaway output for a moment, then ask "how would you stop this?" If nobody knows, tell them Ctrl+C. That discovery moment is more memorable than a pre-emptive explanation. Ctrl+C will come up again in tail -f, find /, and any long-running process.</p>
+      <p>Task 6 — finding a symbolic link — teaches a reading skill. The l at the start of the permission string, plus the -> after the filename, are both indicators. Students who can identify symlinks from ls output will not be confused by them in later sessions when they appear unexpectedly in /usr/bin or /etc.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S20 -->
+<div class="session" id="s20">
+  <div class="session-header">
+    <div class="session-num">Session 20</div>
+    <div class="session-title">Reading files — cat, less, head, tail</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>scenario</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>Four tools for reading file contents. Each has a specific purpose. Using cat on a large log file is the terminal equivalent of opening a 10,000-page document in Word with no scroll bar — technically possible, practically useless. Choosing the right reading tool is as important as knowing they exist.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Live demo: run <code>cat /var/log/syslog</code> without warning the class. Let the output scroll. Do not stop it. After 10 seconds, press Ctrl+C. Ask: "Was that useful? What would have been better?" This creates the need that the session fills.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>cat</strong> (concatenate) dumps the entire file to stdout instantly. It was originally designed to concatenate multiple files: <code>cat file1 file2 file3</code> outputs all three in sequence. For reading, it is only appropriate for small files — config files, short scripts, files you know are a few lines long. For large files, it is the wrong tool.</p>
+
+      <p><strong>less</strong> opens a file in a pager — a program that shows one screenful at a time. Navigation: arrow keys or j/k move line by line. Page Up/Down or Space/b move by screen. <code>/searchterm</code> searches forward. <code>?searchterm</code> searches backward. <code>n</code> finds the next match, <code>N</code> the previous. <code>G</code> jumps to the end of the file. <code>gg</code> jumps to the beginning. <code>q</code> quits. less is the correct default for any file you do not know the size of.</p>
+
+      <p><strong>head -n N</strong> shows the first N lines. With no argument, defaults to 10. Use it to quickly understand what kind of file you are dealing with — look at the first 5 lines before committing to reading the whole thing.</p>
+
+      <p><strong>tail -n N</strong> shows the last N lines. For log files, the most recent events are at the bottom, so tail is usually what you want. <code>tail -f filename</code> follows the file — it keeps the file open and prints new lines as they are appended. This is indispensable for watching a log while an event is happening. To stop it, press Ctrl+C.</p>
+
+      <p><strong>wc -l</strong> counts lines. Before opening a large file, run <code>wc -l filename</code> to know how big it is. A file with 50,000 lines should not be opened with cat.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <p>For each situation, choose the right reading tool and explain why you chose it:</p>
+        <ol>
+          <li>Read your <code>.bashrc</code> — which tool? How long is the file first (use wc -l)?</li>
+          <li>Read <code>/var/log/syslog</code> without it scrolling past — open it with less, search for the word "error", navigate between matches, then quit.</li>
+          <li>Show only the first 5 lines of <code>/etc/passwd</code>.</li>
+          <li>Show only the last 10 lines of <code>/var/log/syslog</code>.</li>
+          <li><strong>Live log demo:</strong> open two terminal panes. In the first, run <code>sudo tail -f /var/log/syslog</code>. In the second, run <code>sudo apt update</code>. Watch the log entries appear in real time in the first pane as apt runs. What kind of events does apt log?</li>
+          <li>How many lines does <code>/etc/passwd</code> have? How many does <code>/var/log/syslog</code> have? Which one would you open with cat?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="qa-box">
+      <div class="qa-box-label">Expected student questions</div>
+      <div class="qa-item">
+        <div class="qa-q">Q: What is the difference between less and more?</div>
+        <div class="qa-a">A: more is the older, simpler pager — it only goes forward. less can go forward and backward and has search. The name "less" is a programmer joke: less is more. Always use less.</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">Q: Can I edit a file in less?</div>
+        <div class="qa-a">A: No, less is read-only. To edit, use nano (session 28). less is for reading and navigating, not writing.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Close · 5 min</div>
+      <p>When do you use cat vs less? What does tail -f do that tail alone does not? What does wc -l tell you before you open a file?</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">cat</span><span class="vocab-term">less</span><span class="vocab-term">head -n</span>
+        <span class="vocab-term">tail -n</span><span class="vocab-term">tail -f</span><span class="vocab-term">wc -l</span>
+        <span class="vocab-term">pager</span><span class="vocab-term">/ to search in less</span>
+        <span class="vocab-term">q to quit</span><span class="vocab-term">G (end of file)</span><span class="vocab-term">Ctrl+C</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 5 — the live log demo — is visually compelling and hard to forget. Seeing log entries appear in real time as apt runs makes the system feel alive. Students who do this exercise properly start to understand that the system is constantly generating a record of its own activity, and that record is readable. This is the foundation for the debugging session in Phase 5 (session 50 approximately) where they will use logs to diagnose real problems. Reference this moment there.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WEEK 6 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 6</div>
+  <div class="week-title">Terminal depth</div>
+  <div class="week-theme">"Work with the terminal, not against it."</div>
+</div>
+
+<!-- S21 -->
+<div class="session" id="s21">
+  <div class="session-header">
+    <div class="session-num">Session 21</div>
+    <div class="session-title">Tab completion and history — work smarter</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>demo</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>Tab completion and history are not shortcuts — they are the correct way to use the terminal. Tab completion prevents typos and confirms that paths exist. History search retrieves complex commands instantly without retyping. Together they turn a slow, error-prone interface into a fast, reliable one. These two features more than anything else explain why experienced users prefer the terminal.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Live demo before explaining anything. Type <code>cat /usr/sh</code> and press Tab. Continue: <code>are/doc/a</code> and Tab. Continue: <code>pt/ch</code> and Tab. The full path appears in a few keystrokes. Time yourself. Then ask: how long would typing <code>/usr/share/doc/apt/changelog.gz</code> manually take? And how many opportunities for typos? This is the opening.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>Tab completion.</strong> Press Tab once with a unique partial match: bash completes it. Press Tab once with an ambiguous match: nothing happens. Press Tab twice with an ambiguous match: bash shows all possibilities. Tab completion works for commands (type <code>cat</code> and Tab — nothing, because 'cat' is unique; type <code>ca</code> and Tab twice — shows cat, cal, and anything else starting with ca), for paths, for filenames, and with plugins for command options. An important side effect: if Tab does not complete, the path almost certainly does not exist. Tab completion is a silent correctness check.</p>
+
+      <p><strong>Command history.</strong> Bash keeps every command you type in <code>~/.bash_history</code>. Arrow up retrieves the previous command. Arrow up again retrieves the one before that. Arrow down goes forward again. This is sufficient for recent commands but slow for commands from hours ago.</p>
+
+      <p><strong>Ctrl+R</strong> is the powerful version: reverse search. Press Ctrl+R and type any part of a previous command. Bash searches backwards through history and shows the most recent match. Press Ctrl+R again to find the next earlier match. Press Enter to run the found command. Press right arrow or any navigation key to edit it first. Press Ctrl+C to cancel without running.</p>
+
+      <p>History management: <code>history</code> shows your full command history with line numbers. <code>!42</code> runs command number 42 from the history. <code>!ls</code> runs the most recent command that started with ls. <code>!!</code> runs the last command — this is the most useful: if you ran a command and got permission denied because you forgot sudo, type <code>sudo !!</code> to rerun it with sudo without retyping everything.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <p><strong>Tab completion drill.</strong> Complete each of these using only tab — never type the full path manually:</p>
+        <ol>
+          <li>Navigate to <code>/usr/share/applications</code></li>
+          <li>Read <code>/etc/apt/sources.list</code> with cat</li>
+          <li>List the contents of <code>/usr/share/doc/bash</code></li>
+          <li>Press Tab twice after typing just <code>ls /etc/a</code> — how many completions are there?</li>
+        </ol>
+        <p><strong>History exercises:</strong></p>
+        <ol start="5">
+          <li>Run <code>history</code> and find a command you ran earlier. Rerun it using <code>!n</code> with its line number.</li>
+          <li>Use Ctrl+R to find and rerun the last <code>ls -la</code> you ran. Describe what you typed and what appeared.</li>
+          <li>Run any command that fails because you forgot sudo. Then fix it with <code>sudo !!</code> without retyping. Which command did you use for this test?</li>
+          <li>How many commands are in your history right now? Find out with a single pipeline.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">tab completion</span><span class="vocab-term">Ctrl+R (reverse search)</span>
+        <span class="vocab-term">history</span><span class="vocab-term">!!</span><span class="vocab-term">!n</span>
+        <span class="vocab-term">!string</span><span class="vocab-term">~/.bash_history</span>
+        <span class="vocab-term">arrow keys (history nav)</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 7 — sudo !! — is the session's high point. Engineer the moment: ask a student to run a command that requires sudo without it (for example, <code>apt update</code>). They get permission denied. Ask: "How do you fix this without retyping the command?" Most will start typing. Stop them. Show <code>sudo !!</code>. The reaction is consistent: surprise followed by immediate adoption. Students who learn this today use it for the rest of the course.</p>
+      <p>Task 8 — counting history entries — has the answer: <code>history | wc -l</code>. This is the first real pipeline students build without being explicitly taught pipes yet. If anyone finds it, name it and tell them that is exactly what week 9 is about. The preview primes them.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S22 -->
+<div class="session" id="s22">
+  <div class="session-header">
+    <div class="session-num">Session 22</div>
+    <div class="session-title">Command structure — anatomy of any command</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>puzzle</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>Every command in Linux follows the same grammar. A student who understands this grammar can read any command they have never seen before and make a reasonable inference about what it does, which options they can look up, and how to modify it. This session teaches the grammar rather than individual commands.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Write on the board: <code>find /home -name "*.txt" -size +10k -type f</code>. Ask: without knowing what find does, what can you guess about what this command is doing? Take answers. Most students will correctly identify /home as a location, .txt as a file pattern, and guess that it searches for something. That intuition is the grammar working — this session makes the grammar explicit.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>The grammar.</strong> command [options] [arguments]. The command is always first. Options modify the command's behavior — they almost always start with one or two dashes. Arguments are the targets — what the command acts on.</p>
+
+      <p><strong>Short vs long options.</strong> Short options: one dash, one letter. <code>-l</code>, <code>-a</code>, <code>-r</code>. Multiple short options can be combined after a single dash: <code>-la</code>, <code>-lah</code>. Long options: two dashes, a word. <code>--long</code>, <code>--all</code>, <code>--human-readable</code>. Long options cannot usually be combined — each needs its own <code>--</code>. Short and long options for the same behavior often both exist: <code>-l</code> and <code>--long</code> may do the same thing.</p>
+
+      <p><strong>Options with values.</strong> Some options take a value immediately after them: <code>-n 10</code> or <code>--lines=10</code>. Note the difference: short option, space, value vs long option, equals sign, value. This pattern appears in many commands: <code>head -n 20</code>, <code>find -size +100M</code>, <code>grep -m 5</code>.</p>
+
+      <p><strong>The -- separator.</strong> Two dashes alone signal end-of-options. Everything after -- is treated as an argument, not an option. This is how you handle files whose names start with a dash: <code>rm -- -filename</code>. Without --, the shell would interpret -filename as an option.</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">Dissect these commands on the board</div>
+        <div class="whiteboard-content">
+grep  -rn    "error"   /var/log/syslog
+^     ^^     ^         ^
+cmd  opts  argument  argument
+
+ls    -lhS   /usr/bin
+^     ^^^    ^
+cmd  opts  argument (-l -h -S combined)
+
+find  .    -name "*.sh"  -exec chmod +x {} \;
+^     ^    ^              ^
+cmd  arg  option+val    option+val (special)
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <p><strong>Command dissection.</strong> For each command: identify (a) the command name, (b) all options and what each one does — use man to look them up, (c) the arguments. Then write a plain-English description of what the whole command does.</p>
+        <ol>
+          <li><code>grep -in "error" /var/log/syslog</code></li>
+          <li><code>cp -rv ~/documents /tmp/backup</code></li>
+          <li><code>ls -lhSt /usr/bin</code></li>
+          <li><code>tail -f -n 50 /var/log/syslog</code></li>
+          <li><code>find /etc -name "*.conf" -type f -size +1k</code></li>
+        </ol>
+        <p><strong>Bonus:</strong> write a command of your own using at least 2 flags and one argument. Swap with a partner and let them dissect it without you explaining it. Did they get it right?</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">short option (-x)</span><span class="vocab-term">long option (--word)</span>
+        <span class="vocab-term">option with value</span><span class="vocab-term">-- (end of options)</span>
+        <span class="vocab-term">combined short options</span><span class="vocab-term">command grammar</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The partner exercise at the end — writing a command and having someone else dissect it — reverses the usual flow. Students who have to write a command that is dissectable must think clearly about what they are doing. Students who dissect someone else's command learn to read unfamiliar syntax. Both skills transfer directly to real-world Linux use, where you constantly encounter commands written by others.</p>
+      <p>The -- separator is worth one solid example. Create a file named <code>-test</code> in ~/sandbox before class: <code>touch -- -test</code>. Then show them: <code>ls -test</code> gives an error. <code>ls -- -test</code> works. <code>rm -- -test</code> deletes it. This is a real edge case they will encounter with downloaded files from Windows systems that sometimes have unusual names.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S23 -->
+<div class="session" id="s23">
+  <div class="session-header">
+    <div class="session-num">Session 23</div>
+    <div class="session-title">Getting help right — man, --help, apropos</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>scenario</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>Phase 1 introduced man pages in session 15. This session makes the full help system systematic. Three tools, three purposes, and a workflow for using them in the right order. Students who internalize this workflow can solve most terminal problems without an internet connection — a skill with lasting professional value.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Scenario: you need to find files larger than 100MB somewhere on the system. You know the command is probably find, but you do not know the flag for size. You could Google it — but what if you have no internet? What do you do? This is the session's premise.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>--help</strong> is the fastest option. Almost every command supports <code>commandname --help</code> or <code>commandname -h</code>. It prints a condensed summary: what the command does, and a list of its options with brief descriptions. The output is one or two screens long, usually not paginated. Use it when you know the command and need a quick flag reminder. It is not a full reference — it is a memory aid.</p>
+
+      <p><strong>man commandname</strong> is the complete reference. Every standard Linux command has a man page. It covers every option, every edge case, the command's history, its limitations, and often examples. Use it when you need to understand exactly what a command does, or when --help is not detailed enough. Navigation: arrow keys, Page Up/Down, <code>/searchterm</code> to search, <code>n</code> for next match, <code>q</code> to quit. Man pages are organized into sections: section 1 is user commands, section 5 is file formats, section 8 is system administration. <code>man 5 passwd</code> gives the format of the /etc/passwd file, not the passwd command.</p>
+
+      <p><strong>apropos keyword</strong> (identical to <code>man -k keyword</code>) searches all man page titles and short descriptions for a keyword. Use it when you know what you want to do but not what command does it. <code>apropos compress</code> finds commands related to compression. <code>apropos "disk usage"</code> finds commands that report disk usage. The output lists command name, section, and a one-line description. This is where you start when you do not know where to start.</p>
+
+      <p><strong>The workflow:</strong> Unknown task → apropos to find the right command → --help to see its flags quickly → man to understand deeply if needed.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <p><strong>Help system challenge — no internet. Use only man, --help, and apropos.</strong></p>
+        <ol>
+          <li>Find the flag for <code>find</code> that searches by file size. What exact flag lets you find files larger than 100MB?</li>
+          <li>Find the flag for <code>cp</code> that shows verbose output — each file as it is copied.</li>
+          <li>Find the command that reports how long the system has been running. Use apropos with keywords until you find it.</li>
+          <li>Find the man page for the crontab <em>file format</em> — not the crontab command. Which section number contains file format documentation?</li>
+          <li>What does the <code>stat</code> command do? Use --help to find out. Then run it on a file and read the output.</li>
+          <li>Find a command that creates a compressed archive. Use apropos with at least two different keyword attempts. Write each attempt and what it returned.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">man</span><span class="vocab-term">--help</span><span class="vocab-term">apropos</span>
+        <span class="vocab-term">man -k</span><span class="vocab-term">man sections (1,5,8)</span>
+        <span class="vocab-term">man 5 passwd</span><span class="vocab-term">/ search in man</span>
+        <span class="vocab-term">q to quit</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 6 — finding a compression command with apropos — has multiple valid paths. Students who try "apropos compress" will find gzip, bzip2, xz, and tar. Students who try "apropos archive" may find tar directly. The variation in keyword choices produces a useful class discussion: which keyword was most productive? Why? This is the research process itself, not just the answer.</p>
+      <p>Task 4 — man section 5 — is the session's depth test. Students who find <code>man 5 crontab</code> and read the file format documentation are doing professional-level reference work. Crontab syntax in section 5 will be directly relevant in Phase 5 when they write scheduled tasks.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S24 -->
+<div class="session" id="s24">
+  <div class="session-header">
+    <div class="session-num">Session 24</div>
+    <div class="session-title">Terminal synthesis — navigation challenge</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-exercise" style="flex:55"><strong>55 min</strong>challenge</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>debrief</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>No new content. A timed, individual challenge using everything from weeks 5–6. Dolphin stays closed for the entire session. The goal is to consolidate the terminal as the natural mode of operation — not because the GUI is forbidden, but because the terminal is faster for these tasks once it is familiar.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Challenge · 55 min</div>
+      <div class="exercise-box">
+        <p><strong>Rules:</strong> No Dolphin. No file manager. Terminal only. Work individually. Write the exact command used for each task.</p>
+        <ol>
+          <li>Find the largest file in <code>/usr/share</code>. What is its name and size?</li>
+          <li>How many lines does <code>/etc/passwd</code> have?</li>
+          <li>Navigate to <code>/var/log</code> and list only files modified in the last 7 days.</li>
+          <li>Find any file in <code>/etc</code> whose name contains the word "host".</li>
+          <li>Show the last 5 lines of <code>/var/log/syslog</code>.</li>
+          <li>What shell are you running? Show the command that tells you.</li>
+          <li>How long has the system been running? Find the command using the help system.</li>
+          <li>Navigate to <code>/usr/share/doc</code> using tab completion only — no manually typing the full path.</li>
+          <li>Rerun the command from task 1 using Ctrl+R history search.</li>
+          <li>Open <code>/etc/hostname</code> in less, search for the hostname text, then quit.</li>
+        </ol>
+        <p><strong>After everyone finishes:</strong> compare command choices as a group. For any task where two students used different commands — discuss both. Which is more readable? Which is faster? Are both correct?</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Debrief · 5 min</div>
+      <p>Which task was hardest? Which command did you use most? What would you do differently? Preview week 7: "Next week we stop just looking at things and start making them, moving them, and yes — deleting them permanently."</p>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The comparison discussion at the end is the most valuable part. Task 1 can be solved with <code>ls -lhS /usr/share | head -2</code> or with <code>find /usr/share -type f -printf '%s %p\n' | sort -rn | head -1</code>. Both are correct. The first is simpler. The second is more powerful and generalizable. Having students articulate why they chose their approach is higher-order learning — it is metacognition about tools, not just tool use.</p>
+      <p>Students who finish early: ask them to write a one-paragraph "cheat sheet" for someone who has never used the terminal, listing the 5 most important commands from weeks 5–6. This produces a useful artifact and forces them to prioritize, which is itself a skill.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WEEK 7 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 7</div>
+  <div class="week-title">File operations</div>
+  <div class="week-theme">"Make things. Move things. And understand that deleting is permanent."</div>
+</div>
+
+<!-- S25 -->
+<div class="session" id="s25">
+  <div class="session-header">
+    <div class="session-num">Session 25</div>
+    <div class="session-title">Creating things — mkdir, touch, echo</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>brief</div>
+      <div class="t-block t-concept" style="flex:15"><strong>15 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:35"><strong>35 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>Everything in weeks 5–6 was navigating and reading. Week 7 is the first time students write to the filesystem from the terminal. The shift is significant — not just technically but psychologically. Making something exist that did not before is satisfying in a way that reading files is not. Design the session to let that satisfaction land.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>No long introduction. Tell the class: "Up to now we have been reading the machine. Today we write to it." Ask: what do you think the command is to create a new folder? A new empty file? Take guesses — the class will get mkdir and probably touch. Verify quickly and move into the concept.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 15 min</div>
+      <p><strong>mkdir directoryname</strong> creates a directory. It fails if the parent directory does not exist. <strong>mkdir -p path/to/new/directory</strong> creates the full path including all missing parent directories. The -p flag is the practical one — use it by default for anything more than one level deep. It also does not error if the directory already exists, making it safe to run repeatedly.</p>
+
+      <p><strong>touch filename</strong> does two things: it creates an empty file if it does not exist, and it updates the modification timestamp if the file already exists. The creation behavior is the one students will use most. Touch is the quickest way to create a placeholder file, prepare a file for a script to write to, or create multiple files at once: <code>touch file1.txt file2.txt file3.txt</code>.</p>
+
+      <p><strong>echo 'text'</strong> prints text to stdout. By itself it is a print statement. Combined with redirection: <code>echo 'content' > filename</code> creates a file containing that text (or overwrites it). <code>echo 'more content' >> filename</code> appends to the file without overwriting. The > and >> operators are redirection — covered fully in week 9, but useful enough to introduce here practically without full explanation.</p>
+
+      <p>One advanced preview worth mentioning: brace expansion. <code>mkdir -p week{01..06}</code> creates six directories — week01, week02, through week06 — in one command. Do not teach this formally yet; mention it exists and let students explore if curious. It returns properly in Phase 3 scripting.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 35 min</div>
+      <div class="exercise-box">
+        <p><strong>Build your Phase 2 workspace.</strong> Create the following structure using only terminal commands — no Dolphin. Every command must be typed and understood.</p>
+        <pre>~/projects/linux-course/
+└── phase2/
+    ├── week05/
+    ├── week06/
+    ├── week07/
+    ├── week08/
+    ├── week09/
+    ├── week10/
+    ├── notes/
+    └── README</pre>
+        <ol>
+          <li>Create the phase2 directory and all week subdirectories. Try to do all six week folders in a single mkdir -p command — experiment with brace expansion if you want.</li>
+          <li>In each week folder, create a file called <code>log.txt</code> containing the text "Week XX — started". Use echo and > for each.</li>
+          <li>Create the README file with your name and today's date as the content.</li>
+          <li>Set phase2/ to 755 and README to 644.</li>
+          <li>Verify the full structure with <code>tree ~/projects/linux-course/phase2</code>.</li>
+          <li>Append a second line to the README: "Phase 2 — talking to it." Use >> not >. Then verify with cat.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">mkdir</span><span class="vocab-term">mkdir -p</span><span class="vocab-term">touch</span>
+        <span class="vocab-term">echo</span><span class="vocab-term">echo > (write)</span><span class="vocab-term">echo >> (append)</span>
+        <span class="vocab-term">> overwrite</span><span class="vocab-term">>> append</span>
+        <span class="vocab-term">brace expansion {}</span><span class="vocab-term">tree</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The brace expansion solution — <code>mkdir -p ~/projects/linux-course/phase2/week{05..10}</code> — creates all six directories in one command. Do not teach this directly. Mention it exists, put it in the session guide, and let students who are curious find it. Students who discover brace expansion independently and share it with the class produce a better learning moment than you could engineer. Give them credit and tell them it is a powerful shell feature that reappears in scripting.</p>
+      <p>Task 6 — appending with >> vs > — is the practical lesson about not overwriting. This distinction will prevent a real mistake later in the course when students write scripts that log output. Make sure every student does both and understands what happened to the README in each case.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S26 -->
+<div class="session" id="s26">
+  <div class="session-header">
+    <div class="session-num">Session 26</div>
+    <div class="session-title">Moving and copying — cp and mv</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>question</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Ask: how do you rename a file in Linux? Take guesses. Most students expect a "rename" command. There is not one as a standard utility. <code>mv</code> does it. How? By moving a file to the same directory with a different name. That one fact reframes how mv works and makes it more intuitive.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>cp source destination</strong> copies a file. The source remains. A new copy is created at destination. If destination is a directory, the file is copied into it with the same name. If destination is a new filename, the copy gets that name. <code>cp -r source/ destination/</code> copies a directory recursively — without -r, cp refuses to copy directories and exits with an error. <code>cp -v</code> verbose: prints each file as it is copied. <code>cp -p</code> preserves timestamps and permissions. <code>cp -i</code> interactive: asks before overwriting. <strong>Warning without -i: cp overwrites silently</strong>. If the destination file exists, it is replaced without any confirmation. This is the dangerous default.</p>
+
+      <p><strong>mv source destination</strong> moves a file. The source no longer exists after. mv is also rename: <code>mv oldname.txt newname.txt</code> renames the file in place. <code>mv file.txt /other/location/</code> moves it. <code>mv file.txt /other/location/newname.txt</code> moves it and renames it simultaneously. Like cp, <strong>mv overwrites silently</strong> if the destination exists. Use <code>mv -i</code> for safety on anything important. <code>mv -n</code> never overwrites — it silently does nothing if destination exists, which can be worse. Know your flags.</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">cp vs mv — key difference</div>
+        <div class="whiteboard-content">
+cp file.txt backup.txt    → file.txt still exists
+                            backup.txt is a new copy
+
+mv file.txt moved.txt     → file.txt is gone
+                            moved.txt is the same file
+
+mv file.txt folder/       → file.txt is gone from here
+                            folder/file.txt exists
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <p>Work in <code>~/sandbox</code>. Create 6 test files: file1.txt through file6.txt, each with different content.</p>
+        <ol>
+          <li>Copy file1.txt to a backup called file1.bak. Verify both exist with ls.</li>
+          <li>Copy the entire sandbox/ folder to sandbox-backup/ using cp -r. Verify the copy contains everything.</li>
+          <li>Rename file2.txt to document.txt using mv. Verify file2.txt is gone and document.txt exists.</li>
+          <li>Create a subdirectory called archive/. Move file3.txt into it.</li>
+          <li>The dangerous demo: copy file4.txt to file5.txt without -i. What happened to the original file5.txt? Now try the same with cp -i — what is the difference?</li>
+          <li>Move all .txt files into a folder called text/ using <code>mv *.txt text/</code>. Does this work? What does the * do here?</li>
+          <li>Move text/document.txt back to sandbox/ and rename it simultaneously in a single mv command.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">cp</span><span class="vocab-term">cp -r</span><span class="vocab-term">cp -i</span>
+        <span class="vocab-term">cp -v</span><span class="vocab-term">mv</span><span class="vocab-term">mv (rename)</span>
+        <span class="vocab-term">mv -i</span><span class="vocab-term">overwrite silently</span>
+        <span class="vocab-term">wildcard preview</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 5 — the dangerous demo — must actually be done, not described. Students who watch file5.txt disappear without warning will remember the -i flag. Students who only hear about it will forget. Make the loss tangible by having them write content into file5.txt first ("this file has important content"), then overwrite it with cp, then look inside the result. The content is gone. That is the lesson.</p>
+      <p>Task 6 introduces wildcards before session 31 covers them formally. Let it land naturally — wildcard behavior is intuitive enough here that students will get it without a formal explanation. "*.txt means all files ending in .txt" is enough for now. The formalization in session 31 reinforces and extends what they already figured out here.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S27 -->
+<div class="session" id="s27">
+  <div class="session-header">
+    <div class="session-num">Session 27</div>
+    <div class="session-title">Deleting — rm and what cannot be undone</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>worst case</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>rm is the command you must teach most carefully. It has no safety net. No recycle bin. No undo. Files deleted with rm are gone. This session is as much about habit formation — think before you delete, verify the path, use -i on anything important — as it is about syntax. The rm session should be treated with the same seriousness as the sudo session.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Open question: "What is the most destructive command a regular user can run on a Linux system?" Take answers. Bring the class to <code>rm -rf ~/</code> — which would delete everything in your home directory instantly, permanently, with no confirmation. That is the operating principle of rm: it trusts you mean what you say. The session is about using that trust deliberately.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>rm filename</strong> deletes a file. It does not move it to trash. It removes the filesystem entry. The data is still on the disk until overwritten, which is why forensic recovery is sometimes possible — but not reliably, and never easily through normal means. Assume deleted means gone.</p>
+
+      <p><strong>rm -r directory</strong> deletes a directory and everything inside it recursively. Without -r, rm refuses to delete directories. <strong>rm -f</strong> forces deletion — it does not prompt even for write-protected files. <strong>rm -rf combined</strong>: recursive and forced, no prompts. This is the most dangerous combination. It will delete anything you point it at. It is also the combination you will see in legitimate instructions for removing software, clearing caches, and cleaning builds. Use it deliberately, never by habit.</p>
+
+      <p><strong>rm -i</strong> prompts before each deletion. Appropriate for anything you are not completely certain about. <strong>rmdir</strong> removes a directory — but only if it is completely empty. This is actually safer than rm -r for that reason: it will fail if you accidentally target a directory with content.</p>
+
+      <div class="safety-box">
+        <div class="safety-label">Safety rule — say this explicitly</div>
+        <p>Before running rm on any path with wildcards, always run ls with the same argument first. <code>rm *.txt</code> — run <code>ls *.txt</code> first to see exactly what will be deleted. <code>rm -rf /path/to/thing</code> — run <code>ls /path/to/thing</code> first. The extra second is free. The mistake is permanent.</p>
+        <p>Never run rm -rf on a path you have not verified. Never run rm -rf with wildcards without checking what the wildcard expands to. And never run any rm command as root unless you are certain about what the path resolves to.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <p>All work in <code>~/sandbox</code> only.</p>
+        <ol>
+          <li>Create 5 test files with content. Delete one with rm. Try to recover it — write what you tried and what happened.</li>
+          <li>Create a directory with 3 files inside. Try to delete it with rmdir. Read the error. Then delete it properly with rm -r.</li>
+          <li>Create a write-protected file: <code>chmod 444 protected.txt</code>. Try to rm it. Read the error. Try rm -f. What is the difference?</li>
+          <li>The deliberate destruction: create a folder called <code>test-delete/</code> with 5 files inside. Before running any rm command, run ls to see exactly what is there. Write what ls shows. Then run <code>rm -rf test-delete/</code>. Write exactly what happened.</li>
+          <li>Create files: notes.txt, notes.bak, important.txt, temp.txt. Run <code>ls *.txt</code> first. Write what you see. Then run <code>rm *.txt</code>. Run ls again. Write what remains. What did * expand to?</li>
+          <li>Rebuild <code>~/sandbox</code> from scratch using mkdir. You just deleted everything in it — this is practice for recovering from mistakes.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">rm</span><span class="vocab-term">rm -r</span><span class="vocab-term">rm -rf</span>
+        <span class="vocab-term">rm -i</span><span class="vocab-term">rm -f</span><span class="vocab-term">rmdir</span>
+        <span class="vocab-term">no recycle bin</span><span class="vocab-term">write-protected</span>
+        <span class="vocab-term">verify before delete</span><span class="vocab-term">-- (filename dash)</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 4 — the deliberate rm -rf — should feel slightly uncomfortable. Students who write their prediction, run the command, and verify the result are learning the habit of intention before action. The discomfort of watching a directory vanish completely is the lesson. Do not soften it. Rebuild immediately after so they are not sitting with a broken environment — but let the moment of disappearance land.</p>
+      <p>If any student accidentally deletes something outside sandbox — their documents, their project files, anything important — stop the session. Help them check if it is recoverable (sometimes recently deleted files can be recovered with testdisk on ext4 filesystems if the disk has not been written to). Document what happened and use it as a real case study with their permission. Real mistakes are more instructive than simulated ones, and the empathy of the class helping a student recover is a good community moment.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S28 -->
+<div class="session" id="s28">
+  <div class="session-header">
+    <div class="session-num">Session 28</div>
+    <div class="session-title">Text editors — nano for real work</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>scenario</div>
+      <div class="t-block t-concept" style="flex:15"><strong>15 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:35"><strong>35 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Scenario: you are connected to a server over SSH. There is no desktop, no GUI, no mouse. You need to edit one line in a config file. What do you use? This is not hypothetical — it is Phase 5, which is coming. Nano is the answer for now. A different answer exists (vim, emacs) but the learning curve is a separate course. Nano handles everything needed in this course.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 15 min</div>
+      <p>nano is a terminal text editor. Open a file: <code>nano filename</code>. If the file does not exist, nano creates it. The editor opens and the bottom two lines always show keyboard shortcuts — the ^ symbol means Ctrl. Students never need to memorize shortcuts because they are always visible.</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">nano keyboard shortcuts — always shown at bottom of screen</div>
+        <div class="whiteboard-content">
+Ctrl+O    Write Out (save) — prompts for filename
+Ctrl+X    Exit — prompts to save if changes exist
+Ctrl+W    Where Is (search forward)
+Ctrl+G    Get Help
+Ctrl+K    Cut current line (to clipboard)
+Ctrl+U    Uncut (paste clipboard)
+Ctrl+A    Go to beginning of line
+Ctrl+E    Go to end of line
+Ctrl+_    Go to specific line number
+        </div>
+      </div>
+
+      <p>Navigation is with arrow keys. There is no mouse mode by default. Ctrl+O saves — it prompts for the filename (press Enter to confirm the current name). Ctrl+X exits — if there are unsaved changes, nano asks whether to save. This saves students from the most common beginner mistake in terminal editors: not knowing how to exit.</p>
+
+      <p>Why learn a terminal editor at all? Three scenarios: remote server access via SSH (no GUI), system configuration files that require elevated privileges (GUI editors often cannot save to /etc even with sudo — sudo nano works cleanly), and scripting (writing bash scripts is fastest in a terminal editor when you are already in the terminal). Nano is not the best editor for professional code — VS Code, vim, and emacs all have advantages. For configuration and scripting in a terminal, nano is practical and sufficient.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 35 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Open your <code>~/projects/linux-course/phase2/README</code> with nano. Add a new line: "Phase 2 — talking to it". Save with Ctrl+O and exit with Ctrl+X. Verify the change with cat.</li>
+          <li>Create a new file <code>~/scripts/hello.sh</code> with nano. Write exactly these two lines:
+            <pre>#!/bin/bash
+echo "Hello from my first script"</pre>
+            Save and exit. Make it executable: <code>chmod +x ~/scripts/hello.sh</code>. Run it: <code>~/scripts/hello.sh</code>. What output appears?</li>
+          <li>Try <code>nano /etc/hostname</code>. What happens? Can you save? Now try <code>sudo nano /etc/hostname</code>. Read it. Close without saving (Ctrl+X then N for No).</li>
+          <li>Open your <code>~/.bashrc</code> with nano. Use Ctrl+W to search for the word "alias". Do not change anything. Navigate to the line, read it, then exit without saving.</li>
+          <li>Create a 5-line list of Linux commands you have learned in nano. Use Ctrl+K to cut one line. Move the cursor to a different position. Use Ctrl+U to paste it there. Save and verify the result.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">nano</span><span class="vocab-term">Ctrl+O (save)</span><span class="vocab-term">Ctrl+X (exit)</span>
+        <span class="vocab-term">Ctrl+W (search)</span><span class="vocab-term">Ctrl+K (cut)</span>
+        <span class="vocab-term">Ctrl+U (paste)</span><span class="vocab-term">#!/bin/bash (shebang)</span>
+        <span class="vocab-term">sudo nano</span><span class="vocab-term">terminal editor</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 2 introduces the shebang line — <code>#!/bin/bash</code> — without a formal scripting lesson. Tell students: "This first line tells the system which interpreter to use. We will come back to this in Phase 3 when we write real scripts. For now, include it in every .sh file you create." Planting this habit now makes the scripting sessions easier because the shebang will already feel natural.</p>
+      <p>Task 3 — nano /etc/hostname without sudo vs with sudo — is a clean demonstration of why sudo nano is the correct pattern for editing system files. Some students will try to open Mousepad (KDE's GUI text editor) with sudo in future sessions. Redirect them: sudo nano is cleaner, more reliable, and works over SSH. Build the habit now.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WEEK 8 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 8</div>
+  <div class="week-title">Finding and reading</div>
+  <div class="week-theme">"The answer is usually already on the machine. Finding it is the skill."</div>
+</div>
+
+<!-- S29 -->
+<div class="session" id="s29">
+  <div class="session-header">
+    <div class="session-num">Session 29</div>
+    <div class="session-title">Finding things — find and locate</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>scenario</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Scenario: a config file called nginx.conf exists somewhere on the system. You need to edit it. You do not know where it is. What is your approach? Before this session: open Dolphin, search, hope. After this session: one command, immediate answer. That is the before and after this session delivers.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>find starting-path [criteria]</strong> searches the filesystem in real time. It walks the directory tree from the starting path and applies criteria to every item it encounters. Results appear as it finds them — no database, no index, always current. The trade-off is speed: searching from / can take seconds or minutes on a full system.</p>
+
+      <p>Key criteria: <code>-name 'pattern'</code> matches filename (case-sensitive, supports wildcards). <code>-iname 'pattern'</code> case-insensitive. <code>-type f</code> files only. <code>-type d</code> directories only. <code>-type l</code> symlinks only. <code>-size +100M</code> larger than 100MB. <code>-size -1k</code> smaller than 1KB. <code>-mtime -7</code> modified in the last 7 days. <code>-mtime +30</code> not modified in the last 30 days. <code>-user username</code> owned by user. <code>-perm 644</code> exactly these permissions. Criteria combine with implicit AND by default.</p>
+
+      <p><strong>-exec flag</strong>: act on each result. <code>find . -name "*.sh" -exec chmod +x {} \;</code> — the {} is replaced by each found filename, the \; terminates the -exec. This is how you apply a command to every result of a find. The alternative is <code>-exec command {} +</code> which passes all results at once (faster).</p>
+
+      <p><strong>locate filename</strong> searches a pre-built database. Much faster than find for simple name searches. The database is updated nightly by updatedb. Trade-off: files created or deleted today may not appear in locate results. <code>sudo updatedb</code> manually refreshes the database.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <p>Write the exact command for each task:</p>
+        <ol>
+          <li>Find all .txt files in your home directory.</li>
+          <li>Find all directories in /etc.</li>
+          <li>Find any file larger than 1MB in /var.</li>
+          <li>Find files in /etc modified in the last 7 days.</li>
+          <li>Find all .sh files in /usr/bin and display them with ls -l using -exec.</li>
+          <li>Find all files in your home directory owned by root. Why might any exist there?</li>
+          <li>Use locate to find bash. Compare its output and speed to <code>find / -name bash 2>/dev/null</code>. Which is faster? Which shows more results? Why might they differ?</li>
+          <li><strong>Bonus:</strong> find all empty files in ~/sandbox. What criteria does that require?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">find</span><span class="vocab-term">find -name</span><span class="vocab-term">-type f/d/l</span>
+        <span class="vocab-term">-size +/-</span><span class="vocab-term">-mtime</span><span class="vocab-term">-user</span>
+        <span class="vocab-term">-exec {} \;</span><span class="vocab-term">locate</span>
+        <span class="vocab-term">updatedb</span><span class="vocab-term">2>/dev/null</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 6 — files in home owned by root — reliably surprises students. There are usually some, created by commands run with sudo that inadvertently wrote to ~/. This is a real system hygiene issue: files in your home that you do not own can cause problems when scripts or applications try to read them with your credentials. Name the principle: files in your home should be owned by you.</p>
+      <p>The 2>/dev/null in task 7 appears before the formal redirection session (34). Introduce it briefly: "this silences the permission denied errors so we can see real results." The full explanation comes in session 34 — this is just practical exposure.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S30 -->
+<div class="session" id="s30">
+  <div class="session-header">
+    <div class="session-num">Session 30</div>
+    <div class="session-title">grep — searching inside files</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>scenario</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Scenario: a server generated 50 log files overnight. One of them contains a "connection refused" error. You need to find which one. Without grep: open each file in less and search manually — 50 times. With grep: one command, instant answer. That is grep's purpose.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>grep 'pattern' filename</strong> searches a file for lines matching the pattern and prints them. The pattern can be simple text or a regular expression. grep prints the entire line for each match, not just the matching part — this provides context.</p>
+
+      <p>Essential flags: <code>-r</code> recursive — search all files in a directory tree. <code>-i</code> case-insensitive. <code>-n</code> show line numbers. <code>-v</code> invert — show lines that do NOT match. <code>-c</code> count matching lines instead of showing them. <code>-l</code> list only filenames containing a match (not the match content). <code>-w</code> match whole words only — 'error' does not match 'errors'. <code>-A n</code> show n lines After each match. <code>-B n</code> show n lines Before. These provide context around matches.</p>
+
+      <p>Finding the right combination: to find all config files in /etc that configure a specific setting, use <code>grep -r 'setting' /etc</code>. To know which files contain it without reading all the matches: <code>grep -rl 'setting' /etc</code>. To count occurrences: <code>grep -c 'pattern' file</code>. To see context: <code>grep -n -A 2 'error' logfile</code> shows each error with the 2 lines that follow it.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Search <code>/var/log/syslog</code> for 'error'. How many lines match? Use -c.</li>
+          <li>Search the same file for 'error' case-insensitively. Are there more results?</li>
+          <li>Find all lines in <code>/etc/passwd</code> that do NOT contain '/bin/bash'. What shells do those accounts use?</li>
+          <li>Search all files in /etc recursively for the word 'root'. Use -l first to see only filenames. Then pick one file and search it with -n to see line numbers.</li>
+          <li>Find your username in /etc/passwd using grep.</li>
+          <li>Search your .bashrc for any line containing the word 'alias'. Show line numbers.</li>
+          <li>In /var/log/syslog, find a line containing 'error' and show the 3 lines after it with -A 3. Does the context help explain what happened?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">grep</span><span class="vocab-term">grep -r</span><span class="vocab-term">grep -i</span>
+        <span class="vocab-term">grep -n</span><span class="vocab-term">grep -v</span><span class="vocab-term">grep -c</span>
+        <span class="vocab-term">grep -l</span><span class="vocab-term">grep -w</span>
+        <span class="vocab-term">grep -A/-B (context)</span><span class="vocab-term">pattern</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 3 — lines NOT containing /bin/bash — reveals the other login shells on the system: /bin/sh, /usr/sbin/nologin, /bin/false. Students who look up what /usr/sbin/nologin does are discovering service accounts — users that exist on the system but cannot log in interactively. This is a real security concept: the www-data user runs the web server but cannot be used to log in. Name this if it comes up.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S31 -->
+<div class="session" id="s31">
+  <div class="session-header">
+    <div class="session-num">Session 31</div>
+    <div class="session-title">Wildcards — patterns the shell expands</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>question</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Write on the board: <code>ls *.txt</code>. Ask: does ls know what *.txt means? Or does something else handle it? The correct answer is that bash expands *.txt into a list of matching filenames before ls ever sees the command. ls receives a list of files, not a pattern. This distinction — shell expansion, not command interpretation — is the session's central concept.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p>Wildcards (also called globs) are expanded by the shell before the command runs. The command never sees the pattern — it receives a list of matched filenames. This means wildcards work with any command: ls, rm, cp, mv, grep, find — any command that accepts filenames as arguments.</p>
+
+      <p><strong>* (asterisk)</strong> matches any sequence of characters including none. <code>*.txt</code> matches all files ending in .txt. <code>report*</code> matches all files starting with report. <code>*log*</code> matches any file with log anywhere in the name.</p>
+
+      <p><strong>? (question mark)</strong> matches exactly one character. <code>file?.txt</code> matches file1.txt, fileA.txt, file_.txt but not file10.txt (two characters where one was expected).</p>
+
+      <p><strong>[abc]</strong> matches exactly one of the listed characters. <code>[aeiou]</code> matches one vowel. <code>[a-z]</code> matches any lowercase letter. <code>[0-9]</code> matches any digit. <code>[!abc]</code> or <code>[^abc]</code> matches any character NOT listed.</p>
+
+      <p><strong>Important behaviors:</strong> * does not match files starting with a dot (hidden files). Use <code>.*</code> explicitly to match hidden files. If a pattern matches nothing, bash passes the literal pattern string to the command — which usually causes an error. Quote patterns to prevent expansion: <code>grep '*.txt' file</code> searches for the literal string *.txt inside the file, not filenames. This is the wildcard vs regex distinction.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <p>Create these files in ~/sandbox: report1.txt, report2.txt, report10.txt, data.csv, data.json, photo.jpg, photo.png, photo.gif, README, .hidden</p>
+        <ol>
+          <li>List all .txt files using *. Does report10.txt match report?.txt? Why?</li>
+          <li>List all photo files using a character class pattern.</li>
+          <li>Does * include hidden files? Test it with ls *. Then test ls .*. What is the difference?</li>
+          <li>Copy all .txt files to a subfolder called texts/ using cp *.txt.</li>
+          <li>What happens if you run <code>ls *.xyz</code> when no .xyz files exist? Read the error carefully.</li>
+          <li>Delete all files with exactly one character between "report" and ".txt" using rm report?.txt. Which files are deleted?</li>
+          <li>Try <code>grep '*.txt' README</code> — does this search for files named *.txt or for the literal text "*.txt" inside README? Verify by putting the text *.txt inside README first.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">wildcard / glob</span><span class="vocab-term">* (any characters)</span>
+        <span class="vocab-term">? (one character)</span><span class="vocab-term">[abc] (character class)</span>
+        <span class="vocab-term">[a-z] (range)</span><span class="vocab-term">[!abc] (negation)</span>
+        <span class="vocab-term">shell expansion</span><span class="vocab-term">quoting to prevent expansion</span>
+        <span class="vocab-term">glob vs regex</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 3 — * not matching hidden files — is a real-world gotcha. A student who runs <code>rm *</code> to clean a directory and then discovers hidden files remain will be confused unless they understand this behavior. Make it explicit: * is not "everything." It is "everything not starting with a dot." For truly everything: <code>rm * .*</code> — but be careful, because .* also matches . and .. (the current and parent directory references), which on some systems causes problems.</p>
+      <p>Task 7 — grep with a quoted wildcard — is the glob vs regex moment. A shell wildcard *.txt and a regex *.txt mean completely different things. In glob: * means any sequence. In regex: * means zero or more of the previous character. Quoting prevents glob expansion, so grep receives the regex. This distinction trips up experienced users — establishing it clearly now saves confusion later.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S32 -->
+<div class="session" id="s32">
+  <div class="session-header">
+    <div class="session-num">Session 32</div>
+    <div class="session-title">File operations synthesis — the messy downloads</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-exercise" style="flex:55"><strong>55 min</strong>scenario</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>debrief</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>No new content. A realistic, messy scenario that requires everything from weeks 7–8. Students organize a chaotic folder using the terminal alone. The scenario is designed to be ambiguous enough that different students will make different organizational decisions — the discussion afterward is as valuable as the task itself.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Preparation</div>
+      <p>Prepare a tar archive called <code>downloads.tar.gz</code> containing 40 files with realistic messy names — a mix of .pdf, .jpg, .txt, .sh, .csv, .zip, named with dates, project names, random strings, and some with spaces. Include some files with "temp" or "tmp" in the name, some dated more than 30 days ago (set with touch -d), and some .sh files without execute permission. Distribute via USB or shared network location before the session.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 55 min</div>
+      <div class="exercise-box">
+        <p><strong>Scenario brief (read this to the class):</strong> You have inherited a colleague's downloads folder. They organized nothing for two years. Your task is to make sense of it using only the terminal.</p>
+        <p><strong>First task — extract the archive:</strong> <code>tar -xzf downloads.tar.gz</code>. This command extracts the archive. You have not learned tar yet — that is Phase 5. Just use it. We will come back to what it does.</p>
+        <p><strong>Requirements:</strong></p>
+        <ol>
+          <li>Design a logical folder structure. Create it. Justify your design in a README file.</li>
+          <li>Move all files into appropriate folders using mv and wildcards.</li>
+          <li>Find any .sh files and make them executable.</li>
+          <li>Find the largest file and note its name and size in the README.</li>
+          <li>Find any files not modified in the last 30 days and move them to an archive/ folder.</li>
+          <li>Delete any files with "temp" or "tmp" in the name. Run ls first to verify what will be deleted.</li>
+          <li>Write a summary in README of what you did and why, using nano.</li>
+          <li>Log every command you run to commands.log using echo >> commands.log before each major step.</li>
+        </ol>
+        <p><strong>After everyone finishes:</strong> two volunteers show their folder structure and README. Compare organizational choices. Which structure would be easiest to navigate in six months?</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Debrief · 5 min</div>
+      <p>What commands did you use most? What would wildcards not handle that required individual mv commands? What would you automate with a script if you had to do this every week? That last question is Phase 3's premise.</p>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The tar command appears here without explanation. That is intentional — students should be comfortable using a command based on a single instruction before they fully understand it. This mirrors real-world usage where you follow a command without complete understanding and verify the result. The full tar session is in Phase 5. When it arrives, students will already have a concrete experience of what tar does, which makes the explanation land better.</p>
+      <p>The commands.log requirement builds documentation habit before scripting makes it essential. Students who log every command are implicitly writing a script. In Phase 3, point back to their commands.log: "What you wrote here is almost a bash script. The next step is making it run automatically."</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WEEK 9 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 9</div>
+  <div class="week-title">Pipes and redirection</div>
+  <div class="week-theme">"Small tools connected by | produce results no single tool can."</div>
+</div>
+
+<!-- S33 -->
+<div class="session" id="s33">
+  <div class="session-header">
+    <div class="session-num">Session 33</div>
+    <div class="session-title">Pipes — connecting tools together</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:10"><strong>10 min</strong>demo</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:25"><strong>25 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 10 min</div>
+      <p>Write on the board: <code>ls /usr/bin | wc -l</code>. Ask: without running it, predict what this produces. Take predictions. Run it. The answer is the number of executable programs in /usr/bin. Ask: how would you get that answer without a pipe? The alternatives — ls and then manually count, or ls > file and then wc -l file — are both slower and more steps. Two commands, one character between them. That is a pipe.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p>The pipe <code>|</code> connects the stdout of the command on the left to the stdin of the command on the right. The left command does not know what receives its output. The right command does not know it is receiving piped input rather than a file — it behaves identically in both cases. They are independent programs connected at runtime by the shell.</p>
+
+      <p>This is the Unix philosophy: write programs that do one thing well and work with other programs. ls produces a list. grep filters it. wc counts it. sort orders it. head takes the first N. Each tool is simple individually. Combined, they are powerful:</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">Pipeline examples — build left to right</div>
+        <div class="whiteboard-content">
+ls /usr/bin | wc -l
+→ count programs in /usr/bin
+
+cat /etc/passwd | grep '/bin/bash' | cut -d: -f1
+→ list all users who can log in with bash
+
+ls -lS /var/log | head -5
+→ 5 largest log files
+
+ps aux | grep bash | grep -v grep
+→ bash processes (excluding grep itself)
+        </div>
+      </div>
+
+      <p>Build pipelines incrementally: start with the first command and verify its output. Add the second and verify again. Add the third. Never build a complex pipeline in one shot and wonder why it does not work — build it piece by piece and understand each stage before adding the next.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 25 min</div>
+      <div class="exercise-box">
+        <p>Build each pipeline incrementally — run each stage separately first, then connect them.</p>
+        <ol>
+          <li>List all files in /usr/bin and count them.</li>
+          <li>Show the 10 largest files in /usr/bin. Combine ls -lhS with head.</li>
+          <li>Find all lines in /etc/passwd containing '/bin/bash' and count them.</li>
+          <li>List all files in /etc, sort them alphabetically, show only the first 5.</li>
+          <li>Show all running processes (ps aux), filter to show only those containing 'bash'.</li>
+          <li>Build your own pipeline of 3 or more commands that produces something interesting or useful to you personally. Explain what it does and why you built it.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">pipe |</span><span class="vocab-term">stdin</span><span class="vocab-term">stdout</span>
+        <span class="vocab-term">pipeline</span><span class="vocab-term">Unix philosophy</span>
+        <span class="vocab-term">incremental pipeline building</span>
+        <span class="vocab-term">wc -l</span><span class="vocab-term">head</span><span class="vocab-term">ps aux</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 6 — build your own pipeline — is the diagnostic. A student who builds <code>cat /etc/passwd | grep -v nologin | cut -d: -f1 | sort</code> to get a sorted list of real user accounts has understood composability. A student who builds <code>ls | ls</code> has not. Peer-sharing these pipelines produces useful comparison. Ask the class: which pipeline solved a real problem? Which is the most elegant? Which is the most powerful?</p>
+      <p>The ps aux | grep bash | grep -v grep pattern in task 5 introduces a common grep idiom: when you grep for a process by name, grep itself appears in the results because it contains the search string. Piping through grep -v grep removes it. This is a small trick that becomes a reflex and demonstrates how pipelines can fix their own artifacts.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S34 -->
+<div class="session" id="s34">
+  <div class="session-header">
+    <div class="session-num">Session 34</div>
+    <div class="session-title">Redirection — controlling where output goes</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>demo</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Live demo: run <code>ls /etc > output.txt</code>. Open output.txt with cat — output is in the file. Now run <code>ls /fakepath > output.txt</code>. The error appeared on screen, not in the file. Ask: why did the error go to the screen when everything else went to the file? Because they are different streams. That is today's topic.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p>Every Linux process has three standard streams, each with a number: stdin (0) — input, keyboard by default. stdout (1) — normal output, terminal by default. stderr (2) — error output, also terminal by default. By default, stdout and stderr both appear on screen. They look identical but are separate streams. Redirection controls where each one goes.</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">Redirection operators</div>
+        <div class="whiteboard-content">
+>           redirect stdout to file (overwrite)
+>>          redirect stdout to file (append)
+2>          redirect stderr to file
+2>&1        redirect stderr to wherever stdout goes
+<           read stdin from file
+/dev/null   the discard device — send here to silence
+
+command > out.txt          # stdout to file, stderr to screen
+command 2> err.txt         # stderr to file, stdout to screen
+command > out.txt 2> err.txt    # each to separate file
+command > combined.txt 2>&1     # both to same file
+command 2>/dev/null        # silence errors
+        </div>
+      </div>
+
+      <p><code>/dev/null</code> is a special device file that discards everything written to it. It is the discard bin of the Linux filesystem. <code>command 2>/dev/null</code> runs the command silently — errors are discarded, normal output appears. <code>command > /dev/null 2>&1</code> runs completely silently — nothing appears. Useful in scripts when you want to run a command for its side effect but not see its output.</p>
+
+      <p>The order of <code>2>&1</code> matters: <code>command > file 2>&1</code> correctly sends stderr to the same place as stdout (the file). <code>command 2>&1 > file</code> does something different — it sends stderr to the terminal (where stdout currently goes) and then redirects stdout to the file. Always write <code>> file 2>&1</code>, not <code>2>&1 > file</code>.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Redirect <code>ls /etc</code> to a file called etc-contents.txt. Verify it is there with cat.</li>
+          <li>Append <code>ls /var</code> to the same file. Verify both sections are in it.</li>
+          <li>Run <code>ls /fakepath</code> — error appears on screen. Redirect only the error to errors.txt. Does any output appear on screen?</li>
+          <li>Run <code>ls /etc /fakepath > output.txt 2> errors.txt</code>. What ends up in each file?</li>
+          <li>Run <code>ls /etc /fakepath > combined.txt 2>&1</code>. What ends up in combined.txt? How is it different from task 4?</li>
+          <li>Run <code>find / -name "*.conf" 2>/dev/null > conf-files.txt</code>. How many .conf files does it find? Why are no errors shown?</li>
+          <li>Run a command completely silently — both output and errors discarded — using redirection. Verify it ran correctly another way.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">stdin (0)</span><span class="vocab-term">stdout (1)</span><span class="vocab-term">stderr (2)</span>
+        <span class="vocab-term">> (overwrite)</span><span class="vocab-term">>> (append)</span>
+        <span class="vocab-term">2> (stderr redirect)</span><span class="vocab-term">2>&1</span>
+        <span class="vocab-term">< (stdin redirect)</span><span class="vocab-term">/dev/null</span>
+        <span class="vocab-term">stream</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 6 — find with 2>/dev/null — is a professional pattern. "find / -name pattern 2>/dev/null" appears constantly in documentation, scripts, and Stack Overflow answers. Students who understand why the 2>/dev/null is there — not magic, but deliberately silencing permission denied errors that would otherwise flood the output — read those commands correctly. Students who treat it as boilerplate to copy paste do not.</p>
+      <p>The ordering issue — <code>> file 2>&1</code> vs <code>2>&1 > file</code> — is worth a brief demo but not a long lecture. The correct form is <code>> file 2>&1</code>. If students ask why, explain that the shell processes redirections left to right: by the time it reaches 2>&1, stdout has already been redirected to the file, so stderr follows it there. In the wrong order, stdout has not been redirected yet when 2>&1 is processed, so stderr goes to the terminal.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S35 -->
+<div class="session" id="s35">
+  <div class="session-header">
+    <div class="session-num">Session 35</div>
+    <div class="session-title">grep patterns — introduction to regular expressions</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>comparison</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Show two grep commands side by side: <code>grep "error" /var/log/syslog</code> and <code>grep "^error" /var/log/syslog</code>. Ask: what is different? One finds 'error' anywhere in a line. The other finds only lines that start with 'error'. That ^ character is regex. Today is the minimal regex introduction — enough to be useful, not enough to be overwhelming.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p>Regular expressions (regex) are a pattern language for describing text. grep uses them by default for basic patterns. The essential subset:</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">Essential regex characters</div>
+        <div class="whiteboard-content">
+^       start of line       ^error   line starts with "error"
+$       end of line         error$   line ends with "error"
+.       any single char     er.or    matches "error", "er_or"
+*       zero or more        er.*or   anything between er and or
+[abc]   one of these        [aeiou]  one vowel
+[a-z]   character range     [0-9]    one digit
+[^abc]  NOT one of these    [^0-9]   not a digit
+
+Useful combinations:
+^$          empty line
+^[0-9]      line starting with a digit
+.*          any sequence of any characters (the "match anything")
+^[A-Z].*:$  line starting capital, ending colon
+        </div>
+      </div>
+
+      <p>Practical applications: <code>grep '^#' file</code> finds all commented lines. <code>grep -v '^#' file | grep -v '^$'</code> finds all non-commented non-empty lines — the active configuration. <code>grep '^[0-9]' file</code> finds lines starting with a number. These patterns appear constantly when reading config files, log files, and scripts.</p>
+
+      <p>grep -E enables extended regex with additional syntax: <code>+</code> (one or more), <code>?</code> (zero or one), <code>|</code> (alternation: this or that), <code>()</code> grouping. <code>grep -E "error|warning" file</code> finds lines containing either word. This is the most useful extended pattern for log analysis.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>In /etc/passwd, find all lines that start with a lowercase letter.</li>
+          <li>Find all lines in /etc/passwd that end with '/bin/bash'.</li>
+          <li>In /var/log/syslog, find all lines that contain a 4-digit number.</li>
+          <li>In your .bashrc, find all non-commented non-empty lines — lines that do not start with # and are not blank.</li>
+          <li>Count how many lines in /etc/passwd are not comments or blank lines.</li>
+          <li>Find all lines in /etc/hosts that are not comments and not empty — what is actually configured there?</li>
+          <li>Using grep -E, find all lines in /var/log/syslog that contain either 'error' or 'warning'.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">regular expression</span><span class="vocab-term">^ (line start)</span>
+        <span class="vocab-term">$ (line end)</span><span class="vocab-term">. (any char)</span>
+        <span class="vocab-term">* (zero or more)</span><span class="vocab-term">[abc] class</span>
+        <span class="vocab-term">[^abc] negation</span><span class="vocab-term">grep -E</span>
+        <span class="vocab-term">| (alternation)</span><span class="vocab-term">^$ (empty line)</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 4 — non-commented non-empty lines in .bashrc — is the session's most practical result. It gives students a clean view of what is actually active in their bash configuration. This technique is applicable to any config file: Apache, SSH, nginx, PostgreSQL. The pattern <code>grep -v '^#' file | grep -v '^$'</code> is one to remember explicitly — it is used constantly in systems administration.</p>
+      <p>Keep the regex introduction minimal. The goal is functional literacy — enough to read patterns encountered in the wild and write simple ones. Full regex mastery is a separate topic that takes months. If students ask about more complex patterns (lookaheads, backreferences, non-greedy matching), acknowledge those exist and say they are beyond this course's scope but worth exploring in their own time.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S36 -->
+<div class="session" id="s36">
+  <div class="session-header">
+    <div class="session-num">Session 36</div>
+    <div class="session-title">Combining tools — sort, wc, uniq, cut</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>puzzle</div>
+      <div class="t-block t-concept" style="flex:15"><strong>15 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:35"><strong>35 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Put on the board: <code>cat /etc/passwd | cut -d: -f1 | sort | uniq | wc -l</code>. Work through it left to right with the class before running it. What does each stage produce? What does the final number represent? Run it. Verify the prediction. This is the session in miniature — four tools, one pipeline, one useful answer.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 15 min</div>
+      <p><strong>sort</strong> sorts lines of text. Default: alphabetical. <code>sort -n</code> numeric sort (so 10 comes after 9, not after 1). <code>sort -r</code> reverse order. <code>sort -u</code> sort and remove duplicates simultaneously. <code>sort -k2</code> sort by the second field. <code>sort -t: -k3 -n</code> sort on the third colon-delimited field numerically.</p>
+
+      <p><strong>wc</strong> (word count) counts: <code>wc -l</code> lines, <code>wc -w</code> words, <code>wc -c</code> characters/bytes. Usually used to count lines in a pipeline.</p>
+
+      <p><strong>uniq</strong> removes consecutive duplicate lines. Critical requirement: input must be sorted first, otherwise uniq only removes consecutive duplicates — if the same value appears at lines 1, 5, and 10, only the consecutive pairs are collapsed. Always sort before uniq unless you specifically want only consecutive deduplication. <code>uniq -c</code> counts occurrences — each line prefixed with how many times it appeared.</p>
+
+      <p><strong>cut</strong> extracts columns. <code>cut -d: -f1</code> uses colon as delimiter and extracts field 1. <code>cut -d, -f2,4</code> extracts fields 2 and 4 from CSV. <code>cut -c1-10</code> extracts characters 1 through 10. This is the tool for parsing structured text files like /etc/passwd (colon-delimited) or CSV exports.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 35 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Produce an alphabetically sorted list of all usernames on the system.</li>
+          <li>Find the 5 largest files in /etc using ls -lS piped into the right tool.</li>
+          <li>Count how many unique login shells are configured in /etc/passwd.</li>
+          <li>Extract just the IP addresses from /etc/hosts — skip comments and empty lines.</li>
+          <li>How many lines in /var/log/syslog contain the word 'kernel'? Then: extract the unique dates of those messages (hint: the date is in the first field).</li>
+          <li>Build a pipeline that reads /etc/passwd, extracts usernames (field 1) and home directories (field 6), and displays them side by side sorted alphabetically by username.</li>
+          <li>Using sort -rn, find which shell in /etc/passwd is used most often. (hint: cut field 7, sort, uniq -c, sort -rn, head -1)</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">sort</span><span class="vocab-term">sort -n</span><span class="vocab-term">sort -r</span>
+        <span class="vocab-term">sort -u</span><span class="vocab-term">uniq</span><span class="vocab-term">uniq -c</span>
+        <span class="vocab-term">wc -l</span><span class="vocab-term">cut -d -f</span>
+        <span class="vocab-term">cut -c</span><span class="vocab-term">pipeline composition</span>
+        <span class="vocab-term">delimiter</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 7 — finding the most-used shell — has the solution: <code>cut -d: -f7 /etc/passwd | sort | uniq -c | sort -rn | head -1</code>. Students who arrive at this independently have fully internalized the pipeline model. The answer is almost certainly /usr/sbin/nologin or /bin/false (service accounts), which is itself an informative result about how Linux manages system users. Let that result prompt a brief discussion of service accounts.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WEEK 10 ===== -->
+<div class="week-header">
+  <div class="week-label">Week 10</div>
+  <div class="week-title">Package manager</div>
+  <div class="week-theme">"The machine installs what you tell it, from sources you trust."</div>
+</div>
+
+<!-- S37 -->
+<div class="session" id="s37">
+  <div class="session-header">
+    <div class="session-num">Session 37</div>
+    <div class="session-title">What apt is and how repositories work</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>question</div>
+      <div class="t-block t-concept" style="flex:25"><strong>25 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:25"><strong>25 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Ask: when you run <code>sudo apt install tree</code> — what actually happens? Where does the file come from? Who checked it was not malicious? How does apt know where to look? Let the class guess. All reasonable guesses go on the board. This session answers all of them.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 25 min</div>
+      <p>A <strong>package</strong> is a compressed archive containing a program's files plus metadata: its name, version, description, dependencies, and installation scripts. On Debian-based systems, packages are .deb files. The metadata is as important as the files — it tells apt what else needs to be installed for this package to work.</p>
+
+      <p>A <strong>repository</strong> is a server that hosts a collection of packages, organized by release, architecture, and section. Each repository maintains an index — a list of all packages it contains, their versions, checksums, and dependencies. Repositories are cryptographically signed by their maintainer. apt verifies the signature before trusting anything in the index. This is how package managers prevent tampered software: every package's integrity can be verified against its signed checksum.</p>
+
+      <p>apt reads its repository list from <code>/etc/apt/sources.list</code> and the files in <code>/etc/apt/sources.list.d/</code>. Open sources.list and read one line together:</p>
+
+      <div class="whiteboard">
+        <div class="whiteboard-label">Anatomy of a sources.list line</div>
+        <div class="whiteboard-content">
+deb  http://archive.ubuntu.com/ubuntu  jammy  main restricted
+^    ^                                 ^      ^
+type URL of repository                 release sections
+
+type: deb = binary packages, deb-src = source code
+release: the Ubuntu version codename (jammy = 22.04)
+sections: main (official, free), restricted (official, non-free),
+          universe (community, free), multiverse (community, non-free)
+        </div>
+      </div>
+
+      <p><strong>apt update</strong> downloads the package index from each repository — not the packages themselves, just the list of what is available and at what version. This is why apt update must be run before apt install on a fresh system: without the index, apt does not know what packages exist.</p>
+
+      <p><strong>apt install</strong> reads the index, finds the package and its dependencies, downloads all of them, verifies their checksums, and installs in the correct order. The dependency resolution — figuring out what else needs to be installed — is one of apt's most important functions. You never need to manually hunt for library dependencies.</p>
+
+      <p>Why repositories beat downloading from the internet: every package is reviewed, built consistently, tested, and signed. Updates flow through the same channel. Security patches are distributed automatically. You trust the repository maintainer, not every individual software author.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 25 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Open <code>/etc/apt/sources.list</code> with less. Read every uncommented line. What releases and sections are configured? What is the difference between main and universe?</li>
+          <li>Run <code>sudo apt update</code> and read the output carefully. What does "Hit:", "Get:", and "Ign:" each mean?</li>
+          <li>Run <code>apt list --upgradable 2>/dev/null</code>. How many packages have updates available?</li>
+          <li>Run <code>apt show curl</code>. Read the output: what are curl's dependencies? Who maintains it? What does it do?</li>
+          <li>Find the apt cache directory at <code>/var/cache/apt/archives/</code>. What is stored there and why does it exist?</li>
+          <li>What would happen if you added a malicious repository to sources.list? What safeguard does apt use to prevent this from being trivial?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">apt</span><span class="vocab-term">package</span><span class="vocab-term">.deb</span>
+        <span class="vocab-term">repository</span><span class="vocab-term">sources.list</span>
+        <span class="vocab-term">apt update (index only)</span><span class="vocab-term">package index</span>
+        <span class="vocab-term">dependency resolution</span><span class="vocab-term">signed package</span>
+        <span class="vocab-term">main/universe/restricted/multiverse</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The "Hit vs Get vs Ign" question in task 2 teaches students to read apt output as information rather than scrolling past it. Hit: index checked, no change. Get: new version of the index downloaded. Ign: line was skipped (often non-critical metadata like translation files). A system where every line says "Hit" after apt update has not changed since the last update — fully current. A system with many "Get" lines has new packages available.</p>
+      <p>Task 6 — the malicious repository question — is a critical thinking exercise. The safeguard is the GPG signature: apt requires a trusted signing key for each repository. Adding an unsigned repository requires explicitly overriding security. This is why guides that say "add this PPA" always include a step to add the signing key — without the key, apt refuses the repository's packages. Students who understand this are harder to trick into installing malicious software.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S38 -->
+<div class="session" id="s38">
+  <div class="session-header">
+    <div class="session-num">Session 38</div>
+    <div class="session-title">apt in practice — install, remove, search</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>question</div>
+      <div class="t-block t-concept" style="flex:15"><strong>15 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:35"><strong>35 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Ask: what is the difference between <code>apt remove</code> and <code>apt purge</code>? Take guesses. Most students will not know. This session makes the distinction clear and explains why it matters — especially when you reinstall a package and want to start clean.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 15 min</div>
+      <p><strong>apt search keyword</strong> searches package names and descriptions for the keyword. Use it when you know what you want to do but not the package name. The output can be long — pipe it through grep or less. <code>apt search "text editor"</code> returns many results; <code>apt search "text editor" | grep "^nano"</code> finds nano specifically.</p>
+
+      <p><strong>apt show packagename</strong> displays full information about a package before installing: description, version, size after installation, dependencies, maintainer, homepage. Check this before installing anything you are not familiar with — it takes 5 seconds and prevents installing the wrong thing.</p>
+
+      <p><strong>apt install packagename</strong> downloads and installs. It lists what will be installed (the package plus any dependencies) and asks for confirmation. <strong>Read the list before typing Y.</strong> If apt wants to remove something to resolve dependencies, understand why before confirming.</p>
+
+      <p><strong>apt remove packagename</strong> removes the package but keeps its configuration files. If you reinstall the package later, your settings will still be there. <strong>apt purge packagename</strong> removes the package and its configuration files. Use purge when you are done with something permanently or when you want to reinstall with a clean configuration.</p>
+
+      <p><strong>apt autoremove</strong> removes packages that were installed as dependencies and are no longer needed by any installed package. Run this after removing software to keep the system clean. <strong>apt list --installed</strong> shows everything currently installed.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 35 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Search for a text-based web browser: <code>apt search "text browser"</code>. Find lynx or w3m. Run apt show on it before installing. Then install it. Use it to visit a website. What is the experience like compared to a GUI browser?</li>
+          <li>Install htop if not installed. Run it. Explore the interface: what does each column show? How do you sort by memory? How do you kill a process? Quit with q.</li>
+          <li>Remove the text browser with apt remove. Check if configuration files remain (look in /etc or ~/.config). Then purge it. Run apt list --installed | grep to verify it is gone.</li>
+          <li>Run apt autoremove — what was removed? Look up each removed package with apt show to understand what it was.</li>
+          <li>Count how many packages are currently installed: what command gives you this number?</li>
+          <li>Each student: choose one package you actually want. Search for it, show it, install it, briefly demonstrate it to the class in two minutes.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">apt search</span><span class="vocab-term">apt show</span>
+        <span class="vocab-term">apt install</span><span class="vocab-term">apt remove</span>
+        <span class="vocab-term">apt purge</span><span class="vocab-term">apt autoremove</span>
+        <span class="vocab-term">apt list --installed</span><span class="vocab-term">configuration files</span>
+        <span class="vocab-term">confirmation prompt</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>Task 6 — each student installs something they want — is intentionally open and slightly chaotic. Some will install games (cmatrix, nsnake). Some will install development tools. Some will install media players. All are valid. The point is that apt works the same way for all of them, dependencies are handled transparently, and the choice is theirs. This is a small but real experience of ownership. Let the demos run — five minutes of peer show-and-tell about personal installations builds more engagement than a structured exercise.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S39 -->
+<div class="session" id="s39">
+  <div class="session-header">
+    <div class="session-num">Session 39</div>
+    <div class="session-title">Updates — keeping the system current</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>comparison</div>
+      <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+      <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+      <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Warm-up · 5 min</div>
+      <p>Ask: on Windows, when do you typically update? Most answers: when forced to, or never if avoidable. Why do people avoid updates? They restart at bad times, they slow things down, they occasionally break things. Linux updates are different in three specific ways — this session names those differences.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Core concept · 20 min</div>
+      <p><strong>apt update vs apt upgrade — the most commonly confused pair.</strong> apt update refreshes the package index — it downloads the current list of available package versions. It does not install or change anything on the system. apt upgrade reads the updated index and installs newer versions of all currently installed packages where a newer version is available. It will not install new packages or remove existing ones to complete an upgrade — those situations are flagged as "held back."</p>
+
+      <p><strong>apt full-upgrade</strong> is more aggressive — it will add new packages or remove old ones if necessary to complete upgrades. On a desktop system, full-upgrade is usually appropriate. On a production server, removing packages to satisfy dependencies is a decision that requires careful review. Know which you are running.</p>
+
+      <p><strong>Why updates matter.</strong> Most updates are not new features — they are bug fixes and security patches. A CVE (Common Vulnerabilities and Exposures) is a documented security vulnerability. When a CVE is discovered and a patch is released, the patch reaches your system through apt upgrade. If you have not updated in months, you are running known vulnerabilities that are publicly documented. Not updating is a risk decision, not a neutral one.</p>
+
+      <p><strong>When not to update immediately.</strong> On a production server during business hours: updates can restart services. Mid-project when you need stability: a package update could change behavior. Immediately after a major release: wait a few days for early adopters to find problems. LTS releases update less frequently precisely for stability — this is why we chose Kubuntu LTS for this course.</p>
+
+      <p><strong>Unattended upgrades.</strong> Ubuntu enables automatic security updates by default via the unattended-upgrades package. Only security patches are applied automatically — feature updates are not. Show students the configuration file so they know the machine is not randomly updating itself without their knowledge — it is applying only the critical patches that do not require user decisions.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 30 min</div>
+      <div class="exercise-box">
+        <ol>
+          <li>Run <code>sudo apt update</code>. Count how many package lists were refreshed. Count how many said "Hit" vs "Get".</li>
+          <li>Run <code>apt list --upgradable 2>/dev/null</code>. For each upgradable package, run apt show to understand what it is. Are any security updates in the list?</li>
+          <li>Run <code>sudo apt upgrade</code>. Do not confirm yet — read the complete list of what will change. Are any packages being held back? Confirm and observe the upgrade process.</li>
+          <li>After upgrading: run <code>apt list --upgradable 2>/dev/null</code> again. Is it empty now?</li>
+          <li>Find and read <code>/etc/apt/apt.conf.d/50unattended-upgrades</code> in less. What categories of updates happen automatically? What is excluded?</li>
+          <li>Discussion questions — answer in writing: (a) What is the risk of never running apt upgrade? (b) What is the risk of always running apt upgrade immediately on release day? (c) Why does Kubuntu LTS update less frequently than Fedora?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Vocabulary</div>
+      <div class="vocab-grid">
+        <span class="vocab-term">apt update (index only)</span><span class="vocab-term">apt upgrade</span>
+        <span class="vocab-term">apt full-upgrade</span><span class="vocab-term">CVE</span>
+        <span class="vocab-term">security patch</span><span class="vocab-term">held back</span>
+        <span class="vocab-term">unattended-upgrades</span><span class="vocab-term">LTS stability</span>
+      </div>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The apt update vs apt upgrade confusion is so common that even experienced Linux users sometimes say "run apt-get update" when they mean "run apt-get upgrade." Make the distinction absolutely explicit with the analogy: apt update is checking the newspaper for what is available in stores. apt upgrade is actually going to the store and buying the new versions. Checking the newspaper changes nothing in your house. Only the store run does.</p>
+      <p>Task 6c — why LTS — ties back to the distro discussion from Phase 1 session 3. Students who remember the stability vs cutting-edge trade-off discussion will recognize this as the practical consequence of that choice. LTS chose stability. That is why the classroom machine does not surprise you with breaking changes mid-course.</p>
+    </div>
+  </div>
+</div>
+
+<!-- S40 -->
+<div class="session" id="s40">
+  <div class="session-header">
+    <div class="session-num">Session 40</div>
+    <div class="session-title">Phase 2 synthesis — build your own setup</div>
+  </div>
+  <div class="session-body">
+    <div class="time-bar">
+      <div class="t-block t-exercise" style="flex:50"><strong>50 min</strong>personal setup</div>
+      <div class="t-block t-close" style="flex:10"><strong>10 min</strong>demos and preview</div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Overview</div>
+      <p>No new content. Each student designs and installs their own tool set, documents it, and demonstrates it. By the end of this session, every machine in the room is slightly different — each reflects the choices of the person sitting in front of it. That is the session's real outcome: not a list of installed packages, but the experience of making deliberate, informed choices about what the machine contains.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Exercise · 50 min</div>
+      <div class="exercise-box">
+        <p><strong>Brief:</strong> today you decide what goes on your machine. The only rule is that you must justify every choice.</p>
+        <ol>
+          <li>Choose 2–3 tools you actually want. They can be utilities, creative tools, games, development environments — anything available via apt. Research the package names using apt search.</li>
+          <li>For each package: run apt show before installing. Read the description and dependency list. Make the decision consciously — understand what you are installing.</li>
+          <li>Install everything. Handle any prompts. If apt proposes removing something to resolve a dependency, understand why before confirming.</li>
+          <li>Configure or test each tool briefly — confirm it works the way you expected.</li>
+          <li>Open nano and write <code>~/projects/linux-course/phase2/my-setup.md</code> containing:
+            <ul>
+              <li>Each package you installed</li>
+              <li>Why you chose it</li>
+              <li>The exact install command</li>
+              <li>One thing you learned about it from apt show or using it</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-label">Close · 10 min</div>
+      <p>Each student gives a two-minute demo: what they installed and why. After demos:</p>
+      <p>Group reflection: what was the most interesting thing someone else installed? What did you install that you will actually use? What would you install if you had more time?</p>
+      <p><strong>Preview of Phase 3:</strong> "Your machine now has the tools you chose. Next phase, the machine starts looking and behaving the way you want it. Dotfiles, KDE Plasma customization, your first real script that does something useful. The difference between Phase 2 and Phase 3 is the difference between a machine that works and a machine that works the way you work. That difference is what Phase 3 is about."</p>
+    </div>
+
+    <div class="teacher-note">
+      <div class="teacher-note-label">Teacher note</div>
+      <p>The diversity of installations in this session is the point. Some students will install neofetch (shows system info in ASCII art). Some will install a Python environment. Some will install a game. Some will install a music player. All are right. All demonstrate apt working correctly. The comparison of choices during demos is genuinely interesting — it shows that Linux as a platform is neutral about what you use it for, which is itself part of the course's message.</p>
+      <p>Collect the my-setup.md files or ask students to share them. At the end of Phase 6, they will look back at what they installed in week 10 from the perspective of having built their own computer, customized their environment, written scripts, run a local AI model, and completed a final project. The contrast will be significant and worth naming.</p>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:3rem; padding-top:1.5rem; border-top:1px solid var(--border); text-align:center;">
+  <p style="font-family:'Courier New',monospace; font-size:12px; color:var(--text-muted);">Phase 2 of 6 &nbsp;·&nbsp; Linux seminar &nbsp;·&nbsp; Kubuntu LTS &nbsp;·&nbsp; Ages 15–18</p>
+  <p style="font-family:'Courier New',monospace; font-size:12px; color:var(--text-muted); margin-top:4px;">Phase 3 — Making it yours — begins next session</p>
+</div>
+
+</div>
+</body>
+</html>

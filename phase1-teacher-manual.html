@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase 1 — Teacher Manual</title>
+<style>
+  :root {
+    --blue-light: #E6F1FB;
+    --blue-mid: #85B7EB;
+    --blue-dark: #0C447C;
+    --blue-text: #185FA5;
+    --green-light: #EAF3DE;
+    --green-dark: #27500A;
+    --green-text: #3B6D11;
+    --amber-light: #FAEEDA;
+    --amber-dark: #633806;
+    --amber-text: #854F0B;
+    --coral-light: #FAECE7;
+    --coral-dark: #712B13;
+    --coral-text: #993C1D;
+    --gray-light: #F1EFE8;
+    --gray-mid: #B4B2A9;
+    --gray-dark: #444441;
+    --text: #1a1a1a;
+    --text-muted: #555;
+    --border: #e0ddd6;
+    --bg: #fff;
+    --bg-secondary: #faf9f7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Georgia, 'Times New Roman', serif; font-size: 15px; line-height: 1.75; color: var(--text); background: var(--bg); }
+  .page { max-width: 860px; margin: 0 auto; padding: 3rem 2.5rem; }
+
+  /* Cover */
+  .cover { text-align: center; padding: 4rem 0 3rem; border-bottom: 1px solid var(--border); margin-bottom: 3rem; }
+  .cover-label { font-family: 'Courier New', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem; }
+  .cover h1 { font-size: 32px; font-weight: normal; color: var(--text); margin-bottom: 0.5rem; }
+  .cover h2 { font-size: 18px; font-weight: normal; color: var(--text-muted); margin-bottom: 2rem; }
+  .cover-meta { display: flex; justify-content: center; gap: 2.5rem; font-size: 13px; color: var(--text-muted); font-family: 'Courier New', monospace; }
+  .cover-meta span { display: flex; flex-direction: column; gap: 2px; }
+  .cover-meta strong { color: var(--text); font-weight: normal; font-size: 15px; }
+
+  /* Nav */
+  .toc { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem 2rem; margin-bottom: 3rem; }
+  .toc h3 { font-size: 13px; font-family: 'Courier New', monospace; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem; }
+  .toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .toc a { font-size: 13px; color: var(--blue-text); text-decoration: none; font-family: 'Courier New', monospace; }
+  .toc a:hover { text-decoration: underline; }
+
+  /* Phase overview */
+  .phase-overview { background: var(--blue-light); border-radius: 8px; padding: 1.5rem 2rem; margin-bottom: 3rem; }
+  .phase-overview h3 { font-size: 13px; font-family: 'Courier New', monospace; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue-dark); margin-bottom: 0.75rem; }
+  .phase-overview p { font-size: 14px; color: var(--blue-dark); line-height: 1.7; margin-bottom: 0.75rem; }
+  .phase-overview p:last-child { margin-bottom: 0; }
+
+  /* Week separator */
+  .week-header { margin: 3rem 0 2rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--text); }
+  .week-label { font-family: 'Courier New', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+  .week-title { font-size: 22px; font-weight: normal; color: var(--text); margin-top: 4px; }
+  .week-theme { font-size: 14px; color: var(--text-muted); font-style: italic; margin-top: 4px; }
+
+  /* Session card */
+  .session { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 2.5rem; overflow: hidden; page-break-inside: avoid; }
+  .session-header { background: var(--blue-light); padding: 1rem 1.5rem; display: flex; align-items: baseline; gap: 1rem; }
+  .session-num { font-family: 'Courier New', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue-dark); min-width: 70px; }
+  .session-title { font-size: 17px; font-weight: normal; color: var(--blue-dark); }
+  .session-body { padding: 1.5rem; }
+
+  /* Time bar */
+  .time-bar { display: flex; gap: 4px; margin-bottom: 1.5rem; border-radius: 4px; overflow: hidden; height: 36px; }
+  .t-block { display: flex; flex-direction: column; justify-content: center; padding: 0 10px; font-size: 10px; font-family: 'Courier New', monospace; line-height: 1.3; }
+  .t-block strong { font-size: 12px; display: block; }
+  .t-warm { background: var(--gray-light); color: var(--gray-dark); }
+  .t-concept { background: var(--blue-light); color: var(--blue-dark); }
+  .t-exercise { background: var(--green-light); color: var(--green-dark); }
+  .t-close { background: var(--amber-light); color: var(--amber-dark); }
+
+  /* Sections */
+  .section { margin-bottom: 1.5rem; }
+  .section-label { font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
+  .section p { font-size: 14px; line-height: 1.75; color: var(--text); margin-bottom: 0.75rem; }
+  .section p:last-child { margin-bottom: 0; }
+
+  /* Whiteboard box */
+  .whiteboard { background: #fffef5; border: 1px dashed #c8c090; border-radius: 6px; padding: 1.25rem 1.5rem; margin: 0.75rem 0; }
+  .whiteboard-label { font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #8a7a40; margin-bottom: 0.75rem; }
+  .whiteboard-content { font-family: 'Courier New', monospace; font-size: 13px; line-height: 2; color: #333; }
+
+  /* Exercise box */
+  .exercise-box { background: var(--green-light); border-radius: 6px; padding: 1.25rem 1.5rem; margin: 0.75rem 0; }
+  .exercise-box p { color: var(--green-dark); font-size: 14px; line-height: 1.75; margin-bottom: 0.75rem; }
+  .exercise-box p:last-child { margin-bottom: 0; }
+  .exercise-box ol, .exercise-box ul { padding-left: 1.5rem; color: var(--green-dark); font-size: 14px; line-height: 1.9; }
+  .exercise-box li { margin-bottom: 0.25rem; }
+
+  /* Teacher note */
+  .teacher-note { background: var(--coral-light); border-left: 3px solid #D85A30; border-radius: 0 6px 6px 0; padding: 1.25rem 1.5rem; margin: 0.75rem 0; }
+  .teacher-note-label { font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--coral-text); margin-bottom: 0.5rem; }
+  .teacher-note p { color: var(--coral-dark); font-size: 14px; line-height: 1.75; margin-bottom: 0.75rem; }
+  .teacher-note p:last-child { margin-bottom: 0; }
+
+  /* QA box */
+  .qa-box { background: var(--amber-light); border-radius: 6px; padding: 1.25rem 1.5rem; margin: 0.75rem 0; }
+  .qa-box-label { font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber-text); margin-bottom: 0.75rem; }
+  .qa-item { margin-bottom: 0.9rem; }
+  .qa-item:last-child { margin-bottom: 0; }
+  .qa-q { font-size: 13px; font-weight: bold; color: var(--amber-dark); font-family: 'Courier New', monospace; margin-bottom: 3px; }
+  .qa-a { font-size: 13px; color: var(--amber-dark); line-height: 1.7; }
+
+  /* Vocab */
+  .vocab-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .vocab-term { background: var(--blue-light); color: var(--blue-dark); font-family: 'Courier New', monospace; font-size: 12px; padding: 3px 10px; border-radius: 3px; }
+
+  /* Code */
+  code { font-family: 'Courier New', monospace; background: var(--gray-light); padding: 1px 5px; border-radius: 3px; font-size: 13px; color: #333; }
+  pre { font-family: 'Courier New', monospace; background: #1e1e1e; color: #d4d4d4; padding: 1rem 1.25rem; border-radius: 6px; font-size: 13px; line-height: 1.7; overflow-x: auto; margin: 0.75rem 0; }
+
+  /* Print */
+  @media print {
+    body { font-size: 13px; }
+    .page { padding: 1.5rem; }
+    .session { page-break-inside: avoid; }
+    .week-header { page-break-before: always; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="cover-label">Linux seminar · Kubuntu LTS · Ages 15–18</div>
+    <h1>Phase 1 — Teacher Manual</h1>
+    <h2>What is this machine?</h2>
+    <div class="cover-meta">
+      <span><div>Sessions</div><strong>16</strong></span>
+      <span><div>Weeks</div><strong>1 – 4</strong></span>
+      <span><div>Format</div><strong>4 days × 1 hour</strong></span>
+      <span><div>Platform</div><strong>Kubuntu LTS</strong></span>
+    </div>
+  </div>
+
+  <!-- PHASE OVERVIEW -->
+  <div class="phase-overview">
+    <h3>Phase goal</h3>
+    <p>By the end of these four weeks, students should be able to explain what an operating system is, navigate the Linux filesystem confidently from both a file manager and the terminal, understand the permission model, and recover from basic mistakes using built-in documentation. More importantly: the fear of "doing something wrong" should be gone.</p>
+    <p>The philosophy for this phase is demystification. Nothing in these sessions should feel like magic or coincidence. Every concept has a reason. Your job is not to teach facts — it is to teach the habit of asking "why does this work this way?" and then finding out.</p>
+    <p>Every session ends with a preview of the next one. Every week ends with students teaching each other. This is not a kindness feature — it is diagnostic. When a student cannot explain something, that is the gap you address at the start of the following session, not later.</p>
+  </div>
+
+  <!-- TABLE OF CONTENTS -->
+  <div class="toc">
+    <h3>Sessions</h3>
+    <div class="toc-grid">
+      <a href="#s1">S1 — What are the layers of a computer?</a>
+      <a href="#s2">S2 — What is Linux and where did it come from?</a>
+      <a href="#s3">S3 — What is a distro and why are there 600 of them?</a>
+      <a href="#s4">S4 — First boot: observe everything, touch nothing</a>
+      <a href="#s5">S5 — No C: drive — the tree that is everything</a>
+      <a href="#s6">S6 — What lives where and why</a>
+      <a href="#s7">S7 — Paths: how to address anything</a>
+      <a href="#s8">S8 — Hidden files and case sensitivity</a>
+      <a href="#s9">S9 — Who are you on this machine?</a>
+      <a href="#s10">S10 — Root: the master key</a>
+      <a href="#s11">S11 — File permissions: who can do what</a>
+      <a href="#s12">S12 — chmod: telling the machine what to allow</a>
+      <a href="#s13">S13 — Building your home: guided exploration</a>
+      <a href="#s14">S14 — What happens when you get it wrong</a>
+      <a href="#s15">S15 — Recovery: man pages are the answer</a>
+      <a href="#s16">S16 — Synthesis: they teach each other</a>
+    </div>
+  </div>
+
+  <!-- ===== WEEK 1 ===== -->
+  <div class="week-header">
+    <div class="week-label">Week 1</div>
+    <div class="week-title">The operating system</div>
+    <div class="week-theme">"Nothing here is magic. Everything has a reason."</div>
+  </div>
+
+  <!-- S1 -->
+  <div class="session" id="s1">
+    <div class="session-header">
+      <div class="session-num">Session 1</div>
+      <div class="session-title">What are the layers of a computer?</div>
+    </div>
+    <div class="session-body">
+
+      <div class="time-bar">
+        <div class="t-block t-warm" style="flex:10"><strong>10 min</strong>warm-up</div>
+        <div class="t-block t-concept" style="flex:25"><strong>25 min</strong>concept</div>
+        <div class="t-block t-exercise" style="flex:20"><strong>20 min</strong>exercise</div>
+        <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Overview</div>
+        <p>This is not a definition lesson. The goal is to install a mental model that will support everything else in the course. Students come in thinking of "the computer" as a single thing. By the end of this session they will see it as a stack of layers, each with a distinct job, each ignorant of the layers above it. That shift alone will make the next 15 sessions easier to understand.</p>
+        <p>Do not rush to the computer today. The whiteboard is the main tool. The computer is for verification only.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Preparation</div>
+        <p>Whiteboard or large paper. Marker in two colours if possible. A printed list of 15 items for the classification exercise (see below). The computers should be off or sleeping — this session happens away from the screens.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Warm-up · 10 min</div>
+        <p>Before anyone sits down, ask this question out loud: "What do you think actually happens between pressing the power button and seeing the desktop?" Give them 2 minutes to write down their answer individually — no discussion yet. Then ask 3 or 4 students to share. You are not correcting anyone. You are collecting the room's intuitions. Most answers will be vague: "it loads" or "it starts up." That vagueness is the thing you are going to fix.</p>
+        <p>Write their answers on one side of the board. You will come back to them at the end of the session to show them how much further they can now describe the same process.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Core concept · 25 min</div>
+        <p>Draw the following diagram on the board slowly, one layer at a time. Explain each layer before drawing the next. Do not draw all four at once — the sequence of revealing matters.</p>
+
+        <div class="whiteboard">
+          <div class="whiteboard-label">Whiteboard — draw in this order, top to bottom</div>
+          <div class="whiteboard-content">
+┌─────────────────────────────────────┐
+│           APPLICATIONS              │
+│   (browser, terminal, GIMP, games)  │
+├─────────────────────────────────────┤
+│         OPERATING SYSTEM            │
+│   (kernel + system services)        │
+│   Linux lives here                  │
+├─────────────────────────────────────┤
+│         FIRMWARE / BIOS             │
+│   (lives on a chip, runs first)     │
+│   We will touch this in Phase 4     │
+├─────────────────────────────────────┤
+│           HARDWARE                  │
+│   (CPU, RAM, disk, screen, keyboard)│
+│   Does nothing without instruction  │
+└─────────────────────────────────────┘
+          </div>
+        </div>
+
+        <p><strong>Layer 1 — Hardware.</strong> Draw this first. Hardware is the physical world. The CPU is a chip that executes instructions. RAM is memory that only exists while powered. The disk stores data permanently. The screen, the keyboard, the Wi-Fi antenna — all hardware. The crucial point: hardware on its own does nothing. A CPU sitting on a table cannot add two numbers together without being told how, by whom, and in what format.</p>
+
+        <p><strong>Layer 2 — Firmware / BIOS.</strong> This layer surprises most students because they have never seen it. Firmware is software that lives permanently on a small chip on the motherboard — not on the hard drive. It is the first code that runs the instant power is applied. Its job: check that hardware is present and working, then find something to boot from (usually the hard drive), and hand control over. On most machines you can access this layer by pressing F2 or Delete during boot. We will actually do this in Phase 4 when we install an operating system from scratch. For now: know it exists, know it runs before everything else, and know that without it the OS could never start.</p>
+
+        <p><strong>Layer 3 — Operating System.</strong> The OS is the translator and the referee. It translates requests from applications ("I want to write to this file") into instructions the hardware understands ("write these bytes to this sector of the disk"). It also referees: it decides which application gets CPU time, which process can access which file, which user is allowed to do what. The Linux kernel is the core of this layer — roughly 30 million lines of code that manage every hardware resource on the machine. On top of the kernel sit system services: things that run in the background managing networks, logging events, starting applications at boot.</p>
+
+        <p><strong>Layer 4 — Applications.</strong> Everything the user actually runs. The browser, the terminal, LibreOffice, GIMP, a game. Applications do not talk to the hardware directly — they ask the OS, and the OS handles it. This is why the same application can often run on different hardware: it does not care what GPU or CPU is underneath, as long as the OS speaks its language.</p>
+
+        <p>A note on the bootloader: between firmware and the OS there is one more component called a bootloader — on Linux this is usually GRUB. Its job is to find the OS on disk and load it into RAM. We are not going deep on this today. Mention it exists, then move on. Students often ask about it — the correct answer is: "that's a great question and we will actually use it in week 14."</p>
+
+        <p>Return to the whiteboard after drawing all four layers and ask: "So when you press the power button, what happens now?" Have a student walk through the sequence using the diagram. Firmware runs → firmware finds the bootloader → bootloader loads the kernel → kernel starts system services → desktop appears → you open the browser. That sequence, understood properly, is a major conceptual achievement for day one.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Exercise · 20 min</div>
+        <p>Hand out the classification sheet. Students work individually, then compare with a partner before a group discussion.</p>
+        <div class="exercise-box">
+          <p><strong>Classification task.</strong> Place each item below into one of the four layers: Hardware / Firmware / Operating System / Application. If you think something belongs to more than one layer, write it in both and explain why.</p>
+          <ol>
+            <li>The Chrome browser</li>
+            <li>The CPU (processor)</li>
+            <li>The Wi-Fi driver</li>
+            <li>The keyboard</li>
+            <li>LibreOffice Writer</li>
+            <li>The Linux kernel</li>
+            <li>An HDMI port</li>
+            <li>The desktop wallpaper image</li>
+            <li>RAM (memory)</li>
+            <li>The terminal emulator (Konsole)</li>
+            <li>An NVIDIA GPU</li>
+            <li>Bash (the shell)</li>
+            <li>A video file stored on disk</li>
+            <li>systemd (startup manager)</li>
+            <li>The laptop screen</li>
+          </ol>
+          <p>After finishing: which item was hardest to classify? Why?</p>
+        </div>
+      </div>
+
+      <div class="qa-box">
+        <div class="qa-box-label">Expected student questions</div>
+        <div class="qa-item">
+          <div class="qa-q">Q: Is the Wi-Fi driver hardware or OS?</div>
+          <div class="qa-a">A: Both, and that's the correct answer. The physical Wi-Fi antenna is hardware. The driver — the software that lets the OS talk to that antenna — is part of the OS layer. This is one of the deliberately ambiguous items. If they got it, they understood the model.</div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q">Q: Where does bash go?</div>
+          <div class="qa-a">A: Bash sits between the OS and applications — it is a shell, which is an application that lets you talk to the OS. Some will put it in OS, some in applications. Accept both with justification. The interesting conversation is about what a shell actually is, which we'll come back to in Phase 2.</div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q">Q: What about Android? Is that Linux?</div>
+          <div class="qa-a">A: Yes, Android uses the Linux kernel. The kernel is the same; everything above it (the Android framework, the apps) is different. That is exactly what a distro is — we'll cover that in session 3.</div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q">Q: Can you remove one of the layers?</div>
+          <div class="qa-a">A: Each layer depends on the one below. Remove the firmware and the OS never starts. Remove the OS and applications have nothing to run on. You cannot skip a layer. This is why getting the OS installation right matters — it is the foundation of everything else.</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Close · 5 min</div>
+        <p>Return to the warm-up answers on the board. Ask: can someone now describe what happens between pressing power and seeing the desktop, using the layers? Pick a student who seemed uncertain earlier. If they can do it, that is the session's success. If they cannot, that is tomorrow's opening.</p>
+        <p>Preview session 2: "Now that we know what these layers are, next session we look at the OS layer specifically. Where did it come from, who made it, and why does it matter that the code is free for anyone to read?"</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Vocabulary</div>
+        <div class="vocab-grid">
+          <span class="vocab-term">hardware</span>
+          <span class="vocab-term">firmware</span>
+          <span class="vocab-term">BIOS / UEFI</span>
+          <span class="vocab-term">bootloader</span>
+          <span class="vocab-term">kernel</span>
+          <span class="vocab-term">operating system</span>
+          <span class="vocab-term">application</span>
+          <span class="vocab-term">layer</span>
+          <span class="vocab-term">abstraction</span>
+          <span class="vocab-term">driver</span>
+          <span class="vocab-term">GRUB</span>
+          <span class="vocab-term">systemd</span>
+        </div>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-label">Teacher note</div>
+        <p>The classification exercise will produce disagreements and that is intentional. A Wi-Fi driver, bash, and systemd are all legitimately between layers. Students who argue that something belongs in two places are thinking correctly — do not shut that down. The goal is the mental model, not a clean taxonomy.</p>
+        <p>The BIOS layer often surprises students who have used computers for years without knowing it exists. Lean into that surprise. "You have used computers your whole life and never seen this layer" is a good moment to introduce the course's core idea: most people use computers as black boxes. This course is about opening the box.</p>
+        <p>Do not spend more than 2 minutes on the bootloader today. It will confuse more than it clarifies if you go deep now. The payoff is in Phase 4 — plant the seed and move on.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- S2 -->
+  <div class="session" id="s2">
+    <div class="session-header">
+      <div class="session-num">Session 2</div>
+      <div class="session-title">What is Linux and where did it come from?</div>
+    </div>
+    <div class="session-body">
+
+      <div class="time-bar">
+        <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>recap</div>
+        <div class="t-block t-concept" style="flex:25"><strong>25 min</strong>concept</div>
+        <div class="t-block t-exercise" style="flex:25"><strong>25 min</strong>exercise</div>
+        <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Overview</div>
+        <p>Real history, told honestly. Not a hero story and not a political manifesto. One person was annoyed, made a decision, and that decision changed what software means. Students need to understand open source not as an ideology but as a development model — and understand why it produced something that now powers most of the world's infrastructure.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Warm-up · 5 min</div>
+        <p>One student draws the four-layer diagram from session 1 on the board from memory. The rest of the class can help if needed, but the student at the board does the drawing. This is not a test — it is a retrieval exercise. Gaps in the drawing become the brief recap before moving forward.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Core concept · 25 min</div>
+        <p>Start with context. 1991. The internet exists but is not yet public. Unix is the dominant OS for serious computing — universities, research labs, companies — but it is expensive and its source code is proprietary: you can use it, but you cannot read how it works, modify it, or redistribute it. A 21-year-old computer science student in Helsinki named Linus Torvalds wants to run Unix on his personal computer but cannot afford it. He decides to write his own kernel.</p>
+
+        <p>In August 1991, he posts a now-famous message to a newsgroup: "I'm doing a (free) operating system... just a hobby, won't be anything big and professional." This is the thing to emphasise: he was not trying to change the world. He was solving a personal problem. The important decision came after: he released the source code publicly, under a licence that required anyone who modified and distributed it to also release their modifications. That licence is called the GPL — General Public Licence.</p>
+
+        <p>What happens next is the consequence of that one decision. Developers around the world could read the code, find bugs, fix them, add features, and send the improvements back. The project grew faster than any proprietary team could have grown it. By the early 2000s, Linux was running most of the world's web servers. By the 2010s, it was running every Android phone. Today it runs roughly 90% of the world's cloud infrastructure, most supercomputers, most of the internet's routing equipment, and the International Space Station.</p>
+
+        <p>Now address "free" directly, because it confuses students. In English, "free software" means free as in freedom, not free as in no cost. The Linux kernel can cost money — Red Hat sells it. What you cannot do is take the source code, modify it, and keep your modifications secret. The freedom is about access and transparency, not price.</p>
+
+        <p>Why does open source produce better software for infrastructure? Because a bug that affects millions of users will be found and fixed by someone, somewhere, who has both the technical ability and the motivation to fix it. A proprietary company depends on its own employees noticing the bug. Open source depends on everyone who is affected by it. For security-critical infrastructure, that second model is provably better.</p>
+
+        <div class="whiteboard">
+          <div class="whiteboard-label">Timeline — draw on the board as you narrate</div>
+          <div class="whiteboard-content">
+1969  Unix created at Bell Labs
+1983  GNU Project starts (free software movement)
+1991  Linux kernel posted by Linus Torvalds, age 21
+1994  Linux 1.0 released
+2004  Ubuntu founded — Linux for everyone
+2008  Android launched — Linux kernel inside
+2024  ~90% of cloud servers run Linux
+          </div>
+        </div>
+
+        <p>Close the concept section with a question: "If you wrote something useful and could either keep it private or share it with the world, which would spread further? Which would become more reliable over time?" Let 2–3 students answer. There is no single right answer — the point is to think about the model, not reach a conclusion.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Exercise · 25 min</div>
+        <div class="exercise-box">
+          <p><strong>Research task</strong> (internet allowed for this session only in this phase). Find 5 real devices or services — not personal computers — that run Linux. For each one, write:</p>
+          <ol>
+            <li>What it is and what it does</li>
+            <li>Why Linux makes sense for it specifically (think about the layers — what does the firmware do? What does the OS manage?)</li>
+            <li>One fact about it that surprised you</li>
+          </ol>
+          <p>Share with the group after 15 minutes of research. Try to find things others won't — the obvious answers (Android phones, web servers) will be taken quickly.</p>
+          <p><strong>Suggested directions if students get stuck:</strong> SpaceX rockets, car infotainment systems, stock exchange trading platforms, smart fridges, submarine sonar systems, particle accelerators at CERN, ATMs, traffic light controllers.</p>
+        </div>
+      </div>
+
+      <div class="qa-box">
+        <div class="qa-box-label">Expected student questions</div>
+        <div class="qa-item">
+          <div class="qa-q">Q: If Linux is free, why does Red Hat charge for it?</div>
+          <div class="qa-a">A: Red Hat charges for support, certification, and enterprise guarantees — not for the software itself. You can download Red Hat Enterprise Linux for free; you pay Red Hat for the promise that they will fix problems, certify it works with your hardware, and support you when things break. That is a legitimate business model built on top of free software.</div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q">Q: Why didn't Microsoft or Apple do this?</div>
+          <div class="qa-a">A: They had different incentives. Microsoft's business was selling operating systems. Making Windows open source would undermine that. Apple's business is hardware — macOS is proprietary because it helps them sell Macs. Linux was started without a commercial motive and stayed that way. Different starting point, different outcome.</div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-q">Q: Is Linux safe? Can it get viruses?</div>
+          <div class="qa-a">A: Yes it can. The permission model makes it harder for malicious software to do serious damage — a virus that runs as your user cannot easily affect the rest of the system. But it is not immune. The bigger protection is that the source code is publicly readable, so security researchers can find vulnerabilities faster. We will talk about Linux security in later sessions.</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Close · 5 min</div>
+        <p>One sentence from each student: "Open source means ___." Collect the answers and note which ones are most accurate — use those formulations in future sessions when the concept comes up again.</p>
+        <p>Preview: "We know what Linux is and where it came from. Next session: why does Linux come in 600 different versions? And which one are we using and why?"</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Vocabulary</div>
+        <div class="vocab-grid">
+          <span class="vocab-term">Linux</span>
+          <span class="vocab-term">kernel</span>
+          <span class="vocab-term">open source</span>
+          <span class="vocab-term">GPL licence</span>
+          <span class="vocab-term">proprietary</span>
+          <span class="vocab-term">Linus Torvalds</span>
+          <span class="vocab-term">Unix</span>
+          <span class="vocab-term">free software</span>
+          <span class="vocab-term">source code</span>
+          <span class="vocab-term">community</span>
+        </div>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-label">Teacher note</div>
+        <p>Avoid making this session a Linux advocacy speech. The honest version is more compelling: Linux succeeded in infrastructure because it turned out to be a better model for building reliable software at scale. It did not succeed on the desktop — Windows and macOS still dominate there. Acknowledging that honestly builds more credibility than claiming Linux is better at everything.</p>
+        <p>The research exercise will produce some interesting finds. A student who discovers that the Tokyo Stock Exchange runs Linux and once had a catastrophic failure because of a configuration error — that's a real story worth following. Let the research go where students' curiosity takes it. The goal is genuine engagement with the idea that Linux is everywhere, not a curated list of impressive examples.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- S3 -->
+  <div class="session" id="s3">
+    <div class="session-header">
+      <div class="session-num">Session 3</div>
+      <div class="session-title">What is a distro and why are there 600 of them?</div>
+    </div>
+    <div class="session-body">
+
+      <div class="time-bar">
+        <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>recap</div>
+        <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+        <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+        <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Overview</div>
+        <p>The kernel is shared. Everything above it is a choice. A distro is a curated set of those choices — packager, desktop environment, default apps, release schedule, philosophy. This session explains why there are so many, why that is not a problem, and why we chose Kubuntu specifically.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Warm-up · 5 min</div>
+        <p>Quick check: two students answer — what does a kernel do? If the answer is vague, spend 2 extra minutes here before moving on. A weak understanding of the kernel will make the distro concept harder to grasp.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Core concept · 20 min</div>
+        <p>Start with the recipe analogy. The Linux kernel is a base ingredient that everyone shares. A distro is a complete recipe that uses that ingredient. Two recipes can use the same flour and produce completely different bread. The flour does not determine the bread — the choices around it do.</p>
+
+        <p>What choices does a distro make? At minimum: which package manager (how software is installed and updated), which desktop environment (what the interface looks and feels like), which default applications (what comes pre-installed), and which release model (stable and slow vs. cutting-edge and frequent). These choices make Fedora feel completely different from Debian even though both run the Linux kernel.</p>
+
+        <div class="whiteboard">
+          <div class="whiteboard-label">Family tree — draw on board</div>
+          <div class="whiteboard-content">
+DEBIAN ──────── Ubuntu ──────── Kubuntu   ← we are here
+  (stable)        (broad)         (KDE)
+                          └────── Xubuntu (XFCE)
+                          └────── Ubuntu MATE
+
+RED HAT ──────── Fedora (cutting edge)
+  (enterprise)  └────── CentOS / AlmaLinux
+
+ARCH ──────────── Manjaro (user-friendly Arch)
+  (DIY)         └────── EndeavourOS
+
+INDEPENDENT ───── openSUSE
+                └────── Gentoo
+          </div>
+        </div>
+
+        <p>Walk through the families. Debian prioritises stability — packages are tested for months before release. It powers servers that run for years without updates. Ubuntu is built on Debian but adds a large community, corporate support from Canonical, and a 6-month release cycle. Kubuntu takes Ubuntu and swaps the default desktop from GNOME to KDE Plasma. That is the only meaningful difference — same package manager, same repositories, same Ubuntu base.</p>
+
+        <p>Fedora is Red Hat's community project. It ships the newest software — sometimes too new, which means occasional rough edges. It uses dnf instead of apt. It is what professional Linux developers often run because it is close to what enterprise servers run.</p>
+
+        <p>Arch is a different philosophy: you install the base system and then choose everything yourself. No default desktop, no default apps. It is for people who want to understand and control every component. It is not for this course, but worth knowing it exists.</p>
+
+        <p>Why Kubuntu for this course? Ubuntu base means every guide, every Stack Overflow answer, every tutorial on the internet is likely to work. LTS (Long Term Support) means the system will not require major updates for two years — stability matters in a classroom. KDE Plasma is modern, configurable, and interesting enough to be worth exploring. That is the honest answer.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Exercise · 30 min</div>
+        <div class="exercise-box">
+          <p><strong>Part 1 — Family tree (15 min).</strong> Students receive a list of 12 distros: Ubuntu, Fedora, Arch, Debian, Kubuntu, Manjaro, CentOS, openSUSE, Linux Mint, Pop!_OS, AlmaLinux, Xubuntu. Map them into families. Draw the relationships. Mark which ones share a package manager.</p>
+          <p><strong>Part 2 — Choice justification (15 min).</strong> Four scenarios. For each one, which distro would you choose and why?</p>
+          <ol>
+            <li>A hospital server that has been running for 3 years and cannot be taken offline for updates.</li>
+            <li>A developer who always wants the newest version of every tool, even if things occasionally break.</li>
+            <li>A student learning Linux for the first time who wants help available online and a familiar-looking interface.</li>
+            <li>An engineer who wants complete control over every component and is willing to spend a weekend setting things up.</li>
+          </ol>
+          <p>No single correct answer — justification is what matters. Share with the group.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Close · 5 min</div>
+        <p>Direct question to the class: "Why are we using Kubuntu specifically for this course?" They should now be able to give a real answer — not "because you said so" but because they understand what Kubuntu is and what its properties mean for a 6-month classroom course.</p>
+        <p>Preview: "Next session we boot Kubuntu for the first time. No commands, no clicking around — just observation."</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Vocabulary</div>
+        <div class="vocab-grid">
+          <span class="vocab-term">distro</span>
+          <span class="vocab-term">distribution</span>
+          <span class="vocab-term">desktop environment</span>
+          <span class="vocab-term">KDE Plasma</span>
+          <span class="vocab-term">GNOME</span>
+          <span class="vocab-term">package manager</span>
+          <span class="vocab-term">apt</span>
+          <span class="vocab-term">dnf</span>
+          <span class="vocab-term">LTS</span>
+          <span class="vocab-term">rolling release</span>
+          <span class="vocab-term">fork</span>
+          <span class="vocab-term">upstream</span>
+        </div>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-label">Teacher note</div>
+        <p>Students will ask which distro is "the best." The correct answer is: the best distro is the one that matches your use case. A hospital server and a developer's workstation have different requirements. There is no universal ranking. If you push back on the "which is best" question every time it comes up, students will start thinking in terms of fit and trade-offs — which is exactly the problem-solving mindset the course is trying to build.</p>
+        <p>Some students will have heard of Kali Linux (used by security professionals) or Ubuntu (very common name). Acknowledge them if they come up. Kali is a specialised security distro — not for general use. Ubuntu is the parent of Kubuntu, which is a valid follow-up question about why we're not just using Ubuntu.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- S4 -->
+  <div class="session" id="s4">
+    <div class="session-header">
+      <div class="session-num">Session 4</div>
+      <div class="session-title">First boot — observe everything, touch nothing</div>
+    </div>
+    <div class="session-body">
+
+      <div class="time-bar">
+        <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>predictions</div>
+        <div class="t-block t-exercise" style="flex:45"><strong>45 min</strong>observation</div>
+        <div class="t-block t-close" style="flex:10"><strong>10 min</strong>discussion</div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Overview</div>
+        <p>No lecture today. The machine is the lesson. This session deliberately removes instruction and replaces it with observation. Students who have only ever used Windows or macOS will encounter something that looks partially familiar and partially alien. That cognitive dissonance is productive — it creates genuine questions that will carry them through the next three weeks.</p>
+        <p>Your role today is to ask questions, not answer them.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Warm-up · 5 min</div>
+        <p>Before powering on anything: ask each student to write 3 specific predictions. Not "it will look different" — specific ones. "I think there will be a taskbar at the bottom." "I think the file manager will look like Windows Explorer." "I think there will be a settings icon somewhere." This primes them to actively compare rather than passively observe.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Observation exercise · 45 min</div>
+        <div class="exercise-box">
+          <p><strong>Boot Kubuntu. Observe for the full session.</strong></p>
+          <p><strong>Individual written task (20 min) — do not discuss yet:</strong></p>
+          <ol>
+            <li>List 5 things that look or feel familiar from a system you already know.</li>
+            <li>List 5 things that look different, strange, or that you do not recognise.</li>
+            <li>Write 3 specific questions you have — things you genuinely want to know, not general questions.</li>
+            <li>Look at the taskbar / panel. Write down every element you can see and what you think each one does.</li>
+            <li>Open the application menu (the icon bottom-left). Browse it without opening anything. What do you notice about how apps are organised?</li>
+          </ol>
+          <p><strong>Pair comparison (10 min):</strong> Compare your lists with a partner. What did they notice that you missed? Add anything new to your list.</p>
+          <p><strong>One volunteer navigates (15 min):</strong> One student takes the mouse and navigates while the class narrates. Open the file manager (Dolphin). Open System Settings. Open the terminal (Konsole). The class calls out what they think is happening at each step. Do not correct — record their observations on the board.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Close · 10 min</div>
+        <p>Collect the individual question lists — every student hands in their 3 questions. Read through them quickly. Sort them into categories on the board: filesystem questions, interface questions, software questions, permission/security questions. Tell the class: "These are the questions we will answer over the next three weeks. Keep track of when you get the answer to yours."</p>
+        <p>Preview: "Next week we go into the filesystem — where files actually live on this machine, and why it looks nothing like the C: drive."</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Vocabulary</div>
+        <div class="vocab-grid">
+          <span class="vocab-term">KDE Plasma</span>
+          <span class="vocab-term">taskbar / panel</span>
+          <span class="vocab-term">desktop environment</span>
+          <span class="vocab-term">Dolphin (file manager)</span>
+          <span class="vocab-term">Konsole (terminal)</span>
+          <span class="vocab-term">application menu</span>
+          <span class="vocab-term">system tray</span>
+          <span class="vocab-term">boot</span>
+        </div>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-label">Teacher note</div>
+        <p>Resist the urge to explain things as they point at them. This is the hardest part of this session. When a student says "what is that icon?" the correct response is "what do you think it does?" When they say "this is weird," the correct response is "what specifically is weird about it?" The observation muscle — the habit of looking carefully before assuming — is more valuable right now than any individual answer.</p>
+        <p>Keep the question lists. They are genuinely useful: they tell you what the students actually care about, which is often different from what the curriculum expects. If half the class wrote "can I install games?" — that is information. Use it. If someone asked about privacy or surveillance, address it. Their questions should shape how you frame the next sessions.</p>
+        <p>If a student tries to click around extensively or starts opening settings — let them, and narrate what is happening to the whole class. Curiosity at this stage is exactly what you want. The "touch nothing" instruction is about not running commands or making changes, not about suppressing exploration.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== WEEK 2 ===== -->
+  <div class="week-header">
+    <div class="week-label">Week 2</div>
+    <div class="week-title">The filesystem</div>
+    <div class="week-theme">"Everything is a file. The tree starts at /."</div>
+  </div>
+
+  <!-- S5 -->
+  <div class="session" id="s5">
+    <div class="session-header">
+      <div class="session-num">Session 5</div>
+      <div class="session-title">No C: drive — the tree that is everything</div>
+    </div>
+    <div class="session-body">
+
+      <div class="time-bar">
+        <div class="t-block t-warm" style="flex:10"><strong>10 min</strong>warm-up</div>
+        <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+        <div class="t-block t-exercise" style="flex:25"><strong>25 min</strong>exercise</div>
+        <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Overview</div>
+        <p>The single biggest conceptual difference from Windows. In Windows, drives are separate trees (C:\, D:\). In Linux, there is one tree. Everything — files, devices, network connections, running processes — is a node in that tree. Understanding this makes the rest of the filesystem layout obvious rather than arbitrary.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Warm-up · 10 min</div>
+        <p>Draw a Windows filesystem on the board: C:\Users\, C:\Program Files\, D:\, E:\. Ask: "What happens when you plug in a USB drive on Windows?" They appear as a new drive letter. "What happens on Linux?" That is what this session answers. Erase the Windows diagram. Start fresh.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Core concept · 20 min</div>
+        <p>Draw a single tree starting from /. Explain: this is called the root of the filesystem. Not the root user — the root directory. Every single file on a Linux system, regardless of which physical disk it is on, exists somewhere inside this tree. A USB drive plugged in does not appear as E:\ — it appears as a folder, usually somewhere like <code>/media/username/drivename</code>. It is mounted into the tree.</p>
+
+        <div class="whiteboard">
+          <div class="whiteboard-label">Draw this tree on the board</div>
+          <div class="whiteboard-content">
+/
+├── home/
+│   └── yourname/        ← your personal space
+├── etc/                 ← system configuration
+├── var/                 ← logs and runtime data
+├── usr/                 ← installed software
+├── tmp/                 ← temporary files
+├── boot/                ← bootloader and kernel
+├── dev/                 ← devices (as files)
+├── proc/                ← running processes (as files)
+└── media/               ← external drives go here
+          </div>
+        </div>
+
+        <p>The phrase "everything is a file" in Linux means more than it sounds. Not just documents and images — hardware devices like your keyboard, your hard drive, and your screen are represented as files in <code>/dev</code>. Running processes appear as directories in <code>/proc</code>. If you can read a file, you can inspect the state of the hardware. That is a powerful idea that runs through the whole system.</p>
+
+        <p>Open the terminal. Run <code>pwd</code> — print working directory. This tells you where you are right now in the tree. Run <code>ls</code> to see what is here. Navigate to / with <code>cd /</code> and run <code>ls</code> again. The top-level directories on the screen match the diagram on the board. This is not a metaphor — this is the actual structure.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Exercise · 25 min</div>
+        <div class="exercise-box">
+          <p><strong>Side-by-side navigation.</strong> Open Dolphin (file manager) and Konsole (terminal) on screen at the same time — half screen each.</p>
+          <ol>
+            <li>In the terminal, run <code>cd /home/yourname</code> then <code>pwd</code>. Find the same location in Dolphin. What is identical? What is different?</li>
+            <li>Navigate to <code>/etc</code> in both. Terminal: <code>cd /etc</code> then <code>ls</code>. Dolphin: click to /etc. How many items does ls count? How many does Dolphin show? Why might they differ?</li>
+            <li>Navigate to <code>/var/log</code> in both. What is inside? Can you open any of the files?</li>
+            <li>Go back to your home folder in the terminal using only the <code>~</code> character: type <code>cd ~</code> then <code>pwd</code>. What does ~ expand to?</li>
+            <li>Draw the top two levels of the tree from memory — close both windows first.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Vocabulary</div>
+        <div class="vocab-grid">
+          <span class="vocab-term">/ (root directory)</span>
+          <span class="vocab-term">filesystem tree</span>
+          <span class="vocab-term">mount point</span>
+          <span class="vocab-term">pwd</span>
+          <span class="vocab-term">ls</span>
+          <span class="vocab-term">cd</span>
+          <span class="vocab-term">~ (home shortcut)</span>
+          <span class="vocab-term">working directory</span>
+          <span class="vocab-term">everything is a file</span>
+        </div>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-label">Teacher note</div>
+        <p>The Dolphin vs. terminal discrepancy in step 2 is intentional. Dolphin hides files starting with a dot by default. The terminal with <code>ls</code> also hides them. Only <code>ls -a</code> shows everything. Let this discrepancy surface naturally — it is the perfect setup for session 8 on hidden files. If a student notices and asks "why does ls show fewer files than I expected?", that question is worth 5 minutes of your time right now.</p>
+        <p>Some students will try flags they don't know yet — <code>ls -l</code>, <code>ls -la</code>, <code>ls --help</code>. Let them. Explain the flags briefly if they ask. Curiosity about flags is a sign the terminal is becoming interesting, not intimidating.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- S6 -->
+  <div class="session" id="s6">
+    <div class="session-header">
+      <div class="session-num">Session 6</div>
+      <div class="session-title">What lives where and why</div>
+    </div>
+    <div class="session-body">
+
+      <div class="time-bar">
+        <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>warm-up</div>
+        <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+        <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+        <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Overview</div>
+        <p>The Linux filesystem layout is not arbitrary — it follows a standard called the FHS (Filesystem Hierarchy Standard). Every major directory has a defined purpose. Teaching this removes mystery from the whole system and gives students a mental map they can rely on.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Warm-up · 5 min</div>
+        <p>Ask: "If you wanted to change a system-wide setting — say, the computer's hostname — where would you look?" Take 3 guesses. Do not answer yet. "If you wanted to see why an application crashed yesterday, where would you look?" Take 3 more guesses. The answers are in /etc and /var/log respectively. This warm-up creates the need that the concept section will fill.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Core concept · 20 min</div>
+        <p>Walk through each directory with real examples open on screen as you explain. Do not just read the purpose — open the actual folder and show something inside it.</p>
+
+        <p><strong>/home</strong> — Every user on the system has a subdirectory here. Your files, your settings, your documents all live in /home/yourname. No other user (except root) can read your /home directory by default. Open it and show the structure — you will already have a few hidden dotfiles from the system.</p>
+
+        <p><strong>/etc</strong> — System-wide configuration as plain text files. Open <code>/etc/hostname</code> — it is one line containing the machine's name. Open <code>/etc/apt/sources.list</code> — this is the list of repositories where software comes from. Open <code>/etc/passwd</code> — it lists every user account on the system. Everything here is readable text that a human can understand and edit. This is by design: the OS is transparent about its own configuration.</p>
+
+        <p><strong>/var</strong> — Variable data: things that change while the system runs. Logs are in <code>/var/log</code>. Open <code>/var/log/syslog</code> and scroll through — this is the system's diary. Every event that the OS considers worth noting is here. Package cache is in <code>/var/cache/apt</code>. Databases often live in <code>/var/lib</code>.</p>
+
+        <p><strong>/usr</strong> — User system resources. Installed programs live in <code>/usr/bin</code>. Libraries they depend on are in <code>/usr/lib</code>. Documentation is in <code>/usr/share/doc</code>. When you install software with apt, most of it ends up here.</p>
+
+        <p><strong>/tmp</strong> — Temporary files. Anything written here may be deleted on reboot. Programs use it for scratch space. Never put anything here that you want to keep.</p>
+
+        <p>Point out the pattern: the OS makes its own configuration and behaviour completely visible as readable files. You do not need a special tool to read system configuration — you need <code>cat</code> or a text editor. That transparency is a design principle, not an accident.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Exercise · 30 min</div>
+        <div class="exercise-box">
+          <p><strong>Scavenger hunt.</strong> Find and open each of the following using the terminal. For each one, write one sentence describing what you found inside.</p>
+          <ol>
+            <li>The file that stores your computer's hostname: <code>/etc/hostname</code></li>
+            <li>The most recent system log file: look in <code>/var/log/</code></li>
+            <li>The file that lists all user accounts: <code>/etc/passwd</code> — read it and figure out what each field means (fields are separated by colons)</li>
+            <li>The list of software repositories: <code>/etc/apt/sources.list</code></li>
+            <li>The bash executable itself: find it in <code>/usr/bin/</code></li>
+            <li>One interesting file in <code>/usr/share/</code> — your choice, justify why it is interesting</li>
+            <li>Any file currently in <code>/tmp/</code> — if the directory is empty, explain why</li>
+            <li>Bonus: find the file that configures what happens at login. Hint: look in /etc/profile or /etc/bash.bashrc</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Vocabulary</div>
+        <div class="vocab-grid">
+          <span class="vocab-term">/home</span>
+          <span class="vocab-term">/etc</span>
+          <span class="vocab-term">/var</span>
+          <span class="vocab-term">/var/log</span>
+          <span class="vocab-term">/usr</span>
+          <span class="vocab-term">/usr/bin</span>
+          <span class="vocab-term">/tmp</span>
+          <span class="vocab-term">FHS</span>
+          <span class="vocab-term">configuration file</span>
+          <span class="vocab-term">log file</span>
+          <span class="vocab-term">syslog</span>
+        </div>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-label">Teacher note</div>
+        <p>/etc/passwd is reliably surprising. Students expect a file called "passwd" to contain passwords. It does not — passwords moved to /etc/shadow (which they cannot read without sudo). /etc/passwd contains usernames, UIDs, home directories, and default shells. The fields separated by colons are: username, password placeholder (x), UID, GID, description, home directory, shell. Walking through one line together takes 3 minutes and teaches UID, GID, and shell — all concepts that will reappear in week 3.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- S7 -->
+  <div class="session" id="s7">
+    <div class="session-header">
+      <div class="session-num">Session 7</div>
+      <div class="session-title">Paths — how to address anything in the filesystem</div>
+    </div>
+    <div class="session-body">
+
+      <div class="time-bar">
+        <div class="t-block t-warm" style="flex:10"><strong>10 min</strong>analogy</div>
+        <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+        <div class="t-block t-exercise" style="flex:25"><strong>25 min</strong>exercise</div>
+        <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Overview</div>
+        <p>A path is an address. The distinction between absolute and relative paths is one of the most practically important concepts in the entire course — it comes up every time a student runs a command that refers to a file. Getting this right now saves significant confusion later.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Warm-up · 10 min</div>
+        <p>Write on the board: "Go to room 3." Then write: "Go to Building A, Floor 2, Room 3." Ask: which instruction works if you are anywhere in the world? Which one only works if you are already on Floor 2? The second is an absolute address. The first is a relative one. A path in Linux works exactly the same way.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Core concept · 20 min</div>
+        <p><strong>Absolute paths</strong> always start with /. They describe the full route from the root of the tree to the target. <code>/home/username/documents/notes.txt</code> works no matter where you currently are in the filesystem — because it starts from the very beginning of the tree. Like a complete postal address: country, city, street, number.</p>
+
+        <p><strong>Relative paths</strong> start from where you currently are. If you are inside <code>/home/username</code>, then <code>documents/notes.txt</code> gets you to the same file. But that relative path would fail if you were in <code>/etc</code>, because there is no <code>documents</code> folder there. Like directions that only work if you're already in the right city.</p>
+
+        <p><strong>Special shortcuts:</strong> <code>.</code> (a single dot) always means "the directory I am currently in." <code>..</code> (two dots) always means "the directory one level up from where I am." These are not just shortcuts — they are part of every directory in the filesystem. Run <code>ls -a</code> anywhere and you will see . and .. listed. <code>cd ..</code> moves you up one level. <code>cd ../documents</code> moves up one level and then into a folder called documents.</p>
+
+        <div class="whiteboard">
+          <div class="whiteboard-label">Live demo — run these in the terminal and explain each</div>
+          <div class="whiteboard-content">
+pwd                          # where am I?
+cd /                         # go to root (absolute)
+pwd                          # confirm
+cd home                      # relative: go into home
+pwd                          # confirm
+cd ..                        # go back up one level
+pwd                          # back at /
+cd /home/username/documents  # absolute path
+cd ../../..                  # go up 3 levels
+pwd                          # where are we now?
+cd ~                         # always goes to home
+          </div>
+        </div>
+
+        <p>Have the students type each command themselves and run <code>pwd</code> after each one to verify where they ended up. The physical experience of moving through the tree is more instructive than watching you do it.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Exercise · 25 min</div>
+        <div class="exercise-box">
+          <p><strong>Part 1 — Printed map (15 min).</strong> Students receive a printed fictional filesystem map. Eight path-writing tasks:</p>
+          <ol>
+            <li>Write the absolute path from / to the file <code>readme.txt</code> in user anna's home folder.</li>
+            <li>You are in <code>/home/anna/documents</code>. Write a relative path to get to <code>/home/anna/pictures</code>.</li>
+            <li>You are in <code>/etc</code>. Write a relative path to get to <code>/var/log</code>.</li>
+            <li>Write the absolute path to the bash executable.</li>
+            <li>You are in <code>/usr/bin</code>. Write a relative path to get to the root directory /.</li>
+            <li>Write what <code>cd ../../home/anna</code> does if you start in <code>/usr/local/bin</code>.</li>
+          </ol>
+          <p><strong>Part 2 — Terminal verification (10 min).</strong> Test 4 of your answers on the real machine. For each: run the <code>cd</code> command, then run <code>pwd</code>, and write whether your prediction was correct.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Vocabulary</div>
+        <div class="vocab-grid">
+          <span class="vocab-term">absolute path</span>
+          <span class="vocab-term">relative path</span>
+          <span class="vocab-term">. (current directory)</span>
+          <span class="vocab-term">.. (parent directory)</span>
+          <span class="vocab-term">cd</span>
+          <span class="vocab-term">pwd</span>
+          <span class="vocab-term">~ (home)</span>
+          <span class="vocab-term">path separator /</span>
+        </div>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-label">Teacher note</div>
+        <p>Introduce <code>~</code> (tilde) explicitly today if you have not already. <code>cd ~</code> always takes you to your home directory regardless of where you are. Students will use this constantly from this point forward. It is a small thing that builds a lot of confidence — there is always a way back home.</p>
+        <p>The most common error on the printed map exercise is confusing relative paths that go up levels. Students often write <code>../log</code> when they need <code>../../var/log</code>. Let them make the error and discover it when they test on the terminal. The self-correction is more memorable than being told the right answer.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- S8 -->
+  <div class="session" id="s8">
+    <div class="session-header">
+      <div class="session-num">Session 8</div>
+      <div class="session-title">Hidden files and case sensitivity</div>
+    </div>
+    <div class="session-body">
+
+      <div class="time-bar">
+        <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>question</div>
+        <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+        <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+        <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Overview</div>
+        <p>Two Linux filesystem behaviours that reliably surprise people coming from Windows: hidden files are not hidden for security, they are hidden to reduce visual clutter; and filenames are completely case-sensitive. Both have clear reasons. Dotfiles are also the first preview of system configuration — students will edit their own .bashrc in week 12.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Warm-up · 5 min</div>
+        <p>Ask: "Where does your terminal store its settings? When you customise something in a program, where does it save those preferences?" Most students will not know. That is the setup for the dotfile concept. "By the end of this session you will know exactly where every application stores its personal settings for your account."</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Core concept · 20 min</div>
+        <p><strong>Hidden files.</strong> Any file or directory whose name begins with a dot is hidden by default. Not hidden for security — hidden because showing configuration files alongside your documents would be cluttered and confusing. Your home folder contains dozens of hidden files and directories managing the settings for every application you use. Run <code>ls</code> in your home folder — relatively few items. Run <code>ls -a</code> — significantly more. Run <code>ls -la</code> — all of them with full details. In Dolphin, press Ctrl+H to toggle the display of hidden files.</p>
+
+        <p>Common dotfiles students will encounter: <code>.bashrc</code> — the configuration file for the bash shell, runs every time you open a terminal. <code>.config/</code> — a directory containing configuration for many modern applications. <code>.ssh/</code> — SSH keys and configuration (we'll use this in Phase 5). <code>.local/</code> — user-specific application data. These files are why your terminal settings, your application themes, and your preferences survive across reboots — they are all stored as plain text files in your home directory.</p>
+
+        <p><strong>Case sensitivity.</strong> Linux filesystems are case-sensitive. <code>notes.txt</code>, <code>Notes.txt</code>, and <code>NOTES.TXT</code> are three completely different files that can coexist in the same folder. Windows is not case-sensitive — it treats these as the same file. This matters when you type commands (the command <code>ls</code> works; <code>LS</code> does not), when you navigate paths, and when you write scripts. Get into the habit of being precise about capitalisation from the start.</p>
+
+        <div class="whiteboard">
+          <div class="whiteboard-label">Live demo — run in terminal</div>
+          <div class="whiteboard-content">
+ls                    # shows visible files
+ls -a                 # shows hidden files too
+ls -la                # shows all files with details
+cd ~                  # go home
+cat .bashrc           # read your bash configuration
+# in dolphin: Ctrl+H to toggle hidden files
+
+# case sensitivity demo:
+touch notes.txt Notes.txt NOTES.TXT
+ls                    # all three exist
+rm notes.txt          # only deletes the lowercase one
+ls                    # the other two still exist
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Exercise · 30 min</div>
+        <div class="exercise-box">
+          <p><strong>Part 1 — Dotfile exploration (15 min).</strong></p>
+          <ol>
+            <li>Navigate to your home folder and run <code>ls -la</code>. Count how many hidden items exist.</li>
+            <li>Open <code>.bashrc</code> with <code>cat ~/.bashrc</code>. Read through it. What do you notice? Write down 3 things you can identify even without understanding all of it.</li>
+            <li>Look inside the <code>.config/</code> directory with <code>ls ~/.config</code>. What applications have stored configuration here?</li>
+            <li>Open Dolphin and press Ctrl+H. Compare what you see with <code>ls -la</code> in the terminal. Are they showing the same things?</li>
+          </ol>
+          <p><strong>Part 2 — Case sensitivity (15 min).</strong></p>
+          <ol>
+            <li>In your ~/sandbox folder, create three files: <code>touch test.txt Test.txt TEST.TXT</code></li>
+            <li>Run <code>ls</code> to confirm all three exist as separate files.</li>
+            <li>Try to open one: <code>cat Test.txt</code>. Then try <code>cat test.txt</code>. Different files, different contents possible.</li>
+            <li>Try to run a command with wrong capitalisation: type <code>LS</code> instead of <code>ls</code>. Read the error message carefully. What does it tell you?</li>
+            <li>Create a file with a space in the name: <code>touch "my notes.txt"</code>. Then try to access it without quotes: <code>cat my notes.txt</code>. What happens? Now try with quotes. Why does this matter?</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Vocabulary</div>
+        <div class="vocab-grid">
+          <span class="vocab-term">hidden file</span>
+          <span class="vocab-term">dotfile</span>
+          <span class="vocab-term">.bashrc</span>
+          <span class="vocab-term">.config/</span>
+          <span class="vocab-term">ls -a</span>
+          <span class="vocab-term">ls -la</span>
+          <span class="vocab-term">Ctrl+H (Dolphin)</span>
+          <span class="vocab-term">case-sensitive</span>
+          <span class="vocab-term">filename conventions</span>
+        </div>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-label">Teacher note</div>
+        <p>When students open .bashrc, they will not understand most of it — and that is fine. Tell them: "This file is the first of many we will come back to. By week 12 you will be editing this file to customise your own terminal environment." Planting this seed now makes week 12 feel like returning to something familiar rather than encountering something new.</p>
+        <p>The file-with-spaces exercise is practically important. Filenames with spaces are common on files that come from Windows or macOS (downloaded files, shared documents). Students need to know how to handle them in the terminal before they encounter one in a context that matters. Quoting and escaping are concepts they will use constantly.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== WEEK 3 ===== -->
+  <div class="week-header">
+    <div class="week-label">Week 3</div>
+    <div class="week-title">Users and permissions</div>
+    <div class="week-theme">"The machine knows who you are and what you are allowed to do."</div>
+  </div>
+
+  <!-- S9 -->
+  <div class="session" id="s9">
+    <div class="session-header">
+      <div class="session-num">Session 9</div>
+      <div class="session-title">Who are you on this machine?</div>
+    </div>
+    <div class="session-body">
+
+      <div class="time-bar">
+        <div class="t-block t-warm" style="flex:10"><strong>10 min</strong>scenario</div>
+        <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+        <div class="t-block t-exercise" style="flex:25"><strong>25 min</strong>exercise</div>
+        <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Overview</div>
+        <p>Linux was designed from the start as a multi-user system. Every action is tied to an identity. Understanding your identity on the machine — your username, your UID, your groups — is the foundation for understanding why permissions work the way they do.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Warm-up · 10 min</div>
+        <p>Pose the scenario: "This machine has 5 users. Carlos, Ana, Luis, Maria, and a web server process called www-data. Each has their own files. How does the OS know which files belong to whom? And how does it stop Carlos from reading Ana's private documents?" Let the group propose solutions for 5 minutes. Their instincts — passwords, separate drives, access lists — are all partially right. The system uses all of these ideas in combination. This session explains how.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Core concept · 20 min</div>
+        <p>Every user on a Linux system has a numeric identity called a UID (User ID). Your username is a human-readable label, but the kernel only works with UIDs internally. UID 0 is always root — the superuser. Regular users start at UID 1000 on most modern systems. System processes and services have UIDs in the range 1–999.</p>
+
+        <p>Every user also belongs to one or more groups. A group is a collection of users that share access to something. Groups let you say "these three users should all be able to read this directory" without making it world-readable. Your primary group usually has the same name as your username. You can belong to many secondary groups — on a desktop Linux system, your user account typically belongs to groups like <code>sudo</code> (can run admin commands), <code>audio</code> (can use sound), <code>video</code> (can use the GPU), and several others.</p>
+
+        <p>Run <code>whoami</code> — your username. Run <code>id</code> — your full identity. The output looks like: <code>uid=1000(username) gid=1000(username) groups=1000(username),27(sudo),44(video)...</code>. Parse this together: uid is your user ID number, gid is your primary group ID, groups lists every group you belong to with its name and number.</p>
+
+        <p>Ownership is enforced at the kernel level, not by the interface. It is not a visual feature that can be clicked around. When you try to read a file that does not belong to you and that you have no permission to access, the kernel itself says no — not the application, not the desktop environment.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Exercise · 25 min</div>
+        <div class="exercise-box">
+          <ol>
+            <li>Run <code>whoami</code>. Write down the output.</li>
+            <li>Run <code>id</code>. For each field in the output, write what it means: uid, gid, groups. How many groups do you belong to?</li>
+            <li>Run <code>ls -la /home</code>. What do you see? Who owns each home directory? What does the ownership pattern tell you about who can access what?</li>
+            <li>Run <code>ls -la /</code>. Who owns the top-level directories? What pattern do you notice?</li>
+            <li>Try to navigate into another user's home directory if one exists: <code>cd /root</code>. What happens? Read the error message. What exactly does it say?</li>
+            <li>Build a table: directory, owner user, owner group. Fill it in for /, /home, /etc, /var, /tmp, /usr. What pattern do you notice?</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Vocabulary</div>
+        <div class="vocab-grid">
+          <span class="vocab-term">user</span>
+          <span class="vocab-term">UID</span>
+          <span class="vocab-term">GID</span>
+          <span class="vocab-term">group</span>
+          <span class="vocab-term">primary group</span>
+          <span class="vocab-term">secondary group</span>
+          <span class="vocab-term">whoami</span>
+          <span class="vocab-term">id</span>
+          <span class="vocab-term">multi-user system</span>
+          <span class="vocab-term">ownership</span>
+        </div>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-label">Teacher note</div>
+        <p>The server analogy is essential for students who have only ever used single-user computers. A web server that serves a school website should not be able to read the database configuration for student records — even if they run on the same physical machine. Linux achieves this through users and groups. The web server runs as a user (www-data) that only has access to the files it needs. This is the same principle that protects Carlos's files from Ana: ownership, not a password prompt.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- S10 -->
+  <div class="session" id="s10">
+    <div class="session-header">
+      <div class="session-num">Session 10</div>
+      <div class="session-title">Root — the machine's master key</div>
+    </div>
+    <div class="session-body">
+
+      <div class="time-bar">
+        <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>question</div>
+        <div class="t-block t-concept" style="flex:25"><strong>25 min</strong>concept</div>
+        <div class="t-block t-exercise" style="flex:25"><strong>25 min</strong>exercise</div>
+        <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Overview</div>
+        <p>Root is not just an administrator account with more access. It is an identity that bypasses the permission system entirely. Understanding this distinction — and understanding why sudo exists as a safer alternative — is one of the most practically important things a Linux user can learn. This session also contains the single most important safety habit of the entire course.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Warm-up · 5 min</div>
+        <p>Ask: "If you could run any command on this machine with absolutely no restrictions — no permission denied, no password, no limits — what would you do?" Let a few students answer. Then: "What could go wrong?" Take the worst-case answers seriously. "Exactly. That is why you do not run as root every day."</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Core concept · 25 min</div>
+        <p>Root (UID 0) does not just have more permissions than regular users — it bypasses the permission check entirely. When the kernel evaluates whether a process can access a file, it checks the UID of the process. If the UID is 0, the check is skipped. No file is off-limits. No system call is denied. This means root can read any file, write to any location, kill any process, and delete any directory on the system — including the directories that make the system work.</p>
+
+        <p>This is why you do not log in as root for daily work. One typo in a command — <code>rm -rf /etc</code> instead of <code>rm -rf ./etc</code> — and the system configuration is gone, permanently, with no recycle bin. Root gives you this power with no safety net whatsoever. There is no "are you sure?" There is no undo.</p>
+
+        <p><code>sudo</code> is the answer to this problem. Sudo stands for "substitute user do" — it runs a single command as root (or another user), then returns your normal permissions immediately. It also logs every sudo command to /var/log/auth.log — who ran it, when, and what command. That accountability is the key difference between logging in as root (anonymous, permanent) and using sudo (logged, temporary, deliberate).</p>
+
+        <p>Live demo — run these in order and read every output:</p>
+
+        <pre>cat /etc/shadow          # permission denied - you cannot read this
+sudo cat /etc/shadow     # works - root can read anything
+# /etc/shadow contains hashed passwords - that is why access is restricted</pre>
+
+        <p>Now the most important safety rule of the entire course. Say this explicitly and reference it again in future sessions:</p>
+
+        <div class="teacher-note">
+          <div class="teacher-note-label">Safety rule — say this clearly</div>
+          <p>If a guide on the internet tells you to run a sudo command that you do not understand — stop. Read the command first. Understand what every part of it does before you run it. <code>sudo rm -rf /</code> will delete your entire system in seconds, and there is no recovery. The terminal does not warn you. It trusts that you know what you are asking. That trust is the source of its power and the source of its danger.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Exercise · 25 min</div>
+        <div class="exercise-box">
+          <p><strong>Two-column task.</strong> For each item below, predict whether it requires sudo or not. Then try it and write the exact result — success or the exact error message.</p>
+          <ol>
+            <li>Read your own home folder: <code>ls ~/</code></li>
+            <li>Read the shadow password file: <code>cat /etc/shadow</code></li>
+            <li>Create a file in your home folder: <code>touch ~/myfile.txt</code></li>
+            <li>Create a file in /etc: <code>touch /etc/mytest</code></li>
+            <li>Read the hostname file: <code>cat /etc/hostname</code></li>
+            <li>Change the hostname file: <code>echo "test" | sudo tee /etc/hostname</code> (do not do this — write "would need sudo" and explain why)</li>
+            <li>Navigate to /root: <code>cd /root</code></li>
+            <li>Install a package: <code>apt install tree</code> then <code>sudo apt install tree</code></li>
+          </ol>
+          <p>After the table: for each error message you received, write one sentence explaining what it actually means — not "permission denied" but what specifically was denied and why.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Vocabulary</div>
+        <div class="vocab-grid">
+          <span class="vocab-term">root</span>
+          <span class="vocab-term">superuser</span>
+          <span class="vocab-term">UID 0</span>
+          <span class="vocab-term">sudo</span>
+          <span class="vocab-term">sudoers</span>
+          <span class="vocab-term">/etc/shadow</span>
+          <span class="vocab-term">privilege</span>
+          <span class="vocab-term">privilege escalation</span>
+          <span class="vocab-term">/var/log/auth.log</span>
+        </div>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-label">Teacher note</div>
+        <p>Item 8 in the exercise — <code>apt install tree</code> failing without sudo — is a natural bridge to the package manager content in Phase 2. Let it land as a preview: "We'll spend a full session on apt in a few weeks, but now you understand why it needs sudo — it installs software system-wide, which requires root access." The tree command will come back in session 13.</p>
+        <p>Some students will ask if they can disable the sudo password. The correct answer is: yes, you technically can, and no, you should not. The password prompt is a friction point that makes you pause before doing something permanent with elevated privileges. That pause has saved countless systems.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- S11 -->
+  <div class="session" id="s11">
+    <div class="session-header">
+      <div class="session-num">Session 11</div>
+      <div class="session-title">File permissions — who can do what</div>
+    </div>
+    <div class="session-body">
+
+      <div class="time-bar">
+        <div class="t-block t-warm" style="flex:10"><strong>10 min</strong>observation</div>
+        <div class="t-block t-concept" style="flex:25"><strong>25 min</strong>concept</div>
+        <div class="t-block t-exercise" style="flex:20"><strong>20 min</strong>exercise</div>
+        <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Overview</div>
+        <p>The permission string on every file is a complete access policy. It has been visible in every <code>ls -la</code> output since session 5. This session decodes it fully. The ability to read a permission string is a foundational skill — it comes up constantly in system administration, in troubleshooting, and whenever a command fails with "permission denied."</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Warm-up · 10 min</div>
+        <p>Run <code>ls -la ~</code> and put the output on a shared screen or projector. Point at the leftmost column — the string of characters like <code>-rw-r--r--</code> or <code>drwxr-xr-x</code>. Ask: "You have been seeing this column for two weeks. What do you think it means?" Take all guesses. Write them on the board. Do not evaluate them yet — you are collecting the room's intuitions before the explanation.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Core concept · 25 min</div>
+        <p>Decode the permission string character by character. Take <code>-rwxr-xr-x</code> as the working example and annotate it on the board:</p>
+
+        <div class="whiteboard">
+          <div class="whiteboard-label">Permission string anatomy</div>
+          <div class="whiteboard-content">
+  - r w x r - x r - x
+  │ ├─┤ ├─┤ ├─┤
+  │  owner  group  others
+  │
+  └── file type: - = file, d = directory, l = symlink
+
+owner:  rwx  = can read, write, AND execute
+group:  r-x  = can read and execute, cannot write
+others: r-x  = can read and execute, cannot write
+          </div>
+        </div>
+
+        <p>The first character is the file type. <code>-</code> means a regular file. <code>d</code> means a directory. <code>l</code> means a symbolic link (a pointer to another file). Then three groups of three characters follow: owner permissions, group permissions, others permissions. Each group has three positions: r (read), w (write), x (execute). A dash in any position means that permission is not set.</p>
+
+        <p>What do r, w, x mean? For a <strong>file</strong>: r means you can read the contents, w means you can modify or delete it, x means you can run it as a program. For a <strong>directory</strong>: r means you can list the contents (see what is inside), w means you can create or delete files inside it, x means you can enter the directory with cd. This last point is important and often misunderstood: you can have read permission on a directory (can see the list) but not execute (cannot cd into it). Both are required for useful access.</p>
+
+        <p>Work through several real examples from the system live. Show <code>/etc/passwd</code> (readable by everyone, writeable only by root), <code>/etc/shadow</code> (not readable by regular users at all), a script file (executable), and a home directory (accessible only to owner).</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Exercise · 20 min</div>
+        <div class="exercise-box">
+          <p><strong>Permission decoder.</strong> For each permission string, answer: is it a file or directory? What can the owner do? What can group members do? What can everyone else do?</p>
+          <ol>
+            <li><code>drwxr-xr-x</code></li>
+            <li><code>-rw-r--r--</code></li>
+            <li><code>-rwx------</code></li>
+            <li><code>drwx--x--x</code></li>
+            <li><code>-rw-rw-r--</code></li>
+            <li><code>lrwxrwxrwx</code></li>
+            <li><code>----------</code></li>
+            <li><code>drwxrwxrwx</code> — this one is a security problem. Explain why.</li>
+          </ol>
+          <p>After completing on paper, find real files on the system with at least 4 of these permission patterns and verify your answers against <code>ls -la</code>.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Vocabulary</div>
+        <div class="vocab-grid">
+          <span class="vocab-term">permission string</span>
+          <span class="vocab-term">r (read)</span>
+          <span class="vocab-term">w (write)</span>
+          <span class="vocab-term">x (execute)</span>
+          <span class="vocab-term">owner</span>
+          <span class="vocab-term">group</span>
+          <span class="vocab-term">others</span>
+          <span class="vocab-term">ls -l</span>
+          <span class="vocab-term">file type character</span>
+          <span class="vocab-term">symbolic link</span>
+        </div>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-label">Teacher note</div>
+        <p>Item 4 in the decoder — <code>drwx--x--x</code> — is deliberately tricky. The owner can do everything. Group members and others can execute (enter) the directory but cannot read (list) its contents. This means they can access a specific file inside if they know its exact name, but they cannot browse the directory. This is a real pattern used for shared directories where you want to allow access to specific files without revealing what else is there. Students who figure this out without prompting are thinking at a sophisticated level — call it out.</p>
+        <p>Execute on a directory being different from execute on a file is the concept that most often trips people up in this session. Make sure every student can articulate the difference before moving to session 12.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- S12 -->
+  <div class="session" id="s12">
+    <div class="session-header">
+      <div class="session-num">Session 12</div>
+      <div class="session-title">chmod — telling the machine what to allow</div>
+    </div>
+    <div class="session-body">
+
+      <div class="time-bar">
+        <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>scenario</div>
+        <div class="t-block t-concept" style="flex:20"><strong>20 min</strong>concept</div>
+        <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>exercise</div>
+        <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Overview</div>
+        <p>Permissions are not fixed at creation. <code>chmod</code> changes what the machine enforces. This session introduces symbolic mode fully and numeric mode as reference. The practical payoff is immediate: students will use <code>chmod +x</code> every time they write a script for the rest of the course.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Warm-up · 5 min</div>
+        <p>Scenario: "You wrote your first script. You try to run it. Nothing happens, or you get 'permission denied'. The file exists. The path is correct. What is missing?" Let the class answer using what they learned in session 11. They should arrive at "the execute bit" independently. If they get there, session 12 opens as a solution to a problem they have already identified.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Core concept · 20 min</div>
+        <p><strong>Symbolic mode</strong> is the most readable way to use chmod. The syntax is: <code>chmod [who][operation][permission] file</code>. Who: <code>u</code> (user/owner), <code>g</code> (group), <code>o</code> (others), <code>a</code> (all three). Operation: <code>+</code> (add), <code>-</code> (remove), <code>=</code> (set exactly, removing all others). Permission: <code>r</code>, <code>w</code>, <code>x</code>.</p>
+
+        <div class="whiteboard">
+          <div class="whiteboard-label">Symbolic chmod examples</div>
+          <div class="whiteboard-content">
+chmod +x script.sh         # add execute for everyone
+chmod u+x script.sh        # add execute for owner only
+chmod go-r private.txt     # remove read from group and others
+chmod a=r readme.txt       # set read-only for everyone
+chmod u+x,go-x script.sh   # multiple changes at once
+          </div>
+        </div>
+
+        <p><strong>Numeric mode</strong> uses a three-digit number where each digit represents one of the three permission groups (owner, group, others). Each digit is the sum of: 4 (read), 2 (write), 1 (execute). So 7 = 4+2+1 = rwx. 6 = 4+2 = rw-. 5 = 4+1 = r-x. 4 = r--. 0 = ---. Common patterns to memorise: <code>755</code> — owner can do everything, others can read and execute (common for scripts and programs). <code>644</code> — owner can read and write, others can only read (common for config files and documents). <code>600</code> — owner only, no one else (common for private keys and sensitive files). <code>777</code> — everyone can do everything (almost always wrong — we will discuss why).</p>
+
+        <p>Why is 777 almost always wrong? It gives every user on the system full write access to a file or directory. On a single-user home machine this is low risk. On any shared system, a service or another user could modify or delete your file. The principle of least privilege says: give access only to what is actually needed, and nothing more. 755 and 644 follow this principle. 777 ignores it.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Exercise · 30 min</div>
+        <div class="exercise-box">
+          <ol>
+            <li>Create a file called <code>myscript.sh</code> in your home folder.</li>
+            <li>Open it with a text editor and add one line: <code>echo "this machine does what I tell it"</code></li>
+            <li>Try to run it: <code>./myscript.sh</code>. Read the error. Write what it says.</li>
+            <li>Run <code>ls -l myscript.sh</code>. What are the current permissions?</li>
+            <li>Add execute permission: <code>chmod +x myscript.sh</code>. Run it again. It should work now.</li>
+            <li>Run <code>ls -l myscript.sh</code> again. What changed in the permission string?</li>
+            <li>Remove read permission from others: <code>chmod o-r myscript.sh</code>. Verify with ls -l.</li>
+            <li>Set it to owner-only with numeric mode: <code>chmod 700 myscript.sh</code>. Verify.</li>
+            <li>Without looking at notes, decode these four numeric permissions into permission strings: 755, 644, 600, 777.</li>
+            <li>Why would you never use 777 on a file containing a database password? Write your answer in 2 sentences.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Vocabulary</div>
+        <div class="vocab-grid">
+          <span class="vocab-term">chmod</span>
+          <span class="vocab-term">symbolic mode</span>
+          <span class="vocab-term">numeric mode</span>
+          <span class="vocab-term">chmod +x</span>
+          <span class="vocab-term">755</span>
+          <span class="vocab-term">644</span>
+          <span class="vocab-term">600</span>
+          <span class="vocab-term">777</span>
+          <span class="vocab-term">least privilege</span>
+          <span class="vocab-term">executable</span>
+        </div>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-label">Teacher note</div>
+        <p>The 777 discussion is practically important because students will encounter guides online that use it as a quick fix for permission errors. "Just chmod 777 it" is a common and lazy solution that works in the short term and creates security problems in the long term. Building the habit of thinking about who actually needs access — and giving only that — is one of the most transferable professional skills in this course. It applies to Linux permissions, to database user accounts, to API keys, to everything.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== WEEK 4 ===== -->
+  <div class="week-header">
+    <div class="week-label">Week 4</div>
+    <div class="week-title">Hands-on</div>
+    <div class="week-theme">"The machine does what you tell it. Including mistakes."</div>
+  </div>
+
+  <!-- S13 -->
+  <div class="session" id="s13">
+    <div class="session-header">
+      <div class="session-num">Session 13</div>
+      <div class="session-title">Building your home — guided terminal exploration</div>
+    </div>
+    <div class="session-body">
+
+      <div class="time-bar">
+        <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>brief</div>
+        <div class="t-block t-exercise" style="flex:50"><strong>50 min</strong>hands-on build</div>
+        <div class="t-block t-close" style="flex:5"><strong>5 min</strong>debrief</div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Overview</div>
+        <p>First session that is entirely practical. No new theory. Everything from weeks 1–3 applied together to build something real. Students create a personal folder structure, set permissions correctly, and use the package manager for the first time in a natural, unforced context.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Brief · 5 min</div>
+        <p>Short instruction: "Today you will build your working environment for the rest of the course. No Dolphin — terminal only. Use everything you have learned. Ask if you get stuck. There is no single right answer for structure, but the permissions must be correct."</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Exercise · 50 min</div>
+        <div class="exercise-box">
+          <p><strong>Required structure.</strong> Build all of this using only the terminal:</p>
+          <pre>~/
+├── projects/
+│   └── linux-course/
+│       ├── week01/   (and week02 through week04)
+│       ├── notes/
+│       └── exercises/
+├── scripts/
+└── sandbox/</pre>
+          <p><strong>Commands to use:</strong> <code>mkdir -p</code> (creates nested directories in one command), <code>cd</code>, <code>ls</code>, <code>pwd</code>, <code>echo</code>, <code>touch</code>, <code>chmod</code>.</p>
+          <p><strong>Requirements:</strong></p>
+          <ol>
+            <li>Create all directories. Hint: <code>mkdir -p ~/projects/linux-course/week01</code> creates the full path.</li>
+            <li>In each week folder, create a README file containing the week number: <code>echo "Week 01 — the OS" > ~/projects/linux-course/week01/README</code></li>
+            <li>Set permissions: <code>scripts/</code> should be 755. <code>sandbox/</code> should be 700 (private). <code>projects/</code> should be 755.</li>
+            <li>Verify every permission with <code>ls -la</code> on each directory.</li>
+            <li>Install the tree command: <code>sudo apt install tree</code>. Then run <code>tree ~</code> to see your full structure. If it looks right, you are done.</li>
+            <li>Bonus: create a hidden directory called <code>.notes</code> in your home folder and verify it only appears with <code>ls -a</code>.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Debrief · 5 min</div>
+        <p>Run <code>tree ~</code> on the projector for 2 or 3 volunteers. What is different between their structures? Which permission choices made sense and why? Any mistakes found and fixed?</p>
+        <p>Note: <code>sudo apt install tree</code> is their first real package manager use. Do not turn it into a lesson — let it happen naturally. The full apt session is in Phase 2. Today it is just a tool they needed.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Vocabulary</div>
+        <div class="vocab-grid">
+          <span class="vocab-term">mkdir -p</span>
+          <span class="vocab-term">echo ></span>
+          <span class="vocab-term">touch</span>
+          <span class="vocab-term">tree</span>
+          <span class="vocab-term">sudo apt install</span>
+          <span class="vocab-term">nested directory</span>
+          <span class="vocab-term">scaffold</span>
+        </div>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-label">Teacher note</div>
+        <p>Students who finish early: ask them to write a one-page explanation of the permission choices they made and why. This deepens the decision rather than just executing it. Students who get stuck: the most common issue is forgetting the <code>-p</code> flag on mkdir (which creates parent directories). Let them hit the error first, then point them to <code>man mkdir</code> to find the flag themselves.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- S14 -->
+  <div class="session" id="s14">
+    <div class="session-header">
+      <div class="session-num">Session 14</div>
+      <div class="session-title">What happens when you get it wrong</div>
+    </div>
+    <div class="session-body">
+
+      <div class="time-bar">
+        <div class="t-block t-warm" style="flex:10"><strong>10 min</strong>discussion</div>
+        <div class="t-block t-concept" style="flex:15"><strong>15 min</strong>concept</div>
+        <div class="t-block t-exercise" style="flex:30"><strong>30 min</strong>intentional mistakes</div>
+        <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Overview</div>
+        <p>Intentional mistakes in a safe environment. The goal is to change the emotional response to errors: from panic and confusion to curiosity and diagnosis. Error messages are information. Reading them carefully is a skill that can be learned.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Warm-up · 10 min</div>
+        <p>Ask the class: "What do you normally do when something doesn't work on a computer?" Collect the answers — most will involve restarting, Googling, or giving up. "Today we do something different. When something breaks, we read what it says, and we figure out what it is telling us." This session is entirely in <code>~/sandbox</code>. Nothing done today can damage the system.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Core concept · 15 min</div>
+        <p>Every Linux error message has a structure. It tells you: what command failed, what it was trying to do, and why it failed. "Permission denied" tells you the access model stopped you — not that the command is wrong. "No such file or directory" tells you the path does not exist — check spelling, check case, check you are in the right directory. "Command not found" tells you the program is not installed or not in your PATH. Reading the error before doing anything else is the first habit of a good systems administrator.</p>
+
+        <p>The most important thing to understand about <code>rm</code>: when you delete a file with <code>rm</code>, it is gone. There is no recycle bin, no trash folder, no undo. The file is removed from the filesystem index and the space is marked as available. Recovery is sometimes possible with specialised tools — but not reliably, and not easily. This is not a flaw. It is a design decision: the system trusts that you mean what you say. The consequence is that you think before you delete.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Exercise · 30 min</div>
+        <div class="exercise-box">
+          <p>All work in <code>~/sandbox</code>. For each mistake: run the command, copy the exact error message, and write what it actually means — not just "error" but what specifically the system is telling you.</p>
+          <ol>
+            <li>Try to create a file in /etc: <code>touch /etc/mytest.txt</code>. Read the error. Now try with sudo. What changed?</li>
+            <li>Try to navigate to root's home: <code>cd /root</code>. Read the error.</li>
+            <li>Create a file in sandbox: <code>echo "hello" > ~/sandbox/myfile.txt</code>. Delete it: <code>rm ~/sandbox/myfile.txt</code>. Try to get it back. What happens?</li>
+            <li>Create a script without execute permission: <code>echo "echo hi" > test.sh</code>. Try to run it: <code>./test.sh</code>. Read the error. Fix it. Run it again.</li>
+            <li>Try to read the shadow file: <code>cat /etc/shadow</code>. Read the error. What is the system protecting?</li>
+            <li>Create a file with a space in the name: <code>touch my file.txt</code>. What happened? Now do it correctly with quotes. Try to remove it without quotes — read the error. Remove it correctly.</li>
+          </ol>
+          <p>For each mistake: write (a) the error message, (b) what it means in plain language, (c) what the correct approach would be.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Close · 5 min</div>
+        <p>Ask: "Which error message gave you the most information? Which was the most cryptic?" These two questions identify which error conventions are intuitive and which need more work in future sessions.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Vocabulary</div>
+        <div class="vocab-grid">
+          <span class="vocab-term">permission denied</span>
+          <span class="vocab-term">no such file or directory</span>
+          <span class="vocab-term">command not found</span>
+          <span class="vocab-term">stderr</span>
+          <span class="vocab-term">exit code</span>
+          <span class="vocab-term">rm (no undo)</span>
+          <span class="vocab-term">error message</span>
+          <span class="vocab-term">diagnosis</span>
+        </div>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-label">Teacher note</div>
+        <p>The rm moment is the one students remember. Some will be alarmed that the file is gone — good. Let them sit with that for a moment before moving on. Then: "This is why you think before you type. The machine trusts you. That trust is what makes it powerful and what makes carelessness dangerous." A version of this message should appear in the final synthesis session as something students can recall and articulate.</p>
+        <p>If a student accidentally deletes something important (outside sandbox), stop the session and help them recover if possible. Document what happened and use it as a real case study — with their permission — for the class. Real mistakes are better teaching moments than simulated ones.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- S15 -->
+  <div class="session" id="s15">
+    <div class="session-header">
+      <div class="session-num">Session 15</div>
+      <div class="session-title">Recovery — man pages are the answer</div>
+    </div>
+    <div class="session-body">
+
+      <div class="time-bar">
+        <div class="t-block t-warm" style="flex:5"><strong>5 min</strong>scenario</div>
+        <div class="t-block t-concept" style="flex:15"><strong>15 min</strong>concept</div>
+        <div class="t-block t-exercise" style="flex:35"><strong>35 min</strong>rescue</div>
+        <div class="t-block t-close" style="flex:5"><strong>5 min</strong>close</div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Overview</div>
+        <p>When something breaks, the answer is often already on the machine. Man pages are the built-in documentation for every command. This session builds the habit of consulting them first — before Google, before asking someone else. That habit has a specific and important quality: it means students can work offline, on unfamiliar systems, in situations where no external resource is available.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Warm-up · 5 min</div>
+        <p>Scenario: "Your internet is down. Your machine has a problem — a directory you cannot enter, a script that won't run, a file you cannot find. You have the terminal and nothing else. What do you do?" Today's answer is: man.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Core concept · 15 min</div>
+        <p><code>man commandname</code> opens the manual page for any installed command. Every standard Linux command has one. Man pages have a consistent structure: NAME (what the command is), SYNOPSIS (how to call it — brackets mean optional, uppercase means your input), DESCRIPTION (full explanation), OPTIONS (every flag and what it does), EXAMPLES (when the author is helpful), and SEE ALSO (related commands). Navigate with arrow keys or Page Up/Page Down. Search within the page by typing <code>/searchterm</code> and pressing n to find the next match. Quit with <code>q</code>.</p>
+
+        <p><code>man -k keyword</code> searches all man page titles and descriptions for a keyword — useful when you know what you want to do but not the command name. Example: <code>man -k "list files"</code> will suggest ls and related commands. This is the "I know what I want but not how" escape hatch.</p>
+
+        <div class="whiteboard">
+          <div class="whiteboard-label">Man page navigation</div>
+          <div class="whiteboard-content">
+man ls          # open man page for ls
+/pattern        # search for "pattern" within the page
+n               # jump to next search result
+q               # quit
+man -k keyword  # search all man pages for keyword
+man 5 passwd    # section 5 = file formats (not the command)
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Exercise · 35 min</div>
+        <div class="exercise-box">
+          <p><strong>Rescue scenario.</strong> Internet access is disabled for this exercise. Man pages and lesson notes only. Solve each problem:</p>
+          <ol>
+            <li>A directory called <code>locked/</code> exists in sandbox with permissions <code>d---------</code>. You cannot enter it or list it. Use man pages to find a command that can change this. Fix it without being told which command to use.</li>
+            <li>A file called <code>mystery.sh</code> exists and should be a runnable script, but running it does nothing. The file contains valid commands. Diagnose and fix using only what the man page for chmod tells you.</li>
+            <li>You need to find every file in <code>/etc</code> that ends in <code>.conf</code>. You do not know which command does this. Use <code>man -k</code> to find the right command, then use it.</li>
+            <li>A log file in <code>/var/log</code> is so large that <code>cat</code> scrolls past everything instantly. Find a better tool for reading it using <code>man -k "pager"</code> or similar. Read the last 20 lines of the file.</li>
+            <li>Bonus: find the man page for the <code>passwd</code> file format (not the command). Hint: man pages are organised into sections — section 5 is file formats. Read the format description for /etc/passwd and verify it matches what you saw in session 6.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Vocabulary</div>
+        <div class="vocab-grid">
+          <span class="vocab-term">man</span>
+          <span class="vocab-term">man page</span>
+          <span class="vocab-term">SYNOPSIS</span>
+          <span class="vocab-term">OPTIONS</span>
+          <span class="vocab-term">man -k</span>
+          <span class="vocab-term">/ to search</span>
+          <span class="vocab-term">n (next result)</span>
+          <span class="vocab-term">q (quit)</span>
+          <span class="vocab-term">man sections</span>
+          <span class="vocab-term">flag / option</span>
+        </div>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-label">Teacher note</div>
+        <p>Disabling the internet is the point of this session. The goal is not that they should never use the internet — they should and they will constantly. The goal is to build confidence that the answer is often already on the machine, and that they can find it without external help. That confidence has a different quality: it is available on any system they ever sit down at, with or without network access, with or without a phone signal. It is a durable skill, not a search skill.</p>
+        <p>Problem 3 — <code>find</code> — is the intended answer. Students who arrive at it through <code>man -k</code> without being told are demonstrating exactly the research process you want to reinforce.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- S16 -->
+  <div class="session" id="s16">
+    <div class="session-header">
+      <div class="session-num">Session 16</div>
+      <div class="session-title">Synthesis — they teach each other</div>
+    </div>
+    <div class="session-body">
+
+      <div class="time-bar">
+        <div class="t-block t-exercise" style="flex:50"><strong>50 min</strong>peer teaching</div>
+        <div class="t-block t-close" style="flex:10"><strong>10 min</strong>preview</div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Overview</div>
+        <p>No new content. No lecture. The measure of understanding is whether you can explain something to someone who does not know it. This session is diagnostic as much as it is educational — gaps in explanation reveal gaps in understanding, and those gaps inform the opening of Phase 2.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Exercise · 50 min</div>
+        <div class="exercise-box">
+          <p><strong>Round 1 — Pairs (20 min).</strong> Each student explains 2 concepts to their partner. The partner can interrupt and ask questions. Suggested pairs of concepts to explain:</p>
+          <ul>
+            <li>The four layers of the computer + why BIOS matters</li>
+            <li>Absolute vs relative paths + how to get home from anywhere</li>
+            <li>The permission string + what execute means on a directory</li>
+            <li>What root is + why sudo is safer than logging in as root</li>
+            <li>What a dotfile is + where your terminal settings live</li>
+          </ul>
+          <p>After 10 minutes, switch: the other student explains 2 different concepts. Rotate pairs once.</p>
+          <p><strong>Round 2 — Group (20 min).</strong> Every student stands and answers 3 questions:</p>
+          <ol>
+            <li>One thing from Phase 1 that surprised you</li>
+            <li>One thing that is harder to understand than you expected</li>
+            <li>One thing that now makes more sense than it did before</li>
+          </ol>
+          <p><strong>Round 3 — Vocabulary relay (10 min).</strong> Go around the room. Each student defines one term from the Phase 1 glossary without notes. If stuck: they can ask the class for help (not a penalty). Continue until the glossary is covered or time runs out.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Close · 10 min</div>
+        <p>Hand out the Phase 1 vocabulary checklist. Students mark which terms they are confident with and which they are not. Collect the "not confident" answers — these open Phase 2.</p>
+        <p><strong>Preview of Phase 2:</strong> "Starting next week, the GUI becomes optional. You will navigate, find files, install software, and manage the system entirely from the terminal. The mouse is still there — you just will not need it as much. The terminal is not a punishment. It is the most direct way to tell the machine exactly what to do. And it is faster, once you know it."</p>
+      </div>
+
+      <div class="teacher-note">
+        <div class="teacher-note-label">Teacher note</div>
+        <p>Pay close attention to which concepts students struggle to explain in Round 1. The most commonly incomplete explanations in Phase 1 tend to be: the exact difference between root (the directory) and root (the user), what execute permission means on a directory, and why sudo is preferable to logging in as root. These are the three concepts to revisit at the start of Phase 2, before introducing new material.</p>
+        <p>Do not correct during peer explanation unless something is factually dangerous or will cause concrete problems in Phase 2. Small imprecisions in understanding are normal at this stage and will self-correct as students use the concepts in practice. The act of explaining — even imperfectly — is the learning.</p>
+        <p>The vocabulary relay often reveals that students know the concept but not the term, or know the term but cannot connect it to the concept. Both are useful to know. The goal is that both improve over the next five phases, not that they are perfect today.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- END -->
+  <div style="margin-top:3rem; padding-top:1.5rem; border-top:1px solid var(--border); text-align:center;">
+    <p style="font-family:'Courier New',monospace; font-size:12px; color:var(--text-muted);">Phase 1 of 6 &nbsp;·&nbsp; Linux seminar &nbsp;·&nbsp; Kubuntu LTS &nbsp;·&nbsp; Ages 15–18</p>
+    <p style="font-family:'Courier New',monospace; font-size:12px; color:var(--text-muted); margin-top:4px;">Phase 2 — Talking to it — begins next session</p>
+  </div>
+
+</div>
+</body>
+</html>
